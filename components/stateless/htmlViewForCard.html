@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Payment form</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="new.css">
+    <style>
+        .ccFormatMonitor.cc_type_vs + p::after { content: "Visa"; }
+            .ccFormatMonitor.cc_type_jc + p::after { content: "JCB"; }
+            .ccFormatMonitor.cc_type_dc + p::after { content: "Diners Club"; }
+            .ccFormatMonitor.cc_type_mc + p::after { content: "Mastercard"; }
+            .ccFormatMonitor.cc_type_ax + p::after { content: "American Express"; }
+            .ccFormatMonitor.cc_type_unknown + p::after { content: "Unknown"; }
+    </style>
+    <style>
+        @media screen and (max-width:650px){
+			#AcceptUIContainer{
+			left: 50%;
+			width: 350px!important;
+			margin-left:-175px!important;
+			margin-top: 20px;
+			}
+		}
+		.loader {
+			position: fixed;
+			margin-left: -15px;
+			top: 50%;
+			right: 0;
+			left: 50%;
+			bottom: 0;
+			margin-top: -15px;
+			border: 4px solid #f3f3f3;
+			border-radius: 50%;
+			border-top: 4px solid #000;
+			width: 30px;
+			height: 30px;
+			-webkit-animation: spin 2s linear infinite; /* Safari */
+			animation: spin 2s linear infinite;
+		}
+		.loader-outer {
+			position: relative;
+			display: flex;
+			flex: 1;
+		}
+
+		/* Safari */
+		@-webkit-keyframes spin {
+		  0% { -webkit-transform: rotate(0deg); }
+		  100% { -webkit-transform: rotate(360deg); }
+		}
+
+		@keyframes spin {
+		  0% { transform: rotate(0deg); }
+		  100% { transform: rotate(360deg); }
+		}
+
+		.form-group{
+			margin-bottom: 10px;
+		}
+		.pad8 {
+			padding-left: 8px!important;
+			padding-right: 8px!important;
+		}
+		.padBot10 {
+			padding-bottom: 10px !important;
+		}
+
+		.payment-type-tab{
+			display:flex;
+			flex-direction:space-between;
+		}
+
+
+		.tabs{
+			
+			padding: 16px 10px;
+			display:flex;
+			flex:0 0 50%;
+			justify-content:center;
+			align-items:center;
+			background:#e8e5e5;
+		}
+		.tabs.selected{
+			color:#fff;
+			background:#05429d;
+			position:relative;
+		}
+		.selected:after{
+			color:#fff;
+			width: 0; 
+			height: 0; 	
+			border-left: 10px solid transparent;
+			border-right: 10px solid transparent;
+			border-top:solid 10px #05429d;	
+			content:'';
+			position:absolute;
+			bottom:-10px;
+			margin: 0 auto;
+		}
+
+		.payment-form {
+			padding:20px;
+		}
+		.payment-form .form-control{
+			border-radius:0;
+			padding: 6px 5px;
+		}
+
+		.payment-form .btn-primary{
+			margin-top:30px;
+			padding:10px 0;
+			display:flex;
+			width:100%;
+			justify-content: center;
+			font-weight:bold;
+		}
+
+		.payment-form label{
+			font-size:13px;
+		}
+
+		.form-heading{
+			font-size:14px;
+			font-weight:bold;
+			padding:4px 0;
+			border-bottom: solid 2px #05429d;
+			margin-bottom:8px;
+			text-align:center;
+		}
+		.card-block{
+			justify-content: center;
+			display:flex;
+			margin-bottom:20px;
+		}
+		.card-block svg{
+			max-width:100%;
+		}
+		.text-center{
+			text-align:center;
+		}	
+        .m-b-15 {
+            margin-bottom: 15px;
+        }
+	</style>
+</head>
+
+
+<body>
+
+
+
+    <div class="container-main">
+        <div id="loading" class="loader-outer" style="display: none">
+            <div class="loader">
+            </div>
+        </div>
+        <div id="paymentform">
+            <!-- <form id="paymentForm"> -->
+            <div class="payment-type-tab">
+                <div id="bankPayment" onclick="paymentMethodhandler('bank')" class="tabs">
+                    <label class="radio-inline">
+                        Pay Using Bank
+                        <!-- <input style="margin-top: 3px" type="radio" id="paymentMethod" name="paymentMethod" value="bank"
+                                    onclick="paymentMethodhandler('bank')">Pay
+                                Using Bank -->
+                    </label>
+                </div>
+                <div id="cardPayment" data-toggle="modal" onclick="paymentMethodhandler('card');" data-target="" class="tabs selected">
+                    <label class="radio-inline">
+                        Pay Using Card
+                        <!-- <input style="margin-top: 3px" type="radio" data-toggle="modal" onclick="setAlertText()"
+                            data-target="#myModal" id="paymentMethod" name="paymentMethod" value="card">Pay -->
+                        <!-- Using Card -->
+                    </label>
+                </div>
+            </div>
+            <div>
+                <form id="bankForm" class="payment-form" style="display:none;">
+                    <div class="form-heading m-b-15">Bank Details</div>
+                    <div class="form-group">
+                        <label for="bankAccountNumber">Account Number: <em> *</em></label>
+                        <input type="number" class="form-control" id="bankAccountNumber">
+                    </div>
+                    <div class="form-group">
+                        <label for="bankRoutingNumber">Routing Number: <em> *</em></label>
+                        <input type="number" class="form-control" id="bankRoutingNumber">
+                    </div>
+                    <div class="form-group">
+                        <label for="accountName">Name On Account: <em> *</em></label>
+                        <input type="text" class="form-control" id="accountName">
+                    </div>
+                    <div class="form-group">
+                        <label for="accountType">Account Type: <em> *</em></label>
+                        <select class="form-control" id="accountType">
+                            <option value='checking'>Checking</option>
+                            <option value='savings'>Savings</option>
+                            <option value='businessChecking'>Business Checking</option>
+                        </select>
+                    </div>
+                    <input name="dataValue" type="hidden" id="dataValue">
+                    <input name="dataDescriptor" type="hidden" id="dataDescriptor">
+                    <button type="button" class="btn btn-primary" onclick="sendPaymentDataToAnet()" data-dismiss="modal">Pay
+                        Now</button>
+                    <!-- <button type="button" class="btn btn-info" data-dismiss="modal">Close</button> -->
+                </form>
+                <form id="cardForm" class="payment-form" style="display: block;">
+                    <div class="form-heading">Card Details</div>
+                    <div class="card-block"><svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                            xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="274px" height="28px"
+                            viewBox="0 0 274 28" enable-background="new 0 0 274 28" xml:space="preserve">
+                            <image id="image0" width="274" height="28" x="0" y="0" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAARIAAAAcCAIAAAAiKKewAAAABGdBTUEAALGPC/xhBQAAACBjSFJN
+                    AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAABmJLR0QA/wD/AP+gvaeTAAA1
+                    aUlEQVR42u28adReR3Um+uyqOsM7f/Mo6dMs2ZZtWR4xHrBsDDZDggEbhyGYMCV0h9BpaMi66w4h
+                    qzt039xwud0dkpBAIAQMIdiAAQc8YDzKkq3BkjV8Gr5J0je+45mrat8f7zfJMQlZNyt/burHu857
+                    hjp1quqpvfez9y5iZvxb+bfyb+WfUxSABDjUyMbm64lSsEzMAtKShCA2GkRgBrXvJwDEAgSxdApg
+                    CyuWq2QAsAAzg1eftURWMsCWLUMAhLLnXTbcMbyqQXPAc4emAsMkASZmsGAjtWOltMQgy3CZBKSW
+                    MnVgtIHJPCJL1gIE6DR1pFLSsQZGMwkllE7Zss6I2BUuUh+yZpFjcozIGJm0IKbNgx27hjpW985M
+                    ZquRZgOwhoAQDgGAVSBrNEmlmS2MZascN83SxU9ly8xaSAFYa0FCMTJYGGthDcOChBCJsQyAhCUC
+                    CVijs0yBwdbx/PU9lbW0ui2w1gIgIqILLjDzqjOvsggyY/UjywvlhQ+u/G3fYK211ipHCFLL9xhj
+                    Tp46OTU5KYhAcKRgJs0MJmYbxXH7ZQCUlMpxpJLEYMAYY7TmxVnB1lput6w9pxivPFicXWy06e7u
+                    3rVrl+d5y834w//zm1/4wneMoyAlETFJCElCsiAIAVIggpAQAkKAJKQECEIsniRBQrAQgGr/hSDI
+                    9oMCIIj243LlKgQxPnjH9j94z+UAiJm/N5t+5ofPHxlfQKkTNoNlGBeSICXSCErAGggCM5CHAVgA
+                    BCz9Kg1mWF78VLs0cjqDte1OhGVwCsEAwWpYDVhIkff8t99x0Vd3Di33yO88sv+Lf/FoInLwMlgB
+                    48LXEBGsKzJpmQAIQxJulvchgShCkpJyGQYyAacIQsg8kU/ksyY2Fl4CAXAKriIjSocJ50Fdlnyo
+                    CAigJbHcsan45d9685WbFhszHaZf23fo5apRnFM24bxiI4iEcIRrwYmGq1KyMSzAjhJxnIJgAcus
+                    dRooR5FkywbwEg7IUpRCaWYKtTWkjBap5YiMJobjxM3A2EywgcmQc269bOQrV1/ebkmWZVmWpWkq
+                    hFBKSSmNMe3f1fCQUhqTLR3T0kRfmpyrINE+aONQStk+ttYqpYjIGMPMzKy1ZpUWCuW8U2w/deDA
+                    gQ998Dc8PzcwvI5yhSizKpg3SZhasmzHzoyFYSiE8Dyvr6+vp6cnl8sppSzbVjNothpsbBhFQRjE
+                    UWKtWWrPIniZmcGCxDJwmGGtNcZ87r/+11+7997lL+0cfFutGcFZggeW8CAkSEBKSAkWEALKWbyH
+                    xOIlEhASUi6eXI0uIUEEQSQEk7MEMwIJEpKJOvJe9W/esShtDo1NHJ+YRq4PIgdtIAUkwRCsAFwQ
+                    QSgQQAw2EAzD4LZAocXvMwwwBLWlTHuUAAOyiysgMUgBClZCt89IkAgXzBM/OYJVsPm773wvtUX4
+                    PjIN+LASmYHuhm8tUpCBx5atTVInaJE2mmGly1YhK4M0KIVLsMxhi0UEX5FNpVU6VFAF5AhUZ5Ui
+                    XsccQzdIG7KuZZele/Sl6WcPnlmGTS2MTs3WW7KSdzxrTAxDyhVGSCuSTOfzpThJtZJGgIBWnAq3
+                    aAVlrDUbo1w/83SaUXvgUwBM7Go22oIJaWZJuSxJBiFpy66nE53JYgrW0FGj+ui+I1gFm1wul8/n
+                    8U8X75e4559REg7r1Wa+axE2o6MnxsYnbnr7+z74sY8Wi11fPBzuffKJK6Z+0uFLSMd13PPnzzuO
+                    Uy6Xh4eHBwcHXdf1PC8Mw2q1FgRBlqXVatWtuU3ZstYQETO35VMbur7vCyGyLOPFAiGoVqsdOHBg
+                    NWwc30WUtvEghHJdR0nlFvwks9J1tOYwzvyCVyjlG83EdVRi4bqe47tZrHPlXJLaVmxAtCRMln+X
+                    MSOxKLgIRLR4STjeouBVADT7Fn3QvYgJTCANECSgCMIBCzADDLZLKkBbKVusCwawFgwwAQRrwQZk
+                    wAIsAIAtwKAQnEIraAVWsAQGosgTYvU4RS1L5HEzBLOjHKMtZ9axHSlqyEJftzpTrGGsD9ClOZU8
+                    5fIR4UzbNIOBqUAWkNQRnB3scvorOl/QI11SR/rsaT634MzUgpYmeGX2BoBJ6Fm2TCgBDE4z5BK1
+                    MjVjphbluVBuBYlPNrXGcFZRjswCMhw2GlLIouu3gsAzstPPha3mfG1B5XOu51hYNpnDiOJYCEdK
+                    yVEE36/pKM5S6fra4ciEJJSjpE0ybqXFjnyzFWSuUtJxVE/SHF9uSRiGUsrVWsq/WpHkM5rLf4Wg
+                    cs/ADfd8pNG/SWp7w7bO56O7JnVtM42Wuvt7e3unp6ezLCsWi4VCoa+vb2BgwHXd8fHxKIoAjiJy
+                    XVc5qo2TpVq5rbJVKpWOjo4kScIwjKKoLQyZIYRwHefCZi0JCs2lgvPu99za11OOU9MMkisuHdl7
+                    aPwrf/fcXW/Yed3OjX9y/zPvfsuuR/ac2TLSs+vi4ePj8/09xWor+8sHD87UQkhBgiAEL05mAgmm
+                    Jc2tjRkSIMG0BK1l2CSptWEKSiB8SBdsIAgmRWwgCMQAwBrMEO6SnLFAG2MCbGEYtt2vBGPBDCzp
+                    D8xL8seD9WGJOE/kMgQbFq5OmjOrOyRQjk0SgCBVlhkIRi5Ls8C14bawfn1Yu1ZmO9isC7NOhmIy
+                    KR+F99NS8eHc9D4H83qht59uvSr/jhF1Y7/ucOqBEwdh5L1+7UzU/9CR4Hv7W4fGdF0DXgLpgzTY
+                    QGrYFDAJr6g9UWoCbdMoztuMW3PwTbHYbzMv1q4QUnrSEiWt1BGd2lMTtZpbKKruYmozzTazxjat
+                    47ualJLe+dp8PldqNBNHFgpcqrZirVDWbiuLFiiTfR1OEEzNH6sUuoyjssRY5KzRqyaJdF33Xx8z
+                    AAwQhim6lgeTlJL5YrEWAamWRuY9L4GjlIqisFKpKKUWFhYqlUqlUuns7Ozs7FRK9fX1NRoNrbUx
+                    pq10rdYV2wddXV3r16+31oZhaK2NougfaxYRCWISUtJAf8euy9Z3VAr/+397YMfWofVre05NLmzd
+                    NNjVXXrwh/s78v7IcPfNVwnHlZ6rNq/tfu7lc52l3K6Lh3782Al4AkIxFsUOkYCQLNoiYcmqEYJJ
+                    QIg2flZgY7gOdR6eQEpIQyiGyoE9WKzwAW3BwtmiUWMZFrAAGMJACpBtq6KLVTMgJABY074P5EM4
+                    0IZ1yqTbih87XnBhB+U4HxlASCSGUssqhZz3+PzNDb6nFdyY1LYggA0DSqddlAw6NF2K0ro4v93Y
+                    F3zwxo5Ld/dffRGGzCTq40CzQ3d3FC3odA8mhm8oXXNp1989UX3guWcmo5L1h2CFzRpwGAC0IWOX
+                    W6Ic6ftec2G6ZNMNBdlKw2hiXCino5I3wNT4+No1a0WsTZIYNzesSNdrAIKgUaqUssyKcj5ozcba
+                    xtWkt+Qr0/Bs5Go1E9aGc6Wcnx9tTFWk7HfWjB0b63Gcno3rqy+fTT3XU6VMcMk4qyfJK2iAf7Ui
+                    IISzog5IKetzM49+/U9++5Of6Oru+MLBdO7FR26oHwqLImiEzSBUUmqttdZE1DbDPM8rl8t9fX1Z
+                    loVhqJRSSjmOA8AY076tUqls2rQpn88nSdIGlRDCWvsLaV4hWEhYyhf8199x1ZnJ+ck9o3fcvnOu
+                    Guw7PF5tJVPn6+fO16+9dnOq7d8/PTrQW8oCfmL/5LaRnvWDnbVWsu/oDHIehOAVVY0WRcpqhY2W
+                    uARauroMmxKg4lSbECjASFiABWyCLIXjgDNICbIgidgF2hJGoC1RWIMSCAFIGAtrQBJMyNrUhIBe
+                    WjVlCkSwTAxYw9qCLcdlv/uCCSGiFM0EEmRdibw2qTCtO6qND1fV9VnoywZsAubEdUtauZot2FAs
+                    s/gmK3d1Ot3bPNUfBPMT4BTFAeusi2JbyCIkFnFWyWavc8Ohq7oHZOvPnwpOt/ohfaQ1ERtrCNLI
+                    dKUlNtPBwrRu1G675ebtHmc24iyvCvn5rKVJP9OcedPNV1GQujqddhyWaRRRwXEFW99B1MxKDmsg
+                    seDMtJy0SIWIomIiyi09UUTLsx+KNgc5G4uO53/y/NVbLjrTl4b9a//nY09pJ5+RTLGiLmqtrbXi
+                    Qm32X6dkAGOFSSMiR4j9P/r2Z44e9HoGW+zsTGZdx441KIoiZi4UClrrRqORZVk+nx8eXmRJy+Vy
+                    mqZBELSBIaUMwzBJEtd1S6XS5s2bK5VKmqZZliVJopTyfT8Mw1dwHhfAmSSUbGn75W89Hcdsgqxj
+                    uKcepL5/KGVjwuz7jx19/MXxKLHhQoi87xa8NLU/2TveUcw34kynjLx7gVShZZKgra1JIsGSVq6S
+                    vAA2N2wb/sidmo2bFzmXrQAyIisoERAic5mZ8kGcFryEkgJBajclkDSekDaNWIvMd0LHGmtFJuGw
+                    A0NJJhQyR5oEvoGrBMhoCyusFBYgtmRZGEZxqHTBipIYAcRgMKSWCVC7qhp9sDF/bWgrSAOOhHRs
+                    InzhgpWK2Wom15q4Wckhl4j4wGHRcgqXFFFxEWvEhuyslVJ4PoSxiD0bbC6F77iub3wh//VnZpqq
+                    F0RghcwsUxztEli0tB4s+Bev6/n2A1/f1N3/G2960/37To1OjZb7ut98++ufOXwsm6ze8bpdPz95
+                    eOPAYLefK/W4zx8d9Ul2l0oLzXAuiHKdlf5K4cHH9/3qlTsX0rBki2vXrv/CgUePnRl78qMf/tuT
+                    px96+sEPvOaqyy4Z+eK3Hvv4rh1pEpOvrTUN4S+3pE1wtY8feeSR+++/n5mNMX/5l3+5b9++o0eP
+                    vvvd7/7sZz87Pz//+c9/HsA3vvHtxx7/udHRX/z5f0ZzonH+DCKUhy9ZsMWvfPmr/+HT/xFw/viP
+                    //i9733vZz7zGQBJknz4wx9+/PHHR0dHhRA33njjfffd134dA0avqIsMkJRKYOr4QXHySHel6AwO
+                    tqyvHMcYY4zJskwpZa0lolwul6ZpvV5XSq1bt667u3toaOj48eNTU1MLCwv1el1r7fv+pk2bent7
+                    4zhO07RNxPm+H8fxP+ZRbM9pIRgimI/9nCx3O7q1UBBuq2ngOFTKpdrOz7agHJTzYKSpgXSswUIt
+                    gHLId5jbUCEQEeSiesaEjCEYAkwMJggsql2CsDQKCsBVvZ0bXtfZCZRXNcwCLUCCCyAAGlDQYBVG
+                    cPMNBS/NPNdhWIYQIbQGLNQ8sBZwbQuiaGENbAsqBfr/wYdzewyAVyofrCjVLAClQGk5arzzXLBB
+                    Vo1AYqxjyMKCTT6jJK4rdqANlA3cqrOxnL9ijZ/nDIEnYHUojBaG8/AAAYdAjjAlOILSdFjNvPOK
+                    i/afWNgzl1m3ZLWFiQHDdkXcGCub56M7b77oZ3ueun73LX5LP37gRBPqim0XPXfyVNfFRWOzjrUD
+                    DWOTtLcadx45efLGTVSMC5Nnz5zt0J6OrMo75bxMcx2FkU29a7/7P/40Wt9/5LKxa7eNvGPLpZ9/
+                    +KGBbZetKw4+fH5izchImriFVqgTFnEBYj5RK7Bh5izL2ubN888/Pzk5ee+991pr3/Oe99xwww37
+                    9u07cuRIV1dXf3//fR+57y1vfPO+vc/vuvraUs6iOT7x7APFcM6NzfTEc+Hgrq/+1V994tOfIeAb
+                    3/jGG97whm9+85tf+tKXtNb9/f1f+9rXPv7xj3d0dBw8ePArX/nK+9//fgAerEW2Ml0BgEkqzxe+
+                    5xU7uqE813Udx6FisY2ENuOntZ6amurt7d22bVsQBNba/v7+tWvXTkxM7N279/Tp0xMTE/V6fd26
+                    dSMjI22zJ0kSIYTruu37pZS/UE9re11ICJLbtmVvuzks5WyS6ihM9p0qPX1iODQSLi3zyyQk0zLR
+                    LND+SwJiyfpYdOMIKYXnSiEFkyQpIQSDSCoSMuULYVMEChdO3wx8rNWYGT+/Z//snKlcsq7w9teu
+                    95T65ovB02cmdhRmt27Z+PSJIDw7evc7Xz93Vn/92ePPnz6p82Ldmg137yh96NJeBfvz6cZDz+2f
+                    WNC9hfxHb9p+cX8JcFYPwKtq62wsJUTkcTHPHG+2eINTuLipwAbCyTLtKk6QaU7cLCKRA7vInEFd
+                    NCd0MnrUcTORi3BNt7iqC/1ywSS+6XNkyylEthHAOMJxNGr5VO7qOnfjFnt0tllrrIFTIEdylkGv
+                    DFIi0pGN/Vdv2/TXP3z+XL0exfqKkfWtUgc6KrOc/M8H/nbHhh2F3m4i6opG39ndW1pzpZfjb8y+
+                    cN2OLRf3rPnewz/cfc9b9x89KUzWJ7PNOef3PvjuUtn71oE9P37hgO92CwSvG0qdcv5Dr7n+89/+
+                    09mz/dNXbUwpFbIOHdgVIwthGFYqleW/O3fufO973wvg05/+9K233mqM2bdv36c+9andu3ffNvGG
+                    +7/+N5bsRz/4biRn689/txTE5eIW0Z+o2oHa+NwnP/mx3/z4pwse7r777osuusj3/XvuuWdxmTDm
+                    3nvv7ezsHBsbO3r06OL84Mja+IIZK6XrunGSXHzJJXfddVej0QDg+36xWNy3b98TTzxRKpWklFrr
+                    oaGhSy+91FrbVsayLDt48KDruiMjI4ODgzMzM1NTUwMDA57nzc/Pt8WUUqrRaBhjHMdpC5xXV03b
+                    bhaW5QJ+957mXTeEM3NJEkZCBzetz8KEnh7dSg4zCUAQCSYJokU3YxswtMwvLxFlTLC4anvpjiv6
+                    IeUiG2bZWmsBT9LpufQnx9MV2GBlBi86aR1gfbHSv1n9X48cf+jl8d3e4G2qv3pa/cevP1w38Udv
+                    3zE2hz/5+wO5mZPb33nH//2tJw8fXfAHoOrT1SMzG6ob37Kxlx3xpz8a/bsf7U1EYc3wmlu2mov7
+                    HfwSxZrUGqKMoBukZy7e1LH1qk1nz6WR528a2nT+Z/vWNjMvqGdJSKhAyJpt6U5vvmS23rhNbHEz
+                    XXMaQctq3x+yTn9nVy+J3sbBh5yOQLALnUeYqlIHIiiv9ZZbt59A1/ceiW1iGU2yUqxa27ygtqNf
+                    7jvyVLnXfecdb6uenXtkz894eua2jp0funP3nscfvf2GHU+8dHzeQ0brv7T/7Ln0xRsG+taW15Tz
+                    ztf3H7jllt37n3uJHNcUctMi+PBDX52LHaIOE0797g1vvGjd0Me/9tcPPnbwAzuueXzf6d9649ue
+                    efanmacVYq6lQirprFBnrusuK2mr6QGtNTM7jvPjH//45ptv/vCHP/KjnzxKpApFjxGQh4WTxzas
+                    HcLALgSnZby3k+JSJffywb0FX1753l83xszNzfX29gL4oz/6I6XUpk2btNa7d+9+4IEHlpa3HLn+
+                    6gEiwPd93/fXrl3b19dXqVTaKpbWes2aNUmSxHG8devWXbt29fT0NBoN13XL5XKWZa1WKwiC+fn5
+                    MAzXrFlz0003TU1NTU9Pp2kaRVFbwWs2m2maElHbddN2xb7KLGlb7VYWitklI1mqKYyMJISZ6MyH
+                    azqqkGBIEGiRB6NVtv6yPYMlP6YECVgC0Ws2lT66uy8h1zJHrRDaeK6q1WqzZyc6W9FjavgC2Fwg
+                    hAGAikDRdS5as/ah/ceNLp1r0d8+8mw8M3Pxzg13XL79q4++kC00X3/ZJc7k1OHDhwuVwfe/8bLd
+                    G+nsizNvuGrXmoL6y6cXHnt20u/ZloWopx0TLbkEy3+CERJJBMEQQiaJkzaufd1t3q9cWX5hUBZz
+                    GNnmDw1kY7NZfWFqcrx3zYAaGToT1nbeejs//ezU1OxQ4FNt9uzCDG3up21XYPPmGQG/We2++nZk
+                    ZzkOo2amcp7jIuvpcyv60s7LLp7Ewz87GIUzsA1GHqsGyVh54OXJN1+za7h7yzce3VvWzuU7bvCF
+                    +9TRfc3DJ9Z19X/7mz8a7l0zdWby0g2XdLCT5gbrsxPH5s/byeipRw5kWaurtydLw9PHZy8bWNud
+                    2y6FlchK8dZHXjj6gxeO3HftaxIl5saqf/P9fT8cse+77pYHHj4jkqL1PW2sbfOQS1CJoqit/KTp
+                    ihrZ5qPSNH3qqaceeOCBMIxe//o3/fp974rimKAAx+norU2NdSQhhOJAcqFnZHDjqVNHrc4+Ofhp
+                    pVRPT8/s7Gy7ts997nNHjx7dv3//F77wheVXZBBsViaJUjKXy7UJ8c7OzsHBwTRNh4aG5ubmrLXT
+                    09PWWsdxNmzYMD8/nyTJwMBAqVRqW/lE5Hleq9XK5XJHjhxxHGd4eDhJkmPHjjUajUajMTs7G4Zh
+                    mqZJkvCSAPyF0kYIgJgojaIoyNI4cShpNUPEgc40pIQgEuC2noZFzCyiaJETIxLLNIAAAZYMy4XI
+                    NJMwTdJ6tSYtr123ptoyP3vu4OhMYPzBV4XNK4re2d/ph7o5rr7zVPU7B8/DqPdds7MIOngqM1nx
+                    yu3bN6BULG1r1RoP/+DFDb9yyZvefPWIR6dbjQf2HZ05N/f6X33Diy/uqzZnploDGp0KerWe9uqw
+                    iWOkGibUaVMH54bWDtnhvlp6sV/JzQg5esWQ2NRx3eVXDdcit1h+6czx8flzO2++yo509ecLoZO6
+                    ggdiozrKQVIPmrP7fvKTU7MLN978xq7K1RsvG0Fr2i3kAalseu784c7yJecmntRBEyaGtLAGvKIb
+                    ab/zpVZu9JEX4maQG1yPmQYOHXWTXME2Q7h+cQEJ4lMnbSHA4WM6DsISF3XLJCrvUr137YP7Z008
+                    KYwwiuJoNC65YdBQri3ENtR56ZQe2vP9OhLHHZBJ98mJyYcnv6f0cOIWJRtwBLuyviRJUiqVliH0
+                    05/+NMsyrfVHP/pRrbXjOIcOHfrWt74F4L77fv2qqy791nfu/93/9HvCxv/tk/dVn/t+OHvU6lzo
+                    9/Zf947+oRs//tu/s1CbveWWWwA0m81PfepTzHzPPfekadrWoEZGRh577LH2DQztxyseglwuNzQ0
+                    5Pt+m9xrs2FBELRptExn+Xy+VCrVarVms7lu3bq2q18I0Wai22xBpVLp7u5ua2IbNmzYv3//2NjY
+                    zMxM22NjjMnSLI6iNov96rNkyTUZxs7eo9zlLLSqabUal93GxAzOLHRBuJCaF2ULFpUxIRmLeGuL
+                    GrRt/zZ1ZghCpFnaqjUbUdaqN6OgZS0zOM5MbGyUGvZXMWm/uOTRm08oOVUVX39saqpZvOKq/rdd
+                    3v3M6Evj9QVZxKWXdl85WPnwOzr/4qETozO5P/zqgWOzrf/l7iufPHr+mcMH/b7yna8dqJ9pPjd9
+                    thr0MDbhlyiUZYgSSazdGGky1NEt5tDRuc7RulGfLxXKVO5hWYrTTDpCZnpI+smJyanTU/1XX0ss
+                    W7WomM+/9PJByOm15WCtMz5BZ0rF3W6ht2VV5oo4qFZntHb8Hz347K+//zXnTk9x0gAHEAY203aF
+                    8UwhSHUKzrmDfTJRud6BFmYzcqRXMtI5VZsYyiqzlNqk5TVUuVKkgoybQQrEcRqIfBi3ctJRAODo
+                    Zs0KNx85LuWCejOUvdKWyvVG1tnQYWBVxSYN30GYNBBOWMdxOBGiuLpbpJRJknied+eddxaLxbbq
+                    8olPfOLUqVOXXHLJa1/72vvvv39hYeE3f/M3ASaBp/YdEILQt7Xzll/Ts2OmFXaMbA3KWwvAW269
+                    vZWG7Wo/+9nPSikBFIvF3//938/lctu2bfvYxz4Whos3cHpezU9j45bFpcSYNq0cRVGz0Th18lSa
+                    pmNjY61ms6Ozc+b8TFdXl1Jqenq6u7tbSqmUWoyjE7KN+ZF1I0TwPD+OY9dzy6USgNHR0WazKYiM
+                    sZnOwjCUQhKR4zp4VeQshcPUY/X//GjN4TELo2cXTEeh88j0wAtzm+AxiGAAh6ABSYCAZngCJGDa
+                    mJEsCBDIaDECk0St1jg/HgUpx0ma6TRO0vPzc5BuNUwWWk1eMjCXYbMS5NzuH43EQaGn6bGxtbNh
+                    K531ctOfufmNNieengyT05OXrd9ycaUz56WfvH3HxoHh//61Iy8/f/LxR8+89TWXffvbRxfOqMq6
+                    dfv3R2fG8lzvphkhIYB/2vNQMsW6rmuf0YzKhf7ycOGxJx/cdssuO899gxt71274k//8X3Z88KOP
+                    vPDzqcb59737nkJRnps8V8tqY5Pj33vkKSWcD9z19hceezzojn7tvW8c2H7NjsFrunove/zHT779
+                    V24XMv/CoRNAJb+13y33piq0uapmAy4gqQkoR69yd6aB06oneWV0gCBn0sx47FC5OT3OTfmf3vOm
+                    cqnke+wq4ybix88d3ffCnntv3d1n01x/qbvUO1O0+VRPnRgTxfLgQFfMTqfhmckxzWn34Iac4zVm
+                    Rw7Ovbzuoqs9JWJ7+YmfP77jxpuVlSHkC/tP/PXfv4CVseH25AOwa9euXbt2LV/auHHjxo0bASxb
+                    9gC97uZbX3fzrYv/imVV3KKgAeFAAdi287Llij/5yd9Zlv/bt29vH2y6+GIJAEGSnXaP/Dx/zgVu
+                    aF+Kwujs1Nm+vr41a9Z2dneemTgDhjFWKRlEYbFS2rJ1qzXGy/n5QlG5Tq1eY4CEiOOos9IBYKG+
+                    QCTD8KzROlfIE4TjOGEUbd6yJctSZk6zrLe3p95oEGj0+IksW+HxVi2uAmiHXYo6NuxduIjIBoYp
+                    EGnB31CkiZmGFU5nh2eY+jpzTMIS+a47sRA3QzsyXCx4amJBN1LeOui7DllSJ6cTA9VXki6nrVRL
+                    qw1nxYKrNc83al2duT4MjIlXSptXgFo5SAG7uVtWZBzUTuVM9frXrL/z8uFDQfbzgzNs0huu2/rz
+                    l85+8G+/dv3rbi1uvtzvKakedbZ+5geHTj3z8j4p+oLZ0e/f/3wtZDjlTBgN/DLxIXHYAFsYK1Rx
+                    3fp1UQMnnnxucGPf0dHZ4WrYt6bvhvfeNVMRN916m0gyNDFfDVzVWW0dy3V3vfXdN54+uRd6f1Y9
+                    drraPDdz/Yaey4b6Pcp3Xn7TlWP1Sc/TP9v7lJKlt2/b/Mbd152fHz87dwZwYX1Yz+r0Av+atalO
+                    kliziUA5YY01iGy9kE/ysrNUpu/8+MGcyDhJiyQ+9oF7ilf16frCgiOePPPS5GRd2m4/bN1w3TXj
+                    5xeOP70nlsNhtXr9znUsWvue+D7q4cgVIzfsvPjTf/Zwv5tvphOf/8S7P/AH/72re1AH8e+971fc
+                    h55eDZtfouf+kSLafb8Yiw8YtNcwAhSQAABkezKkgAcLexZHn2s88yhOPJcbvm51XY1mY2pqSik1
+                    MDxYLJUAWNhCvhBHUaFUXL9xQ8HPNePQVY5Qqt5q1VuB57txHK8ZGpZS7Tv0AjMZrZuNxnx1YXjN
+                    sPLcLMsKpUKh1L9l69bDhw4XS8Xh9SNZmo2dGYvj+NVUNbFs3vR1OlddPDg20+ohp6Pk5TwK4rTW
+                    iJqZ2DBUKHh+uSCnm9lARfVUfDmavtTizhxtHZSbetWZqgkNbt3mh0k2s8DVRNRSMRmI8ZqohTLQ
+                    cri3PLkQH55ix+9BR7cJvNWwYYuAkAfEcgPbXmpdcbr6cllaHezy33n3DY6KJmaS6ZPnSmWsWcsH
+                    xk49czR99sTzxj5qY+R6+3bf86s/37unJaKLrh+8/DVXFOLZp/YeO3ro1FQrfzYN17sOIP8JmUMJ
+                    TIaQbJIe2X/g9/7d73a/9PPq934ynTFrCCnOiri/2KWaqeuquNESmjcM9+89c3j/ur7unorSierr
+                    FuenYpX84cuf2dA/cHLy5e7uHgty3OzibX2FMHvwgada+39U96MFb935iRAmB+2SyJHQcFe0VrZI
+                    Uh0jI6RktGN1anQQpirP1VMnN3fdNOTLe96027d201r/09/6+pXbbmrM6bfuvm7/noMfufaW7qGO
+                    gy+8aOpnuFZ7882Xl/tGpk4em5k43XBxy2u33LHtkmM52zE2df028f7rb5zP6d6Ut5XCT9/75nmH
+                    Ua1n1fnllrRDuf6logToAtWcLgyabrj1Uzj+DO97Jh0ddWfmCrqhhi6wbdrRmc1mc/r8eddzS8Wi
+                    ko4lrpQqmdGVSseGdet+8sgjhWK+q6srbLWU66Zp0t/f37aIOiudPd09WZrOzc9X56vzs/PVas1q
+                    feLEqHBUPQhPHT2us2zdhk1sbZZlr06miWXYiMzyufnGQj0yEGPTdm1fQbMwEFIKQUTCTsynsRHM
+                    enSm2YyZlTrfsF1lGGuLOfXyhD46o601VikT46Ej5sSC2jHS7XZ4LeuNF72ZQCdlt2rt2FyrnFvl
+                    t8HiwnPBqLQlQ2/R/cQ7r5+ZC4cK8pa+vIDcWcHHb7ve5vUbLio2127Pu2tGx+Z0eG6gWBoZGb5x
+                    95rvhifv2vzWmy/dcuWl/WWs/1FHz/MjG7cMlXs0w8VifNpKRpLFhcqb4VAYDXhWFqxOToyOX5Mb
+                    eNNkNQ8C6wAmBglzzhWUUFQhP0nSgo5em1MlL41yYV00N5cXbtjk372mfNIJXPcYbc4ptoG2aVrv
+                    VI3yoH/b3WuNnnvZ5P78yYnm+RJYAS3ook2QrOKpmGEsTAZIK1KtTWykJb9sZdTKsnnG0XPVH+49
+                    KuL0fW+6/rbenc+fmd4+OHw6Cmfh/fClU/ZMriDVrksvSp58+sDeQ3Fh/sC+pz7wgbsPHd2/59Bo
+                    bSKiruSG4ZHQ6f3rp/c/8uLDP/iDz2LrFX/27POHDr7wyffekysXVsPmXzoJ176K56xxJD32LO19
+                    3Bl9CbPTjjEQEmivdIulUqns2LGjVCoppXzX48wokqVCMZfzhRCFQkEpNTQ0dPmllx45fER2C0eq
+                    wb7+NM1Kfi4MQ9/3L9l2kZSy1WxlSbp18+Ys06ePjWrmszMzvRYnzkzNO8oRfG50TyOkIJa+K1+l
+                    +Us8Mgl5bi6cqaaWhAESTVPzWkgZGUDSy+MhSGQgqRzDFBsIKdmRswGeP5WlFlKxtuKJE5k1lEDA
+                    pYVACqdsYtaV0u3xmQ0/fWnuph0/2Hhie9fwF3+wKUrtatiEFnMCKVBcxXRZIOtS3kdeu10DPiCQ
+                    WDhbet3P3H05HAAtdJrrhze0xIYiGG2WzM5ed+/VijoBABqwd75mzZ2v3fgLVr32W+xq2OhUW53C
+                    MMiH9OYje9pVxvI6k0obZK7QlgJCJsk3tmRTKYyJAhGHAlGPEH3doKQG7RW0GMoJxxcVZAgZUkAx
+                    KEGqewvKUjax0NVYIE4KJBXbWVAKKhGvBJJYa0yUWZeZjUkz2AyuMFkjwbne7pJOou4KhJ0res53
+                    H3m01NFxyZaNZ48e2dqbq7TO/bv33PkXP3pMcujX8r3Bwrtuv+VcU19buKSLbTFI+oUswXQ3rQha
+                    /bZVKPkybsYR+op+JUXBQeSwdVeEwL80bDiFCIEyIGARTGHySH3qBL+0Jzx9zK+dL5tYWQ0InSCi
+                    1I3C5fA43/c3bNjQ1dXleZ7rukop13WVkm3rXxudpInW+vLLLz99+nSWZkqqMAzn5udPnjxZKOTz
+                    +XxXd3e5XDp/7ny1WmVmQWLi7JQFf+hc495GojQ9vVkVfhs3XqbHp/H5v80/frBo/+Gn06K0sYQo
+                    ZZCBBISEklEGaAtHgakZMyRDCNh2orGwLCBJEzVCC0hIwKNIi1LRLzpivp46JX84Z/e/cGq2p7lp
+                    /u9f/+SJscGFF7f9bPPQtZX8tjjVq2Cz8Kg59S2wK9hB1g7BMUyGkpQ7PbeWKEUCgEDDVcVmVXk+
+                    K5eTphASVPGtYUSkXdaS/ERmBiqPNECaIV+EAeIYyoEUYLuYx7YS4dNCoR/X/dlKh7ACW1Cm4BjL
+                    LeU/S/GDrpsZ3p7BM0lGMhBshXREfiGOHWglPGY3Tbx4pqm9pHOHh6EChOxRZY6aQMxsiDywj9jC
+                    dUPKvVjP/fH3Zg6d602JkYSQkhEDvlqVOADDnGqtNbzUpFqwBqTPTi4lng/EQvaWW95UcRJhiQXN
+                    zgQ//vaPPviud52dPH3DTbedeOnM333/aVB6ZgFvve2W03Xzp1++/9d/412+ia/etj2iSocjO9J6
+                    jPjGy7ZbiK1b/v250xPXbNjcKdSlF2/O2GvMtlYB2P5/h81y8i2QuZAuLGpncOSp+ktPpidfyhZm
+                    egNb0No6NiayRuRIFYiqiPKrYtJyuVx3d3c+n2/DxnEcx3Hakc5CiLla9dz09EKjvm5wOAiCXC5n
+                    rW21WtVGzfPzJEWt2ZycPi8EFb0cEfm+X6/VT54/ewu7/6FnrfRqluzbdwLrHF2R2/ta/2tnYeIP
+                    6YWj/8DbJ0Q7Jg3UzoVue2kUL8FpKZdzKf1T85rB/LbBnLaYbsASl/JOd1HVY37uZNpZct5/DZqN
+                    6pdeLEGqWhCXlH37G7bfhEJ99Cvb+rd8eOclFVcnVvPq4BrMnXGOPAkNpAwAwsIaUg7Ia4qwbISQ
+                    FjHDy3VQAjJgh9glTpEhcTu9ZA7SQhbJKKBOyiIVcJk1a5VzlESzDhIgD0yLKdPtXG0lkMaoDGOV
+                    zbkYFMapjTW8nC11nMym/0ylcx7/RuxsDm1DiIxNXluLkGzmS5GZOEdOGFMjy9Zt6/EGXRYhSQfV
+                    hBr1WiXJi4KbZmjFcATnC/tPVf+3J+LHjpD1XIgAwiUusG2AI7kqpkVASiM4zdimMAZstNWx7LJi
+                    ONLp//Gl74VuLg3PKSFIghKvFiaHv/BXqW7WNXfZroa7UXj6kRdPv3jsrBPUZ6P0xf/xzWLKWogA
+                    HQW/SPPjmZmn/BBptmCeb4mBbrYpOLXNMR12rkhgrX9xLPAvVTKAwS4YiJEEOH0ILz919ui+aPxo
+                    MWh2ZKmbag2kmlTqCiYLmTo25DQAda6isjzP6+3t9TyPpDBGMzjTmRQiTmIi0pnOed70uXNpFHV2
+                    dTEh1WmapVbbSrHY3dPdWekYn5xI4qSQy7XTB/Y8t6c2M7Otf+Poh/49ps5qZFyyuWrN9AG2Z2hj
+                    fd3Q1144PMd8AW6IBAsCCLQYbEaLmWTttXg5/Gx5RwFYC0lGudL3aXRWDwsxXEEgAKUyi7lqi6xV
+                    rsoyW6kUN/Ssy+ddk7qylHeU4wm34PiLHp5l2DCXUlvybA2uhVBsJZiJLJCUWUIALOEByFYSNpGC
+                    ABceqnAIkDDR4oqmJQAkRAQnTZFiMbmNDYigDQRZCyJNmqyOhNCre8SKGGELQlpk0CEaDMefcoa/
+                    1YriKL2Hs+2IetBwbWSIDcFmWsE7r3I/ZP4uoX4gfV2u5+4bczvkfBcnTq/qiCVMC2YuLNDLac8P
+                    nnd/uH9gz8suhIvUAQicsU0BH1JqscrJaJrNaFy7XVJymh1VnLeZYtOMpGt77PEmC9JAyWSGIYRy
+                    hJOPYrBxYfkcAMrpJATl58LEGsWODBvZArnQzLxQr9cACe6z9QRWgxmKMXse2sJaobr83C8Vi7Tc
+                    bUBkkWUoGsQ+hGir1QAYKUHYwInOYuIFPP9ceuCwnjyjolqPzkgYKaWRMjCuMQlgDGtmIoZJQcAa
+                    JVFbtZEKM5glyWYUNJqNQi7vSAVg/NxUqVAIwshRstFszszOKOnky8Xp6lzQDFxSOklNkgat1kBP
+                    n5TC8/0kSZ5++unjx4919/ZOa+r64p8Z32XAHUn9W+uRcMnrrk0tnJ8LSbzSvOHFOP921AzAxG0n
+                    5orBRouRASAw4MjpBi8cS0lIQ5SyGJ2zEzUYIeHIwNJ3jvtSFgzD8ZQw+vEXx+YmkvvGvnvvk4ee
+                    vlR+Xj35gStu8dwdFK5S0jgLTFyFDUAEeMQOIKDSV90G5dUKrWy70dYlVtKnl5Oi2yaMhGBIISzA
+                    bA2LxEPzAperTVMIFwCERJoBEoYATCv8ebf5puLbW+7NcVdJssMamh1ROC+8H4j0qRyHThFxbvSJ
+                    5LGXpm/boq5dX8rn6iDriK6Fpj86T0+dyPaMhnG6hnIZW8BksBrIAAMQ4BCvNCZObWZzOnXjOPB9
+                    Xye+lZLISLIEaj9BJKSFISCzlrW1tp0fLkhYboEykCbLMESQwlhrDVtmy0t9QiAGScCCLSyBCQxr
+                    nLi5Il6SJHl190W7ywEDwShYwAUIbT9pluk6hQ3bmMLk3tbRl+3hI3RmzAsDBwAhJgu20li20AYa
+                    VhmHsBiazgxAgG2NdVk54sLXaaNhbM71Xcf1XDefL6wdHDbawFIraMZxEgYRbGit7e/r6yxXBIjB
+                    cZIox/F9n4iSJDl+/Pjx48fLlYqbz5+qVp/Z+9Rt09MEOrAt515DV1Jy9kz2xe92HB/vcRxJr5yK
+                    7a1nFlOjSUhmEkqyEMwEKSEUSWIIqRRIGcAQGTjQDFcpRzJEaBmQkIJJhEa1N1/Sxqh84YorN3au
+                    7988eF249tLuWzbf6vSI8JqZmrlASTMKmQJnIGaALEOAkKlfFjW8Cl/tfE9ews9ipDmDATKQDGNh
+                    F000YmK7uEvHclHCwESwgPAACeEi1YCAzCNxm3H2HWQP+qZoTZkpdlVsZSgEuNPGElkMQVZ2nTif
+                    nJwKvyydXMf6TmdaZ6IWIsy0hgU5yNU5a5MRS2yeMGABnbJeifZVUCZMjWtJuSbOJEujISRLgIlg
+                    rGEmwWBAMEOzZVgDwySFIGRJg4QBDMOa1Ao4li2TYWMBXrShLMHqlanaTo9lC113crnllrRD6H/x
+                    osUKBOgEQQrHzao0O6bPjmbjp/TxE8nEuDd7htLUNRlp45DDUMoYhyEBGBjBgqyAALRoDyRjCcA8
+                    50S2ZLuW+0SpUqmkHFUul6RUILRhYLROOO2qdHR3dm5cvzFNkjiO21FqrVZr06ZNxWJxfn7+xIkT
+                    xWKxs7PTcZwgCPr6+pRSjXo9s+avX3fNT6fnszA+DoivJ2sr8XSNT56VjoKSyLS+8KMFkwTIFeKi
+                    zV1dReF5TiXvtBJTyHlMNN/U8yH3VjzDdm2nevjlKO95u4YxG6mBDpka7Bm3Z5tyMZNyMSAaIMFs
+                    HzqZdZXKopZ8k67mDknPk8SmhdDU46yn7K7ABkmOog4yAjCwJKyFaC+Bv5yjYLXWvWy5Wr4grpoZ
+                    JMCAtsgEGEwASGfC8coX1CZC2AYgoCOoAmwGoWAZUGAljGPJaoma0jWOwAKeDysXZ1s7AMkmgIFX
+                    iXU+XpBVUUGiILuhGJgFQiTTMCVALu6FAAuTgi1ERmJlqXCg85QGcd3IQIiELEvh2CzTIJLKasMM
+                    ISRAaIeAWGu1hrHQsEQm0UICpAHAkEV7AzELMIxZ5OEtLa0pS2sNAxbEBqsA7LputVptG+LLJ0Nw
+                    HgRoIEEW4vzZZOyUN/5idW4qnjyjzp/zao1CkuSYI2gyloiMQSTIgpggJQswAZllC6sFuTYF27a4
+                    a/8KRi+KM1quho2U0nM9KaQQwvXcer1++PDhXC7X0dFhjCkU8sV83vj+wMBAO17uwIEDe/bsKRaL
+                    +aXieR4zl0qldphzO6Z7geg0uNFqxo1WOGNHT3OmE4d0JrjZCoaGVu+lhyyzACCkJjnfSFzlxpqq
+                    zZSUqsVIUgMhBYl6ZLSxSZpFGVuykzULJScWMsPIrIKQq5IIlnZRI1EPTT1KQO30ZLnoWiWCEIvv
+                    bcPGGVjjrNuYTBzPgprwlHRJ6NRBgl/Gv2bBy/JiEQwggBbV0SUlzQLWhfHAFo6EYWYYw7RmCJsv
+                    iFX7L1/43G/f91scBWCJqAWvCAvYAhBBZJZSIFU6E4ay9uYgSQOSBJSyInVDwAd1wRBaTaED6TqG
+                    FiB81iGnKYQGSaAEBmBXPBIkQeI1t+5+16/dudySyy+/+Lqbrnzk75/krKURK2k0kxVCkCJ2mJlI
+                    WAkAOo7BFiTF4uZjLEAMx1gDsmDD2oAzMC9ul2XtYk9ZgjWwDDDaO5sxYI1jW5/81CeXW9Ld3T09
+                    Pf344487jkNE7aXai+vFNFT183J6vFibLjRmqVY1UVMnkYvMhRHaGiaj3JhyTImURghWIlUwNmMZ
+                    M1kNsAI0kQIlSmkwWWrvU9RWB2aGdl7+jo+ubkkYhgvVGgQxYIwNgrCru7ujozPn+8YaAGmmHcdh
+                    kHLcgcFBx3WbzWaaZqVSsVwqu54nBTEjl8uXypXBoeEsy9IkSdtbwSVpmiaZtjpLma2xNk2yvv7e
+                    u9521+pJ8pu/dv2Xv7OXPYdJZkwTcwAxZDvchiGclXQa4YCknxdEYqy1kjsgPNGXk6tEDS2R2iub
+                    B1B7/4DFaDoBjXuuW1xAaInZ1MArjJl/8U1uXzUzTQHOK843goSNASTDkJCwWAxZXWySWYXTlaqB
+                    JbYCCmBqU08kAd2+zothd7Taf7fK8Yp80XMuXCg0EGbtPSfton35ii9a2hcP/+Aar6oZ/IqMidWi
+                    eEmdpdVP2rL3j0fZLt9swRqWwXrpbRduddlu5CtCDlfGdnHDoV9Yv/Ig/lnkxP8vyv8LorQDHE4p
+                    tz4AAAAldEVYdGRhdGU6Y3JlYXRlADIwMTgtMTAtMTFUMDM6Mzg6MjItMDc6MDAmWJ+QAAAAJXRF
+                    WHRkYXRlOm1vZGlmeQAyMDE4LTEwLTExVDAzOjM4OjIyLTA3OjAwVwUnLAAAABl0RVh0U29mdHdh
+                    cmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAAASUVORK5CYII=" />
+                        </svg>
+                    </div>
+                    <div class="form-group" style="margin-bottom:0px;">
+                        <label for="cardNumber">Card Number: <em> *</em></label>
+                        <!-- <input type="text" class="form-control" id="cardNumber" onkeyup="handleCardNumberChange()"
+                                    onblur="handleCardValidationCheck()"> -->
+                    </div>
+                    <div class="row pad8 padBot10">
+                        <div class="col-xs-12 pad8">
+                            <label for="cardNumber" class="sr-only"></label>
+                            <input type="text" class="form-control input-group-lg ccFormatMonitor" name="cc" placeholder="Enter Credit Card Number"/>
+                            <p>Card type is: </p>
+                        </div>
+                        <!-- <div class="col-xs-3 pad8">
+                            <label for="first4digit" class="sr-only"></label>
+                            <input id="first4digit" class="form-control input-group-lg reg_name text-center" onkeyup="handleFirstCardNumberChange()"
+                                autofocus="true" type="number" maxlength="4" name="first4digit" title="1234"
+                                placeholder="XXXX" />
+                        </div>
+
+                        <div class="col-xs-3 pad8">
+                            <label for="second4digit" class="sr-only"></label>
+                            <input id="second4digit" class="form-control input-group-lg reg_name text-center" onkeyup="handleSecondCardNumberChange()"
+                                type="number" maxlength="4" name="second4digit" title="1234" placeholder="XXXX" />
+                        </div>
+                        <div class="col-xs-3 pad8">
+                            <label for="third4digit" class="sr-only"></label>
+                            <input id="third4digit" class="form-control input-group-lg reg_name text-center" onkeyup="handleThirdCardNumberChange()"
+                                type="number" maxlength="4" name="third4digit" title="1234" placeholder="XXXX" />
+                        </div>
+
+                        <div class="col-xs-3 pad8">
+                            <label for="last4digit" class="sr-only"></label>
+                            <input id="last4digit" class="form-control input-group-lg reg_name text-center" onkeyup="handleFourthCardNumberChange()"
+                                type="number" maxlength="4" name="last4digit" title="1234" placeholder="XXXX" />
+                        </div> -->
+                    </div>
+                    <!-- <div class="form-group">
+                        <label for="cardNumber">Card Number:</label>
+                        <input type="text" class="form-control" id="cardNumber" onkeyup="handleCardNumberChange()"
+                            onblur="handleCardValidationCheck()">
+                    </div> -->
+                    <div class="form-group">
+                        <label for="exp" style="width: 100%">Exp: <em> *</em></label>
+                        <div style="justify-content: space-between; display: flex;">
+                            <select class="form-control" id="month-select" style="width: 48%">
+                                <option value="01">January</option>
+                                <option value="02">February </option>
+                                <option value="03">March</option>
+                                <option value="04">April</option>
+                                <option value="05">May</option>
+                                <option value="06">June</option>
+                                <option value="07">July</option>
+                                <option value="08">August</option>
+                                <option value="09">September</option>
+                                <option value="10">October</option>
+                                <option value="11">November</option>
+                                <option value="12">December</option>
+                            </select>
+                            <select class="form-control" style="width: 48%" id="year-select">
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="cvv">CVV: <em> *</em></label>
+                        <input type="number" class="form-control" max="3" onkeyup="handleCVVChange()" id="cvv">
+                    </div>
+                    <div class="form-group">
+                        <label for="firstName">Name On Account: <em> *</em></label>
+                        <input type="text" class="form-control" id="nameOnAccount">
+                    </div>
+                    <div class="form-group">
+                        <label for="zipCode">Zip Code: <em> *</em></label>
+                        <input type="text" class="form-control" id="zipCode">
+                    </div>
+                    <!-- <div class="form-group">
+                        <label for="lastName">Last Name:</label>
+                        <input type="text" class="form-control" id="lastName">
+                    </div>
+                    <div class="form-group">
+                        <label for="zipCode">Zip Code:</label>
+                        <input type="text" class="form-control" id="zipCode">
+                    </div> -->
+                    <input name="dataValue" type="hidden" id="dataValue">
+                    <input name="dataDescriptor" type="hidden" id="dataDescriptor">
+                    <button type="button" class="btn btn-primary" id="cardSubmitButton" onclick="sendCardDataToAnet()"
+                        data-dismiss="modal">Pay
+                        Now</button>
+                </form>
+            </div>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+                        <h4 class="modal-title">Confirmation</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p id="cardAlertText"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" onclick="paymentMethodhandler('card')"
+                            data-dismiss="modal">OK</button>
+                        <button type="button" class="btn btn-default" onclick="paymentMethodhandler('')" data-dismiss="modal">CANCEL</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <script type="text/javascript">
+        var x = document.getElementById("myDialog");
+        var cardNumber = $('#cardNumber');
+        $('#cardNumber .cc-number').formatCardNumber();
+
+        function loadAuth() {
+            var yearSelect = document.getElementById('year-select');
+            var d = new Date();
+            var n = d.getFullYear().toString().substr(2, 2);
+            for (var i = 0; i <= 10; i++) {
+                var option = document.createElement("option");
+                option.text = parseInt(n) + i;
+                option.value = parseInt(n) + i;
+                yearSelect.appendChild(option);
+            }
+        }
+        loadAuth();
+
+        function handleFirstCardNumberChange() {
+            var first4digit = document.getElementById('first4digit');
+            var second4digit = document.getElementById('second4digit');
+            restrictValue(first4digit, 4);
+            if (window.authData.platform === 'ios') {
+                return;
+            }
+            if (first4digit.value.length == 4) {
+                first4digit.blur();
+                second4digit.focus();
+            }
+        }
+        function setAlertText() {
+            var inputEle = document.getElementById('cardPayment');
+            if (Number(window.authData.cardFactor) > 0) {
+                inputEle.setAttribute('data-target', '#myModal');
+                var alertTextEle = document.getElementById('cardAlertText');
+                // inputEle.classList.add('selected');
+                alertTextEle.innerHTML = `You will be charged ${window.authData.cardFactor}% extra if you pay with a card. Please click OK to proceed with payment via a card or click Cancel if you want to change the payment method to bank transfer.`;
+            } else {
+                paymentMethodhandler('card');
+            }
+        }
+        function handleSecondCardNumberChange() {
+            var first4digit = document.getElementById('first4digit');
+            var second4digit = document.getElementById('second4digit');
+            var third4digit = document.getElementById('third4digit');
+            restrictValue(second4digit, 4);
+            if (window.authData.platform === 'ios') {
+                return;
+            }
+            var key = event.keyCode;
+            if ((key == 8 || key == 46) && second4digit.value.length == 0) {
+                first4digit.focus();
+            }
+            if (second4digit.value.length == 4) {
+                third4digit.focus();
+            }
+        }
+        function handleThirdCardNumberChange() {
+            var second4digit = document.getElementById('second4digit');
+            var third4digit = document.getElementById('third4digit');
+            var fourth4digit = document.getElementById('last4digit');
+            restrictValue(third4digit, 4);
+            if (window.authData.platform === 'ios') {
+                return;
+            }
+            var key = event.keyCode;
+            if ((key == 8 || key == 46) && third4digit.value.length == 0) {
+                second4digit.focus();
+            }
+            if (third4digit.value.length == 4) {
+                fourth4digit.focus();
+            }
+        }
+        function handleFourthCardNumberChange() {
+            var third4digit = document.getElementById('third4digit');
+            var fourth4digit = document.getElementById('last4digit');
+            restrictValue(fourth4digit, 4);
+            if (window.authData.platform === 'ios') {
+                return;
+            }
+            var key = event.keyCode;
+            if ((key == 8 || key == 46) && fourth4digit.value.length == 0) {
+                third4digit.focus();
+            }
+            // if (fourth4digit.value.length <= 3) {
+            //     fourth4digit.value = fourth4digit.value;
+            // } else {
+            //     fourth4digit.value = fourth4digit.value.substr(0, 4);
+            //     handleCardValidationCheck();
+            // }
+        }
+
+        function paymentMethodhandler(method) {
+            var cardEle = document.getElementById('cardPayment');
+            var bankEle = document.getElementById('bankPayment');
+
+            if (method == 'bank') {
+                document.getElementById("bankForm").style.display = "block";
+                document.getElementById("cardForm").style.display = "none";
+                bankEle.classList.add('selected');
+                cardEle.classList.remove('selected');
+            } else if (method == 'card') {
+                document.getElementById("bankForm").style.display = "none";
+                document.getElementById("cardForm").style.display = "block";
+                bankEle.classList.remove('selected');
+                cardEle.classList.add('selected');
+            } else if (method == '') {
+                document.getElementById("bankForm").style.display = "block";
+                document.getElementById("cardForm").style.display = "none";
+                bankEle.classList.add('selected');
+                cardEle.classList.remove('selected');
+                radioButton.checked = false;
+
+            }
+            if (method && method != '') {
+                window.postMessage(method);
+            }
+        }
+
+        function handleCardNumberChange() {
+            var cardNumberElement = document.getElementById('cardNumber');
+            var cardNumber = cardNumberElement.value;
+            alert('cardlength' + cardNumber.length + '.')
+            if (cardNumber.length && (cardNumber.length == 4 || cardNumber.length == 9 || cardNumber.length == 14)) {
+                // alert("cardnumber in spacecondition"+ cardNumber+".")
+                if (!checkForDelimitor(cardNumber.toString())) {
+                    cardNumberElement.value = cardNumberElement.value + ' ';
+                } else {
+                    cardNumberElement.value = cardNumberElement.value
+                }
+            } else {
+                cardNumberElement.value = cardNumberElement.value;
+                return;
+            }
+
+        }
+        function checkForDelimitor(number) {
+            // alert("number ---"+number+".")
+            if (number[number.length - 1] == " ") {
+                alert("number is:" + number + " length" + number.length + "space presented at the end")
+                return true;
+            } else {
+                return false;
+            }
+        }
+        function checkForVisa() {
+
+        }
+        function handleCVVChange() {
+            var cvvElement = document.getElementById('cvv');
+            restrictValue(cvvElement, 4);
+        }
+
+        function restrictValue(elem, len) {
+            var cvv = elem.value;
+            if (cvv.length <= len) {
+                elem.value = elem.value;
+            } else {
+                elem.value = elem.value.substr(0, len);
+            }
+        }
+
+        function handleCardValidationCheck() {
+            var first4digit = document.getElementById('first4digit');
+            var second4digit = document.getElementById('second4digit');
+            var third4digit = document.getElementById('third4digit');
+            var fourth4digit = document.getElementById('last4digit');
+            var cvvElement = document.getElementById('cvv');
+
+            var cardNumber = first4digit.value.toString() + second4digit.value.toString() +
+                third4digit.value.toString() + fourth4digit.value.toString();
+            var americanExpressExp = /^(?:3[47][0-9]{13})$/;
+            var visaExp = /^(?:4[0-9]{12}(?:[0-9]{3})?)$/;
+            var masterCardExp = /^(?:5[1-5][0-9]{14})$/;
+            var discoverCardExp = /^(?:6(?:011|5[0-9][0-9])[0-9]{12})$/;
+            var dinersClubCardExp = /^(?:3(?:0[0-5]|[68][0-9])[0-9]{11})$/;
+            var jsbCardExp = /^(?:(?:2131|1800|35\d{3})\d{11})$/;
+
+            // var cardNumberElement = document.getElementById('cardNumber');
+            var submitButton = document.getElementById('cardSubmitButton');
+
+            // var cardNumber = cardNumberElement.getAttribute('value') || cardNumberElement.value;
+            // cardNumber = cardNumber.replace(/-/g, '');
+            // alert('cardnumber' + cardNumber);
+            if (
+                cardNumber.match(americanExpressExp) ||
+                cardNumber.match(visaExp) ||
+                cardNumber.match(masterCardExp) ||
+                cardNumber.match(discoverCardExp) ||
+                cardNumber.match(dinersClubCardExp) ||
+                cardNumber.match(jsbCardExp)
+            ) {
+                submitButton.disabled = false;
+                cvvElement.focus();
+                return true;
+            } else {
+                submitButton.disabled = true;
+                alert('Not a valid Visa/ American Express/ Master/ Discover/ Diners Club/ JCB card!.');
+                return false;
+            }
+        }
+
+        function sendCardDataToAnet() {
+            var loadingContainer = document.getElementById('loading');
+            var formContainer = document.getElementById('paymentform');
+            loadingContainer.style.display = 'flex';
+            formContainer.style.display = 'none';
+
+            let cardData = {};
+            var first4digit = document.getElementById('first4digit');
+            var second4digit = document.getElementById('second4digit');
+            var third4digit = document.getElementById('third4digit');
+            var fourth4digit = document.getElementById('last4digit');
+            var cardNumber = first4digit.value.toString() + second4digit.value.toString() +
+                third4digit.value.toString() + fourth4digit.value.toString();
+
+            cardData.cardNumber = cardNumber
+            cardData.month = document.getElementById('month-select').value;
+            cardData.year = document.getElementById('year-select').value;
+            cardData.cardCode = document.getElementById('cvv').value;
+            cardData.nameOnAccount = document.getElementById('nameOnAccount').value;
+            cardData.zip = document.getElementById('zipCode').value;
+            if (cardData.cardNumber == '' || cardData.month == '' || cardData.year == ''
+                || cardData.cardCode == '' || cardData.nameOnAccount == '' || cardData.zip == '') {
+                loadingContainer.style.display = 'none';
+                formContainer.style.display = 'block';
+                alert("Please fill all the fields marked with *");
+            } else {
+                var authData = {};
+                authData.clientKey = window.authData.clientKey;
+                authData.apiLoginID = window.authData.apiLoginID;
+                var secureData = {};
+                secureData.authData = authData;
+
+                secureData.cardData = cardData;
+
+                window.Accept.dispatchData(secureData, this.responseHandler);
+            }
+
+        }
+
+        function responseHandler(response) {
+            window.postMessage(JSON.stringify(response));
+            var loadingContainer = document.getElementById('loading');
+            var formContainer = document.getElementById('paymentform');
+            loadingContainer.style.display = 'none';
+            formContainer.style.display = 'block';
+
+            if (response.messages.resultCode === "Error") {
+                var i = 0;
+                while (i < response.messages.message.length) {
+                    console.log(
+                        response.messages.message[i].code + ": " +
+                        response.messages.message[i].text
+                    );
+                    i = i + 1;
+                }
+            } else {
+                paymentFormUpdate(response.opaqueData);
+            }
+        }
+
+        function clickHandler(e) {
+            if (e && e.preventDefault) {
+                e.preventDefault();
+            }
+            console.log(window.authData);
+            window.postMessage(JSON.stringify(window.authData));
+        }
+
+        function closeDialog() {
+            x.close();
+        }
+
+        function sendPaymentDataToAnet() {
+            var bankNumber = document.getElementById('bankAccountNumber').value;
+            var routingNumber = document.getElementById('bankRoutingNumber').value;
+            var accountName = document.getElementById('accountName').value;
+            if (bankNumber == '' || routingNumber == '' || accountName == '') {
+                alert('Please fill all the required fields.');
+            } else {
+                var loadingContainer = document.getElementById('loading');
+                var formContainer = document.getElementById('paymentform');
+                loadingContainer.style.display = 'flex';
+                formContainer.style.display = 'none';
+
+                let bankData = {};
+                bankData.accountNumber = bankNumber;
+                bankData.routingNumber = routingNumber;
+                bankData.nameOnAccount = accountName;
+                bankData.accountType = document.getElementById('accountType').value;
+
+                var authData = {};
+                authData.clientKey = window.authData.clientKey;
+                authData.apiLoginID = window.authData.apiLoginID;
+
+                var secureData = {};
+                secureData.authData = authData;
+
+                secureData.bankData = bankData;
+                window.Accept.dispatchData(secureData, this.responseHandler);
+            }
+
+        }
+
+        function paymentFormUpdate(opaqueData) {
+            document.getElementById("dataDescriptor").value = opaqueData.dataDescriptor;
+            document.getElementById("dataValue").value = opaqueData.dataValue;
+            window.postMessage(JSON.stringify(opaqueData));
+            // alert('opqque data' + JSON.stringify(opaqueData));
+
+            // If using your own form to collect the sensitive data from the customer,
+            // blank out the fields before submitting them to your server.
+            // document.getElementById("cardNumber").value = "";
+            // document.getElementById("expMonth").value = "";
+            // document.getElementById("expYear").value = "";
+            // document.getElementById("cardCode").value = "";
+
+            // document.getElementById("paymentForm").submit();
+        }
+    </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://rawgit.com/lopezton/jquery-creditcard-formatter/master/ccFormat.js"></script>
+    <script type="text/javascript" src="https://jstest.authorize.net/v1/Accept.js" charset="utf-8"></script>
+    <!-- <script type="text/javascript" src="https://jstest.authorize.net/v3/AcceptUI.js" charset="utf-8"></script> -->
+
+</body>
+
+</html>

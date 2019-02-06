@@ -1,0 +1,67 @@
+# Uncomment the next line to define a global platform for your project
+platform :ios, '9.0'
+
+target 'MyFMSApp' do
+  # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
+  # use_frameworks!
+
+  # Pods for MyFMSApp
+  # Required by RNFirebase
+  pod 'Firebase/Core', '~> 5.3.0'
+  pod 'Fabric', '~> 1.7.5'
+  pod 'Crashlytics', '~> 3.10.4'
+  pod 'Firebase/Performance', '~> 5.3.0'
+  # pod 'React', path: '../node_modules/react-native', :subspecs => [
+  #  'BatchedBridge'
+  # ]
+  # pod "Yoga", :path => "../node_modules/react-native/ReactCommon/yoga"
+  # pod 'React', :path => '../node_modules/react-native', :subspecs => [
+  #  'BatchedBridge', # Required For React Native 0.45.0+
+  #  'Core',
+    # Add any other subspecs you want to use in your project
+  # ]
+  pod 'React', :path => '../node_modules/react-native', :subspecs => [
+    'Core',
+    'DevSupport',
+    'RCTNetwork',
+    'CxxBridge',
+  ]
+  pod 'yoga', :path => '../node_modules/react-native/ReactCommon/yoga'
+
+
+
+  pod 'react-native-image-picker', :path => '../node_modules/react-native-image-picker'
+
+  pod 'react-native-document-picker', :path => '../node_modules/react-native-document-picker'
+
+  pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
+
+  pod 'react-native-maps', :path => '../node_modules/react-native-maps'
+
+  target 'BloomKonnectAppTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+end
+
+target 'MyFMSApp-tvOS' do
+  # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
+  # use_frameworks!
+
+  # Pods for MyFMSApp-tvOS
+
+  target 'MyFMSApp-tvOSTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+end
+
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    if target.name == "React"
+      target.remove_from_project
+    end
+  end
+end
