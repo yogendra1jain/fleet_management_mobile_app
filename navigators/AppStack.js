@@ -27,6 +27,7 @@ import NewTicketScreen from '../components/ServiceTickets/NewTicket';
 import ScheduleMaintenanceScreen from '../components/ServiceTickets/ScheduleMaintenance';
 import OtherTicketScreen from '../components/ServiceTickets/OtherTickets';
 import ServiceTicketListScreen from '../components/ServiceTickets/ServiceTicketsList';
+import MechanicProfile from '../components/ContactPerson/MechanicProfile';
 
 const AppStack = createStackNavigator(
     {
@@ -49,6 +50,7 @@ const AppStack = createStackNavigator(
         ScheduleMaintenanceScreen: ScheduleMaintenanceScreen,
         OtherTicketScreen: OtherTicketScreen,
         ServiceTicketListScreen: ServiceTicketListScreen,
+        MechanicProfile: MechanicProfile,
     }, {
         initialRouteName: 'Home',
         navigationOptions: {
@@ -90,6 +92,7 @@ const ServiceStack = createStackNavigator({
 });
 const ContactPersonStack = createStackNavigator({
   ContactPersonHome: ContactPersonHome,
+  MechanicProfile: MechanicProfile,
 });
 
 

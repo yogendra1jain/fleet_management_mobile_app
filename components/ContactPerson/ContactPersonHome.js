@@ -41,7 +41,16 @@ class ContactPersonHomeScreen extends React.Component {
 
     }
     handleContactItem = (item) => {
-        console.log('item', item);
+        switch (item.name) {
+            case 'Repair Facility':
+                this.props.navigation.navigate('MechanicProfile');
+                break;
+            // case 'Review OPEN Ticket(s)':
+            //     this.props.navigation.navigate('ServiceTicketListScreen');
+            //     break;
+            default:
+                return;
+        }
     }
 
     render() {
