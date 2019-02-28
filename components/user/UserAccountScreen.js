@@ -136,7 +136,7 @@ class UserAccountScreen extends React.Component {
 
                 <Header translucent={false} style={{ backgroundColor: '#4d47cd' }} androidStatusBarColor="#0e0a65" iosBarStyle="light-content">
                     <Left style={{ flex: 1 }}>
-                        <Button transparent onPress={() => this.props.navigation.goBack()}>
+                        <Button transparent onPress={() => this.props.navigation.navigate('Home')}>
                             <Icon name='arrow-back' style={{ color: '#fff' }} />
                         </Button>
                     </Left>
