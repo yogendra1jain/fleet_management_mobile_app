@@ -28,7 +28,7 @@ let BASE_URL = API_HOST;
  * TODO... Workaround for now. Since environment properties are not getting read in Windows
 */
 if (!API_HOST) {
-  BASE_URL = 'http://13.126.59.19:20021/api';
+  BASE_URL = 'http://13.126.59.19:20022/api';
 }
 
 export const AXIOS = axios.create({

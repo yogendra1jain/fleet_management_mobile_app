@@ -5,7 +5,6 @@ import { Card } from 'react-native-elements';
 import theme from '../theme';
 import tasksImg from '../assets/images/tasks.png';
 import gasFillImg from '../assets/images/gasfill.png';
-import ordervials from '../assets/images/order-vials.png';
 import MileageImg from '../assets/images/mileageImg.png';
 import ServiceImg from '../assets/images/serviceImg.png';
 import DocumentsImg from '../assets/images/documentsImg.png';
@@ -64,6 +63,17 @@ class HomeContentScreen extends React.Component {
                         />
                     }
                     style={{ backgroundColor: '#ededed' }}>
+                    <View style={{ flex: 1 }}>
+                    <TouchableOpacity activeOpacity={0.5} style={{ flex: 1 }}
+                            onPress={() => this.props.navigation.navigate('AssetCheckinScreen')} >
+                            <Card wrapperStyle={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} containerStyle={{ flex: 1, marginRight: 8 }}>
+                                <Image source={tasksImg} style={{ width: 110, height: 109 }} />
+                                <Button onPress={() => this.props.navigation.navigate('AssetCheckinScreen')} style={[theme.buttonAlignBottom, { marginLeft: 0 }]} full>
+                                    <Text style={theme.buttonSmallTxt}>Check In</Text>
+                                </Button>
+                            </Card>
+                        </TouchableOpacity>
+                    </View>
                     <View style={{ flex: 1, flexDirection: 'row' }}>
                         <TouchableOpacity activeOpacity={0.5} style={{ flex: 1 }}
                             onPress={() => this.props.navigation.navigate('TaskListScreen')} >
@@ -105,7 +115,7 @@ class HomeContentScreen extends React.Component {
                         </TouchableOpacity>
                     </View>
                     <View style={{ flex: 1, flexDirection: 'row' }}>
-                    <TouchableOpacity activeOpacity={0.5} style={{ flex: 1 }}
+                        <TouchableOpacity activeOpacity={0.5} style={{ flex: 1 }}
                             onPress={() => this.props.navigation.navigate('DocumentsHome')} >
                             <Card wrapperStyle={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} containerStyle={{ flex: 1, marginRight: 8 }}>
                                 <Image source={DocumentsImg} style={{ width: 110, height: 109 }} />

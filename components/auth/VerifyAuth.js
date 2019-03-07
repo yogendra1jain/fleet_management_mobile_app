@@ -64,11 +64,13 @@ class VerifyAuth extends React.Component {
             navigation.navigate('Auth');
             return;
         } else {
-            // if (_get(this.props.auth, 'decodedToken.exp') < new Date().getTime()) {
-            //     this.props.logoutUser();
-            // } else {
+            if (_get(this.props.auth, 'decodedToken.exp', 0)*1000 < new Date().getTime()) {
+                console.log('exp time is lesser');
+                this.props.logoutUser();
+                console.log('fired logout action');
+            } else {
                 setAxiosAuthHeader(token);
-            // }
+            }
         }
         if (!nativeAuthRequired && this.controls.toVerify) {
             this.controls.toVerify = false;
@@ -162,12 +164,10 @@ class VerifyAuth extends React.Component {
 }
 
 function mapStateToProps(state) {
-    let { auth, otp, nativeAuth } = state;
+    let { auth, nativeAuth } = state;
     let token = '';
     if (!_isEmpty(_get(auth, 'userStatus.token', ''))) {
         token = _get(auth, 'userStatus.token', '');
-    } else if (!_isEmpty(_get(otp, 'otpStatus.token', ''))) {
-        token = _get(otp, 'otpStatus.token', '');
     }
     return {
         auth,

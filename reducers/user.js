@@ -6,6 +6,7 @@ const initialState = {
     userDetails: {},
     appProdVersion: '',
     showVialWarning: true,
+    operatorAssets: [],
 };
 
 export default function user(state = initialState, action) {
@@ -31,19 +32,19 @@ export default function user(state = initialState, action) {
                 isLoading: false,
                 error: action.error,
             });
-        case 'REQUEST_SAVE_SHIPPING_ADDRESS':
+        case 'REQUEST_ASSETS_FOR_OPERATOR':
             return Object.assign({}, state, {
                 isLoading: true,
                 error: '',
             });
-        case 'RECEIVED_SAVE_SHIPPING_ADDRESS':
+        case 'RECEIVED_ASSETS_FOR_OPERATOR':
             return Object.assign({}, state, {
-                saveShippingAddress: action.data,
+                operatorAssets: action.data,
                 status: action.status,
                 isLoading: false,
                 error: '',
             });
-        case 'RECEIVED_SAVE_SHIPPING_ADDRESS_ERROR':
+        case 'RECEIVED_ASSETS_FOR_OPERATOR_ERROR':
             return Object.assign({}, state, {
                 status: action.status,
                 isLoading: false,

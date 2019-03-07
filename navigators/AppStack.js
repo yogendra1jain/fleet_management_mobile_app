@@ -28,10 +28,12 @@ import ScheduleMaintenanceScreen from '../components/ServiceTickets/ScheduleMain
 import OtherTicketScreen from '../components/ServiceTickets/OtherTickets';
 import ServiceTicketListScreen from '../components/ServiceTickets/ServiceTicketsList';
 import MechanicProfile from '../components/ContactPerson/MechanicProfile';
+import AssetCheckinScreen from '../components/AssetCheckinScreen';
 
 const AppStack = createStackNavigator(
     {
         Home: HomeContentScreen,
+        AssetCheckinScreen: AssetCheckinScreen,
         // ChangePasswordScreen: ChangePasswordScreen,
         // UserAccount: UserAccountScreen,
         // EditUserProfile: EditUserProfileScreen,

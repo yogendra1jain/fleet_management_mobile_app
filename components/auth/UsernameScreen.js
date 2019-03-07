@@ -33,7 +33,7 @@ const ValidEmail = t.refinement(t.String, (n) => {
 });
 
 const LoginUser = t.struct({
-    userName: ValidEmail,
+    email: ValidEmail,
     password: t.String,
 });
 
@@ -48,7 +48,6 @@ class UsernameScreen extends React.Component {
         this.stylesheet.textbox.error.color = 'white';
         this.stylesheet.controlLabel.error.color = 'white';
         this.stylesheet.textboxView.error.borderBottomColor = 'white';
-
     }
 
     static navigationOptions = {
@@ -75,12 +74,12 @@ class UsernameScreen extends React.Component {
         const value = this.refs.form.getValue();
         let data = {};
         if (value) {
-            _set(data, 'email', value.userName.toString());
+            _set(data, 'email', value.email.toString());
             _set(data, 'password', value.password.toString());
             this.props.login(data);
         } else {
             // TODO... this statement below is somehow not working when onPress is called from onSubmitEditing.. when keyboard green tick key is pressed
-            this.refs.form.getComponent('userName').refs.input.focus();
+            this.refs.form.getComponent('email').refs.input.focus();
         }
     }
     onPressSignup = () => {
@@ -91,10 +90,10 @@ class UsernameScreen extends React.Component {
         const { error } = this.props;
         const options = {
             fields: {
-                userName: {
-                    // placeholder: 'Enter Username',
+                email: {
+                    // placeholder: 'Enter email',
                     // autoFocus: true,
-                    label: 'User Name',
+                    label: 'Email',
                     stylesheet: this.stylesheet,
                     onSubmitEditing: () => this.refs.form.getComponent('password').refs.input.focus(),
                 },

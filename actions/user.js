@@ -80,44 +80,44 @@ export const fetchUserDetails = (data, isLoading, toHome = true) => {
 };
 
 
-const receiveSaveShippingAddress = (json, status) => {
+const receiveAssetsForOperator = (json, status) => {
     return (dispatch) => {
         dispatch(
             {
-                type: 'RECEIVED_SAVE_SHIPPING_ADDRESS',
+                type: 'RECEIVED_ASSETS_FOR_OPERATOR',
                 data: json,
                 status: status,
                 receivedAt: Date.now(),
             });
     };
 };
-const receiveSaveShippingAddressError = (error, status) => (
+const receiveAssetsForOperatorError = (error, status) => (
     {
-        type: 'RECEIVED_SAVE_SHIPPING_ADDRESS_ERROR',
+        type: 'RECEIVED_ASSETS_FOR_OPERATOR_ERROR',
         error: error,
         status: status,
         receivedAt: Date.now(),
     }
 );
 
-export const saveShippingAddress = (data, manufacturerId, manufacturerName) => {
+export const fetchAssetsForOperators = (data) => {
     return (dispatch) => {
         dispatch({
-            type: 'REQUEST_SAVE_SHIPPING_ADDRESS',
+            type: 'REQUEST_ASSETS_FOR_OPERATOR',
         });
         // }
-        AXIOS.post(`/api/UpdateShippingAddress`, data)
+        AXIOS.post(`/Assets/AssignedToOperator`, data)
             .then((response) => {
                 let data = response.data;
-                console.log('success response after save facility shipping address');
-                dispatch(receiveSaveShippingAddress(data, response.status));
-                dispatch(fetchUserDetails('', '', false));
-                NavigationService.navigate('OrderConfirmScreen', { manufacturerId: manufacturerId, manufacturerName: manufacturerName });
+                console.log('success response after fetch assets for operator');
+                dispatch(receiveAssetsForOperator(data, response.status));
+                // dispatch(fetchUserDetails('', '', false));
+                NavigationService.navigate('AssetCheckinScreen');
             }
             )
             .catch((err) => {
                 logError('save shipping address of facility', _get(err, 'response.data', ''), err.status);
-                dispatch(receiveSaveShippingAddressError(_get(err, 'response.data', ''), err.status));
+                dispatch(receiveAssetsForOperatorError(_get(err, 'response.data', ''), err.status));
             });
     };
 };

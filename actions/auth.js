@@ -55,7 +55,7 @@ export const login = (data) => {
         dispatch({
             type: AUTH_CONSTANTS.REQUEST_LOGIN,
         });
-        AXIOS.post('/login/VendorLogin', data)
+        AXIOS.post('/login/Login', data)
             .then((response) => {
                 let data = response.data;
                 console.log('response from server', response, 'data from server', data);
@@ -79,15 +79,15 @@ export const login = (data) => {
                         id: _get(decodedToken, 'Vendor.id', ''),
                     };
                     setAxiosAuthHeader(data.token);
-                    dispatch(fetchUserDetails(data, true, true));
-                    // Toast.show({
-                    //     text: 'LoggedIn successfully',
-                    //     type: 'success',
-                    //     duration: 2000,
-                    //     position: 'top',
-                    // });
+                    // dispatch(fetchUserDetails(data, true, true));
+                    Toast.show({
+                        text: 'LoggedIn successfully',
+                        type: 'success',
+                        duration: 2000,
+                        position: 'top',
+                    });
                     // NavigationService.navigate('Home');
-                    // navigateToHome(dispatch);
+                    navigateToHome(dispatch);
                 }
             }
             )
