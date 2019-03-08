@@ -6,7 +6,7 @@ import { Toast } from 'native-base';
 import { logError } from './../utils';
 
 const getUploadUrl = () => {
-    return '/api/media';
+    return '/Upload/File';
     // 'http://13.127.202.129:3005/media-service/doctor/media';
 };
 const getNpiDataUrl = () => {

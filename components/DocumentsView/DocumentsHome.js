@@ -1,15 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { View, Image, StyleSheet, TouchableHighlight } from 'react-native';
+import { View, Image, StyleSheet, TouchableHighlight, TouchableOpacity } from 'react-native';
 import documentsImg from '../../assets/images/documentsImg.png';
 // import Input from 'react-native-elements';
-import { ListItem } from 'react-native-elements';
-
+import { ListItem, Card } from 'react-native-elements';
+import _get from 'lodash/get';
 
 import theme from '../../theme';
 import { Text, Container, Content, Header, Button, Title, Body, Left, Right, Icon } from 'native-base';
 import withLoadingScreen from '../withLoadingScreen';
 import withErrorBoundary from '../hocs/withErrorBoundary';
+import { postData } from '../../actions/commonAction';
+
 const ContainerWithLoading = withLoadingScreen(Container);
 
 const list = [
@@ -39,10 +41,36 @@ const list = [
       },
   ];
 
+const getDocumentType = (type) => {
+    let typeValue = '';
+    switch (type) {
+        case 0:
+            typeValue = "INVALID DOCUMENT TYPE";
+            break;
+        case 1:
+            typeValue = "TITLE DOCUMENT";
+            break;
+        case 2:
+            typeValue = "INSURANCE DOCUMENT";
+            break;
+        case 3:
+            typeValue = "REGISTRATION DOCUMENT";
+            break;
+        case 4:
+            typeValue = "INSPECTION CERTIFICATE";
+            break;
+        default:
+            typeValue = "INVALID DOCUMENT TYPE";
+            break;
+    }
+    return typeValue;
+}
+
 class DocumentsHomeScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            selectedIndex: '',
         };
     }
     static navigationOptions = {
@@ -52,13 +80,36 @@ class DocumentsHomeScreen extends React.Component {
     componentWillUnmount() {
     }
     componentDidMount() {
-
+        this.loadAssetDocuments();
     }
-    handleDocumentItem = (item) => {
-        console.log('item', item);
+    loadAssetDocuments = () => {
+        let url = `/Assets/GetMandatoryDocuments`;
+        let constants = {
+            init: 'ASSET_DOCUMENTS_INIT',
+            success: 'ASSET_DOCUMENTS_SUCCESS',
+            error: 'ASSET_DOCUMENTS_ERROR',
+        };
+        let data = {
+            id: _get(this.props, 'userDetails.checkedInto.id', ''),
+        };
+        let identifier = 'ASSET_DOCUMENTS';
+        let key = 'assetDocuments';
+        this.props.postData(url, data, constants, identifier, key)
+            .then((data) => {
+                console.log('asset documents fetched successfully.', data);
+            }, (err) => {
+                console.log('error while fetching asset documents', err);
+            });
+    }
+    handleDocumentItem = (item, index) => {
+        this.setState({
+            selectedIndex: index,
+        });
     }
 
     render() {
+        const { assetDocuments } = this.props;
+        const { selectedIndex } = this.state;
         return (
             <ContainerWithLoading style={theme.container} isLoading={this.props.isLoading}>
                 <Header >
@@ -90,14 +141,27 @@ class DocumentsHomeScreen extends React.Component {
                         <View style={{ flex: 1, paddingTop: 15 }}>
                             <View style={{ flex: 1 }}>
                             {
-                                list.map((l, i) => (
+                                assetDocuments && assetDocuments.map((l, i) => (
+                                <React.Fragment key={i}>
                                 <ListItem
                                     key={i}
-                                    rightIcon={{ name: l.icon, type: l.type }}
-                                    title={l.name}
+                                    // rightIcon={{ name: 'camera', type: 'font-awesome' }}
+                                    title={getDocumentType(l.documentType)}
                                     subtitle={l.subtitle}
-                                    onPress={()=>this.handleDocumentItem(l)}
+                                    onPress={()=>this.handleDocumentItem(l, i)}
                                 />
+                                {
+                                    selectedIndex === i &&
+                                    <View style={{ flex: 1, flexDirection: 'row' }}>
+                                        <TouchableOpacity activeOpacity={0.5} style={{ flex: 1 }}
+                                            onPress={() => {}} >
+                                            <Card wrapperStyle={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} containerStyle={{ flex: 1, marginRight: 8 }}>
+                                                <Image source={{uri: l.link}} style={{ width: 110, height: 109 }} />
+                                            </Card>
+                                        </TouchableOpacity>
+                                    </View>
+                                }
+                                </React.Fragment>
                                 ))
                             }
                             </View>
@@ -111,16 +175,20 @@ class DocumentsHomeScreen extends React.Component {
 
 function mapStateToProps(state) {
     let { decodedToken } = state.auth || {};
-    let { userDetails } = state.user || {};
+    let { commonReducer } = state || {};
+    let { userDetails } = commonReducer || {};
+    let { assetDocuments } = commonReducer || [];
 
     return {
         decodedToken,
         userDetails,
+        assetDocuments,
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
+        postData: (url, data, constants, identifier, key) => dispatch(postData(url, data, constants, identifier, key)),
     };
 }
 

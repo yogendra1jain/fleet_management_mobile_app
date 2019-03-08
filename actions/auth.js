@@ -228,6 +228,15 @@ export const callScanFingerPrint = (isScanEnabled) => {
     };
 };
 
+export const setCheckInAsset = (isCheckInAsset) => {
+    return (dispatch) => {
+        dispatch({
+            type: 'SET_CHECKIN_ASSET',
+            isCheckInAsset: isCheckInAsset,
+        });
+    };
+};
+
 export const timerFunc = (time) => {
     return (dispatch) => {
         let waitTime = time;
@@ -236,11 +245,11 @@ export const timerFunc = (time) => {
             if (waitTime == 0) {
                 clearInterval(timer);
                 dispatch(setTimer(waitTime));
-                dispatch(callScanFingerPrint(true));
+                dispatch(setCheckInAsset(true));
             } else {
                 waitTime = waitTime - 1;
                 dispatch(setTimer(waitTime));
-                dispatch(callScanFingerPrint(false));
+                dispatch(setCheckInAsset(false));
             }
         }, 1000);
     };

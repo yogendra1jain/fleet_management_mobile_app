@@ -53,7 +53,7 @@ export const getCurrentTime = () => {
     return new Date().getTime();
 };
 export const setAxiosAuthHeader = (token) => {
-    console.log('came in axios token setter');
+    // console.log('came in axios token setter');
     if (token) {
         AXIOS.defaults.headers.common['Authorization'] = 'Bearer ' + token;
     }

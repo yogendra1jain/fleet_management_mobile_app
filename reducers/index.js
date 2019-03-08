@@ -4,6 +4,7 @@ import nativeAuth from './nativeAuth';
 import user from './user';
 import orders from './order';
 import loader from './loader';
+import commonReducer from './commonReducer';
 
 
 export default combineReducers({
@@ -12,4 +13,5 @@ export default combineReducers({
   user,
   loader,
   orders,
+  commonReducer,
 });

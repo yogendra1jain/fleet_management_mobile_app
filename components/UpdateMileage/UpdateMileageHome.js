@@ -13,6 +13,9 @@ import theme from '../../theme';
 import { Text, Container, Content, Header, Button, Title, Body, Left, Right, Icon } from 'native-base';
 import withLoadingScreen from '../withLoadingScreen';
 import withErrorBoundary from '../hocs/withErrorBoundary';
+import { uploadDoc } from '../../actions/signup';
+import { postData } from '../../actions/commonAction';
+
 const ContainerWithLoading = withLoadingScreen(Container);
 
 const options = {
@@ -28,6 +31,7 @@ class UpdateMileageHomeScreen extends React.Component {
         super(props);
         this.state = {
             mileage: '',
+            link: '',
         };
     }
     static navigationOptions = {
@@ -76,8 +80,31 @@ class UpdateMileageHomeScreen extends React.Component {
         formData.append('file', { uri, type: mimeType, name: fileName });
         if (uri && !_isEmpty(uri)) {
             console.log('data to be upload', formData);
-            // this.props.uploadDoc(formData, res);
+            this.uploadData(formData);
         }
+    }
+
+    uploadData = (formData) => {
+        let url = `/Upload/File`;
+        let constants = {
+            init: 'UPLOAD_DOCUMENTS_INIT',
+            success: 'UPLOAD_DOCUMENTS_SUCCESS',
+            error: 'UPLOAD_DOCUMENTS_ERROR',
+        };
+        let data = {
+            id: _get(this.props, 'userDetails.checkedInto.id', ''),
+        };
+        let identifier = 'UPLOAD_DOCUMENTS';
+        let key = 'uploadedDocuments';
+        this.props.postData(url, formData, constants, identifier, key)
+            .then((data) => {
+                console.log('documents uploaded successfully.', data);
+                this.setState({
+                    link: data.url,
+                });
+            }, (err) => {
+                console.log('error while uploading documents', err);
+            });
     }
     setMileage = (value) => {
         this.setState({
@@ -85,7 +112,8 @@ class UpdateMileageHomeScreen extends React.Component {
         });
     }
     onSave = () => {
-        showAlert('Save Successfully', 'Your Data is Saved Successfully.');
+        let data = {...this.state};
+        showAlert('Save Successfully', `Your Data ie. ${JSON.stringify(data)} is Saved Successfully.`);
     }
     render() {
         return (
@@ -175,6 +203,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
+        postData: (url, formData, constants, identifier, key) => dispatch(postData(url, formData, constants, identifier, key)),
+        uploadDoc: (formData, doc) => dispatch(uploadDoc(formData, doc)),
     };
 }
 

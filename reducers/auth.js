@@ -87,9 +87,9 @@ export default function auth(state = initialState, action) {
             return Object.assign({}, state, {
                 time: action.time,
             });
-        case 'CALL_SCAN_FINGERPRINT':
+        case 'SET_CHECKIN_ASSET':
             return Object.assign({}, state, {
-                isScanFingerPrint: action.isScanFingerPrint,
+                isCheckInAsset: action.isCheckInAsset,
             });
 
         case LOGOUT_USER:
