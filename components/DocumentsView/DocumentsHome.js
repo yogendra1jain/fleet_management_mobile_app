@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { View, Image, StyleSheet, TouchableHighlight, TouchableOpacity } from 'react-native';
+import { View, Image, StyleSheet, TouchableHighlight, TouchableOpacity, RefreshControl } from 'react-native';
 import documentsImg from '../../assets/images/documentsImg.png';
 // import Input from 'react-native-elements';
 import { ListItem, Card } from 'react-native-elements';
@@ -106,6 +106,9 @@ class DocumentsHomeScreen extends React.Component {
             selectedIndex: index,
         });
     }
+    _onRefresh = () => {
+        this.loadAssetDocuments();
+    }
 
     render() {
         const { assetDocuments } = this.props;
@@ -125,6 +128,12 @@ class DocumentsHomeScreen extends React.Component {
                     </Right>
                 </Header>
                 <Content
+                    refreshControl={
+                        <RefreshControl
+                            refreshing={false}
+                            onRefresh={this._onRefresh}
+                        />
+                    }
                     style={{ backgroundColor: '#ededed' }}
                 >
                     <View style={{ flex: 1, flexDirection: 'column' }}>
