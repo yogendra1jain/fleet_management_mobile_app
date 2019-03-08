@@ -112,8 +112,36 @@ class UpdateMileageHomeScreen extends React.Component {
         });
     }
     onSave = () => {
-        let data = {...this.state};
-        showAlert('Save Successfully', `Your Data ie. ${JSON.stringify(data)} is Saved Successfully.`);
+        if (this.state.link =='' || this.state.mileage == '') {
+            showAlert('Warning', 'Please fill up link or mileage to proceed.');
+        } else {
+            let data = {};
+            data.mileage = parseFloat(this.state.mileage);
+            data.assetDocument = {
+                assetId: _get(this.props, 'userDetails.checkedInto.id', ''),
+                link: this.state.link,
+                documentType: 5,
+            }
+            this.saveMileageData(data);
+        }
+    }
+
+    saveMileageData = (data) => {
+        let url = `/Assets/UpdateMileage`;
+        let constants = {
+            init: 'SAVE_MILEAGE_DATA_INIT',
+            success: 'SAVE_MILEAGE_DATA_SUCCESS',
+            error: 'SAVE_MILEAGE_DATA_ERROR',
+        };
+        let identifier = 'SAVE_MILEAGE_DATA';
+        let key = 'savedMileageData';
+        this.props.postData(url, data, constants, identifier, key)
+            .then((data) => {
+                console.log('mileage saved successfully.', data);
+                this.props.navigation.navigation('Home');
+            }, (err) => {
+                console.log('error while saving mileage', err);
+            });
     }
     render() {
         return (
@@ -193,11 +221,14 @@ class UpdateMileageHomeScreen extends React.Component {
 
 function mapStateToProps(state) {
     let { decodedToken } = state.auth || {};
-    let { userDetails } = state.user || {};
+    let { commonReducer } = state || {};
+    let { userDetails } = commonReducer || {};
+    let isLoading = commonReducer.isFetching || false;
 
     return {
         decodedToken,
         userDetails,
+        isLoading,
     };
 }
 

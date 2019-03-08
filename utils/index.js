@@ -268,6 +268,7 @@ export function splitId(id) {
 
 export function logError(title = '', error, status = 500) {
     console.log(`error in catch of ${title}`, JSON.stringify(error));
+    showToast('danger', JSON.stringify(error), 3000);
     firebase.crashlytics().recordError(Number(status), `error in ${title} ${JSON.stringify(error)}`);
 }
 

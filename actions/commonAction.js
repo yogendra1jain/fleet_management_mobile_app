@@ -5,8 +5,9 @@ import _get from 'lodash/get';
 export const UPDATE_USER_PROFILE = 'UPDATE_USER_PROFILE';
 
 import {
-    logError,
+    logError, showToast
 } from './../utils';
+
 
 
 export const request = (constants, identifier) => {
@@ -46,6 +47,7 @@ export const postData = (url, data, constants, identifier, key) => (dispatch) =>
             .then((response) => {
                 let data = response.data;
                 dispatch(receive(data, response.status, resolve, constants, identifier, key));
+                showToast('success', "successfull", 3000);
             })
             .catch((err) => {
                 logError('fetch ', _get(err, 'response.data', ''), err.status);
