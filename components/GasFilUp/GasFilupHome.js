@@ -31,6 +31,8 @@ class GasFilUpHomeScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            imageSource: '',
+            fileName: '',
         };
     }
     static navigationOptions = {
@@ -112,15 +114,21 @@ class GasFilUpHomeScreen extends React.Component {
         if (this.state.link =='' || this.state.mileage == '') {
             showAlert('Warning', 'Please fill up link or mileage to proceed.');
         } else {
-            let data = {};
-            data.volume = parseFloat(this.state.volume);
-            _set(data, 'amount.amount', parseFloat(this.state.amount));
-            _set(data, 'amount.currency', '$');
+            let amount = {};
+            _set(amount, 'amount', parseFloat(this.state.amount));
+            _set(amount, 'currency', '$');
 
-            data.assetDocument = {
+            let volume = {
+                volume: parseFloat(this.state.volume),
+                uom: 1,
+                amount: amount,
+            }
+           
+            let data = {
                 assetId: _get(this.props, 'userDetails.checkedInto.id', ''),
                 link: this.state.link,
-                documentType: 5,
+                documentType: 6,
+                volume: volume,
             }
             this.savegasFillUpData(data);
         }
@@ -222,6 +230,7 @@ class GasFilUpHomeScreen extends React.Component {
                                 </View>
                             </TouchableHighlight>
                         </View>
+                        
                         <View style={[{ flex: 1, flexDirection: 'row', margin: 20 }]}>
                             <View style={{ justifyContent: 'flex-start' }}>
                                 <Icon name='exclamation' type="FontAwesome" />
@@ -230,6 +239,15 @@ class GasFilUpHomeScreen extends React.Component {
                                 <Text>
                                     {`Take a picture of the fuel Pump Display after completing fill up. The display Should show gallons and sales amount. Make sure that there is no sun glare or reflaction off the display when taking the photo.`}
                                 </Text>
+                            </View>
+                        </View>
+                        <View style={{ flex: 1, marginLeft: 20, flexDirection: 'row' }}>
+                            {
+                                this.state.imageSource !== '' &&
+                                <Image source={{ uri: this.state.imageSource  }} style={{ width: 100, height: 100 }} />
+                            }
+                            <View style={{ margin: 10 }}>
+                                <Text style={{ flexWrap: 'wrap' }}>{this.state.fileName}</Text>
                             </View>
                         </View>
                     </View>

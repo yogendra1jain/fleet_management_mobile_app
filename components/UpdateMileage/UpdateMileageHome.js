@@ -116,11 +116,15 @@ class UpdateMileageHomeScreen extends React.Component {
             showAlert('Warning', 'Please fill up link or mileage to proceed.');
         } else {
             let data = {};
-            data.mileage = parseFloat(this.state.mileage);
-            data.assetDocument = {
+            let assetUsage = {
+                usage: parseFloat(this.state.mileage),
+                uom: _get(this.props, 'userDetails.checkedInto.usage.uom', ''),
+            }
+            data = {
                 assetId: _get(this.props, 'userDetails.checkedInto.id', ''),
                 link: this.state.link,
                 documentType: 5,
+                assetUsage: assetUsage,
             }
             this.saveMileageData(data);
         }
@@ -223,6 +227,7 @@ function mapStateToProps(state) {
     let { decodedToken } = state.auth || {};
     let { commonReducer } = state || {};
     let { userDetails } = commonReducer || {};
+    console.log('user details', userDetails);
     let isLoading = commonReducer.isFetching || false;
 
     return {
