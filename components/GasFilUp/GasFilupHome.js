@@ -1,15 +1,21 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { View, Image, StyleSheet, TouchableHighlight, Platform } from 'react-native';
+import { View, Image, StyleSheet, TouchableHighlight, Platform, TextInput } from 'react-native';
 import gasfillImg from '../../assets/images/gasfill.png';
 // import Input from 'react-native-elements';
 import _isEmpty from 'lodash/isEmpty';
 import ImagePicker from 'react-native-image-picker';
 
+import _get from 'lodash/get';
+import _set from 'lodash/set';
+
 import theme from '../../theme';
 import { Text, Container, Content, Header, Button, Title, Body, Left, Right, Icon } from 'native-base';
 import withLoadingScreen from '../withLoadingScreen';
 import withErrorBoundary from '../hocs/withErrorBoundary';
+
+import { uploadDoc } from '../../actions/signup';
+import { postData } from '../../actions/commonAction';
 const ContainerWithLoading = withLoadingScreen(Container);
 
 
@@ -76,8 +82,71 @@ class GasFilUpHomeScreen extends React.Component {
         formData.append('file', { uri, type: mimeType, name: fileName });
         if (uri && !_isEmpty(uri)) {
             console.log('data to be upload', formData);
-            // this.props.uploadDoc(formData, res);
+            this.uploadData(formData, res);
         }
+    }
+
+    uploadData = (formData) => {
+        let url = `/Upload/File`;
+        let constants = {
+            init: 'UPLOAD_DOCUMENTS_INIT',
+            success: 'UPLOAD_DOCUMENTS_SUCCESS',
+            error: 'UPLOAD_DOCUMENTS_ERROR',
+        };
+        let data = {
+            id: _get(this.props, 'userDetails.checkedInto.id', ''),
+        };
+        let identifier = 'UPLOAD_DOCUMENTS';
+        let key = 'uploadedDocuments';
+        this.props.postData(url, formData, constants, identifier, key)
+            .then((data) => {
+                console.log('documents uploaded successfully.', data);
+                this.setState({
+                    link: data.url,
+                });
+            }, (err) => {
+                console.log('error while uploading documents', err);
+            });
+    }
+    onSave = () => {
+        if (this.state.link =='' || this.state.mileage == '') {
+            showAlert('Warning', 'Please fill up link or mileage to proceed.');
+        } else {
+            let data = {};
+            data.volume = parseFloat(this.state.volume);
+            _set(data, 'amount.amount', parseFloat(this.state.amount));
+            _set(data, 'amount.currency', '$');
+
+            data.assetDocument = {
+                assetId: _get(this.props, 'userDetails.checkedInto.id', ''),
+                link: this.state.link,
+                documentType: 5,
+            }
+            this.savegasFillUpData(data);
+        }
+    }
+
+    savegasFillUpData = (data) => {
+        let url = `/Assets/SaveGasFillUp`;
+        let constants = {
+            init: 'SAVE_GASFILLUP_DATA_INIT',
+            success: 'SAVE_GASFILLUP_DATA_SUCCESS',
+            error: 'SAVE_GASFILLUP_DATA_ERROR',
+        };
+        let identifier = 'SAVE_GASFILLUP_DATA';
+        let key = 'savedgasFillUpData';
+        this.props.postData(url, data, constants, identifier, key)
+            .then((data) => {
+                console.log('gasfill saved successfully.', data);
+                this.props.navigation.navigate('Home');
+            }, (err) => {
+                console.log('error while saving gas fillup', err);
+            });
+    }
+    setValue = (name, value) => {
+        this.setState({
+            [name]: value,
+        });
     }
 
     render() {
@@ -110,6 +179,38 @@ class GasFilUpHomeScreen extends React.Component {
                             </View>
                         </View>
                         <View style={{ flex: 1, paddingTop: 15 }}>
+                            <View style={{ flex: 1, flexDirection: 'row' }}>
+                                <View style={{ justifyContent: 'flex-start', alignItems: 'center', paddingLeft: 10 }}>
+                                    <Text>Volume</Text>
+                                </View>
+                                <View style={{ flex: 1, marginLeft: 10, marginRight: 10 }}>
+                                    <TextInput
+                                        style={{ height: 35, borderColor: 'gray', borderWidth: 1, paddingLeft: 10 }}
+                                        onChangeText={value => this.setValue('volume', value)}
+                                        value={_get(this, 'state.volume', '').toString()}
+                                        underlineColorAndroid={'transparent'}
+                                        keyboardType={'numeric'}
+                                    />
+                                </View>
+                            </View>
+                        </View>
+                        <View style={{ flex: 1, paddingTop: 15 }}>
+                            <View style={{ flex: 1, flexDirection: 'row' }}>
+                                <View style={{ justifyContent: 'flex-start', alignItems: 'center', paddingLeft: 10 }}>
+                                    <Text>Amount</Text>
+                                </View>
+                                <View style={{ flex: 1, marginLeft: 10, marginRight: 10 }}>
+                                    <TextInput
+                                        style={{ height: 35, borderColor: 'gray', borderWidth: 1, paddingLeft: 10 }}
+                                        onChangeText={value => this.setValue('amount', value)}
+                                        value={_get(this, 'state.amount', '').toString()}
+                                        underlineColorAndroid={'transparent'}
+                                        keyboardType={'numeric'}
+                                    />
+                                </View>
+                            </View>
+                        </View>
+                        <View style={{ flex: 1, paddingTop: 15 }}>
                             <TouchableHighlight onPress={() => this.uploadImage()}>
                                 <View style={[theme.centerAlign, { flex: 1, flexDirection: 'column', backgroundColor: '#ddd', margin: 20 }]}>
                                     <View style={{ flex: 1 }}>
@@ -133,6 +234,11 @@ class GasFilUpHomeScreen extends React.Component {
                         </View>
                     </View>
                 </Content>
+                <View style={{ backgroundColor: '#ffffff' }}>
+                    <Button style={theme.buttonNormal} onPress={() => this.onSave()} full>
+                        <Text style={theme.butttonFixTxt}>SAVE</Text>
+                    </Button>
+                </View>
             </ContainerWithLoading>
         );
     }
@@ -150,6 +256,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
+        postData: (url, formData, constants, identifier, key) => dispatch(postData(url, formData, constants, identifier, key)),
+        uploadDoc: (formData, doc) => dispatch(uploadDoc(formData, doc)),
     };
 }
 
