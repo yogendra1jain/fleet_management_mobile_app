@@ -30,14 +30,14 @@ class AssetCheckinScreen extends React.Component {
     loadData = () => {
         let url = `/Assets/AssignedToOperator`;
         let constants = {
-            init: 'ASSETS_FOR_OPERATOR_INIT',
-            success: 'ASSETS_FOR_OPERATOR_SUCCESS',
-            error: 'ASSETS_FOR_OPERATOR_ERROR',
+            init: 'GET_ASSETS_FOR_OPERATOR_INIT',
+            success: 'GET_ASSETS_FOR_OPERATOR_SUCCESS',
+            error: 'GET_ASSETS_FOR_OPERATOR_ERROR',
         };
         let data = {
             id: _get(this.props, 'decodedToken.FleetUser.id', ''),
         };
-        let identifier = 'ASSETS_FOR_OPERATOR';
+        let identifier = 'GET_ASSETS_FOR_OPERATOR';
         let key = 'operatorAssets';
         this.props.postData(url, data, constants, identifier, key)
             .then((data) => {
@@ -63,15 +63,15 @@ class AssetCheckinScreen extends React.Component {
             url = `/Assets/CheckOut`;
         }
         let constants = {
-            init: 'CHECKIN_FOR_ASSET_INIT',
-            success: 'CHECKIN_FOR_ASSET_SUCCESS',
-            error: 'CHECKIN_FOR_ASSET_ERROR',
+            init: 'SAVE_CHECKIN_FOR_ASSET_INIT',
+            success: 'SAVE_CHECKIN_FOR_ASSET_SUCCESS',
+            error: 'SAVE_CHECKIN_FOR_ASSET_ERROR',
         };
         let data = {
             operatorId: _get(this.props, 'decodedToken.FleetUser.id', ''),
             assetId: asset.id,
         };
-        let identifier = 'CHECKIN_FOR_ASSET';
+        let identifier = 'SAVE_CHECKIN_FOR_ASSET';
         let key = 'checkInForAsset';
         this.props.postData(url, data, constants, identifier, key)
             .then((data) => {
@@ -89,14 +89,14 @@ class AssetCheckinScreen extends React.Component {
     loadUserInfo = () => {
         let url = `/ClientUser/Detail`;
         let constants = {
-            init: 'USER_DETAILS_INIT',
-            success: 'USER_DETAILS_SUCCESS',
-            error: 'USER_DETAILS_ERROR',
+            init: 'GET_USER_DETAILS_INIT',
+            success: 'GET_USER_DETAILS_SUCCESS',
+            error: 'GET_USER_DETAILS_ERROR',
         };
         let data = {
             id: _get(this.props, 'decodedToken.FleetUser.id', ''),
         };
-        let identifier = 'USER_DETAILS';
+        let identifier = 'GET_USER_DETAILS';
         let key = 'userDetails';
         this.props.postData(url, data, constants, identifier, key)
             .then((data) => {

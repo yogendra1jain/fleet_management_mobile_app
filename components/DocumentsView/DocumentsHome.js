@@ -85,14 +85,14 @@ class DocumentsHomeScreen extends React.Component {
     loadAssetDocuments = () => {
         let url = `/Assets/GetMandatoryDocuments`;
         let constants = {
-            init: 'ASSET_DOCUMENTS_INIT',
-            success: 'ASSET_DOCUMENTS_SUCCESS',
-            error: 'ASSET_DOCUMENTS_ERROR',
+            init: 'GET_ASSET_DOCUMENTS_INIT',
+            success: 'GET_ASSET_DOCUMENTS_SUCCESS',
+            error: 'GET_ASSET_DOCUMENTS_ERROR',
         };
         let data = {
             id: _get(this.props, 'userDetails.checkedInto.id', ''),
         };
-        let identifier = 'ASSET_DOCUMENTS';
+        let identifier = 'GET_ASSET_DOCUMENTS';
         let key = 'assetDocuments';
         this.props.postData(url, data, constants, identifier, key)
             .then((data) => {

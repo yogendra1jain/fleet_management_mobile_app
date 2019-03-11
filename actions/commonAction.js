@@ -47,7 +47,15 @@ export const postData = (url, data, constants, identifier, key) => (dispatch) =>
             .then((response) => {
                 let data = response.data;
                 dispatch(receive(data, response.status, resolve, constants, identifier, key));
-                showToast('success', "successfull", 3000);
+                let message = '';
+                if (identifier.indexOf('SAVE') !== -1) {
+                    message = `Saved Successfully.`;
+                } else if (identifier.indexOf('GET') !== -1) {
+                    message = `Retrieved successfully.`;
+                } else if (identifier.indexOf('UPLOAD') !== -1) {
+                    message = `uploaded successfully.`;
+                }
+                showToast('success', `${message}`, 3000);
             })
             .catch((err) => {
                 logError('fetch ', _get(err, 'response.data', ''), err.status);

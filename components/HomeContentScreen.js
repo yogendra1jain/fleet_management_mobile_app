@@ -45,14 +45,14 @@ class HomeContentScreen extends React.Component {
     loadUserInfo = () => {
         let url = `/ClientUser/Detail`;
         let constants = {
-            init: 'USER_DETAILS_INIT',
-            success: 'USER_DETAILS_SUCCESS',
-            error: 'USER_DETAILS_ERROR',
+            init: 'GET_USER_DETAILS_INIT',
+            success: 'GET_USER_DETAILS_SUCCESS',
+            error: 'GET_USER_DETAILS_ERROR',
         };
         let data = {
             id: _get(this.props, 'decodedToken.FleetUser.id', ''),
         };
-        let identifier = 'USER_DETAILS';
+        let identifier = 'GET_USER_DETAILS';
         let key = 'userDetails';
         this.props.postData(url, data, constants, identifier, key)
             .then((data) => {
