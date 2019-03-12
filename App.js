@@ -20,9 +20,7 @@ import { Container, Content, Header, Body, Button, Left, Right, Title } from 'na
 YellowBox.ignoreWarnings(['Warning: isMounted(...) is deprecated', 'Module RCTImageLoader']);
 
 const { API_HOST, APP_VERSION } = Config;
-// import { serviceRestEndpoint } from './app.json';
 
-// import { getActiveRouteName } from './utils';
 let BASE_URL = API_HOST;
 /*
  * TODO... Workaround for now. Since environment properties are not getting read in Windows
@@ -90,13 +88,6 @@ class App extends React.Component {
       });
   }
   async componentDidMount() {
-    // await Expo.Font.loadAsync({
-    //   Roboto: require('native-base/Fonts/Roboto.ttf'),
-    //   Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
-    //   Ionicons: require('@expo/vector-icons/fonts/Ionicons.ttf'),
-    // });
-    //    SplashScreen.hide();
-    // this.fetchAppVersion();
     this.setState({ isReady: true });
   }
 
