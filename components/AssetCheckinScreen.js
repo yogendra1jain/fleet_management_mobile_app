@@ -10,9 +10,13 @@ import { Container, Content, Header, Title, Body, Button, Left, Right, Icon } fr
 import _get from 'lodash/get';
 import { postData } from '../actions/commonAction';
 import withLoadingScreen from './withLoadingScreen';
+import withLocalization from './hocs/withLocalization';
 
 import AssetView from './stateless/AssetView';
+import strings from '../utils/localization';
+
 import { setTimer, timerFunc, setCheckInAsset } from '../actions/auth';
+import { showToast } from '../utils';
 const ContainerWithLoading = withLoadingScreen(Container);
 
 class AssetCheckinScreen extends React.Component {
@@ -81,6 +85,7 @@ class AssetCheckinScreen extends React.Component {
                 } else {
                     this.props.timerFunc(0);
                 }
+                showToast('success', `${this.props.strings.checkInSuccessMsg}`, 3000);
                 this.loadData();
             }, (err) => {
                 console.log('error while checking in operator', err);
@@ -101,12 +106,13 @@ class AssetCheckinScreen extends React.Component {
         this.props.postData(url, data, constants, identifier, key)
             .then((data) => {
                 console.log('user data fetched successfully.', data);
+                showToast('success', `${this.props.strings.assetFetchSuccMsg}`, 3000);
             }, (err) => {
                 console.log('error while fetching user data', err);
             });
     }
 
-    renderContent = () => {
+    renderContent = (strings) => {
         const { operatorAssets } = this.props;
         const { selectedIndex } = this.state;
         let assetListView = [];
@@ -117,6 +123,7 @@ class AssetCheckinScreen extends React.Component {
                     index={index}
                     selectedIndex={selectedIndex}
                     asset={asset}
+                    strings={strings}
                     handleAssetClick={this.handleAssetClick}
                     handleCheckIn={this.handleCheckIn}
                     decodedToken={this.props.decodedToken}
@@ -128,7 +135,7 @@ class AssetCheckinScreen extends React.Component {
     }
 
     render() {
-        const { isLoading } = this.props;
+        const { isLoading, strings } = this.props;
         return (
             <ContainerWithLoading style={theme.container} isLoading={isLoading} >
                 <Header translucent={false} style={{ backgroundColor: '#4d47cd' }} androidStatusBarColor="#0e0a65" iosBarStyle="light-content">
@@ -138,14 +145,14 @@ class AssetCheckinScreen extends React.Component {
                         </Button>
                     </Left>
                     <Body>
-                        <Title style={{ color: '#fff' }} >Check In</Title>
+                        <Title style={{ color: '#fff' }} >{`${strings.checkIn}`}</Title>
                     </Body>
                     <Right>
                     </Right>
                 </Header>
                 <Content style={{ backgroundColor: '#ededed' }}>
                     <View style={[]} >
-                        {this.renderContent()}
+                        {this.renderContent(strings)}
                     </View>
                 </Content>
             </ContainerWithLoading>
@@ -157,11 +164,14 @@ function mapStateToProps(state) {
     let { commonReducer, auth } = state;
     let { operatorAssets } = commonReducer || [];
     let isLoading = commonReducer.isFetching || false;
+    let { appLanguage } = commonReducer || 'en';
+    console.log('appLanguage in check in screen', appLanguage);
     let { decodedToken } = auth || {};
     return {
         operatorAssets,
         decodedToken,
         isLoading,
+        appLanguage,
     };
 }
 
@@ -174,4 +184,4 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-export default withErrorBoundary()(connect(mapStateToProps, mapDispatchToProps)(AssetCheckinScreen));
+export default withErrorBoundary()(connect(mapStateToProps, mapDispatchToProps)(withLocalization(AssetCheckinScreen)));

@@ -7,6 +7,7 @@ export const UPDATE_USER_PROFILE = 'UPDATE_USER_PROFILE';
 import {
     logError, showToast
 } from './../utils';
+import { lang } from 'moment';
 
 
 
@@ -47,19 +48,18 @@ export const postData = (url, data, constants, identifier, key) => (dispatch) =>
             .then((response) => {
                 let data = response.data;
                 dispatch(receive(data, response.status, resolve, constants, identifier, key));
-                let message = '';
-                if (identifier.indexOf('SAVE') !== -1) {
-                    message = `Saved Successfully.`;
-                } else if (identifier.indexOf('GET') !== -1) {
-                    message = `Retrieved successfully.`;
-                } else if (identifier.indexOf('UPLOAD') !== -1) {
-                    message = `uploaded successfully.`;
-                }
-                showToast('success', `${message}`, 3000);
             })
             .catch((err) => {
                 logError('fetch ', _get(err, 'response.data', ''), err.status);
                 dispatch(receiveError(_get(err, 'response.data', ''), err.status, reject, constants, identifier, key));
             });
+    });
+};
+
+
+export const setLanguage = (language) => {
+    return ({
+        type: 'SET_APP_LANGUAGE',
+        language: language,
     });
 };

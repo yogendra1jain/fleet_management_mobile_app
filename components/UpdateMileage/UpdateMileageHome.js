@@ -7,12 +7,14 @@ import ImagePicker from 'react-native-image-picker';
 
 import _get from 'lodash/get';
 import _isEmpty from 'lodash/isEmpty';
-import { showAlert } from '../../utils/index';
+import { showAlert, showToast } from '../../utils/index';
+import strings from '../../utils/localization';
 
 import theme from '../../theme';
 import { Text, Container, Content, Header, Button, Title, Body, Left, Right, Icon } from 'native-base';
 import withLoadingScreen from '../withLoadingScreen';
 import withErrorBoundary from '../hocs/withErrorBoundary';
+import withLocalization from '../hocs/withLocalization';
 import { uploadDoc } from '../../actions/signup';
 import { postData } from '../../actions/commonAction';
 
@@ -102,6 +104,7 @@ class UpdateMileageHomeScreen extends React.Component {
                 this.setState({
                     link: data.url,
                 });
+                showToast('success', `${this.props.strings.uploadSuccessMsg}`, 3000);
             }, (err) => {
                 console.log('error while uploading documents', err);
             });
@@ -142,12 +145,14 @@ class UpdateMileageHomeScreen extends React.Component {
         this.props.postData(url, data, constants, identifier, key)
             .then((data) => {
                 console.log('mileage saved successfully.', data);
+                showToast('success', `${this.props.strings.saveSuccessMsg}`, 3000);
                 this.props.navigation.navigate('Home');
             }, (err) => {
                 console.log('error while saving mileage', err);
             });
     }
     render() {
+        const { strings } = this.props;
         return (
             <ContainerWithLoading style={theme.container} isLoading={this.props.isLoading}>
                 <Header >
@@ -157,7 +162,7 @@ class UpdateMileageHomeScreen extends React.Component {
                         </Button>
                     </Left>
                     <Body style={[theme.centerAlign, { flex: 4 }]}>
-                        <Title style={{ color: '#fff' }} >Update Mileage</Title>
+                        <Title style={{ color: '#fff' }} >{`${strings.mileageButton}`}</Title>
                     </Body>
                     <Right style={{ flex: 1 }}>
                     </Right>
@@ -173,13 +178,13 @@ class UpdateMileageHomeScreen extends React.Component {
                                 <Image source={mileageImg} style={styles.profileImg} />
                             </TouchableHighlight>
                             <View style={[theme.centerAlign, { paddingTop: 10 }]}>
-                                <Text>Update Mileage</Text>
+                                <Text>{`${strings.mileageButton}`}</Text>
                             </View>
                         </View>
                         <View style={{ flex: 1, paddingTop: 15 }}>
                             <View style={{ flex: 1, flexDirection: 'row' }}>
                                 <View style={{ justifyContent: 'flex-start', alignItems: 'center', paddingLeft: 10 }}>
-                                    <Text>Mileage</Text>
+                                    <Text>{`${strings.mileageLabel}`}</Text>
                                 </View>
                                 <View style={{ flex: 1, marginLeft: 10, marginRight: 10 }}>
                                     <TextInput
@@ -195,7 +200,7 @@ class UpdateMileageHomeScreen extends React.Component {
                         <TouchableHighlight onPress={() => this.uploadImage()}>
                             <View style={[theme.centerAlign, { flex: 1, flexDirection: 'column', backgroundColor: '#ddd', margin: 20 }]}>
                                 <View style={{ flex: 1 }}>
-                                    <Text>Use Camera to take Picture of Odometer</Text>
+                                    <Text>{`${strings.odometerHelperText}`}</Text>
                                 </View>
                                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                                     <Icon name='ios-camera' />
@@ -215,7 +220,7 @@ class UpdateMileageHomeScreen extends React.Component {
                 </Content>
                 <View style={{ backgroundColor: '#ffffff' }}>
                     <Button style={theme.buttonNormal} onPress={() => this.onSave()} full>
-                        <Text style={theme.butttonFixTxt}>SAVE</Text>
+                        <Text style={theme.butttonFixTxt}>{`${strings.saveButton}`}</Text>
                     </Button>
                 </View>
             </ContainerWithLoading>
@@ -227,13 +232,14 @@ function mapStateToProps(state) {
     let { decodedToken } = state.auth || {};
     let { commonReducer } = state || {};
     let { userDetails } = commonReducer || {};
-    console.log('user details', userDetails);
     let isLoading = commonReducer.isFetching || false;
+    let { appLanguage } = commonReducer || 'en';
 
     return {
         decodedToken,
         userDetails,
         isLoading,
+        appLanguage
     };
 }
 
@@ -259,4 +265,4 @@ const styles = StyleSheet.create({
     },
   });
 
-export default withErrorBoundary()(connect(mapStateToProps, mapDispatchToProps)(UpdateMileageHomeScreen));
+export default withErrorBoundary()(connect(mapStateToProps, mapDispatchToProps)(withLocalization(UpdateMileageHomeScreen)));

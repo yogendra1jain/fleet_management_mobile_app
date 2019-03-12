@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { View, Text, TouchableOpacity, Image, RefreshControl } from 'react-native';
-import { Card } from 'react-native-elements';
+import { Card, CheckBox } from 'react-native-elements';
 import _get from 'lodash/get';
 import _isEmpty from 'lodash/isEmpty';
 import theme from '../theme';
@@ -17,8 +17,10 @@ import { Container, Content, Header, Body, Left, Right, Button, Toast, Title } f
 import withAuth from './hocs/withAuth';
 import SplashScreen from 'react-native-splash-screen';
 import withErrorBoundary from './hocs/withErrorBoundary';
-import { postData } from '../actions/commonAction';
+import withLocalization from './hocs/withLocalization';
+import { postData, setLanguage } from '../actions/commonAction';
 import { setCheckInAsset } from '../actions/auth';
+import { showToast } from '../utils';
 
 const ContainerWithLoading = withLoadingScreen(Container);
 
@@ -30,6 +32,7 @@ class HomeContentScreen extends React.Component {
             enableSearch: false,
             filteredPatients: [],
             refreshing: false,
+            language: 'spn',
         };
         this.invokingUser = '';
     }
@@ -39,6 +42,7 @@ class HomeContentScreen extends React.Component {
 
     componentDidMount() {
         SplashScreen.hide();
+        this.props.setLanguage('en');
         // const { decodedToken } = this.props;
         this.loadUserInfo();
     }
@@ -67,6 +71,13 @@ class HomeContentScreen extends React.Component {
         });
         this.loadUserInfo();
     }
+    handleCheckInCheckOut = (checkIn) => {
+        if (checkIn) {
+            this.props.navigation.navigate('AssetCheckinScreen');
+        } else {
+            this.handleCheckIn()
+        }
+    }
     handleCheckIn = (index, asset) => {
         let url = `/Assets/CheckOut`;
         let constants = {
@@ -85,6 +96,7 @@ class HomeContentScreen extends React.Component {
                 console.log('checked out successfully.', data);
                 // this.props.timerFunc(0);
                 this.props.setCheckInAsset(false);
+                showToast('success', `Checked Out Successfully.`, 3000);
                 this.loadUserInfo();
             }, (err) => {
                 console.log('error while checking in operator', err);
@@ -93,11 +105,16 @@ class HomeContentScreen extends React.Component {
     handleCheckOut = () => {
         this.handleCheckIn();
     }
+    setLanguage = (lan) => {
+        this.setState({
+            language: lan,
+        });
+        this.props.setLanguage(lan);
+    }
 
     render() {
-        const { userDetails, isCheckInAsset, time } = this.props;
+        const { userDetails, isCheckInAsset, time, strings, appLanguage } = this.props;
         if (time === 0 && isCheckInAsset) {
-            console.log('came inside time condition of render...');
             this.handleCheckOut();
         }
         return (
@@ -106,7 +123,7 @@ class HomeContentScreen extends React.Component {
                 <Left style={{ flex: 1 }}>
                     </Left>
                 <Body style={{ flex: 4, justifyContent: 'center', alignItems: 'center' }}>
-                    <Title>Welcome to My FMS</Title>
+                    <Title>{`${strings.homeTitle}`}</Title>
                 </Body>
                 <Right style={{ flex: 1 }}>
                 </Right>
@@ -119,21 +136,51 @@ class HomeContentScreen extends React.Component {
                         />
                     }
                     style={{ backgroundColor: '#ededed' }}>
+                     <View style={{ flex: 1 }}>
+                        <TouchableOpacity activeOpacity={0.5} style={{ flex: 1 }}
+                            onPress={() => this.handleCheckInCheckOut(_isEmpty(_get(userDetails, 'checkedInto', {})))} >
+                            <Card title={`${strings.languageSelection}`} wrapperStyle={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} containerStyle={{ flex: 1, marginRight: 8 }}>
+                                <View style={{ flex: 1, flexDirection: 'row' }}>
+                                    <View style={{ flex: 1, justifyContent: 'flex-start', flexDirection: 'row', alignItems: 'center' }}>
+                                    <CheckBox
+                                        title='English'
+                                        checkedIcon='dot-circle-o'
+                                        uncheckedIcon='circle-o'
+                                        checked={appLanguage === 'en'}
+                                        onPress={() => this.setLanguage('en')}
+                                    />
+                                    </View>
+                                    <View style={{ flex: 1, justifyContent: 'flex-end', flexDirection: 'row', alignItems: 'center' }}>
+                                    <CheckBox
+                                        title='Spanish'
+                                        checkedIcon='dot-circle-o'
+                                        uncheckedIcon='circle-o'
+                                        checked={appLanguage === 'spn'}
+                                        onPress={() => this.setLanguage('spn')}
+                                    />
+                                    </View>
+                                </View>
+                            </Card>
+                        </TouchableOpacity>
+                    </View>
                     <View style={{ flex: 1 }}>
-                    <TouchableOpacity activeOpacity={0.5} style={{ flex: 1 }}
-                            onPress={() => this.props.navigation.navigate('AssetCheckinScreen')} >
+                        <TouchableOpacity activeOpacity={0.5} style={{ flex: 1 }}
+                            onPress={() => this.handleCheckInCheckOut(_isEmpty(_get(userDetails, 'checkedInto', {})))} >
                             <Card wrapperStyle={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} containerStyle={{ flex: 1, marginRight: 8 }}>
-                            <View style={{ flex: 1, flexDirection: 'row' }}>
-                                <View style={{ flex: 1, justifyContent: 'flex-start', flexDirection: 'row', alignItems: 'center' }}>
-                                    <Text style={{ fontWeight: 'normal' }}>{`CheckedIn Asset`}</Text>
+                            {
+                                !_isEmpty(_get(userDetails, 'checkedInto', {})) &&
+                                <View style={{ flex: 1, flexDirection: 'row' }}>
+                                    <View style={{ flex: 1, justifyContent: 'flex-start', flexDirection: 'row', alignItems: 'center' }}>
+                                        <Text style={{ fontWeight: 'normal' }}>{`${strings.checkedText}`}</Text>
+                                    </View>
+                                    <View style={{ flex: 1, justifyContent: 'flex-end', flexDirection: 'row', alignItems: 'center' }}>
+                                        <Text style={{ fontWeight: 'bold', textAlign: 'right', color: '#312783', fontSize: 18 }}> {_get(userDetails, 'checkedInto.assetId', 'NA')}</Text>
+                                    </View>
                                 </View>
-                                <View style={{ flex: 1, justifyContent: 'flex-end', flexDirection: 'row', alignItems: 'center' }}>
-                                    <Text style={{ fontWeight: 'bold', textAlign: 'right', color: '#312783', fontSize: 18 }}> {_get(userDetails, 'checkedInto.assetId', 'NA')}</Text>
-                                </View>
-                            </View>
+                            }
                                 {/* <Image source={tasksImg} style={{ width: 110, height: 109 }} /> */}
-                                <Button onPress={() => this.props.navigation.navigate('AssetCheckinScreen')} style={[theme.buttonAlignBottom, { marginLeft: 0 }]} full>
-                                    <Text style={theme.buttonSmallTxt}>{!_isEmpty(_get(userDetails, 'checkedInto', {})) ? `Check Out`: `Check In`}</Text>
+                                <Button onPress={() => this.handleCheckInCheckOut(_isEmpty(_get(userDetails, 'checkedInto', {})))} style={[theme.buttonAlignBottom, { marginLeft: 0 }]} full>
+                                    <Text style={theme.buttonSmallTxt}>{!_isEmpty(_get(userDetails, 'checkedInto', {})) ? `${strings.checkOut}`: `${strings.checkIn}`}</Text>
                                 </Button>
                             </Card>
                         </TouchableOpacity>
@@ -147,7 +194,7 @@ class HomeContentScreen extends React.Component {
                                     <Card wrapperStyle={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} containerStyle={{ flex: 1, marginRight: 8 }}>
                                         <Image source={tasksImg} style={{ width: 110, height: 109 }} />
                                         <Button onPress={() => this.props.navigation.navigate('TaskListScreen')} style={[theme.buttonAlignBottom, { marginLeft: 0 }]} full>
-                                            <Text style={theme.buttonSmallTxt}>Tasks / To Do</Text>
+                                            <Text style={theme.buttonSmallTxt}>{`${strings.taskButton}`}</Text>
                                         </Button>
                                     </Card>
                                 </TouchableOpacity>
@@ -156,7 +203,7 @@ class HomeContentScreen extends React.Component {
                                     <Card wrapperStyle={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} containerStyle={{ flex: 1, marginRight: 8 }}>
                                         <Image source={gasFillImg} style={{ width: 110, height: 109 }} />
                                         <Button onPress={() => this.props.navigation.navigate('GasFilUpHome')} style={[theme.buttonAlignBottom, { marginLeft: 0 }]} full>
-                                            <Text style={theme.buttonSmallTxt}>Gas Fill Up</Text>
+                                            <Text style={theme.buttonSmallTxt}>{`${strings.gasFillButton}`}</Text>
                                         </Button>
                                     </Card>
                                 </TouchableOpacity>
@@ -167,7 +214,7 @@ class HomeContentScreen extends React.Component {
                                     <Card wrapperStyle={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} containerStyle={{ flex: 1, marginRight: 8 }}>
                                         <Image source={MileageImg} style={{ width: 110, height: 109 }} />
                                         <Button onPress={() => this.props.navigation.navigate('UpdateMileageHome')} style={[theme.buttonAlignBottom, { marginLeft: 0 }]} full>
-                                            <Text style={theme.buttonSmallTxt}>Update Mileage</Text>
+                                            <Text style={theme.buttonSmallTxt}>{`${strings.mileageButton}`}</Text>
                                         </Button>
                                     </Card>
                                 </TouchableOpacity>
@@ -176,7 +223,7 @@ class HomeContentScreen extends React.Component {
                                     <Card wrapperStyle={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} containerStyle={{ flex: 1, marginRight: 8 }}>
                                         <Image source={ServiceImg} style={{ width: 110, height: 109 }} />
                                         <Button onPress={() => this.props.navigation.navigate('ServiceTicketHome')} style={[theme.buttonAlignBottom, { marginLeft: 0 }]} full>
-                                            <Text style={theme.buttonSmallTxt}>Service Ticket</Text>
+                                            <Text style={theme.buttonSmallTxt}>{`${strings.serviceButton}`}</Text>
                                         </Button>
                                     </Card>
                                 </TouchableOpacity>
@@ -187,7 +234,7 @@ class HomeContentScreen extends React.Component {
                                     <Card wrapperStyle={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} containerStyle={{ flex: 1, marginRight: 8 }}>
                                         <Image source={DocumentsImg} style={{ width: 110, height: 109 }} />
                                         <Button onPress={() => this.props.navigation.navigate('DocumentsHome')} style={[theme.buttonAlignBottom, { marginLeft: 0 }]} full>
-                                            <Text style={theme.buttonSmallTxt}>Documents</Text>
+                                            <Text style={theme.buttonSmallTxt}>{`${strings.documentButton}`}</Text>
                                         </Button>
                                     </Card>
                                 </TouchableOpacity>
@@ -196,7 +243,7 @@ class HomeContentScreen extends React.Component {
                                     <Card wrapperStyle={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} containerStyle={{ flex: 1, marginRight: 8 }}>
                                         <Image source={ContactMechanic} style={{ width: 110, height: 109 }} />
                                         <Button onPress={() => this.props.navigation.navigate('ContactPersonHome')} style={[theme.buttonAlignBottom, { marginLeft: 0 }]} full>
-                                            <Text style={theme.buttonSmallTxt}>Contact FM/Mechanic</Text>
+                                            <Text style={theme.buttonSmallTxt}>{`${strings.contactButton}`}</Text>
                                         </Button>
                                     </Card>
                                 </TouchableOpacity>
@@ -213,6 +260,7 @@ class HomeContentScreen extends React.Component {
 function mapStateToProps(state) {
     let { auth, commonReducer } = state;
     let { userDetails } = commonReducer || {};
+    let { appLanguage } = commonReducer || 'en';
     let { token, isLoading } = auth.userStatus;
     let { decodedToken, availableVials, time, isCheckInAsset } = auth || {};
     return {
@@ -224,15 +272,17 @@ function mapStateToProps(state) {
         userDetails,
         isCheckInAsset,
         time,
+        appLanguage,
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
         setCheckInAsset: isCheckin => dispatch(setCheckInAsset(isCheckin)),
+        setLanguage: language => dispatch(setLanguage(language)),
         postData: (url, data, constants, identifier, key) => dispatch(postData(url, data, constants, identifier, key)),
     };
 }
 
-export default withErrorBoundary()(withAuth(true)(connect(mapStateToProps, mapDispatchToProps)(HomeContentScreen)));
+export default withErrorBoundary()(withAuth(true)(connect(mapStateToProps, mapDispatchToProps)(withLocalization(HomeContentScreen))));
 

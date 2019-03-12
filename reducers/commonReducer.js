@@ -1,12 +1,12 @@
-
 const commonReducer = (state = {
     type: '',
     isFetching: false,
+    appLanguage: 'en',
     error: '',
-  }, action) => {
+}, action) => {
     switch (action.type) {
         case `${action.identifier}_INIT`:
-        console.log('in INIT reducer', action);
+            console.log('in INIT reducer', action);
             return ({
                 ...state,
                 type: action.type,
@@ -27,6 +27,13 @@ const commonReducer = (state = {
                 type: action.type,
                 isFetching: false,
                 error: action.error,
+            });
+        case `SET_APP_LANGUAGE`:
+            return ({
+                ...state,
+                type: action.type,
+                isFetching: false,
+                appLanguage: action.language,
             });
         default:
             return state;

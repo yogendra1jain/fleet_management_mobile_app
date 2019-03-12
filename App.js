@@ -96,7 +96,7 @@ class App extends React.Component {
     //   Ionicons: require('@expo/vector-icons/fonts/Ionicons.ttf'),
     // });
     //    SplashScreen.hide();
-    this.fetchAppVersion();
+    // this.fetchAppVersion();
     this.setState({ isReady: true });
   }
 

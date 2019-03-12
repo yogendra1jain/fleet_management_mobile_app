@@ -13,6 +13,9 @@ import theme from '../../theme';
 import { Text, Container, Content, Header, Button, Title, Body, Left, Right, Icon } from 'native-base';
 import withLoadingScreen from '../withLoadingScreen';
 import withErrorBoundary from '../hocs/withErrorBoundary';
+import withLocalization from '../hocs/withLocalization';
+import { showToast } from '../../utils';
+import strings from '../../utils/localization';
 
 import { uploadDoc } from '../../actions/signup';
 import { postData } from '../../actions/commonAction';
@@ -106,6 +109,7 @@ class GasFilUpHomeScreen extends React.Component {
                 this.setState({
                     link: data.url,
                 });
+                showToast('success', `${this.props.strings.uploadSuccessMsg}`, 3000);
             }, (err) => {
                 console.log('error while uploading documents', err);
             });
@@ -146,6 +150,7 @@ class GasFilUpHomeScreen extends React.Component {
         this.props.postData(url, data, constants, identifier, key)
             .then((data) => {
                 console.log('gasfill saved successfully.', data);
+                showToast('success', `${this.props.strings.saveSuccessMsg}`, 3000);
                 this.props.navigation.navigate('Home');
             }, (err) => {
                 console.log('error while saving gas fillup', err);
@@ -158,6 +163,7 @@ class GasFilUpHomeScreen extends React.Component {
     }
 
     render() {
+        const { strings } = this.props;
         return (
             <ContainerWithLoading style={theme.container} isLoading={this.props.isLoading}>
                 <Header >
@@ -167,7 +173,7 @@ class GasFilUpHomeScreen extends React.Component {
                         </Button>
                     </Left>
                     <Body style={[theme.centerAlign, { flex: 4 }]}>
-                        <Title style={{ color: '#fff' }} >Gas Fil Up</Title>
+                        <Title style={{ color: '#fff' }} >{`${strings.gasFillUpTitle}`}</Title>
                     </Body>
                     <Right style={{ flex: 1 }}>
                     </Right>
@@ -183,13 +189,13 @@ class GasFilUpHomeScreen extends React.Component {
                                 <Image source={gasfillImg} style={styles.profileImg} />
                             </TouchableHighlight>
                             <View style={[theme.centerAlign, { paddingTop: 10 }]}>
-                                <Text>Gas Fil Up</Text>
+                                <Text>{`${strings.gasFillUpTitle}`}</Text>
                             </View>
                         </View>
                         <View style={{ flex: 1, paddingTop: 15 }}>
                             <View style={{ flex: 1, flexDirection: 'row' }}>
                                 <View style={{ justifyContent: 'flex-start', alignItems: 'center', paddingLeft: 10 }}>
-                                    <Text>Volume</Text>
+                                    <Text>{`${strings.volumeLabel}`}</Text>
                                 </View>
                                 <View style={{ flex: 1, marginLeft: 10, marginRight: 10 }}>
                                     <TextInput
@@ -205,7 +211,7 @@ class GasFilUpHomeScreen extends React.Component {
                         <View style={{ flex: 1, paddingTop: 15 }}>
                             <View style={{ flex: 1, flexDirection: 'row' }}>
                                 <View style={{ justifyContent: 'flex-start', alignItems: 'center', paddingLeft: 10 }}>
-                                    <Text>Amount</Text>
+                                    <Text>{`${strings.amountLabel}`}</Text>
                                 </View>
                                 <View style={{ flex: 1, marginLeft: 10, marginRight: 10 }}>
                                     <TextInput
@@ -222,7 +228,7 @@ class GasFilUpHomeScreen extends React.Component {
                             <TouchableHighlight onPress={() => this.uploadImage()}>
                                 <View style={[theme.centerAlign, { flex: 1, flexDirection: 'column', backgroundColor: '#ddd', margin: 20 }]}>
                                     <View style={{ flex: 1 }}>
-                                        <Text>Go To Camera</Text>
+                                        <Text>{`${strings.goToCamera}`}Go To Camera</Text>
                                     </View>
                                     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                                         <Icon name='ios-camera' />
@@ -237,7 +243,7 @@ class GasFilUpHomeScreen extends React.Component {
                             </View>
                             <View style={{ flex: 1, backgroundColor: '#ddd', borderWidth: 1, flexWrap: 'wrap' }}>
                                 <Text>
-                                    {`Take a picture of the fuel Pump Display after completing fill up. The display Should show gallons and sales amount. Make sure that there is no sun glare or reflaction off the display when taking the photo.`}
+                                    {`${strings.gasHelperText}`}
                                 </Text>
                             </View>
                         </View>
@@ -254,7 +260,7 @@ class GasFilUpHomeScreen extends React.Component {
                 </Content>
                 <View style={{ backgroundColor: '#ffffff' }}>
                     <Button style={theme.buttonNormal} onPress={() => this.onSave()} full>
-                        <Text style={theme.butttonFixTxt}>SAVE</Text>
+                        <Text style={theme.butttonFixTxt}>{`${strings.saveButton}`}</Text>
                     </Button>
                 </View>
             </ContainerWithLoading>
@@ -264,11 +270,14 @@ class GasFilUpHomeScreen extends React.Component {
 
 function mapStateToProps(state) {
     let { decodedToken } = state.auth || {};
-    let { userDetails } = state.user || {};
+    let { commonReducer } = state || {};
+    let { userDetails } = commonReducer || {};
+    let { appLanguage } = commonReducer || 'en';
 
     return {
         decodedToken,
         userDetails,
+        appLanguage
     };
 }
 
@@ -294,4 +303,4 @@ const styles = StyleSheet.create({
     },
   });
 
-export default withErrorBoundary()(connect(mapStateToProps, mapDispatchToProps)(GasFilUpHomeScreen));
+export default withErrorBoundary()(connect(mapStateToProps, mapDispatchToProps)(withLocalization(GasFilUpHomeScreen)));

@@ -11,6 +11,8 @@ import { Text, Container, Content, Header, Button, Title, Body, Left, Right, Ico
 import withLoadingScreen from '../withLoadingScreen';
 import withErrorBoundary from '../hocs/withErrorBoundary';
 import { postData } from '../../actions/commonAction';
+import { showToast } from '../../utils';
+import withLocalization from '../hocs/withLocalization';
 
 const ContainerWithLoading = withLoadingScreen(Container);
 
@@ -41,26 +43,26 @@ const list = [
       },
   ];
 
-const getDocumentType = (type) => {
+const getDocumentType = (type, strings) => {
     let typeValue = '';
     switch (type) {
         case 0:
-            typeValue = "INVALID DOCUMENT TYPE";
+            typeValue = `${strings.invalidDocType}`;
             break;
         case 1:
-            typeValue = "TITLE DOCUMENT";
+            typeValue = `${strings.titleDoc}`;
             break;
         case 2:
-            typeValue = "INSURANCE DOCUMENT";
+            typeValue = `${strings.insuranceDoc}`;
             break;
         case 3:
-            typeValue = "REGISTRATION DOCUMENT";
+            typeValue = `${strings.registrationDoc}`;
             break;
         case 4:
-            typeValue = "INSPECTION CERTIFICATE";
+            typeValue = `${strings.inspectionDoc}`;
             break;
         default:
-            typeValue = "INVALID DOCUMENT TYPE";
+            typeValue = `${strings.invalidDocType}`;
             break;
     }
     return typeValue;
@@ -97,6 +99,7 @@ class DocumentsHomeScreen extends React.Component {
         this.props.postData(url, data, constants, identifier, key)
             .then((data) => {
                 console.log('asset documents fetched successfully.', data);
+                showToast('success', `${this.props.strings.docFetchSuccessMsg}.`, 3000);
             }, (err) => {
                 console.log('error while fetching asset documents', err);
             });
@@ -111,7 +114,7 @@ class DocumentsHomeScreen extends React.Component {
     }
 
     render() {
-        const { assetDocuments } = this.props;
+        const { assetDocuments, strings } = this.props;
         const { selectedIndex } = this.state;
         return (
             <ContainerWithLoading style={theme.container} isLoading={this.props.isLoading}>
@@ -122,7 +125,7 @@ class DocumentsHomeScreen extends React.Component {
                         </Button>
                     </Left>
                     <Body style={[theme.centerAlign, { flex: 4 }]}>
-                        <Title style={{ color: '#fff' }} >Documents</Title>
+                        <Title style={{ color: '#fff' }} >{`${strings.documentButton}`}</Title>
                     </Body>
                     <Right style={{ flex: 1 }}>
                     </Right>
@@ -144,7 +147,7 @@ class DocumentsHomeScreen extends React.Component {
                                 <Image source={documentsImg} style={styles.profileImg} />
                             </TouchableHighlight>
                             <View style={[theme.centerAlign, { paddingTop: 10 }]}>
-                                <Text>Documents</Text>
+                                <Text>{`${strings.documentButton}`}</Text>
                             </View>
                         </View>
                         <View style={{ flex: 1, paddingTop: 15 }}>
@@ -155,7 +158,7 @@ class DocumentsHomeScreen extends React.Component {
                                 <ListItem
                                     key={i}
                                     // rightIcon={{ name: 'camera', type: 'font-awesome' }}
-                                    title={getDocumentType(l.documentType)}
+                                    title={getDocumentType(l.documentType, strings)}
                                     subtitle={l.subtitle}
                                     onPress={()=>this.handleDocumentItem(l, i)}
                                 />
@@ -186,12 +189,14 @@ function mapStateToProps(state) {
     let { decodedToken } = state.auth || {};
     let { commonReducer } = state || {};
     let { userDetails } = commonReducer || {};
+    let { appLanguage } = commonReducer || 'en';
     let { assetDocuments } = commonReducer || [];
 
     return {
         decodedToken,
         userDetails,
         assetDocuments,
+        appLanguage,
     };
 }
 
@@ -216,4 +221,4 @@ const styles = StyleSheet.create({
     },
   });
 
-export default withErrorBoundary()(connect(mapStateToProps, mapDispatchToProps)(DocumentsHomeScreen));
+export default withErrorBoundary()(connect(mapStateToProps, mapDispatchToProps)(withLocalization(DocumentsHomeScreen)));
