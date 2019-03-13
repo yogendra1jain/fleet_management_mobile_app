@@ -14,6 +14,7 @@ import _cloneDeep from 'lodash/cloneDeep';
 
 import theme from '../../theme';
 import { login } from '../../actions/auth';
+import { postData } from '../../actions/commonAction';
 import { clearNewDoctorData } from '../../actions/signup';
 import { Container, Content, Button, Header, Body } from 'native-base';
 import withLoadingScreen from '../withLoadingScreen';
@@ -63,11 +64,31 @@ class UsernameScreen extends React.Component {
                 // TODO.. move to the password setup screens.
             }
         }
+        this.loadLanguageData();
     }
 
     onChange = (value) => {
         // const val = this.refs.form.getValue();
         this.setState({ value });
+    }
+    loadLanguageData = () => {
+        let url = `/LanguageBundle/Get`;
+        let constants = {
+            init: 'GET_LANGUAGE_DETAILS_INIT',
+            success: 'GET_LANGUAGE_DETAILS_SUCCESS',
+            error: 'GET_LANGUAGE_DETAILS_ERROR',
+        };
+        let data = {
+            id: _get(this.props, 'decodedToken.FleetUser.id', ''),
+        };
+        let identifier = 'GET_LANGUAGE_DETAILS';
+        let key = 'languageDetails';
+        this.props.postData(url, data, constants, identifier, key)
+            .then((data) => {
+                console.log('language data fetched successfully.');
+            }, (err) => {
+                console.log('error while fetching language data', err);
+            });
     }
 
     onPress = () => {
@@ -191,6 +212,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         login: data => dispatch(login(data)),
+        postData: (url, data, constants, identifier, key) => dispatch(postData(url, data, constants, identifier, key)),
         clearNewDoctorData: id => dispatch(clearNewDoctorData(id)),
     };
 }

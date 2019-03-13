@@ -164,7 +164,7 @@ function mapStateToProps(state) {
     let { commonReducer, auth } = state;
     let { operatorAssets } = commonReducer || [];
     let isLoading = commonReducer.isFetching || false;
-    let { appLanguage } = commonReducer || 'en';
+    let { appLanguage, languageDetails } = commonReducer || 'en';
     console.log('appLanguage in check in screen', appLanguage);
     let { decodedToken } = auth || {};
     return {
@@ -172,6 +172,7 @@ function mapStateToProps(state) {
         decodedToken,
         isLoading,
         appLanguage,
+        languageDetails,
     };
 }
 

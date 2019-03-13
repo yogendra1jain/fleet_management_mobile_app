@@ -272,12 +272,13 @@ function mapStateToProps(state) {
     let { decodedToken } = state.auth || {};
     let { commonReducer } = state || {};
     let { userDetails } = commonReducer || {};
-    let { appLanguage } = commonReducer || 'en';
+    let { appLanguage, languageDetails } = commonReducer || 'en';
 
     return {
         decodedToken,
         userDetails,
-        appLanguage
+        appLanguage,
+        languageDetails
     };
 }
 

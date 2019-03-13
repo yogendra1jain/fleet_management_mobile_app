@@ -233,13 +233,14 @@ function mapStateToProps(state) {
     let { commonReducer } = state || {};
     let { userDetails } = commonReducer || {};
     let isLoading = commonReducer.isFetching || false;
-    let { appLanguage } = commonReducer || 'en';
+    let { appLanguage, languageDetails } = commonReducer || 'en';
 
     return {
         decodedToken,
         userDetails,
         isLoading,
-        appLanguage
+        appLanguage,
+        languageDetails
     };
 }
 

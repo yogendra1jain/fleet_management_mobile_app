@@ -60,7 +60,7 @@ class HomeContentScreen extends React.Component {
         let key = 'userDetails';
         this.props.postData(url, data, constants, identifier, key)
             .then((data) => {
-                console.log('user data fetched successfully.', data);
+                console.log('user data fetched successfully.');
             }, (err) => {
                 console.log('error while fetching user data', err);
             });
@@ -93,7 +93,7 @@ class HomeContentScreen extends React.Component {
         let key = 'checkInForAsset';
         this.props.postData(url, data, constants, identifier, key)
             .then((data) => {
-                console.log('checked out successfully.', data);
+                console.log('checked out successfully.');
                 // this.props.timerFunc(0);
                 this.props.setCheckInAsset(false);
                 showToast('success', `Checked Out Successfully.`, 3000);
@@ -259,7 +259,7 @@ class HomeContentScreen extends React.Component {
 
 function mapStateToProps(state) {
     let { auth, commonReducer } = state;
-    let { userDetails } = commonReducer || {};
+    let { userDetails, languageDetails } = commonReducer || {};
     let { appLanguage } = commonReducer || 'en';
     let { token, isLoading } = auth.userStatus;
     let { decodedToken, availableVials, time, isCheckInAsset } = auth || {};
@@ -273,6 +273,7 @@ function mapStateToProps(state) {
         isCheckInAsset,
         time,
         appLanguage,
+        languageDetails,
     };
 }
 

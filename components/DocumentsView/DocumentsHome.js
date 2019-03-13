@@ -189,7 +189,7 @@ function mapStateToProps(state) {
     let { decodedToken } = state.auth || {};
     let { commonReducer } = state || {};
     let { userDetails } = commonReducer || {};
-    let { appLanguage } = commonReducer || 'en';
+    let { appLanguage, languageDetails } = commonReducer || 'en';
     let { assetDocuments } = commonReducer || [];
 
     return {
@@ -197,6 +197,7 @@ function mapStateToProps(state) {
         userDetails,
         assetDocuments,
         appLanguage,
+        languageDetails,
     };
 }
 

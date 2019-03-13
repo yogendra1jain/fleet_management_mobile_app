@@ -7,9 +7,9 @@ import strings from '../../utils/localization';
 const withLocalization = (WrappedComponent) => {
   class LocalizedScreen extends React.PureComponent {
     render() {
-        console.log('props', this.props);
-        const { appLanguage } = this.props || 'en';
-        const string = strings[appLanguage];
+        const { appLanguage, languageDetails } = this.props || 'en';
+        // console.log('language details from server', languageDetails);
+        const string = languageDetails[appLanguage];
         return <WrappedComponent {...this.props} strings={string}>{this.props.children}</WrappedComponent>;
     }
   }
