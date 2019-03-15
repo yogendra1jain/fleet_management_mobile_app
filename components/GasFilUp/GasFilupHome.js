@@ -19,6 +19,8 @@ import strings from '../../utils/localization';
 
 import { uploadDoc } from '../../actions/signup';
 import { postData } from '../../actions/commonAction';
+import ImageResizer from 'react-native-image-resizer';
+
 const ContainerWithLoading = withLoadingScreen(Container);
 
 
@@ -78,17 +80,33 @@ class GasFilUpHomeScreen extends React.Component {
     }
     setFile = (res) => {
         const { uri, type: mimeType, fileName } = res || {};
-        this.setState({
-            imageSource: uri,
-            fileName: fileName,
-            uploadingFile: true,
+        ImageResizer.createResizedImage(uri, 200, 600, 'JPEG', 80).then((response) => {
+            const { uri, name } = response || {};
+            this.setState({
+                imageSource: uri,
+                fileName: name,
+                uploadingFile: true,
+            });
+            const formData = new FormData();
+            formData.append('file', { uri, type: mimeType, name });
+            if (uri && !_isEmpty(uri)) {
+                console.log('data to be upload', formData);
+                this.uploadData(formData);
+            }
+        }).catch((err) => {
+            console.log('error while resizing image', err);
         });
-        const formData = new FormData();
-        formData.append('file', { uri, type: mimeType, name: fileName });
-        if (uri && !_isEmpty(uri)) {
-            console.log('data to be upload', formData);
-            this.uploadData(formData, res);
-        }
+        // this.setState({
+        //     imageSource: uri,
+        //     fileName: fileName,
+        //     uploadingFile: true,
+        // });
+        // const formData = new FormData();
+        // formData.append('file', { uri, type: mimeType, name: fileName });
+        // if (uri && !_isEmpty(uri)) {
+        //     console.log('data to be upload', formData);
+        //     this.uploadData(formData, res);
+        // }
     }
 
     uploadData = (formData) => {
