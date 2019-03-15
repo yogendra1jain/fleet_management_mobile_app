@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { View, Image, StyleSheet, TouchableHighlight, TouchableOpacity, RefreshControl } from 'react-native';
 import documentsImg from '../../assets/images/documentsImg.png';
+import pdfIcon from '../../assets/images/pdficon.png';
 // import Input from 'react-native-elements';
 import { ListItem, Card } from 'react-native-elements';
 import _get from 'lodash/get';
@@ -112,9 +113,16 @@ class DocumentsHomeScreen extends React.Component {
     _onRefresh = () => {
         this.loadAssetDocuments();
     }
+    handleFileClick = (item) => {
+        console.log('item clicked', item);
+        if (item.link.indexOf('pdf') !==-1) {
+            this.props.navigation.navigate('PdfViewScreen', {uri: item.link});
+        }
+    }
 
     render() {
         const { assetDocuments, strings } = this.props;
+        console.log('asset documents', assetDocuments);
         const { selectedIndex } = this.state;
         return (
             <ContainerWithLoading style={theme.container} isLoading={this.props.isLoading}>
@@ -166,9 +174,9 @@ class DocumentsHomeScreen extends React.Component {
                                     selectedIndex === i &&
                                     <View style={{ flex: 1, flexDirection: 'row' }}>
                                         <TouchableOpacity activeOpacity={0.5} style={{ flex: 1 }}
-                                            onPress={() => {}} >
+                                            onPress={() => this.handleFileClick(l)} >
                                             <Card wrapperStyle={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} containerStyle={{ flex: 1, marginRight: 8 }}>
-                                                <Image source={{uri: l.link}} style={{ width: 110, height: 109 }} />
+                                                <Image source={ l.link.indexOf('pdf') !==-1 ? pdfIcon: {uri: l.link}} style={{ width: 110, height: 109 }} />
                                             </Card>
                                         </TouchableOpacity>
                                     </View>

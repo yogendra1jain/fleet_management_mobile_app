@@ -30,6 +30,7 @@ import ServiceTicketListScreen from '../components/ServiceTickets/ServiceTickets
 import MechanicProfile from '../components/ContactPerson/MechanicProfile';
 import AssetCheckinScreen from '../components/AssetCheckinScreen';
 import LanguageSelectionScreen from '../components/LanguageSupportScreen/LanguageList';
+import PdfViewScreen from '../components/DocumentsView/PdfView';
 
 const AppStack = createStackNavigator(
     {
@@ -55,6 +56,7 @@ const AppStack = createStackNavigator(
         ServiceTicketListScreen: ServiceTicketListScreen,
         MechanicProfile: MechanicProfile,
         LanguageSelectionScreen: LanguageSelectionScreen,
+        PdfViewScreen: PdfViewScreen,
     }, {
         initialRouteName: 'Home',
         navigationOptions: {

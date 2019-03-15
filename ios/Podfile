@@ -40,6 +40,14 @@ target 'MyFMSApp' do
 
 
 
+
+
+
+
+  pod 'RNPDF', :path => '../node_modules/react-native-view-pdf'
+
+  pod 'react-native-image-resizer', :path => '../node_modules/react-native-image-resizer'
+
   target 'BloomKonnectAppTests' do
     inherit! :search_paths
     # Pods for testing

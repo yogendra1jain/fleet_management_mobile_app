@@ -115,8 +115,8 @@ class GasFilUpHomeScreen extends React.Component {
             });
     }
     onSave = () => {
-        if (this.state.link =='' || this.state.mileage == '') {
-            showAlert('Warning', 'Please fill up link or mileage to proceed.');
+        if (this.state.link =='') {
+            showAlert('Warning', 'Please select file to proceed.');
         } else {
             let amount = {};
             _set(amount, 'amount', parseFloat(this.state.amount));
@@ -130,16 +130,22 @@ class GasFilUpHomeScreen extends React.Component {
            
             let data = {
                 assetId: _get(this.props, 'userDetails.checkedInto.id', ''),
-                link: this.state.link,
+                userId: _get(this.props, 'userDetails.user.id', ''),
                 documentType: 6,
-                volume: volume,
+                status: 1,
+                link: this.state.link,
+
+                // assetId: _get(this.props, 'userDetails.checkedInto.id', ''),
+                // link: this.state.link,
+                // documentType: 6,
+                // volume: volume,
             }
             this.savegasFillUpData(data);
         }
     }
 
     savegasFillUpData = (data) => {
-        let url = `/Assets/SaveGasFillUp`;
+        let url = `/UnActionedDocument/Add`;
         let constants = {
             init: 'SAVE_GASFILLUP_DATA_INIT',
             success: 'SAVE_GASFILLUP_DATA_SUCCESS',
@@ -192,7 +198,7 @@ class GasFilUpHomeScreen extends React.Component {
                                 <Text>{`${strings.gasFillUpTitle}`}</Text>
                             </View>
                         </View>
-                        <View style={{ flex: 1, paddingTop: 15 }}>
+                        {/* <View style={{ flex: 1, paddingTop: 15 }}>
                             <View style={{ flex: 1, flexDirection: 'row' }}>
                                 <View style={{ justifyContent: 'flex-start', alignItems: 'center', paddingLeft: 10 }}>
                                     <Text>{`${strings.volumeLabel}`}</Text>
@@ -207,8 +213,8 @@ class GasFilUpHomeScreen extends React.Component {
                                     />
                                 </View>
                             </View>
-                        </View>
-                        <View style={{ flex: 1, paddingTop: 15 }}>
+                        </View> */}
+                        {/* <View style={{ flex: 1, paddingTop: 15 }}>
                             <View style={{ flex: 1, flexDirection: 'row' }}>
                                 <View style={{ justifyContent: 'flex-start', alignItems: 'center', paddingLeft: 10 }}>
                                     <Text>{`${strings.amountLabel}`}</Text>
@@ -223,12 +229,12 @@ class GasFilUpHomeScreen extends React.Component {
                                     />
                                 </View>
                             </View>
-                        </View>
+                        </View> */}
                         <View style={{ flex: 1, paddingTop: 15 }}>
                             <TouchableHighlight onPress={() => this.uploadImage()}>
                                 <View style={[theme.centerAlign, { flex: 1, flexDirection: 'column', backgroundColor: '#ddd', margin: 20 }]}>
                                     <View style={{ flex: 1 }}>
-                                        <Text>{`${strings.goToCamera}`}Go To Camera</Text>
+                                        <Text>{`${strings.goToCamera}`}</Text>
                                     </View>
                                     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                                         <Icon name='ios-camera' />

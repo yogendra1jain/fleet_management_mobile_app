@@ -17,6 +17,8 @@ import withErrorBoundary from '../hocs/withErrorBoundary';
 import withLocalization from '../hocs/withLocalization';
 import { uploadDoc } from '../../actions/signup';
 import { postData } from '../../actions/commonAction';
+import ImageResizer from 'react-native-image-resizer';
+
 
 const ContainerWithLoading = withLoadingScreen(Container);
 
@@ -73,17 +75,22 @@ class UpdateMileageHomeScreen extends React.Component {
     }
     setFile = (res) => {
         const { uri, type: mimeType, fileName } = res || {};
-        this.setState({
-            imageSource: uri,
-            fileName: fileName,
-            uploadingFile: true,
+        ImageResizer.createResizedImage(uri, 200, 600, 'JPEG', 80).then((response) => {
+            const { uri, name } = response || {};
+            this.setState({
+                imageSource: uri,
+                fileName: name,
+                uploadingFile: true,
+            });
+            const formData = new FormData();
+            formData.append('file', { uri, type: mimeType, name });
+            if (uri && !_isEmpty(uri)) {
+                console.log('data to be upload', formData);
+                this.uploadData(formData);
+            }
+        }).catch((err) => {
+            console.log('error while resizing image', err);
         });
-        const formData = new FormData();
-        formData.append('file', { uri, type: mimeType, name: fileName });
-        if (uri && !_isEmpty(uri)) {
-            console.log('data to be upload', formData);
-            this.uploadData(formData);
-        }
     }
 
     uploadData = (formData) => {
@@ -115,26 +122,27 @@ class UpdateMileageHomeScreen extends React.Component {
         });
     }
     onSave = () => {
-        if (this.state.link =='' || this.state.mileage == '') {
-            showAlert('Warning', 'Please fill up link or mileage to proceed.');
+        if (this.state.link =='') {
+            showAlert('Warning', 'Please select document to proceed.');
         } else {
             let data = {};
-            let assetUsage = {
-                usage: parseFloat(this.state.mileage),
-                uom: _get(this.props, 'userDetails.checkedInto.usage.uom', ''),
-            }
+            // let assetUsage = {
+            //     usage: parseFloat(this.state.mileage),
+            //     uom: _get(this.props, 'userDetails.checkedInto.usage.uom', ''),
+            // }
             data = {
                 assetId: _get(this.props, 'userDetails.checkedInto.id', ''),
-                link: this.state.link,
+                userId: _get(this.props, 'userDetails.user.id', ''),
                 documentType: 5,
-                assetUsage: assetUsage,
+                status: 1,
+                link: this.state.link,
             }
             this.saveMileageData(data);
         }
     }
 
     saveMileageData = (data) => {
-        let url = `/Assets/UpdateMileage`;
+        let url = `/UnActionedDocument/Add`;
         let constants = {
             init: 'SAVE_MILEAGE_DATA_INIT',
             success: 'SAVE_MILEAGE_DATA_SUCCESS',
@@ -181,7 +189,7 @@ class UpdateMileageHomeScreen extends React.Component {
                                 <Text>{`${strings.mileageButton}`}</Text>
                             </View>
                         </View>
-                        <View style={{ flex: 1, paddingTop: 15 }}>
+                        {/* <View style={{ flex: 1, paddingTop: 15 }}>
                             <View style={{ flex: 1, flexDirection: 'row' }}>
                                 <View style={{ justifyContent: 'flex-start', alignItems: 'center', paddingLeft: 10 }}>
                                     <Text>{`${strings.mileageLabel}`}</Text>
@@ -196,7 +204,7 @@ class UpdateMileageHomeScreen extends React.Component {
                                     />
                                 </View>
                             </View>
-                        </View>
+                        </View> */}
                         <TouchableHighlight onPress={() => this.uploadImage()}>
                             <View style={[theme.centerAlign, { flex: 1, flexDirection: 'column', backgroundColor: '#ddd', margin: 20 }]}>
                                 <View style={{ flex: 1 }}>
@@ -232,6 +240,7 @@ function mapStateToProps(state) {
     let { decodedToken } = state.auth || {};
     let { commonReducer } = state || {};
     let { userDetails } = commonReducer || {};
+    // console.log('user details', userDetails);
     let isLoading = commonReducer.isFetching || false;
     let { appLanguage, languageDetails } = commonReducer || 'en';
 
