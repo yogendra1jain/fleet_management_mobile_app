@@ -1,6 +1,7 @@
 import { createStackNavigator } from 'react-navigation';
 
 import UsernameScreen from '../components/auth/UsernameScreen';
+import LanguageSelectionScreen from '../components/LanguageSupportScreen/LanguageList';
 
 // import PasswordScreen from '../components/auth/PasswordScreen';
 // import OtpScreen from '../components/auth/OtpScreen';
@@ -8,10 +9,11 @@ import UsernameScreen from '../components/auth/UsernameScreen';
 export default AuthStack = createStackNavigator(
     {
         WhichUser: UsernameScreen,
+        LanguageSelection: LanguageSelectionScreen,
         // WhatPassword: PasswordScreen,
         // WhatOtp: OtpScreen,
     }, {
-        initialRouteName: 'WhichUser',
+        initialRouteName: 'LanguageSelection',
         navigationOptions: {
 
             headerStyle: {

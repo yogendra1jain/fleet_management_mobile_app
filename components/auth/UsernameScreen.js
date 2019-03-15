@@ -16,9 +16,10 @@ import theme from '../../theme';
 import { login } from '../../actions/auth';
 import { postData } from '../../actions/commonAction';
 import { clearNewDoctorData } from '../../actions/signup';
-import { Container, Content, Button, Header, Body } from 'native-base';
+import { Container, Content, Button, Header, Body, Left, Icon } from 'native-base';
 import withLoadingScreen from '../withLoadingScreen';
 import SplashScreen from 'react-native-splash-screen';
+import withLocalization from '../hocs/withLocalization';
 
 
 const Form = t.form.Form;
@@ -108,13 +109,13 @@ class UsernameScreen extends React.Component {
         this.props.navigation.navigate('SignupScreen');
     }
     render() {
-        const { error } = this.props;
+        const { error, strings, appLanguage } = this.props;
         const options = {
             fields: {
                 email: {
                     // placeholder: 'Enter email',
                     // autoFocus: true,
-                    label: 'Email',
+                    label: `${strings.emailLabel}`,
                     stylesheet: this.stylesheet,
                     onSubmitEditing: () => this.refs.form.getComponent('password').refs.input.focus(),
                 },
@@ -122,7 +123,7 @@ class UsernameScreen extends React.Component {
                     secureTextEntry: true,
                     // placeholder: 'Enter Password',
                     returnKeyType: 'done',
-                    label: 'Password',
+                    label: `${strings.passwordLabel}`,
                     stylesheet: this.stylesheet,
                     onSubmitEditing: () => this.onPress(),
                 },
@@ -132,35 +133,20 @@ class UsernameScreen extends React.Component {
 
 
         return (
-            // <Image source={loginscreen}
-            //     style={theme.backgroundImage}>
-
-            //     {/* {this.props.children} */}
-
-            // </Image>
             <ContainerWithLoading style={theme.container} androidStatusBarColor="#0e0a65" iosBarStyle="light-content" isLoading={this.props.isLoading}>
                 
                 <ImageBackground source={CarBg}
                     style={theme.backgroundImage}>
+                    <Header transparent translucent>
+                        <Left style={{ flex: 1 }}>
+                            <Button transparent onPress={() => this.props.navigation.navigate('LanguageSelection')}>
+                                <Icon name='arrow-back' style={{ color: '#fff' }} />
+                            </Button>
+                        </Left>
+                     </Header>
                     <Content style={{ paddingTop: 50 }}>
-                    {/* <View style={{ paddingTop: 15, justifyContent: 'center', alignItems: 'center' }}>
-                        <TouchableOpacity onPress={() => this.onPressSignup()}>
-                            <Text style={{ color: 'white', alignItems: 'center' }}>Request For Sign Up</Text>
-                        </TouchableOpacity>
-                    </View> */}
-                    {/* <Header style={{ backgroundColor: 'transparent' }}>
-
-                        <Body style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                            <TouchableOpacity onPress={() => this.onPressSignup()}>
-                                <Text style={{ color: 'white', alignItems: 'center' }}>Request For Sign Up</Text>
-                            </TouchableOpacity>
-                        </Body>
-
-                    </Header> */}
-                    {/* <Content> */}
                     <View style={{ flex: 1, justifyContent: 'center' }}>
                         <View style={{ paddingBottom: 40, justifyContent: 'center', alignItems: 'center' }}>
-                            {/* <ResponsiveImage source={logoimg} initWidth="90" initHeight="90" /> */}
                         </View>
                         <View style={[theme.mart15, theme.marL15, theme.marR15]}>
                             <Form
@@ -173,19 +159,15 @@ class UsernameScreen extends React.Component {
                             />
                         </View>
                     </View>
-                    {/* </Content> */}
                     <View >
                         <Button style={[theme.buttonLogin]} onPress={() => this.onPress()} full>
-                            <Text style={theme.butttonFixTxt}>LOGIN</Text>
+                            <Text style={theme.butttonFixTxt}>{`${strings.loginLabel}`}</Text>
                         </Button>
-                        {/* <Button style={[theme.buttonNormal, theme.spaceAdd2]} onPress={() => this.onPressSignup()} full>
-                            <Text style={theme.butttonFixTxt}>SIGN UP</Text>
-                        </Button> */}
                     </View>
 
                     <View style={{ paddingTop: 15, paddingBottom: 15, justifyContent: 'flex-end', alignItems: 'center' }}>
                         <TouchableOpacity onPress={() => this.onPressSignup()}>
-                            <Text style={[theme.butttonFixTxt, { color: 'white' }]}>Request For Sign Up</Text>
+                            <Text style={[theme.butttonFixTxt, { color: 'white' }]}>{`${strings.signupText}`}</Text>
                         </TouchableOpacity>
                     </View>
                     </Content>
@@ -197,15 +179,18 @@ class UsernameScreen extends React.Component {
 }
 
 function mapStateToProps(state) {
-    let { auth } = state;
+    let { auth, commonReducer } = state;
     let { userStatus } = auth || [];
     let { isLoading } = auth || false;
+    let { appLanguage } = commonReducer || 'en';
+
     let error = _get(auth, 'error.errors[0].message', '');
     return {
         userStatus,
         auth,
         isLoading,
         error,
+        appLanguage,
     };
 }
 
@@ -217,4 +202,4 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(UsernameScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(withLocalization(UsernameScreen));

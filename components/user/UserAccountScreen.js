@@ -26,12 +26,20 @@ class UserAccountScreen extends React.Component {
                     {
                         title: 'Change Password',
                         icon: 'ios-keypad',
+                        type: 'ionicon',
                         link: 'ChangePasswordScreen',
                     },
                     {
                         title: 'Manage App Lock',
                         icon: 'md-lock',
+                        type: 'ionicon',
                         link: 'SetupNativeAuth',
+                    },
+                    {
+                        title: 'Manage Language',
+                        icon: 'language',
+                        type: 'font-awesome',
+                        link: 'LanguageSelectionScreen',
                     },
                 ],
             },
@@ -45,7 +53,7 @@ class UserAccountScreen extends React.Component {
         if (item.link == 'showWarnings') {
             console.log('setting show warnings as true');
         } else if (item.link && item.link !== '') {
-            this.props.navigation.navigate(item.link);
+            this.props.navigation.navigate(item.link, item.link=='LanguageSelectionScreen' ? {fromMain: true}: {});
         }
     }
     setVialWarnings = (event) => {
@@ -73,7 +81,7 @@ class UserAccountScreen extends React.Component {
                                 titleStyle={{ fontSize: 14 }}
                                 hideChevron={item.link == 'showWarnings' ? false : true}
                                 onPress={() => this.listItemClicked(item, i)}
-                                leftIcon={{ name: item.icon, type: 'ionicon', style: { fontSize: 22, color: '#4d47cd' } }}
+                                leftIcon={{ name: item.icon, type: item.type, style: { fontSize: 22, color: '#4d47cd' } }}
                                 containerStyle={{ paddingTop: 15, paddingBottom: 15 }}
                             />
                         ))

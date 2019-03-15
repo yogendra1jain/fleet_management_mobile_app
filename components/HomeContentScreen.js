@@ -42,7 +42,7 @@ class HomeContentScreen extends React.Component {
 
     componentDidMount() {
         SplashScreen.hide();
-        this.props.setLanguage('en');
+        // this.props.setLanguage('en');
         // const { decodedToken } = this.props;
         this.loadUserInfo();
     }
@@ -136,33 +136,6 @@ class HomeContentScreen extends React.Component {
                         />
                     }
                     style={{ backgroundColor: '#ededed' }}>
-                     <View style={{ flex: 1 }}>
-                        <TouchableOpacity activeOpacity={0.5} style={{ flex: 1 }}
-                            onPress={() => this.handleCheckInCheckOut(_isEmpty(_get(userDetails, 'checkedInto', {})))} >
-                            <Card title={`${strings.languageSelection}`} wrapperStyle={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} containerStyle={{ flex: 1, marginRight: 8 }}>
-                                <View style={{ flex: 1, flexDirection: 'row' }}>
-                                    <View style={{ flex: 1, justifyContent: 'flex-start', flexDirection: 'row', alignItems: 'center' }}>
-                                    <CheckBox
-                                        title='English'
-                                        checkedIcon='dot-circle-o'
-                                        uncheckedIcon='circle-o'
-                                        checked={appLanguage === 'en'}
-                                        onPress={() => this.setLanguage('en')}
-                                    />
-                                    </View>
-                                    <View style={{ flex: 1, justifyContent: 'flex-end', flexDirection: 'row', alignItems: 'center' }}>
-                                    <CheckBox
-                                        title='Spanish'
-                                        checkedIcon='dot-circle-o'
-                                        uncheckedIcon='circle-o'
-                                        checked={appLanguage === 'spn'}
-                                        onPress={() => this.setLanguage('spn')}
-                                    />
-                                    </View>
-                                </View>
-                            </Card>
-                        </TouchableOpacity>
-                    </View>
                     <View style={{ flex: 1 }}>
                         <TouchableOpacity activeOpacity={0.5} style={{ flex: 1 }}
                             onPress={() => this.handleCheckInCheckOut(_isEmpty(_get(userDetails, 'checkedInto', {})))} >
@@ -260,7 +233,7 @@ class HomeContentScreen extends React.Component {
 function mapStateToProps(state) {
     let { auth, commonReducer } = state;
     let { userDetails, languageDetails } = commonReducer || {};
-    let { appLanguage } = commonReducer || 'en';
+    // let { appLanguage } = commonReducer || 'en';
     let { token, isLoading } = auth.userStatus;
     let { decodedToken, availableVials, time, isCheckInAsset } = auth || {};
     return {
@@ -272,7 +245,7 @@ function mapStateToProps(state) {
         userDetails,
         isCheckInAsset,
         time,
-        appLanguage,
+        // appLanguage,
         languageDetails,
     };
 }

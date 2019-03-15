@@ -35,6 +35,10 @@ let strings = ({
         assetFetchSuccMsg: "Asset Fetched Successfully.",
         checkInSuccessMsg: "Checked In Successfully.",
         docFetchSuccessMsg: "Documents Retrieved Successfully.",
+        emailLabel: "Email",
+        passwordLabel: "Password",
+        loginLabel: "LOGIN",
+        signupText: "Request For Sign Up",
     },
     spn: {
         checkIn: "Registrarse",
@@ -72,6 +76,10 @@ let strings = ({
         assetFetchSuccMsg: "Activo Fetched con éxito.",
         checkInSuccessMsg: "Registrado con éxito.",
         docFetchSuccessMsg: "Documentos recuperados con éxito.",
+        emailLabel: "Email",
+        passwordLabel: "Contraseña",
+        loginLabel: "INICIAR SESIÓN",
+        signupText: "Solicitud de registro",
     }
 });
 

@@ -29,6 +29,7 @@ import OtherTicketScreen from '../components/ServiceTickets/OtherTickets';
 import ServiceTicketListScreen from '../components/ServiceTickets/ServiceTicketsList';
 import MechanicProfile from '../components/ContactPerson/MechanicProfile';
 import AssetCheckinScreen from '../components/AssetCheckinScreen';
+import LanguageSelectionScreen from '../components/LanguageSupportScreen/LanguageList';
 
 const AppStack = createStackNavigator(
     {
@@ -53,6 +54,7 @@ const AppStack = createStackNavigator(
         OtherTicketScreen: OtherTicketScreen,
         ServiceTicketListScreen: ServiceTicketListScreen,
         MechanicProfile: MechanicProfile,
+        LanguageSelectionScreen: LanguageSelectionScreen,
     }, {
         initialRouteName: 'Home',
         navigationOptions: {
