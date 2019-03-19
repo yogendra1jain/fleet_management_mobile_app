@@ -10,7 +10,7 @@ import MileageImg from '../../assets/images/mileageImg.png';
 import expenseImg from '../../assets/images/expense.png';
 
 import withLoadingScreen from './../withLoadingScreen';
-import { Container, Content, Header, Body, Left, Right, Button, Toast, Title } from 'native-base';
+import { Container, Content, Header, Body, Left, Right, Button, Toast, Title, Icon } from 'native-base';
 import withErrorBoundary from './../hocs/withErrorBoundary';
 import withLocalization from './../hocs/withLocalization';
 import { postData, setLanguage } from '../../actions/commonAction';
@@ -50,10 +50,13 @@ class UploadDocsHomeScreen extends React.Component {
         return (
             <ContainerWithLoading isLoading={this.props.isLoading}>
                <Header>
-                <Left style={{ flex: 1 }}>
+                    <Left style={{ flex: 1 }}>
+                        <Button transparent onPress={() => this.props.navigation.goBack()}>
+                            <Icon name='arrow-back' style={{ color: '#fff' }} />
+                        </Button>
                     </Left>
                 <Body style={{ flex: 4, justifyContent: 'center', alignItems: 'center' }}>
-                    <Title>{`${strings.homeTitle}`}</Title>
+                    <Title>{`${strings.uploadTitle}`}</Title>
                 </Body>
                 <Right style={{ flex: 1 }}>
                 </Right>
