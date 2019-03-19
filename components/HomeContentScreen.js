@@ -6,7 +6,7 @@ import _get from 'lodash/get';
 import _isEmpty from 'lodash/isEmpty';
 import theme from '../theme';
 import tasksImg from '../assets/images/tasks.png';
-import gasFillImg from '../assets/images/gasfill.png';
+import uploadImg from '../assets/images/uploadImg.jpeg';
 import MileageImg from '../assets/images/mileageImg.png';
 import ServiceImg from '../assets/images/serviceImg.png';
 import expenseImg from '../assets/images/expense.png';
@@ -186,7 +186,7 @@ class HomeContentScreen extends React.Component {
                                 <TouchableOpacity activeOpacity={0.5} style={{ flex: 1 }}
                                     onPress={() => this.props.navigation.navigate('UploadDocsHomeScreen')} >
                                     <Card wrapperStyle={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} containerStyle={{ flex: 1, marginRight: 8 }}>
-                                        <Image source={expenseImg} style={{ width: 110, height: 109 }} />
+                                        <Image source={uploadImg} style={{ width: 110, height: 109 }} />
                                         <Button onPress={() => this.props.navigation.navigate('UploadDocsHomeScreen')} style={[theme.buttonAlignBottom, { marginLeft: 0 }]} full>
                                             <Text style={theme.buttonSmallTxt}>{`${strings.uploadTitle}`}</Text>
                                         </Button>
