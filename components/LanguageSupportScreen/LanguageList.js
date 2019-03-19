@@ -130,15 +130,13 @@ function mapStateToProps(state) {
     let { auth, commonReducer } = state;
     let { userDetails, languageDetails } = commonReducer || {};
     let { appLanguage } = commonReducer || 'en';
-    console.log('applanguage', appLanguage);
     let { token, isLoading } = auth.userStatus;
-    let { decodedToken, availableVials, time, isCheckInAsset } = auth || {};
+    let { decodedToken, time, isCheckInAsset } = auth || {};
     return {
         auth,
         token,
         isLoading,
         decodedToken,
-        availableVials,
         userDetails,
         isCheckInAsset,
         time,

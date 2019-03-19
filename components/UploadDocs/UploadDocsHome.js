@@ -24,7 +24,6 @@ class UploadDocsHomeScreen extends React.Component {
         this.state = {
             searchValue: '',
             enableSearch: false,
-            filteredPatients: [],
             refreshing: false,
             language: 'spn',
         };
@@ -115,13 +114,12 @@ function mapStateToProps(state) {
     let { userDetails, languageDetails } = commonReducer || {};
     // let { appLanguage } = commonReducer || 'en';
     let { token, isLoading } = auth.userStatus;
-    let { decodedToken, availableVials, time, isCheckInAsset } = auth || {};
+    let { decodedToken, time, isCheckInAsset } = auth || {};
     return {
         auth,
         token,
         isLoading,
         decodedToken,
-        availableVials,
         userDetails,
         isCheckInAsset,
         time,

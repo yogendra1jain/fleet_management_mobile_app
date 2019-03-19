@@ -5,7 +5,6 @@ import { Text } from 'react-native-elements';
 import _get from 'lodash/get';
 import _isEmpty from 'lodash/isEmpty';
 import t from 'tcomb-form-native';
-import { fetchAddressDetails } from '../../actions/patient';
 import { saveShippingAddress } from '../../actions/user';
 
 import theme from '../../theme';
@@ -60,15 +59,6 @@ class ShippingAddressScreen extends React.Component {
     }
 
     componentWillReceiveProps(props) {
-        if (!_isEmpty(props.addressDetails) && this.setAddress) {
-            this.setAddress = false;
-            let value = Object.assign({}, this.state.value, {
-                zipcode: _get(props.addressDetails, 'zipCode', ''),
-                city: _get(props.addressDetails, 'city', ''),
-                state: _get(props.addressDetails, 'state', ''),
-            });
-            this.setState({ value });
-        }
     }
 
     addresszipcodeBlur = (value, forBillingAddress) => {
@@ -157,12 +147,11 @@ class ShippingAddressScreen extends React.Component {
 }
 
 function mapStateToProps(state) {
-    let { auth, signup, doctors, patient, user } = state;
+    let { auth, signup, doctors, user } = state;
     let { newDoctor, npiData, newAssistant } = signup || {};
     let { uploadedDoc, documentTypes } = signup || [];
     let { isLoading } = user || false;
     let { medicalFacilityList, manufracturerList } = doctors || [];
-    let { addressDetails } = patient;
 
 
     return {
@@ -171,7 +160,6 @@ function mapStateToProps(state) {
         isLoading,
         medicalFacilityList,
         manufracturerList,
-        addressDetails,
         npiData,
         uploadedDoc,
         documentTypes,

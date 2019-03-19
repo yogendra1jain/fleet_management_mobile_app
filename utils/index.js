@@ -88,14 +88,6 @@ export function getUSADateTime(date) {
     }
 }
 
-export function getEncodedSSN(ssn) {
-    let encodedSSN = '';
-    if (!_isEmpty(ssn) && ssn.toString().length == 9) {
-        let lastFourDigits = ssn.substring(5, 9);
-        encodedSSN = 'XXXXX' + lastFourDigits;
-    }
-    return encodedSSN;
-}
 export function getFormatedPhoneNumber(phoneNumber) {
     let formatedNumber = '';
     if (!_isEmpty(phoneNumber) && phoneNumber.toString().length == 10) {
@@ -113,122 +105,8 @@ export function getCurrencySymbols(code) {
     }
     return symbol;
 }
-export function getPackagedQuantity(orderDetails, itemId) {
-    let packagedQuantity = _find(orderDetails.packagedQuantity, { 'itemId': itemId });
-    let dispatchedQuantity = _find(orderDetails.dispatchedQuantity, { 'itemId': itemId });
-    let deliveredQuantity = _find(orderDetails.deliveredQuantity, { 'itemId': itemId });
-    return {
-        packagedQuantity,
-        dispatchedQuantity,
-        deliveredQuantity,
-    };
-}
-export function getNumberInMillion(num) {
-    let convertedNumber = (num / 1000000).toFixed(2);
-    return convertedNumber.toString() + 'M';
-}
 export function isInt(n) {
     return n % 1 === 0;
-}
-export function convertToExp(n) {
-    if (!isNaN(n)) {
-        return n.toExponential();
-    } else {
-        return n;
-    }
-}
-
-export function getRenamedStatus(status) {
-    let modifiedStatus = '';
-    switch (status) {
-        case 'IN_TRANSIT':
-            modifiedStatus = 'IN TRANSIT';
-            break;
-        case 'IN_PROGRESS':
-            modifiedStatus = 'IN PROGRESS';
-            break;
-        case 'ACCEPTED':
-            modifiedStatus = 'ACCEPTED';
-            break;
-        case 'REJECTED':
-            modifiedStatus = 'REJECTED';
-            break;
-        case 'CANCELLED':
-            modifiedStatus = 'CANCELED';
-            break;
-        case 'REFUNDED':
-            modifiedStatus = 'REFUNDED';
-            break;
-        case 'PACKAGED':
-            modifiedStatus = 'PACKAGED';
-            break;
-        case 'PART_DISPATCHED':
-            modifiedStatus = 'PART DISPATCHED';
-            break;
-        case 'PART_PACKAGED':
-            modifiedStatus = 'PART PACKAGED';
-            break;
-        case 'PART_DELIVERED':
-            modifiedStatus = 'PART DELIVERED';
-            break;
-        case 'READY_FOR_DISPATCH':
-            modifiedStatus = 'READY FOR DISPATCH';
-            break;
-        case 'RETURNED':
-            modifiedStatus = 'RETURNED';
-            break;
-        case 'INCOMING':
-            modifiedStatus = 'INCOMING';
-            break;
-        case 'DELIVERED':
-            modifiedStatus = 'DELIVERED';
-            break;
-        case 'UNWIND':
-            modifiedStatus = 'UNWOUND';
-            break;
-        case 'DISPATCHED':
-            modifiedStatus = 'DISPATCHED';
-            break;
-        case 'DONE':
-            modifiedStatus = 'DONE';
-            break;
-        case 'UNWOUND':
-            modifiedStatus = 'UNWOUND';
-            break;
-    }
-    return modifiedStatus;
-}
-
-export function getInProgressPackageDetails(inProcessOrders, orderId, packageId, tempItemId, orderDetails) {
-    let tempInProgressOrders = Object.assign({}, _cloneDeep(inProcessOrders));
-    let updatedObj = Object.assign({}, _cloneDeep(tempInProgressOrders[orderId]));
-    let tempPackage = Object.assign({}, _cloneDeep(updatedObj[packageId]));
-    let removedVialsList = _cloneDeep(tempPackage.removedVialsList) || [];
-
-    let completeQuantities = getPackagedQuantity(orderDetails, tempItemId);
-    let tempItem = Object.assign({}, _cloneDeep(tempPackage[tempItemId]));
-    let vialList = _cloneDeep(tempItem.vialList) || [];
-    let packagedItemQuantity = (_get(completeQuantities, 'dispatchedQuantity.quantity', 0)
-        + _get(completeQuantities, 'deliveredQuantity.quantity', 0)
-        + _get(completeQuantities, 'packagedQuantity.quantity', 0));
-    let tempQ = 0;
-    if (_isArray(removedVialsList)) {
-        removedVialsList.map((vl, index) => {
-            if (vl.itemId == tempItemId) {
-                tempQ += 1;
-            }
-        });
-    }
-    packagedItemQuantity = Math.abs(packagedItemQuantity - tempQ);
-    return {
-        tempInProgressOrders,
-        updatedObj,
-        tempPackage,
-        removedVialsList,
-        packagedItemQuantity,
-        tempItem,
-        vialList,
-    };
 }
 export function showAlert(title, message) {
     return (

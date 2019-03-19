@@ -8,7 +8,6 @@ import _map from 'lodash/map';
 
 import _isEmpty from 'lodash/isEmpty';
 import _groupBy from 'lodash/groupBy';
-import { fetchOrderList } from '../../actions/order';
 import theme from '../../theme';
 import { Container, Content, Header, Button, Title, Body, Left, Right, Icon, Toast, Fab } from 'native-base';
 import withLoadingScreen from '../withLoadingScreen';

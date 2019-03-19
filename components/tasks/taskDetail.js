@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { View, RefreshControl } from 'react-native';
 
 import _get from 'lodash/get';
-import { fetchOrderList } from '../../actions/order';
 import theme from '../../theme';
 import { Container, Content, Header, Button, Title, Body, Left, Right, Icon } from 'native-base';
 import withLoadingScreen from '../withLoadingScreen';
@@ -99,7 +98,6 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        fetchOrderList: (isLoading, data) => dispatch(fetchOrderList(isLoading, data)),
     };
 }
 
