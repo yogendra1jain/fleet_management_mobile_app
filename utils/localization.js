@@ -51,6 +51,7 @@ let strings = ({
         "confirmPasswordErrorText": "Confirm password should match with new password.",
         "expenseReportTitle": "Expense Report",
         "expenseLabel": "Expense Amount",
+        "uploadTitle": "Upload Documents",
     },
     spn: {
         checkIn: "Registrarse",
@@ -105,6 +106,7 @@ let strings = ({
         "confirmPasswordErrorText": "Confirmar contraseña debe coincidir con la nueva contraseña.",
         "expenseReportTitle": "Informe de gastos",
         "expenseLabel": "Cantidad de gastos",
+        "uploadTitle": "subir documentos",
     }
 });
 

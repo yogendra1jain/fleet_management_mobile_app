@@ -173,26 +173,6 @@ class HomeContentScreen extends React.Component {
                                     </Card>
                                 </TouchableOpacity>
                                 <TouchableOpacity activeOpacity={0.5} style={{ flex: 1 }}
-                                    onPress={() => this.props.navigation.navigate('GasFilUpHome')} >
-                                    <Card wrapperStyle={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} containerStyle={{ flex: 1, marginRight: 8 }}>
-                                        <Image source={gasFillImg} style={{ width: 110, height: 109 }} />
-                                        <Button onPress={() => this.props.navigation.navigate('GasFilUpHome')} style={[theme.buttonAlignBottom, { marginLeft: 0 }]} full>
-                                            <Text style={theme.buttonSmallTxt}>{`${strings.gasFillButton}`}</Text>
-                                        </Button>
-                                    </Card>
-                                </TouchableOpacity>
-                            </View>
-                            <View style={{ flex: 1, flexDirection: 'row' }}>
-                                <TouchableOpacity activeOpacity={0.5} style={{ flex: 1 }}
-                                    onPress={() => this.props.navigation.navigate('UpdateMileageHome')} >
-                                    <Card wrapperStyle={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} containerStyle={{ flex: 1, marginRight: 8 }}>
-                                        <Image source={MileageImg} style={{ width: 110, height: 109 }} />
-                                        <Button onPress={() => this.props.navigation.navigate('UpdateMileageHome')} style={[theme.buttonAlignBottom, { marginLeft: 0 }]} full>
-                                            <Text style={theme.buttonSmallTxt}>{`${strings.mileageButton}`}</Text>
-                                        </Button>
-                                    </Card>
-                                </TouchableOpacity>
-                                <TouchableOpacity activeOpacity={0.5} style={{ flex: 1 }}
                                     onPress={() => this.props.navigation.navigate('ServiceTicketHome')} >
                                     <Card wrapperStyle={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} containerStyle={{ flex: 1, marginRight: 8 }}>
                                         <Image source={ServiceImg} style={{ width: 110, height: 109 }} />
@@ -201,6 +181,18 @@ class HomeContentScreen extends React.Component {
                                         </Button>
                                     </Card>
                                 </TouchableOpacity>
+                            </View>
+                            <View style={{ flex: 1, flexDirection: 'row' }}>
+                                <TouchableOpacity activeOpacity={0.5} style={{ flex: 1 }}
+                                    onPress={() => this.props.navigation.navigate('UploadDocsHomeScreen')} >
+                                    <Card wrapperStyle={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} containerStyle={{ flex: 1, marginRight: 8 }}>
+                                        <Image source={expenseImg} style={{ width: 110, height: 109 }} />
+                                        <Button onPress={() => this.props.navigation.navigate('UploadDocsHomeScreen')} style={[theme.buttonAlignBottom, { marginLeft: 0 }]} full>
+                                            <Text style={theme.buttonSmallTxt}>{`${strings.uploadTitle}`}</Text>
+                                        </Button>
+                                    </Card>
+                                </TouchableOpacity>
+                                
                             </View>
                             <View style={{ flex: 1, flexDirection: 'row' }}>
                                 <TouchableOpacity activeOpacity={0.5} style={{ flex: 1 }}
@@ -218,17 +210,6 @@ class HomeContentScreen extends React.Component {
                                         <Image source={ContactMechanic} style={{ width: 110, height: 109 }} />
                                         <Button onPress={() => this.props.navigation.navigate('ContactPersonHome')} style={[theme.buttonAlignBottom, { marginLeft: 0 }]} full>
                                             <Text style={theme.buttonSmallTxt}>{`${strings.contactButton}`}</Text>
-                                        </Button>
-                                    </Card>
-                                </TouchableOpacity>
-                            </View>
-                            <View style={{ flex: 1, flexDirection: 'row' }}>
-                                <TouchableOpacity activeOpacity={0.5} style={{ flex: 1 }}
-                                    onPress={() => this.props.navigation.navigate('ExpenseReportHomeScreen')} >
-                                    <Card wrapperStyle={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} containerStyle={{ flex: 1, marginRight: 8 }}>
-                                        <Image source={expenseImg} style={{ width: 110, height: 109 }} />
-                                        <Button onPress={() => this.props.navigation.navigate('ExpenseReportHomeScreen')} style={[theme.buttonAlignBottom, { marginLeft: 0 }]} full>
-                                            <Text style={theme.buttonSmallTxt}>{`${strings.expenseReportTitle}`}</Text>
                                         </Button>
                                     </Card>
                                 </TouchableOpacity>

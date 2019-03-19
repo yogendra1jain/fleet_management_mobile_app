@@ -32,6 +32,7 @@ import AssetCheckinScreen from '../components/AssetCheckinScreen';
 import LanguageSelectionScreen from '../components/LanguageSupportScreen/LanguageList';
 import PdfViewScreen from '../components/DocumentsView/PdfView';
 import ExpenseReportHomeScreen from '../components/ExpenseReports/ExpenseReportHome';
+import UploadDocsHomeScreen from '../components/UploadDocs/UploadDocsHome';
 
 const AppStack = createStackNavigator(
     {
@@ -59,6 +60,7 @@ const AppStack = createStackNavigator(
         LanguageSelectionScreen: LanguageSelectionScreen,
         PdfViewScreen: PdfViewScreen,
         ExpenseReportHomeScreen: ExpenseReportHomeScreen,
+        UploadDocsHomeScreen: UploadDocsHomeScreen,
     }, {
         initialRouteName: 'Home',
         navigationOptions: {
