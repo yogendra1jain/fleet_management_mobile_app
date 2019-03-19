@@ -9,6 +9,7 @@ import tasksImg from '../assets/images/tasks.png';
 import gasFillImg from '../assets/images/gasfill.png';
 import MileageImg from '../assets/images/mileageImg.png';
 import ServiceImg from '../assets/images/serviceImg.png';
+import expenseImg from '../assets/images/expense.png';
 import DocumentsImg from '../assets/images/documentsImg.png';
 import ContactMechanic from '../assets/images/contactMechanic.png';
 
@@ -217,6 +218,17 @@ class HomeContentScreen extends React.Component {
                                         <Image source={ContactMechanic} style={{ width: 110, height: 109 }} />
                                         <Button onPress={() => this.props.navigation.navigate('ContactPersonHome')} style={[theme.buttonAlignBottom, { marginLeft: 0 }]} full>
                                             <Text style={theme.buttonSmallTxt}>{`${strings.contactButton}`}</Text>
+                                        </Button>
+                                    </Card>
+                                </TouchableOpacity>
+                            </View>
+                            <View style={{ flex: 1, flexDirection: 'row' }}>
+                                <TouchableOpacity activeOpacity={0.5} style={{ flex: 1 }}
+                                    onPress={() => this.props.navigation.navigate('ExpenseReportHomeScreen')} >
+                                    <Card wrapperStyle={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} containerStyle={{ flex: 1, marginRight: 8 }}>
+                                        <Image source={expenseImg} style={{ width: 110, height: 109 }} />
+                                        <Button onPress={() => this.props.navigation.navigate('ExpenseReportHomeScreen')} style={[theme.buttonAlignBottom, { marginLeft: 0 }]} full>
+                                            <Text style={theme.buttonSmallTxt}>{`${strings.expenseReportTitle}`}</Text>
                                         </Button>
                                     </Card>
                                 </TouchableOpacity>

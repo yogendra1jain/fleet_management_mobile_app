@@ -31,6 +31,7 @@ import MechanicProfile from '../components/ContactPerson/MechanicProfile';
 import AssetCheckinScreen from '../components/AssetCheckinScreen';
 import LanguageSelectionScreen from '../components/LanguageSupportScreen/LanguageList';
 import PdfViewScreen from '../components/DocumentsView/PdfView';
+import ExpenseReportHomeScreen from '../components/ExpenseReports/ExpenseReportHome';
 
 const AppStack = createStackNavigator(
     {
@@ -57,6 +58,7 @@ const AppStack = createStackNavigator(
         MechanicProfile: MechanicProfile,
         LanguageSelectionScreen: LanguageSelectionScreen,
         PdfViewScreen: PdfViewScreen,
+        ExpenseReportHomeScreen: ExpenseReportHomeScreen,
     }, {
         initialRouteName: 'Home',
         navigationOptions: {

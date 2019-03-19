@@ -49,6 +49,8 @@ let strings = ({
         "confirmPasswordLabel": "Confirm Password",
         "passwordErrorText": "Invalid Password. Atleast 4 digits.",
         "confirmPasswordErrorText": "Confirm password should match with new password.",
+        "expenseReportTitle": "Expense Report",
+        "expenseLabel": "Expense Amount",
     },
     spn: {
         checkIn: "Registrarse",
@@ -101,6 +103,8 @@ let strings = ({
         "confirmPasswordLabel": "Confirmar contraseña",
         "passwordErrorText": "Contraseña invalida. Al menos 4 dígitos.",
         "confirmPasswordErrorText": "Confirmar contraseña debe coincidir con la nueva contraseña.",
+        "expenseReportTitle": "Informe de gastos",
+        "expenseLabel": "Cantidad de gastos",
     }
 });
 
