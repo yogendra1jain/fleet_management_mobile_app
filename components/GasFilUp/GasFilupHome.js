@@ -96,17 +96,6 @@ class GasFilUpHomeScreen extends React.Component {
         }).catch((err) => {
             console.log('error while resizing image', err);
         });
-        // this.setState({
-        //     imageSource: uri,
-        //     fileName: fileName,
-        //     uploadingFile: true,
-        // });
-        // const formData = new FormData();
-        // formData.append('file', { uri, type: mimeType, name: fileName });
-        // if (uri && !_isEmpty(uri)) {
-        //     console.log('data to be upload', formData);
-        //     this.uploadData(formData, res);
-        // }
     }
 
     uploadData = (formData) => {

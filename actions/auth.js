@@ -125,7 +125,7 @@ export const updatePassword = (data) => {
             type: 'REQUEST_UPDATE_PASSWORD',
         });
         console.log('data for update password');
-        AXIOS.post('/api/users/updatePassword', data)
+        AXIOS.post('/ClientUser/ResetPassword', data)
             .then((response) => {
                 let data = response.data;
                 Toast.show({

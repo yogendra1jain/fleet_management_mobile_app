@@ -20,18 +20,15 @@ export default class PdfViewScreen extends React.Component {
         console.log('uri used', this.uri);
         return (
             <Container style={theme.container} isLoading={this.props.isLoading}>
-                <Header >
+                {/* <Header >
                     <Left style={{ flex: 1 }}>
                         <Button transparent onPress={() => this.props.navigation.goBack()}>
                             <Icon name='arrow-back' style={{ color: '#fff' }} />
                         </Button>
                     </Left>
-                    {/* <Body style={[theme.centerAlign, { flex: 4 }]}>
-                        <Title style={{ color: '#fff' }} >{`${strings.documentButton}`}</Title>
-                    </Body> */}
                     <Right style={{ flex: 1 }}>
                     </Right>
-                </Header>
+                </Header> */}
                 <Content
                     style={{ backgroundColor: '#ededed' }}
                 >
@@ -40,7 +37,7 @@ export default class PdfViewScreen extends React.Component {
                     style={{ flex: 1 }}
                     resource={this.uri}
                     resourceType={'url'}
-                    onLoad={() => console.log(`PDF rendered from url`)}
+                    onLoad={(data) => console.log(`PDF rendered from url, `, (data))}
                     onError={(error) => console.log('Cannot render PDF', error)}
                     />
              </Content>

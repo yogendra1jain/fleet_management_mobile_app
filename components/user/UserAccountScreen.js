@@ -11,6 +11,7 @@ import { setWarnings } from '../../actions/user';
 // import { Feather } from '@expo/vector-icons';
 import { Container, Content, Header, Button, Title, Body, Left, Right, Icon } from 'native-base';
 import withErrorBoundary from '../hocs/withErrorBoundary';
+import withLocalization from '../hocs/withLocalization';
 
 class UserAccountScreen extends React.Component {
     constructor(props) {
@@ -19,24 +20,30 @@ class UserAccountScreen extends React.Component {
             isReady: true,
             checked: true,
         };
-        this.listData = [
+    }
+    static navigationOptions = {
+        header: null,
+    };
+
+    getListData = () => {
+        let listData = [
             {
-                listTitle: 'Security Settings',
+                listTitle: `${_get(this.props, 'strings.securitySettingsTitle', '')}`,
                 listItems: [
                     {
-                        title: 'Change Password',
+                        title: `${_get(this.props, 'strings.changePasswordTitle', '')}`,
                         icon: 'ios-keypad',
                         type: 'ionicon',
                         link: 'ChangePasswordScreen',
                     },
                     {
-                        title: 'Manage App Lock',
+                        title: `${_get(this.props, 'strings.appLockTitle', '')}`,
                         icon: 'md-lock',
                         type: 'ionicon',
                         link: 'SetupNativeAuth',
                     },
                     {
-                        title: 'Manage Language',
+                        title: `${_get(this.props, 'strings.manageLanguageTitle', '')}`,
                         icon: 'language',
                         type: 'font-awesome',
                         link: 'LanguageSelectionScreen',
@@ -44,10 +51,8 @@ class UserAccountScreen extends React.Component {
                 ],
             },
         ];
+        return listData;
     }
-    static navigationOptions = {
-        header: null,
-    };
 
     listItemClicked = (item, index) => {
         if (item.link == 'showWarnings') {
@@ -66,7 +71,7 @@ class UserAccountScreen extends React.Component {
 
     render() {
         // const { user, nativeAuth } = this.props;
-        const listItems = !_isEmpty(this.listData) && this.listData.map((list, index) => (
+        const listItems = !_isEmpty(this.getListData()) && this.getListData().map((list, index) => (
 
             <View key={index} >
                 <View key={index + 1}>
@@ -98,8 +103,8 @@ class UserAccountScreen extends React.Component {
                             <Icon name='arrow-back' style={{ color: '#fff' }} />
                         </Button>
                     </Left>
-                    <Body style={{ flex: 1 }}>
-                        <Title style={{ color: '#fff' }} >User Account</Title>
+                    <Body style={{ flex: 4, justifyContent: 'center', alignItems: 'center' }}>
+                        <Title>{`${_get(this.props, 'strings.userAccountTitle', '')}`}</Title>
                     </Body>
                     <Right style={{ flex: 1 }}>
                     </Right>
@@ -154,4 +159,4 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-export default withErrorBoundary()(connect(mapStateToProps, mapDispatchToProps)(UserAccountScreen));
+export default withErrorBoundary()(connect(mapStateToProps, mapDispatchToProps)(withLocalization(UserAccountScreen)));

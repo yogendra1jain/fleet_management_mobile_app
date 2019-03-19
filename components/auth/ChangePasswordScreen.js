@@ -7,9 +7,12 @@ import _set from 'lodash/set';
 import _get from 'lodash/get';
 import _cloneDeep from 'lodash/cloneDeep';
 import { updatePassword, clearError, setLoadingFalse } from '../../actions/auth';
+import { postData } from '../../actions/commonAction';
 import theme from '../../theme';
 import { Container, Content, Header, Button, Title, Body, Left, Right, Icon } from 'native-base';
 import withLoadingScreen from '../withLoadingScreen';
+import withLocalization from '../hocs/withLocalization';
+import { showToast } from '../../utils';
 
 
 const Form = t.form.Form;
@@ -76,39 +79,55 @@ class ChangePasswordScreen extends React.Component {
         const value = this.refs.form.getValue();
         let data = {};
         if (value) {
-            _set(data, 'oldPassword', value.oldPassword);
-            _set(data, 'newPassword', value.newPassword);
-            this.props.updatePassword(data);
+            _set(data, 'id', _get(this.props, 'decodedToken.FleetUser.id', ''),);
+            _set(data, 'password', value.newPassword);
+            // this.props.updatePassword(data);
+            let url = `/ClientUser/ResetPassword`;
+            let constants = {
+                init: 'UPDATE_PASSWORD_INIT',
+                success: 'UPDATE_PASSWORD_SUCCESS',
+                error: 'UPDATE_PASSWORD_ERROR',
+            };
+            let identifier = 'UPDATE_PASSWORD';
+            let key = 'updatePassword';
+            this.props.postData(url, data, constants, identifier, key)
+                .then((data) => {
+                    this.props.navigation.goBack();
+                    this.props.navigation.navigate('Home');
+                    showToast('success', `Password Updated Successfully.`, 2000);
+                }, (err) => {
+                    console.log('error while updating password', err);
+                });
         } else {
             this.refs.form.getComponent('oldPassword').refs.input.focus();
         }
     }
 
     render() {
-        const { error } = this.props;
+        const { error, strings } = this.props || {};
         const options = {
             fields: {
                 oldPassword: {
                     keyboardType: 'default',
                     autoFocus: true,
                     secureTextEntry: true,
-                    label: 'Old Password',
-                    error: 'Invalid Password. Atleast 4 digits.',
+                    label: `${strings.oldPasswordLabel}`,
+                    error: `${strings.passwordErrorText}`,
                     onSubmitEditing: () => this.refs.form.getComponent('newPassword').refs.input.focus()
                 },
                 newPassword: {
                     keyboardType: 'default',
                     secureTextEntry: true,
-                    label: 'New Password',
-                    error: 'Invalid Password. Atleast 4 digits.',
+                    label: `${strings.newPasswordLabel}`,
+                    error: `${strings.passwordErrorText}`,
                     onSubmitEditing: () => this.refs.form.getComponent('confirmPassword').refs.input.focus()
                 },
                 confirmPassword: {
                     keyboardType: 'default',
                     autoFocus: false,
                     secureTextEntry: true,
-                    label: 'Confirm Password',
-                    error: 'Confirm password should match with new password.',
+                    label: `${strings.confirmPasswordLabel}`,
+                    error: `${strings.confirmPasswordErrorText}`,
                     onSubmitEditing: () => this.onPress(),
                 },
             },
@@ -119,13 +138,13 @@ class ChangePasswordScreen extends React.Component {
         return (
             <ContainerWithLoading style={theme.container} isLoading={this.props.isLoading}>
                 <Header translucent={false} style={{ backgroundColor: '#4d47cd' }} androidStatusBarColor="#0e0a65" iosBarStyle="light-content">
-                    <Left >
+                    <Left style={{ flex: 1 }}>
                         <Button transparent onPress={() => this.props.navigation.goBack()}>
                             <Icon name='arrow-back' style={{ color: '#fff' }} />
                         </Button>
                     </Left>
-                    <Body>
-                        <Title style={{ color: '#fff' }} >Change Password</Title>
+                    <Body style={{ flex: 4, justifyContent: 'center', alignItems: 'center' }}>
+                        <Title>{`${_get(this.props, 'strings.changePasswordTitle', '')}`}</Title>
                     </Body>
                     <Right>
                     </Right>
@@ -145,7 +164,7 @@ class ChangePasswordScreen extends React.Component {
                 </Content>
                 <View style={{ backgroundColor: '#ffffff' }}>
                     <Button style={theme.buttonNormal} onPress={() => this.onPress()} full>
-                        <Text style={theme.butttonFixTxt}>CHANGE PASSWORD</Text>
+                        <Text style={theme.butttonFixTxt}>{`${_get(this.props, 'strings.changePasswordTitle', '')}`}</Text>
                     </Button>
                 </View>
             </ContainerWithLoading>
@@ -154,24 +173,28 @@ class ChangePasswordScreen extends React.Component {
 }
 
 function mapStateToProps(state) {
-    let { auth } = state;
+    let { auth, commonReducer } = state;
     let { userStatus } = auth || [];
-    let { isLoading } = auth || false;
+    let { decodedToken } = auth || {};
+
+    let { isLoading } = commonReducer || false;
     let error = _get(auth, 'error.message', '');
     return {
         userStatus,
         auth,
         isLoading,
         error,
+        decodedToken,
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
+        postData: (url, data, constants, identifier, key) => dispatch(postData(url, data, constants, identifier, key)),
         clearError: () => dispatch(clearError()),
         setLoadingFalse: () => dispatch(setLoadingFalse()),
         updatePassword: data => dispatch(updatePassword(data)),
     };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ChangePasswordScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(withLocalization(ChangePasswordScreen));
