@@ -33,6 +33,7 @@ import LanguageSelectionScreen from '../components/LanguageSupportScreen/Languag
 import PdfViewScreen from '../components/DocumentsView/PdfView';
 import ExpenseReportHomeScreen from '../components/ExpenseReports/ExpenseReportHome';
 import UploadDocsHomeScreen from '../components/UploadDocs/UploadDocsHome';
+import AnimatedMarkers from '../components/MapView/LiveLocationTracking';
 
 const AppStack = createStackNavigator(
     {
@@ -61,6 +62,7 @@ const AppStack = createStackNavigator(
         PdfViewScreen: PdfViewScreen,
         ExpenseReportHomeScreen: ExpenseReportHomeScreen,
         UploadDocsHomeScreen: UploadDocsHomeScreen,
+        AnimatedMarkers: AnimatedMarkers,
     }, {
         initialRouteName: 'Home',
         navigationOptions: {

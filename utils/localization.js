@@ -51,6 +51,10 @@ let strings = ({
         "confirmPasswordErrorText": "Confirm password should match with new password.",
         "expenseReportTitle": "Expense Report",
         "expenseLabel": "Expense Amount",
+        "expenseErrorText": "Amount should be greater than 0",
+        "confirmExpenseLabel": "Confirm Expense Amount",
+        "confExpenseErrorText": "Both Amount should match.",
+
         "uploadTitle": "Upload Documents",
     },
     spn: {
@@ -106,6 +110,9 @@ let strings = ({
         "confirmPasswordErrorText": "Confirmar contraseña debe coincidir con la nueva contraseña.",
         "expenseReportTitle": "Informe de gastos",
         "expenseLabel": "Cantidad de gastos",
+        "expenseErrorText": "La cantidad debe ser mayor que 0",
+        "confirmExpenseLabel": "Confirmar la cantidad de gastos",
+        "confExpenseErrorText": "Ambas cantidades deben coincidir.",
         "uploadTitle": "subir documentos",
     }
 });

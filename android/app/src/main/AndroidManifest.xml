@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.VIBRATE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     
 
     <application
@@ -17,6 +18,9 @@
       android:icon="@mipmap/icon"
       android:allowBackup="false"
       android:theme="@style/AppTheme">
+      <meta-data
+        android:name="com.google.android.geo.API_KEY"
+        android:value="AIzaSyDSNRvA2GoNN9J087nxm1kDCOwRM6DwMQo"/>
       <activity
         android:name=".SplashActivity"
         android:theme="@style/SplashTheme"
@@ -35,9 +39,6 @@
         android:exported="true"
       />
       <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
-      <meta-data
-        android:name="com.google.android.geo.API_KEY"
-        android:value="AIzaSyDSNRvA2GoNN9J087nxm1kDCOwRM6DwMQo"/>
     </application>
     
 

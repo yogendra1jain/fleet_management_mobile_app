@@ -11,6 +11,7 @@ import _cloneDeep from 'lodash/cloneDeep';
 import _isEmpty from 'lodash/isEmpty';
 import { showAlert, showToast } from '../../utils/index';
 import strings from '../../utils/localization';
+import t from 'tcomb-form-native';
 
 import theme from '../../theme';
 import { Text, Container, Content, Header, Button, Title, Body, Left, Right, Icon } from 'native-base';
@@ -22,6 +23,9 @@ import { postData } from '../../actions/commonAction';
 import ImageResizer from 'react-native-image-resizer';
 
 
+const Form = t.form.Form;
+const stylesheet = t.form.Form.stylesheet;
+
 const ContainerWithLoading = withLoadingScreen(Container);
 
 const options = {
@@ -32,13 +36,30 @@ const options = {
     },
 };
 
+
+const ValidExpense = t.refinement(t.Number, (n) => {
+    if (n) {
+        return n > 0;
+    }
+});
+
 class ExpenseReportHomeScreen extends React.Component {
     constructor(props) {
         super(props);
+        this.sameExpense = t.refinement(t.String, (s) => {
+            return s == this.state.value.expense;
+        });
         this.state = {
             expense: '',
             links: [],
+            value: {},
         };
+        this.ExpenseStruct = t.struct({
+            expense: ValidExpense,
+            confirmExpense: this.sameExpense,
+        });
+        this.validate = null;
+        this.stylesheet = _cloneDeep(stylesheet);
     }
     static navigationOptions = {
         header: null,
@@ -141,9 +162,12 @@ class ExpenseReportHomeScreen extends React.Component {
         });
     }
     onSave = () => {
+        const value = this.refs.form.getValue();
         if (this.state.links.length==0) {
             showAlert('Warning', 'Please select document to proceed.');
-        } else {
+        } else if (!value) {
+            this.refs.form.getComponent('expense').refs.input.focus();
+        } else{
             let data = {};
             // let assetUsage = {
             //     usage: parseFloat(this.state.mileage),
@@ -161,6 +185,12 @@ class ExpenseReportHomeScreen extends React.Component {
                 links: this.state.uploadedLinks,
             }
             this.saveMileageData(data);
+        }
+    }
+    onChange = (value) => {
+        this.setState({ value });
+        if (value.confirmExpense != null && value.confirmExpense != '') {
+            this.validate = this.refs.form.getValue();
         }
     }
 
@@ -184,6 +214,27 @@ class ExpenseReportHomeScreen extends React.Component {
     }
     render() {
         const { strings } = this.props;
+        const options = {
+            fields: {
+                expense: {
+                    keyboardType: 'numeric',
+                    autoFocus: true,
+                    secureTextEntry: false,
+                    label: `${strings.expenseLabel}`,
+                    error: `${strings.expenseErrorText}`,
+                    onSubmitEditing: () => this.refs.form.getComponent('confirmExpense').refs.input.focus()
+                },
+                confirmExpense: {
+                    keyboardType: 'numeric',
+                    autoFocus: false,
+                    secureTextEntry: false,
+                    label: `${strings.confirmExpenseLabel}`,
+                    error: `${strings.confExpenseErrorText}`,
+                    onSubmitEditing: () => this.onSave(),
+                },
+            },
+
+        };
         let images = [];
         !_isEmpty(_get(this.state, 'links', [])) && _get(this.state, 'links', []).map((link, index) => {
             images.push(
@@ -234,7 +285,17 @@ class ExpenseReportHomeScreen extends React.Component {
                             </View>
                         </View>
                         <View style={{ flex: 1, paddingTop: 15 }}>
-                            <View style={{ flex: 1, flexDirection: 'row' }}>
+                        <View style={[theme.marL15, theme.marR15, theme.mart15]} >
+                            <Form
+                                ref="form"
+                                options={options}
+                                type={this.ExpenseStruct}
+                                value={this.state.value}
+                                onChange={this.onChange}
+                                style={[theme.formStyle]}
+                            />
+                        </View>
+                            {/* <View style={{ flex: 1, flexDirection: 'row' }}>
                                 <View style={{ justifyContent: 'flex-start', alignItems: 'center', paddingLeft: 10 }}>
                                     <Text>{`${strings.expenseLabel}`}</Text>
                                 </View>
@@ -247,7 +308,7 @@ class ExpenseReportHomeScreen extends React.Component {
                                         keyboardType={'numeric'}
                                     />
                                 </View>
-                            </View>
+                            </View> */}
                         </View>
                         <TouchableHighlight onPress={() => this.uploadImage()}>
                             <View style={[theme.centerAlign, { flex: 1, flexDirection: 'column', backgroundColor: '#ddd', margin: 20 }]}>

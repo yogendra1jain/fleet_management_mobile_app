@@ -6,6 +6,7 @@ import _get from 'lodash/get';
 import _isEmpty from 'lodash/isEmpty';
 import theme from '../theme';
 import tasksImg from '../assets/images/tasks.png';
+import mapIcon from '../assets/images/mapIcon.png';
 import uploadImg from '../assets/images/uploadImg.jpeg';
 import MileageImg from '../assets/images/mileageImg.png';
 import ServiceImg from '../assets/images/serviceImg.png';
@@ -191,6 +192,18 @@ class HomeContentScreen extends React.Component {
                                         </Button>
                                     </Card>
                                 </TouchableOpacity>
+                                { 
+                                    // For Live Location Tracking
+                                }
+                                {/* <TouchableOpacity activeOpacity={0.5} style={{ flex: 1 }}
+                                    onPress={() => this.props.navigation.navigate('AnimatedMarkers')} >
+                                    <Card wrapperStyle={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} containerStyle={{ flex: 1, marginRight: 8 }}>
+                                        <Image source={mapIcon} style={{ width: 110, height: 109 }} />
+                                        <Button onPress={() => this.props.navigation.navigate('AnimatedMarkers')} style={[theme.buttonAlignBottom, { marginLeft: 0 }]} full>
+                                            <Text style={theme.buttonSmallTxt}>{`Live Location`}</Text>
+                                        </Button>
+                                    </Card>
+                                </TouchableOpacity> */}
                                 
                             </View>
                             <View style={{ flex: 1, flexDirection: 'row' }}>
