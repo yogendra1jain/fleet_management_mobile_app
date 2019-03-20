@@ -1,16 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { View, Image, StyleSheet, TouchableHighlight, TextInput, Platform } from 'react-native';
-import mileageImg from '../../assets/images/mileage.png';
 import expenseImg from '../../assets/images/expense.png';
-// import Input from 'react-native-elements';
 import ImagePicker from 'react-native-image-picker';
 
 import _get from 'lodash/get';
 import _cloneDeep from 'lodash/cloneDeep';
 import _isEmpty from 'lodash/isEmpty';
 import { showAlert, showToast } from '../../utils/index';
-import strings from '../../utils/localization';
 import t from 'tcomb-form-native';
 
 import theme from '../../theme';
@@ -169,16 +166,12 @@ class ExpenseReportHomeScreen extends React.Component {
             this.refs.form.getComponent('expense').refs.input.focus();
         } else{
             let data = {};
-            // let assetUsage = {
-            //     usage: parseFloat(this.state.mileage),
-            //     uom: _get(this.props, 'userDetails.checkedInto.usage.uom', ''),
-            // }
             data = {
                 assetId: _get(this.props, 'userDetails.checkedInto.id', ''),
-                // userId: _get(this.props, 'userDetails.user.id', ''),
+                userId: _get(this.props, 'userDetails.user.id', ''),
                 documentType: 7,
                 amount: {
-                    amount: Number(this.state.expense),
+                    amount: Number(value.expense),
                     currency: "$",
                 },
                 // status: 1,
@@ -218,7 +211,7 @@ class ExpenseReportHomeScreen extends React.Component {
             fields: {
                 expense: {
                     keyboardType: 'numeric',
-                    autoFocus: true,
+                    autoFocus: false,
                     secureTextEntry: false,
                     label: `${strings.expenseLabel}`,
                     error: `${strings.expenseErrorText}`,
@@ -295,20 +288,6 @@ class ExpenseReportHomeScreen extends React.Component {
                                 style={[theme.formStyle]}
                             />
                         </View>
-                            {/* <View style={{ flex: 1, flexDirection: 'row' }}>
-                                <View style={{ justifyContent: 'flex-start', alignItems: 'center', paddingLeft: 10 }}>
-                                    <Text>{`${strings.expenseLabel}`}</Text>
-                                </View>
-                                <View style={{ flex: 1, marginLeft: 10, marginRight: 10 }}>
-                                    <TextInput
-                                        style={{ height: 35, borderColor: 'gray', borderWidth: 1, paddingLeft: 10 }}
-                                        onChangeText={value => this.setMileage(value)}
-                                        value={_get(this, 'state.expense', '').toString()}
-                                        underlineColorAndroid={'transparent'}
-                                        keyboardType={'numeric'}
-                                    />
-                                </View>
-                            </View> */}
                         </View>
                         <TouchableHighlight onPress={() => this.uploadImage()}>
                             <View style={[theme.centerAlign, { flex: 1, flexDirection: 'column', backgroundColor: '#ddd', margin: 20 }]}>
@@ -324,18 +303,6 @@ class ExpenseReportHomeScreen extends React.Component {
                     {
                         images
                     }
-                    {/* <View style={{ flex: 1, marginLeft: 20, flexDirection: 'row' }}>
-                        {
-                            this.state.imageSource && this.state.imageSource != '' &&
-                            <Image source={{ uri: this.state.imageSource }} style={{ width: 100, height: 100 }} />
-                        }
-                        <View style={{ margin: 10 }}>
-                            <Text style={{ flexWrap: 'wrap' }}>{this.state.fileName}</Text>
-                        </View>
-                        <View style={{ margin: 10 }}>
-                            <Icon onPress={() => this.handleDelete()} name='delete' type="MaterialCommunityIcons" />
-                        </View>
-                    </View> */}
                 </Content>
                 <View style={{ backgroundColor: '#ffffff' }}>
                     <Button style={theme.buttonNormal} onPress={() => this.onSave()} full>
@@ -351,7 +318,6 @@ function mapStateToProps(state) {
     let { decodedToken } = state.auth || {};
     let { commonReducer } = state || {};
     let { userDetails } = commonReducer || {};
-    // console.log('user details', userDetails);
     let isLoading = commonReducer.isFetching || false;
     let { appLanguage, languageDetails } = commonReducer || 'en';
 
