@@ -164,7 +164,7 @@ class GasFilUpHomeScreen extends React.Component {
             .then((data) => {
                 console.log('gasfill saved successfully.', data);
                 showToast('success', `${this.props.strings.saveSuccessMsg}`, 3000);
-                this.props.navigation.navigate('Home');
+                this.props.navigation.navigate('UploadDocsHomeScreen');
             }, (err) => {
                 console.log('error while saving gas fillup', err);
             });

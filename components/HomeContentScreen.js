@@ -241,6 +241,7 @@ function mapStateToProps(state) {
     // let { appLanguage } = commonReducer || 'en';
     let { token, isLoading } = auth.userStatus;
     let { decodedToken, time, isCheckInAsset } = auth || {};
+    console.log('decoded token', decodedToken);
     return {
         auth,
         token,

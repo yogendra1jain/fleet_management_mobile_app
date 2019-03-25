@@ -172,7 +172,7 @@ class ExpenseReportHomeScreen extends React.Component {
                 documentType: 7,
                 amount: {
                     amount: Number(value.expense),
-                    currency: "$",
+                    currency: _get(this.props, 'decodedToken.Client.defaultSettings.currency', ''),
                 },
                 // status: 1,
                 links: this.state.uploadedLinks,
@@ -200,7 +200,7 @@ class ExpenseReportHomeScreen extends React.Component {
             .then((data) => {
                 console.log('mileage saved successfully.', data);
                 showToast('success', `${this.props.strings.saveSuccessMsg}`, 3000);
-                this.props.navigation.navigate('Home');
+                this.props.navigation.navigate('UploadDocsHomeScreen');
             }, (err) => {
                 console.log('error while saving mileage', err);
             });

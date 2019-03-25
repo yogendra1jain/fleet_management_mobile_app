@@ -3,6 +3,8 @@ package com.aob.myfms;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import org.wonday.pdf.RCTPdfView;
+import com.RNFetchBlob.RNFetchBlobPackage;
 import fr.bamlab.rnimageresizer.ImageResizerPackage;
 import com.rumax.reactnative.pdfviewer.PDFViewPackage;
 import com.airbnb.android.react.maps.MapsPackage;
@@ -39,6 +41,8 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RCTPdfView(),
+            new RNFetchBlobPackage(),
             new ImageResizerPackage(),
             new PDFViewPackage(),
             new MapsPackage(),

@@ -154,7 +154,7 @@ class UpdateMileageHomeScreen extends React.Component {
             .then((data) => {
                 console.log('mileage saved successfully.', data);
                 showToast('success', `${this.props.strings.saveSuccessMsg}`, 3000);
-                this.props.navigation.navigate('Home');
+                this.props.navigation.navigate('UploadDocsHomeScreen');
             }, (err) => {
                 console.log('error while saving mileage', err);
             });

@@ -44,6 +44,7 @@
     "react-native-image-resizer": "^1.0.1",
     "react-native-maps": "^0.23.0",
     "react-native-modal": "^6.5.0",
+    "react-native-pdf": "^5.0.8",
     "react-native-print": "^0.5.0",
     "react-native-responsive-image": "^2.3.1",
     "react-native-splash-screen": "^3.0.6",
@@ -55,6 +56,7 @@
     "redux": "^4.0.0",
     "redux-persist": "^5.10.0",
     "redux-thunk": "^2.3.0",
+    "rn-fetch-blob": "^0.10.15",
     "tcomb-form-native": "^0.6.13",
     "uniqid": "^5.0.3"
   },
