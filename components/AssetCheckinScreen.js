@@ -81,7 +81,7 @@ class AssetCheckinScreen extends React.Component {
             .then((data) => {
                 console.log('checked in successfully.', data);
                 if (isCheckin) {
-                    this.props.timerFunc(6000);
+                    this.props.timerFunc(86400);
                 } else {
                     this.props.timerFunc(0);
                 }

@@ -144,17 +144,14 @@ class TaskListScreen extends React.Component {
 }
 
 function mapStateToProps(state) {
-    let { orders, auth, user } = state;
+    let { auth, user } = state;
     let { isLoading } = orders || false;
-    let { orderList } = orders || {};
-    console.log('orderList', orderList);
     let { decodedToken } = auth || {};
     let { userDetails } = user || {};
 
     return {
         orders,
         isLoading,
-        orderList,
         decodedToken,
         userDetails,
     };
