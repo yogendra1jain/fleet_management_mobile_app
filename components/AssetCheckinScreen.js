@@ -60,6 +60,24 @@ class AssetCheckinScreen extends React.Component {
             selectedIndex: index,
         });
     }
+    getCurrentLocation = (index, asset, isCheckin) => {
+        this.setState({
+            isLoading: true,
+        });
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                this.setState({
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude,
+                    error: null,
+                    isLoading: false,
+                });
+                this.handleCheckIn(index, asset, isCheckin);
+            },
+            error => this.setState({ error: error.message }),
+            { enableHighAccuracy: false, timeout: 200000, maximumAge: 1000 },
+          );
+    }
     handleCheckIn = (index, asset, isCheckin) => {
         let url = `/Assets/CheckIn`;
         this.props.setCheckInAsset(false);
@@ -74,6 +92,10 @@ class AssetCheckinScreen extends React.Component {
         let data = {
             operatorId: _get(this.props, 'decodedToken.FleetUser.id', ''),
             assetId: asset.id,
+            coordinate: {
+                latitude: this.state.latitude,
+                longitude: this.state.longitude,
+            },
         };
         let identifier = 'SAVE_CHECKIN_FOR_ASSET';
         let key = 'checkInForAsset';
@@ -125,7 +147,7 @@ class AssetCheckinScreen extends React.Component {
                     asset={asset}
                     strings={strings}
                     handleAssetClick={this.handleAssetClick}
-                    handleCheckIn={this.handleCheckIn}
+                    handleCheckIn={this.getCurrentLocation}
                     decodedToken={this.props.decodedToken}
                 />
             );
@@ -137,7 +159,7 @@ class AssetCheckinScreen extends React.Component {
     render() {
         const { isLoading, strings } = this.props;
         return (
-            <ContainerWithLoading style={theme.container} isLoading={isLoading} >
+            <ContainerWithLoading style={theme.container} isLoading={isLoading || this.state.isLoading} >
                 <Header translucent={false} style={{ backgroundColor: '#4d47cd' }} androidStatusBarColor="#0e0a65" iosBarStyle="light-content">
                     <Left >
                         <Button transparent onPress={() => this.props.navigation.goBack()}>

@@ -116,7 +116,7 @@ class TaskListScreen extends React.Component {
                 <Content
                     refreshControl={
                         <RefreshControl
-                            refreshing={isLoading}
+                            refreshing={isLoading || false}
                             onRefresh={this._onRefresh}
                         />
                     }
@@ -145,13 +145,10 @@ class TaskListScreen extends React.Component {
 
 function mapStateToProps(state) {
     let { auth, user } = state;
-    let { isLoading } = orders || false;
     let { decodedToken } = auth || {};
     let { userDetails } = user || {};
 
     return {
-        orders,
-        isLoading,
         decodedToken,
         userDetails,
     };

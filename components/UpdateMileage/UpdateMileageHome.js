@@ -121,6 +121,24 @@ class UpdateMileageHomeScreen extends React.Component {
             mileage: value,
         });
     }
+    getCurrentLocation = () => {
+        this.setState({
+            isLoading: true,
+        });
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                this.setState({
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude,
+                    error: null,
+                    isLoading: false,
+                });
+                this.onSave();
+            },
+            error => this.setState({ error: error.message }),
+            { enableHighAccuracy: false, timeout: 200000, maximumAge: 1000 },
+          );
+    }
     onSave = () => {
         if (this.state.link =='') {
             showAlert('Warning', 'Please select document to proceed.');
@@ -136,6 +154,10 @@ class UpdateMileageHomeScreen extends React.Component {
                 documentType: 5,
                 status: 1,
                 link: this.state.link,
+                coordinate: {
+                    latitude: this.state.latitude,
+                    longitude: this.state.longitude,
+                },
             }
             this.saveMileageData(data);
         }
@@ -162,7 +184,7 @@ class UpdateMileageHomeScreen extends React.Component {
     render() {
         const { strings } = this.props;
         return (
-            <ContainerWithLoading style={theme.container} isLoading={this.props.isLoading}>
+            <ContainerWithLoading style={theme.container} isLoading={this.props.isLoading || this.state.isLoading}>
                 <Header >
                     <Left style={{ flex: 1 }}>
                         <Button transparent onPress={() => this.props.navigation.goBack()}>
@@ -227,7 +249,7 @@ class UpdateMileageHomeScreen extends React.Component {
                     </View>
                 </Content>
                 <View style={{ backgroundColor: '#ffffff' }}>
-                    <Button style={theme.buttonNormal} onPress={() => this.onSave()} full>
+                    <Button style={theme.buttonNormal} onPress={() => this.getCurrentLocation()} full>
                         <Text style={theme.butttonFixTxt}>{`${strings.saveButton}`}</Text>
                     </Button>
                 </View>

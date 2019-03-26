@@ -47,7 +47,7 @@ class GasFilUpHomeScreen extends React.Component {
     componentWillUnmount() {
     }
     componentDidMount() {
-
+        // this.getCurrentLocation();
     }
     handleDocumentItem = (item) => {
         console.log('item', item);
@@ -121,6 +121,24 @@ class GasFilUpHomeScreen extends React.Component {
                 console.log('error while uploading documents', err);
             });
     }
+    getCurrentLocation = () => {
+        this.setState({
+            isLoading: true,
+        });
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                this.setState({
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude,
+                    error: null,
+                    isLoading: false,
+                });
+                this.onSave();
+            },
+            error => this.setState({ error: error.message }),
+            { enableHighAccuracy: false, timeout: 200000, maximumAge: 1000 },
+          );
+    }
     onSave = () => {
         if (this.state.link =='') {
             showAlert('Warning', 'Please select file to proceed.');
@@ -141,11 +159,10 @@ class GasFilUpHomeScreen extends React.Component {
                 documentType: 6,
                 status: 1,
                 link: this.state.link,
-
-                // assetId: _get(this.props, 'userDetails.checkedInto.id', ''),
-                // link: this.state.link,
-                // documentType: 6,
-                // volume: volume,
+                coordinate: {
+                    latitude: this.state.latitude,
+                    longitude: this.state.longitude,
+                },
             }
             this.savegasFillUpData(data);
         }
@@ -178,7 +195,7 @@ class GasFilUpHomeScreen extends React.Component {
     render() {
         const { strings } = this.props;
         return (
-            <ContainerWithLoading style={theme.container} isLoading={this.props.isLoading}>
+            <ContainerWithLoading style={theme.container} isLoading={this.props.isLoading || this.state.isLoading}>
                 <Header >
                     <Left style={{ flex: 1 }}>
                         <Button transparent onPress={() => this.props.navigation.goBack()}>
@@ -272,7 +289,7 @@ class GasFilUpHomeScreen extends React.Component {
                     </View>
                 </Content>
                 <View style={{ backgroundColor: '#ffffff' }}>
-                    <Button style={theme.buttonNormal} onPress={() => this.onSave()} full>
+                    <Button style={theme.buttonNormal} onPress={() => this.getCurrentLocation()} full>
                         <Text style={theme.butttonFixTxt}>{`${strings.saveButton}`}</Text>
                     </Button>
                 </View>
@@ -285,13 +302,15 @@ function mapStateToProps(state) {
     let { decodedToken } = state.auth || {};
     let { commonReducer } = state || {};
     let { userDetails } = commonReducer || {};
+    let { isLoading } = commonReducer || false;
     let { appLanguage, languageDetails } = commonReducer || 'en';
 
     return {
         decodedToken,
         userDetails,
         appLanguage,
-        languageDetails
+        languageDetails,
+        isLoading
     };
 }
 
