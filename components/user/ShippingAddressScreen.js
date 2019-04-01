@@ -109,7 +109,7 @@ class ShippingAddressScreen extends React.Component {
         };
         return (
             <ContainerWithLoading style={theme.container} isLoading={this.props.isLoading}>
-                <Header translucent={false} style={{ backgroundColor: '#4d47cd' }} androidStatusBarColor="#0e0a65" iosBarStyle="light-content">
+                <Header translucent={false} style={{ backgroundColor: '#00A9E0' }} androidStatusBarColor="#00A9E0" iosBarStyle="light-content">
                     <Left >
                         <Button transparent onPress={() => this.props.navigation.goBack()}>
                             <Icon name='arrow-back' style={{ color: '#fff' }} />

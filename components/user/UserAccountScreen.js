@@ -61,13 +61,6 @@ class UserAccountScreen extends React.Component {
             this.props.navigation.navigate(item.link, item.link=='LanguageSelectionScreen' ? {fromMain: true}: {});
         }
     }
-    setVialWarnings = (event) => {
-        console.log('event', event);
-        this.setState({
-            checked: !this.state.checked,
-        });
-        this.props.setWarnings(!this.props.showVialWarning);
-    }
 
     render() {
         // const { user, nativeAuth } = this.props;
@@ -86,7 +79,7 @@ class UserAccountScreen extends React.Component {
                                 titleStyle={{ fontSize: 14 }}
                                 hideChevron={item.link == 'showWarnings' ? false : true}
                                 onPress={() => this.listItemClicked(item, i)}
-                                leftIcon={{ name: item.icon, type: item.type, style: { fontSize: 22, color: '#4d47cd' } }}
+                                leftIcon={{ name: item.icon, type: item.type, style: { fontSize: 22, color: '#00A9E0' } }}
                                 containerStyle={{ paddingTop: 15, paddingBottom: 15 }}
                             />
                         ))
@@ -97,7 +90,7 @@ class UserAccountScreen extends React.Component {
         return (
             <Container>
 
-                <Header translucent={false} style={{ backgroundColor: '#4d47cd' }} androidStatusBarColor="#0e0a65" iosBarStyle="light-content">
+                <Header translucent={false} style={{ backgroundColor: '#00A9E0' }} androidStatusBarColor="#00A9E0" iosBarStyle="light-content">
                     <Left style={{ flex: 1 }}>
                         <Button transparent onPress={() => this.props.navigation.navigate('Home')}>
                             <Icon name='arrow-back' style={{ color: '#fff' }} />
@@ -117,7 +110,7 @@ class UserAccountScreen extends React.Component {
                                 withBorder
                                 rounded
                                 icon={{ name: 'user-o', type: 'font-awesome' }}
-                                containerStyle={{ backgroundColor: '#1B06A9' }}
+                                containerStyle={{ backgroundColor: '#00A9E0' }}
                                 onPress={() => console.log('Works!')}
                                 activeOpacity={0.7}
                             />

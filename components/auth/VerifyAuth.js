@@ -60,18 +60,19 @@ class VerifyAuth extends React.Component {
         if (!this.props.navigation.isFocused()) {
             return;
         }
-        if (_isEmpty(token)) {
-            navigation.navigate('Auth');
-            return;
-        } else {
-            if (_get(this.props.auth, 'decodedToken.exp', 0)*1000 < new Date().getTime()) {
-                console.log('exp time is lesser');
-                this.props.logoutUser();
-                console.log('fired logout action');
-            } else {
-                setAxiosAuthHeader(token);
-            }
-        }
+        setAxiosAuthHeader('34234234');
+        // if (_isEmpty(token)) {
+        //     navigation.navigate('Auth');
+        //     return;
+        // } else {
+        //     if (_get(this.props.auth, 'decodedToken.exp', 0)*1000 < new Date().getTime()) {
+        //         console.log('exp time is lesser');
+        //         this.props.logoutUser();
+        //         console.log('fired logout action');
+        //     } else {
+        //         setAxiosAuthHeader(token);
+        //     }
+        // }
         if (!nativeAuthRequired && this.controls.toVerify) {
             this.controls.toVerify = false;
             this.setState({ isVerified: false });

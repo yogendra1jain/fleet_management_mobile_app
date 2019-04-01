@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { View, Image, StyleSheet, TouchableHighlight, TouchableOpacity, RefreshControl } from 'react-native';
-import documentsImg from '../../assets/images/documentsImg.png';
+import documentsImg from '../../assets/images/ios/documents.png';
 import pdfIcon from '../../assets/images/pdficon.png';
 // import Input from 'react-native-elements';
 import { ListItem, Card } from 'react-native-elements';
@@ -126,7 +126,7 @@ class DocumentsHomeScreen extends React.Component {
         const { selectedIndex } = this.state;
         return (
             <ContainerWithLoading style={theme.container} isLoading={this.props.isLoading}>
-                <Header >
+                <Header style={{backgroundColor: '#00A9E0'}} androidStatusBarColor="#00A9E0">
                     <Left style={{ flex: 1 }}>
                         <Button transparent onPress={() => this.props.navigation.goBack()}>
                             <Icon name='arrow-back' style={{ color: '#fff' }} />

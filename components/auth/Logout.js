@@ -7,6 +7,7 @@ import { logoutUser } from '../../actions/auth';
 import { Button } from 'native-base';
 import withLocalization from '../hocs/withLocalization';
 import { postData } from '../../actions/commonAction';
+import { setCheckInAsset } from '../../actions/auth';
 
 class Logout extends React.Component {
     handleLogout = () => {
@@ -24,15 +25,46 @@ class Logout extends React.Component {
         this.props.postData(url, data, constants, identifier, key)
             .then((data) => {
                 console.log('documents uploaded successfully.');
+                // this.handleCheckOut();
                 this.props.logoutUser()
             }, (err) => {
                 console.log('error while uploading documents', err);
             });
     }
+    handleCheckOut = () => {
+        if (_get(this.props, 'userDetails.checkedInto.id', '') == '') {
+            this.handleLogout();
+            return;
+        } else {
+            let url = `/Assets/CheckOut`;
+            let constants = {
+                init: 'CHECKIN_FOR_ASSET_INIT',
+                success: 'CHECKIN_FOR_ASSET_SUCCESS',
+                error: 'CHECKIN_FOR_ASSET_ERROR',
+            };
+            let data = {
+                operatorId: _get(this.props, 'decodedToken.FleetUser.id', ''),
+                assetId: _get(this.props, 'userDetails.checkedInto.id', ''),
+            };
+            let identifier = 'CHECKIN_FOR_ASSET';
+            let key = 'checkInForAsset';
+            this.props.postData(url, data, constants, identifier, key)
+                .then((data) => {
+                    console.log('checked out successfully.');
+                    // this.props.timerFunc(0);
+                    this.props.setCheckInAsset(false);
+                    this.handleLogout();
+                    // showToast('success', `Checked Out Successfully.`, 3000);
+                    // this.loadUserInfo();
+                }, (err) => {
+                    console.log('error while checking in operator', err);
+                });
+        }
+    }
     render() {
         return (
             <View style={{ backgroundColor: '#ffffff' }}>
-                <Button style={[theme.buttonNormal]} onPress={() => this.handleLogout()} full>
+                <Button style={[theme.buttonNormal]} onPress={() => this.handleCheckOut()} full>
                     <Text style={theme.butttonFixTxt}>{_get(this.props, 'strings.logoutTitle', 'LOGOUT')}</Text>
                 </Button>
             </View>
@@ -42,15 +74,19 @@ class Logout extends React.Component {
 
 function mapStateToProps(state) {
     let { decodedToken } = state.auth || {};
-    console.log('decoded token', decodedToken);
+    let { commonReducer } = state || {};
+    let { userDetails } = commonReducer || {};
+    console.log('decoded token', decodedToken, 'user details', userDetails);
     return {
         decodedToken,
+        userDetails,
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
         logoutUser: () => dispatch(logoutUser()),
+        setCheckInAsset: isCheckin => dispatch(setCheckInAsset(isCheckin)),
         postData: (url, formData, constants, identifier, key) => dispatch(postData(url, formData, constants, identifier, key)),
     };
 }

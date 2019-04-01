@@ -1,6 +1,9 @@
 import React from 'react';
 import { Text, View, Image } from 'react-native';
-import serviceImg from '../assets/images/serviceImg.png';
+// import serviceImg from '../assets/images/serviceImg.png';
+import contactMechanic from '../assets/images/bottom-tab/contact-mechanic-setting.png';
+import serviceImg from '../assets/images/bottom-tab/service-ticket-setting.png';
+import taskImg from '../assets/images/bottom-tab/tasks-setting.png';
 import { createStackNavigator, createAppContainer, createBottomTabNavigator } from 'react-navigation';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -108,14 +111,44 @@ const ContactPersonStack = createStackNavigator({
 });
 
 
+class ContactIcon extends React.PureComponent {
+  // You should pass down the badgeCount in some other ways like context, redux, mobx or event emitters.
+  render(){
+  return (
+    <View>
+        <Image style={{ height:30 }} source={contactMechanic} />
+    </View>
+  )
+};
+}
+class ServiceIcon extends React.PureComponent {
+  // You should pass down the badgeCount in some other ways like context, redux, mobx or event emitters.
+  render(){
+  return (
+    <View>
+        <Image style={{ height:30 }} source={serviceImg} />
+    </View>
+  )
+};
+}
+class TaskIcon extends React.PureComponent {
+  // You should pass down the badgeCount in some other ways like context, redux, mobx or event emitters.
+  render(){
+  return (
+    <View>
+        <Image style={{ height:30 }} source={taskImg} />
+    </View>
+  )
+};
+}
   class IconWithBadge extends React.Component {
     render() {
       const { name, badgeCount, color, size } = this.props;
       return (
-        <View style={{ width: 24, height: 24, margin: 5, backgroundColor: color }}>
-          <Image source={serviceImg} style={{ width: 50, height: 50 }} />
+        <View style={{ }}>
+          <Image source={contactMechanic} />
           {/* <Ionicons name={name} size={size} color={color} /> */}
-          {badgeCount > 0 && (
+          {/* {badgeCount > 0 && (
             <View
               style={{
                 // /If you're using react-native < 0.57 overflow outside of the parent
@@ -134,7 +167,7 @@ const ContactPersonStack = createStackNavigator({
                 {badgeCount}
               </Text>
             </View>
-          )}
+          )} */}
         </View>
       );
     }
@@ -157,13 +190,13 @@ const ContactPersonStack = createStackNavigator({
       iconName = `ios-options${focused ? '' : '-outline'}`;
     } else if (routeName === 'Tasks') {
       iconName = `tasks${focused ? '' : ''}`;
-      IconComponent = FontAwesome;
+      IconComponent = TaskIcon;
     } else if (routeName === 'Services') {
       iconName = `screwdriver`;
-      IconComponent = MaterialCommunityIcons;
-    } else if (routeName === 'ContactPerson') {
+      IconComponent = ServiceIcon;
+    } else if (routeName === 'Contact') {
       iconName = `contact-phone${focused ? '' : ''}`;
-      IconComponent = MaterialIcons;
+      IconComponent = ContactIcon;
     }
 
     // You can return any component that you like here!
@@ -175,7 +208,7 @@ const TabStack = createBottomTabNavigator(
       Home: AppStack,
       Tasks: TasksStack,
       Services: ServiceStack,
-      ContactPerson: ContactPersonStack,
+      Contact: ContactPersonStack,
       Settings: SettingsStack,
     },
     {

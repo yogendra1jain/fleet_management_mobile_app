@@ -80,7 +80,7 @@ class LanguageSelectionScreen extends React.Component {
        
         return (
             <ContainerWithLoading isLoading={this.props.isLoading}>
-               <Header>
+               <Header style={{backgroundColor: '#00A9E0'}} androidStatusBarColor='#00A9E0'>
                    {
                        this.fromMain &&
                        <Left style={{ flex: 1 }}>

@@ -193,7 +193,7 @@ export default theme = StyleSheet.create({
 
   buttonNormal: {
     height: 45,
-    backgroundColor: '#302784',
+    backgroundColor: '#00A9E0',
     borderRadius: 100,
     justifyContent: 'center',
     alignItems: 'center',
@@ -205,7 +205,7 @@ export default theme = StyleSheet.create({
   },
   buttonBordered: {
     borderWidth: 1,
-    borderColor: '#302784',
+    borderColor: '#00A9E0',
     paddingLeft: 10,
     paddingRight: 10,
     paddingTop: 3,
@@ -239,7 +239,7 @@ export default theme = StyleSheet.create({
   },
   buttonAlignBottom: {
     height: 40,
-    backgroundColor: '#302784',
+    backgroundColor: '#00A9E0',
     borderRadius: 100,
     justifyContent: 'center',
     marginLeft: 10,
@@ -248,7 +248,7 @@ export default theme = StyleSheet.create({
   },
   buttonAlignBottom1: {
     height: 40,
-    backgroundColor: '#302784',
+    backgroundColor: '#00A9E0',
     borderRadius: 100,
     justifyContent: 'center',
     minWidth: 100,
@@ -257,7 +257,7 @@ export default theme = StyleSheet.create({
   },
   buttonAlignBottomCancel: {
     height: 30,
-    backgroundColor: '#302784',
+    backgroundColor: '#00A9E0',
     borderRadius: 100,
     justifyContent: 'center',
     marginLeft: 10,
@@ -285,7 +285,7 @@ export default theme = StyleSheet.create({
   buttonSmall: {
     backgroundColor: 'transparent',
     height: 35,
-    borderColor: '#302784',
+    borderColor: '#00A9E0',
     borderRadius: 100,
     borderWidth: 2,
     justifyContent: 'center',
@@ -302,7 +302,7 @@ export default theme = StyleSheet.create({
   buttonSmallList: {
     backgroundColor: 'transparent',
     height: 35,
-    borderColor: '#302784',
+    borderColor: '#00A9E0',
     borderRadius: 100,
     borderWidth: 2,
     justifyContent: 'center',
@@ -316,7 +316,7 @@ export default theme = StyleSheet.create({
   buttonMdmList: {
     backgroundColor: 'transparent',
     height: 35,
-    borderColor: '#302784',
+    borderColor: '#00A9E0',
     borderRadius: 100,
     borderWidth: 2,
     justifyContent: 'center',
@@ -340,7 +340,7 @@ export default theme = StyleSheet.create({
     flexWrap: 'wrap',
   },
   buttonSmallTxtB: {
-    color: '#302784',
+    color: '#00A9E0',
     fontSize: 11,
     textAlign: 'center',
     lineHeight: 11,
@@ -368,7 +368,7 @@ export default theme = StyleSheet.create({
 
   buttonFix: {
     height: 45,
-    backgroundColor: '#302784',
+    backgroundColor: '#00A9E0',
     borderRadius: 100,
     justifyContent: 'center',
     alignItems: 'center',
@@ -615,7 +615,7 @@ export default theme = StyleSheet.create({
     paddingTop: 0,
     paddingBottom: 5,
     borderBottomWidth: 2,
-    borderBottomColor: '#302784',
+    borderBottomColor: '#00A9E0',
     marginBottom: 10,
     textAlign: 'left',
     color: '#000000',
@@ -627,7 +627,7 @@ export default theme = StyleSheet.create({
     paddingTop: 0,
     paddingBottom: 5,
     // borderBottomWidth: 2,
-    // borderBottomColor: '#302784',
+    // borderBottomColor: '#00A9E0',
     marginBottom: 0,
     textAlign: 'left',
     color: '#000000',
@@ -667,7 +667,7 @@ export default theme = StyleSheet.create({
   spaceAdd1: {
     flex: 1,
     height: 45,
-    backgroundColor: '#302784',
+    backgroundColor: '#00A9E0',
     borderRadius: 100,
     justifyContent: 'center',
     alignItems: 'center',
@@ -679,7 +679,7 @@ export default theme = StyleSheet.create({
   printButton: {
     flex: 1,
     height: 45,
-    backgroundColor: '#302784',
+    backgroundColor: '#00A9E0',
     borderRadius: 100,
     justifyContent: 'center',
     alignItems: 'center',
@@ -691,7 +691,7 @@ export default theme = StyleSheet.create({
   spaceAdd2: {
     flex: 1,
     height: 45,
-    backgroundColor: '#302784',
+    backgroundColor: '#00A9E0',
     borderRadius: 100,
     justifyContent: 'center',
     alignItems: 'center',
@@ -720,7 +720,7 @@ export default theme = StyleSheet.create({
     marginTop: 20,
     marginBottom: 20,
     borderBottomWidth: 3,
-    borderBottomColor: '#302784',
+    borderBottomColor: '#00A9E0',
   },
   headingstyleMP: {
     paddingTop: 3,
@@ -729,7 +729,7 @@ export default theme = StyleSheet.create({
     marginTop: 0,
     marginBottom: 20,
     borderBottomWidth: 2,
-    borderBottomColor: '#302784',
+    borderBottomColor: '#00A9E0',
   },
   headingstyle4: {
     paddingTop: 6,
@@ -738,7 +738,7 @@ export default theme = StyleSheet.create({
     marginTop: 5,
     marginBottom: 5,
     borderBottomWidth: 3,
-    borderBottomColor: '#302784',
+    borderBottomColor: '#00A9E0',
   },
   headingstyle3: {
     paddingBottom: 6,

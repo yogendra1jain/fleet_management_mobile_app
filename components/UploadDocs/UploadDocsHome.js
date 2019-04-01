@@ -5,8 +5,8 @@ import { Card, CheckBox } from 'react-native-elements';
 import _get from 'lodash/get';
 import _isEmpty from 'lodash/isEmpty';
 import theme from '../../theme';
-import gasFillImg from '../../assets/images/gasfill.png';
-import MileageImg from '../../assets/images/mileageImg.png';
+import gasFillImg from '../../assets/images/ios/gas-fillups.png';
+import MileageImg from '../../assets/images/ios/update-mileage.png';
 import expenseImg from '../../assets/images/expense.png';
 
 import withLoadingScreen from './../withLoadingScreen';
@@ -48,7 +48,7 @@ class UploadDocsHomeScreen extends React.Component {
         const { strings } = this.props;
         return (
             <ContainerWithLoading isLoading={this.props.isLoading}>
-               <Header>
+               <Header style={{ backgroundColor: '#00A9E0' }} androidStatusBarColor="#00A9E0">
                     <Left style={{ flex: 1 }}>
                         <Button transparent onPress={() => this.props.navigation.goBack()}>
                             <Icon name='arrow-back' style={{ color: '#fff' }} />

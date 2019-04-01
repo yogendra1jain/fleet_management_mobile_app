@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { View, Image, StyleSheet, TouchableHighlight } from 'react-native';
-import contactMechanic from '../../assets/images/contactMechanic.png';
+import contactMechanic from '../../assets/images/ios/contact-mechanic.png';
 // import Input from 'react-native-elements';
 import { ListItem } from 'react-native-elements';
 
@@ -56,7 +56,7 @@ class ContactPersonHomeScreen extends React.Component {
     render() {
         return (
             <ContainerWithLoading style={theme.container} isLoading={this.props.isLoading}>
-                <Header >
+                <Header style={{backgroundColor: '#00A9E0'}} androidStatusBarColor="#00A9E0">
                     <Left style={{ flex: 1 }}>
                         <Button transparent onPress={() => this.props.navigation.navigate('Home')}>
                             <Icon name='arrow-back' style={{ color: '#fff' }} />

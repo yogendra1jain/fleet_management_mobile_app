@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { View, Image, StyleSheet, TouchableHighlight } from 'react-native';
-import serviceImg from '../../assets/images/serviceImg.png';
+import serviceImg from '../../assets/images/ios/service-ticket.png';
 // import Input from 'react-native-elements';
 
 
@@ -50,7 +50,7 @@ class ServiceTicketListScreen extends React.Component {
         const { selectedOption } = this.state;
         return (
             <ContainerWithLoading style={theme.container} isLoading={this.props.isLoading}>
-                <Header >
+                <Header style={{backgroundColor: '#00A9E0'}} androidStatusBarColor='#00A9E0'>
                     <Left style={{ flex: 1 }}>
                         <Button transparent onPress={() => this.props.navigation.goBack()}>
                             <Icon name='arrow-back' style={{ color: '#fff' }} />

@@ -61,7 +61,7 @@ class ScheduleMaintenanceScreen extends React.Component {
         const { selectedOption } = this.state;
         return (
             <ContainerWithLoading style={theme.container} isLoading={this.props.isLoading}>
-                <Header >
+                <Header style={{backgroundColor: '#00A9E0'}} androidStatusBarColor='#00A9E0'>
                     <Left style={{ flex: 1 }}>
                         <Button transparent onPress={() => this.props.navigation.goBack()}>
                             <Icon name='arrow-back' style={{ color: '#fff' }} />

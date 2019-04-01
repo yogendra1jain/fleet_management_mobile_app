@@ -52,6 +52,8 @@ target 'MyFMSApp' do
 
   pod 'react-native-pdf', :path => '../node_modules/react-native-pdf'
 
+
+
   target 'BloomKonnectAppTests' do
     inherit! :search_paths
     # Pods for testing

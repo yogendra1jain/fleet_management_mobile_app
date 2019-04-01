@@ -121,7 +121,7 @@ class LocationA extends Component {
   render() {
     return (
       <Container style={{ flex: 1 }}>
-        <Header translucent={false} >
+        <Header style={{backgroundColor: '#00A9E0'}} androidStatusBarColor='#00A9E0' translucent={false} >
             <Left style={{ flex: 1 }}>
                 <Button transparent onPress={() => this.props.navigation.goBack()}>
                     <Icon name='arrow-back' style={{ color: '#fff' }} />
