@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { View, Image, StyleSheet, TouchableHighlight } from 'react-native';
-import contactMechanic from '../../assets/images/ios/contact-mechanic.png';
+import contactMechanic from '../../assets/images/active-icons/contact-mechnic-active.png';
 // import Input from 'react-native-elements';
 import { ListItem } from 'react-native-elements';
 
@@ -56,7 +56,7 @@ class ContactPersonHomeScreen extends React.Component {
     render() {
         return (
             <ContainerWithLoading style={theme.container} isLoading={this.props.isLoading}>
-                <Header style={{backgroundColor: '#00A9E0'}} androidStatusBarColor="#00A9E0">
+                <Header style={{backgroundColor: '#ffb81c'}} androidStatusBarColor="#ffb81c">
                     <Left style={{ flex: 1 }}>
                         <Button transparent onPress={() => this.props.navigation.navigate('Home')}>
                             <Icon name='arrow-back' style={{ color: '#fff' }} />
@@ -72,15 +72,12 @@ class ContactPersonHomeScreen extends React.Component {
                     style={{ backgroundColor: '#ededed' }}
                 >
                     <View style={{ flex: 1, flexDirection: 'column' }}>
-                        <View style={[theme.centerAlign, { marginTop: 25 }]}>
+                        <View style={[theme.centerAlign, { backgroundColor: '#ffb81c', paddingBottom: 30 }]}>
                             <TouchableHighlight
                                 style={[]}
                             >
                                 <Image source={contactMechanic} style={styles.profileImg} />
                             </TouchableHighlight>
-                            <View style={[theme.centerAlign, { paddingTop: 10 }]}>
-                                <Text>Contact Person</Text>
-                            </View>
                         </View>
                         <View style={{ flex: 1, paddingTop: 15 }}>
                             <View style={{ flex: 1 }}>
@@ -128,8 +125,8 @@ const styles = StyleSheet.create({
       borderWidth: 1,
     },
     profileImg: {
-      height: 120,
-      width: 120,
+      height: 71,
+      width: 80,
     },
   });
 

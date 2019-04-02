@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { View, Image, StyleSheet, TouchableHighlight, TouchableOpacity, RefreshControl, Platform } from 'react-native';
-import documentsImg from '../../assets/images/ios/documents.png';
+import documentsImg from '../../assets/images/active-icons/document-active.png';
 import pdfIcon from '../../assets/images/pdficon.png';
 // import Input from 'react-native-elements';
 import { ListItem, Card } from 'react-native-elements';
@@ -244,7 +244,7 @@ class DocumentsHomeScreen extends React.Component {
         })
         return (
             <ContainerWithLoading style={theme.container} isLoading={this.props.isLoading}>
-                <Header style={{backgroundColor: '#00A9E0'}} androidStatusBarColor="#00A9E0">
+                <Header style={{backgroundColor: '#059312'}} androidStatusBarColor="#059312">
                     <Left style={{ flex: 1 }}>
                         <Button transparent onPress={() => this.props.navigation.goBack()}>
                             <Icon name='arrow-back' style={{ color: '#fff' }} />
@@ -266,15 +266,9 @@ class DocumentsHomeScreen extends React.Component {
                     style={{ backgroundColor: '#ededed' }}
                 >
                     <View style={{ flex: 1, flexDirection: 'column' }}>
-                        <View style={[theme.centerAlign, { marginTop: 25 }]}>
-                            <TouchableHighlight
-                                style={[]}
-                            >
+                        <View style={[theme.centerAlign, { backgroundColor: '#059312', paddingBottom: 30 }]}>
+                            
                                 <Image source={documentsImg} style={styles.profileImg} />
-                            </TouchableHighlight>
-                            <View style={[theme.centerAlign, { paddingTop: 10 }]}>
-                                <Text>{`${strings.documentButton}`}</Text>
-                            </View>
                         </View>
                         <View style={{ flex: 1, paddingTop: 15 }}>
                             <View style={{ flex: 1 }}>
@@ -343,16 +337,9 @@ function mapDispatchToProps(dispatch) {
 }
 
 const styles = StyleSheet.create({
-    profileImgContainer: {
-      marginLeft: 8,
-      height: 120,
-      width: 120,
-      borderRadius: 40,
-      borderWidth: 1,
-    },
     profileImg: {
-      height: 120,
-      width: 118,
+        width: 80,
+        height: 67,
     },
   });
 

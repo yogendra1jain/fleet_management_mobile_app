@@ -1,10 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { View, RefreshControl } from 'react-native';
+import { View, RefreshControl, TouchableHighlight, Image, StyleSheet } from 'react-native';
 import { Text } from 'react-native-elements';
 import _isArray from 'lodash/isArray';
 import _get from 'lodash/get';
 import _map from 'lodash/map';
+import tasksImg from '../../assets/images/active-icons/tasks-active.png';
 
 import _isEmpty from 'lodash/isEmpty';
 import _groupBy from 'lodash/groupBy';
@@ -101,7 +102,7 @@ class TaskListScreen extends React.Component {
         ));
         return (
             <ContainerWithLoading style={theme.container} isLoading={this.props.isLoading}>
-                <Header style={{ backgroundColor: '#00A9E0' }} androidStatusBarColor="#00A9E0" translucent={false} >
+                <Header style={{ backgroundColor: '#47d7ac' }} androidStatusBarColor="#47d7ac" translucent={false} >
                     <Left style={{ flex: 1 }}>
                         <Button transparent onPress={() => this.props.navigation.navigate('Home')}>
                             <Icon name='arrow-back' style={{ color: '#fff' }} />
@@ -122,7 +123,15 @@ class TaskListScreen extends React.Component {
                     }
                     style={{ backgroundColor: '#ededed' }}
                 >
+                    <View style={[theme.centerAlign, { backgroundColor: '#47d7ac', paddingBottom: 30 }]}>
+                        <TouchableHighlight
+                            style={[]}
+                        >
+                            <Image source={tasksImg} style={styles.profileImg} />
+                        </TouchableHighlight>
+                    </View>
                     <View style={[theme.marL15, theme.marR15, theme.mart15]} >
+                        
                         {
                             DateView
                         }
@@ -133,7 +142,7 @@ class TaskListScreen extends React.Component {
                     active={this.state.active}
                     direction="up"
                     containerStyle={{ }}
-                    style={{ backgroundColor: '#5067FF' }}
+                    style={{ backgroundColor: '#47d7ac' }}
                     position="bottomRight"
                     onPress={() => this.setState({ active: !this.state.active })}>
                     <Icon name="add" />
@@ -159,6 +168,13 @@ function mapDispatchToProps(dispatch) {
         fetchOrderList: (isLoading, data) => dispatch(fetchOrderList(isLoading, data)),
     };
 }
+
+const styles = StyleSheet.create({
+    profileImg: {
+      height: 90,
+      width: 63,
+    },
+  });
 
 
 export default withErrorBoundary()(connect(mapStateToProps, mapDispatchToProps)(TaskListScreen));

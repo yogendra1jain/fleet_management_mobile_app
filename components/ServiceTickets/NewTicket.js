@@ -33,7 +33,7 @@ class NewTicketScreen extends React.Component {
     render() {
         return (
             <ContainerWithLoading style={theme.container} isLoading={this.props.isLoading}>
-                <Header style={{backgroundColor: '#00A9E0'}} androidStatusBarColor='#00A9E0'>
+                <Header style={{backgroundColor: '#ff585d'}} androidStatusBarColor='#ff585d'>
                     <Left style={{ flex: 1 }}>
                         <Button transparent onPress={() => this.props.navigation.goBack()}>
                             <Icon name='arrow-back' style={{ color: '#fff' }} />
@@ -77,10 +77,10 @@ class NewTicketScreen extends React.Component {
                         <Text style={{ marginLeft: 10 }}>Select From</Text>
                     </View>
                     <View style={{ flexDirection: 'row' }}>
-                        <Button style={[theme.buttonNormal, theme.spaceAdd1, { backgroundColor: '#0092FF', borderRadius: 0, height: 55 }]} onPress={() => this.props.navigation.navigate('ScheduleMaintenanceScreen')} full>
+                        <Button style={[theme.buttonNormal, theme.spaceAdd1, { backgroundColor: '#ff585d', borderRadius: 0, height: 55 }]} onPress={() => this.props.navigation.navigate('ScheduleMaintenanceScreen')} full>
                             <Text style={theme.butttonFixTxt}>Preventive Maintenance</Text>
                         </Button>
-                        <Button full style={[theme.buttonNormal, theme.spaceAdd2, { backgroundColor: '#00FFF7', borderRadius: 0, height: 55 }]} onPress={() => this.props.navigation.navigate('OtherTicketScreen')}>
+                        <Button full style={[theme.buttonNormal, theme.spaceAdd2, { backgroundColor: '#ff585d', borderRadius: 0, height: 55 }]} onPress={() => this.props.navigation.navigate('OtherTicketScreen')}>
                             <Text style={theme.butttonFixTxt}>Other Repair Request</Text>
                         </Button>
                     </View>

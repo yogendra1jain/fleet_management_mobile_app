@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { View, Image, StyleSheet, TouchableHighlight, TextInput, Platform } from 'react-native';
-import expenseImg from '../../assets/images/expense.png';
+// import expenseImg from '../../assets/images/expense.png';
+import documentsImg from '../../assets/images/active-icons/document-active.png';
 import ImagePicker from 'react-native-image-picker';
 
 import _get from 'lodash/get';
@@ -273,7 +274,7 @@ class ExpenseReportHomeScreen extends React.Component {
 
         return (
             <ContainerWithLoading style={theme.container} isLoading={this.props.isLoading || this.state.isLoading}>
-                <Header style={{backgroundColor: '#00A9E0'}} androidStatusBarColor='#00A9E0'>
+                <Header style={{backgroundColor: '#059312'}} androidStatusBarColor='#059312'>
                     <Left style={{ flex: 1 }}>
                         <Button transparent onPress={() => this.props.navigation.goBack()}>
                             <Icon name='arrow-back' style={{ color: '#fff' }} />
@@ -289,15 +290,12 @@ class ExpenseReportHomeScreen extends React.Component {
                     style={{ backgroundColor: '#ededed' }}
                 >
                     <View style={{ flex: 1, flexDirection: 'column' }}>
-                        <View style={[theme.centerAlign, { marginTop: 25 }]}>
+                        <View style={[theme.centerAlign, { backgroundColor: '#059312', paddingBottom: 30 }]}>
                             <TouchableHighlight
-                                style={[styles.profileImgContainer, { borderColor: 'green', borderWidth: 1 }]}
+                                style={[]}
                             >
-                                <Image source={expenseImg} style={styles.profileImg} />
+                                <Image source={documentsImg} style={styles.profileImg} />
                             </TouchableHighlight>
-                            <View style={[theme.centerAlign, { paddingTop: 10 }]}>
-                                <Text>{`${strings.expenseReportTitle}`}</Text>
-                            </View>
                         </View>
                         <View style={{ flex: 1, paddingTop: 15 }}>
                         <View style={[theme.marL15, theme.marR15, theme.mart15]} >
@@ -327,7 +325,7 @@ class ExpenseReportHomeScreen extends React.Component {
                     }
                 </Content>
                 <View style={{ backgroundColor: '#ffffff' }}>
-                    <Button style={theme.buttonNormal} onPress={() => this.getCurrentLocation()} full>
+                    <Button style={[theme.buttonNormal, {backgroundColor: '#059312'}]} onPress={() => this.getCurrentLocation()} full>
                         <Text style={theme.butttonFixTxt}>{`${strings.saveButton}`}</Text>
                     </Button>
                 </View>
@@ -368,9 +366,8 @@ const styles = StyleSheet.create({
       borderWidth: 1,
     },
     profileImg: {
-      height: 120,
-      width: 120,
-      borderRadius: 40,
+        width: 80,
+        height: 67,
     },
   });
 

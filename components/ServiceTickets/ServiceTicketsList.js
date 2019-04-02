@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { View, Image, StyleSheet, TouchableHighlight } from 'react-native';
-import serviceImg from '../../assets/images/ios/service-ticket.png';
+import serviceImg from '../../assets/images/active-icons/service-ticket-active.png';
 // import Input from 'react-native-elements';
 
 
@@ -50,7 +50,7 @@ class ServiceTicketListScreen extends React.Component {
         const { selectedOption } = this.state;
         return (
             <ContainerWithLoading style={theme.container} isLoading={this.props.isLoading}>
-                <Header style={{backgroundColor: '#00A9E0'}} androidStatusBarColor='#00A9E0'>
+                <Header style={{backgroundColor: '#ff585d'}} androidStatusBarColor='#ff585d'>
                     <Left style={{ flex: 1 }}>
                         <Button transparent onPress={() => this.props.navigation.goBack()}>
                             <Icon name='arrow-back' style={{ color: '#fff' }} />
@@ -66,15 +66,12 @@ class ServiceTicketListScreen extends React.Component {
                     style={{ backgroundColor: '#ededed' }}
                 >
                     <View style={{ flex: 1, flexDirection: 'column' }}>
-                        <View style={[theme.centerAlign, { marginTop: 25 }]}>
+                        <View style={[theme.centerAlign, { backgroundColor: '#ff585d', paddingBottom: 30 }]}>
                             <TouchableHighlight
                                 style={[]}
                             >
                                 <Image source={serviceImg} style={styles.profileImg} />
                             </TouchableHighlight>
-                            <View style={[theme.centerAlign, { paddingTop: 10 }]}>
-                                <Text>Service Ticket</Text>
-                            </View>
                         </View>
                         <View style={{ flex: 1, paddingTop: 15 }}>
                             <View style={{ flex: 1 }}>
@@ -161,8 +158,8 @@ const styles = StyleSheet.create({
       borderWidth: 1,
     },
     profileImg: {
-      height: 120,
-      width: 120,
+      height: 56,
+      width: 90,
     },
   });
 

@@ -75,7 +75,7 @@ class OtherTicketScreen extends React.Component {
         const { selectedOption, notes } = this.state;
         return (
             <ContainerWithLoading style={theme.container} isLoading={this.props.isLoading}>
-                <Header style={{backgroundColor: '#00A9E0'}} androidStatusBarColor='#00A9E0'>
+                <Header style={{backgroundColor: '#ff585d'}} androidStatusBarColor='#ff585d'>
                     <Left style={{ flex: 1 }}>
                         <Button transparent onPress={() => this.props.navigation.goBack()}>
                             <Icon name='arrow-back' style={{ color: '#fff' }} />
@@ -139,7 +139,7 @@ class OtherTicketScreen extends React.Component {
                     </View>
                 </Content>
                 <View style={{ backgroundColor: '#ffffff' }}>
-                    <Button style={theme.buttonNormal} onPress={() => this.onSave()} full>
+                    <Button style={[theme.buttonNormal, {backgroundColor: '#ff585d'}]} onPress={() => this.onSave()} full>
                         <Text style={theme.butttonFixTxt}>Confirm</Text>
                     </Button>
                 </View>

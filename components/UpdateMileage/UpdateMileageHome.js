@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { View, Image, StyleSheet, TouchableHighlight, TextInput, Platform } from 'react-native';
-import mileageImg from '../../assets/images/ios/update-mileage.png';
+import mileageImg from '../../assets/images/active-icons/mileage-active.png';
 // import Input from 'react-native-elements';
 import ImagePicker from 'react-native-image-picker';
 
@@ -185,7 +185,7 @@ class UpdateMileageHomeScreen extends React.Component {
         const { strings } = this.props;
         return (
             <ContainerWithLoading style={theme.container} isLoading={this.props.isLoading || this.state.isLoading}>
-                <Header style={{ backgroundColor: '#00A9E0' }} androidStatusBarColor="#00A9E0">
+                <Header style={{ backgroundColor: '#bb29bb' }} androidStatusBarColor="#bb29bb">
                     <Left style={{ flex: 1 }}>
                         <Button transparent onPress={() => this.props.navigation.goBack()}>
                             <Icon name='arrow-back' style={{ color: '#fff' }} />
@@ -201,32 +201,13 @@ class UpdateMileageHomeScreen extends React.Component {
                     style={{ backgroundColor: '#ededed' }}
                 >
                     <View style={{ flex: 1, flexDirection: 'column' }}>
-                        <View style={[theme.centerAlign, { marginTop: 25 }]}>
+                        <View style={[theme.centerAlign, { backgroundColor: '#bb29bb', paddingBottom: 30 }]}>
                             <TouchableHighlight
                                 style={[]}
                             >
                                 <Image source={mileageImg} style={styles.profileImg} />
                             </TouchableHighlight>
-                            <View style={[theme.centerAlign, { paddingTop: 10 }]}>
-                                <Text>{`${strings.mileageButton}`}</Text>
-                            </View>
                         </View>
-                        {/* <View style={{ flex: 1, paddingTop: 15 }}>
-                            <View style={{ flex: 1, flexDirection: 'row' }}>
-                                <View style={{ justifyContent: 'flex-start', alignItems: 'center', paddingLeft: 10 }}>
-                                    <Text>{`${strings.mileageLabel}`}</Text>
-                                </View>
-                                <View style={{ flex: 1, marginLeft: 10, marginRight: 10 }}>
-                                    <TextInput
-                                        style={{ height: 35, borderColor: 'gray', borderWidth: 1, paddingLeft: 10 }}
-                                        onChangeText={value => this.setMileage(value)}
-                                        value={_get(this, 'state.mileage', '').toString()}
-                                        underlineColorAndroid={'transparent'}
-                                        keyboardType={'numeric'}
-                                    />
-                                </View>
-                            </View>
-                        </View> */}
                         <TouchableHighlight onPress={() => this.uploadImage()}>
                             <View style={[theme.centerAlign, { flex: 1, flexDirection: 'column', backgroundColor: '#ddd', margin: 20 }]}>
                                 <View style={{ flex: 1 }}>
@@ -249,7 +230,7 @@ class UpdateMileageHomeScreen extends React.Component {
                     </View>
                 </Content>
                 <View style={{ backgroundColor: '#ffffff' }}>
-                    <Button style={theme.buttonNormal} onPress={() => this.getCurrentLocation()} full>
+                    <Button style={[theme.buttonNormal, {backgroundColor: '#bb29bb'}]} onPress={() => this.getCurrentLocation()} full>
                         <Text style={theme.butttonFixTxt}>{`${strings.saveButton}`}</Text>
                     </Button>
                 </View>
@@ -291,8 +272,8 @@ const styles = StyleSheet.create({
       borderWidth: 1,
     },
     profileImg: {
-      height: 120,
-      width: 120,
+      height: 73,
+      width: 80,
     },
   });
 

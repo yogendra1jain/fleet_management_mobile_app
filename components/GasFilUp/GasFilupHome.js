@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { View, Image, StyleSheet, TouchableHighlight, Platform, TextInput } from 'react-native';
-import gasfillImg from '../../assets/images/ios/gas-fillups.png';
+import gasfillImg from '../../assets/images/active-icons/gas-fillup-active.png';
 // import Input from 'react-native-elements';
 import _isEmpty from 'lodash/isEmpty';
 import ImagePicker from 'react-native-image-picker';
@@ -196,7 +196,7 @@ class GasFilUpHomeScreen extends React.Component {
         const { strings } = this.props;
         return (
             <ContainerWithLoading style={theme.container} isLoading={this.props.isLoading || this.state.isLoading}>
-                <Header style={{backgroundColor: '#00A9E0'}} androidStatusBarColor='#00A9E0' >
+                <Header style={{backgroundColor: '#003da5'}} androidStatusBarColor='#003da5' >
                     <Left style={{ flex: 1 }}>
                         <Button transparent onPress={() => this.props.navigation.goBack()}>
                             <Icon name='arrow-back' style={{ color: '#fff' }} />
@@ -212,48 +212,13 @@ class GasFilUpHomeScreen extends React.Component {
                     style={{ backgroundColor: '#ededed' }}
                 >
                     <View style={{ flex: 1, flexDirection: 'column' }}>
-                        <View style={[theme.centerAlign, { marginTop: 25 }]}>
+                        <View style={[theme.centerAlign, { backgroundColor: '#003da5', paddingBottom: 30 }]}>
                             <TouchableHighlight
                                 style={[]}
                             >
                                 <Image source={gasfillImg} style={styles.profileImg} />
                             </TouchableHighlight>
-                            <View style={[theme.centerAlign, { paddingTop: 10 }]}>
-                                <Text>{`${strings.gasFillUpTitle}`}</Text>
-                            </View>
                         </View>
-                        {/* <View style={{ flex: 1, paddingTop: 15 }}>
-                            <View style={{ flex: 1, flexDirection: 'row' }}>
-                                <View style={{ justifyContent: 'flex-start', alignItems: 'center', paddingLeft: 10 }}>
-                                    <Text>{`${strings.volumeLabel}`}</Text>
-                                </View>
-                                <View style={{ flex: 1, marginLeft: 10, marginRight: 10 }}>
-                                    <TextInput
-                                        style={{ height: 35, borderColor: 'gray', borderWidth: 1, paddingLeft: 10 }}
-                                        onChangeText={value => this.setValue('volume', value)}
-                                        value={_get(this, 'state.volume', '').toString()}
-                                        underlineColorAndroid={'transparent'}
-                                        keyboardType={'numeric'}
-                                    />
-                                </View>
-                            </View>
-                        </View> */}
-                        {/* <View style={{ flex: 1, paddingTop: 15 }}>
-                            <View style={{ flex: 1, flexDirection: 'row' }}>
-                                <View style={{ justifyContent: 'flex-start', alignItems: 'center', paddingLeft: 10 }}>
-                                    <Text>{`${strings.amountLabel}`}</Text>
-                                </View>
-                                <View style={{ flex: 1, marginLeft: 10, marginRight: 10 }}>
-                                    <TextInput
-                                        style={{ height: 35, borderColor: 'gray', borderWidth: 1, paddingLeft: 10 }}
-                                        onChangeText={value => this.setValue('amount', value)}
-                                        value={_get(this, 'state.amount', '').toString()}
-                                        underlineColorAndroid={'transparent'}
-                                        keyboardType={'numeric'}
-                                    />
-                                </View>
-                            </View>
-                        </View> */}
                         <View style={{ flex: 1, paddingTop: 15 }}>
                             <TouchableHighlight onPress={() => this.uploadImage()}>
                                 <View style={[theme.centerAlign, { flex: 1, flexDirection: 'column', backgroundColor: '#ddd', margin: 20 }]}>
@@ -289,7 +254,7 @@ class GasFilUpHomeScreen extends React.Component {
                     </View>
                 </Content>
                 <View style={{ backgroundColor: '#ffffff' }}>
-                    <Button style={theme.buttonNormal} onPress={() => this.getCurrentLocation()} full>
+                    <Button style={[theme.buttonNormal, {backgroundColor: '#003da5'}]} onPress={() => this.getCurrentLocation()} full>
                         <Text style={theme.butttonFixTxt}>{`${strings.saveButton}`}</Text>
                     </Button>
                 </View>
@@ -330,8 +295,8 @@ const styles = StyleSheet.create({
       borderWidth: 1,
     },
     profileImg: {
-      height: 120,
-      width: 120,
+      height: 67,
+      width: 80,
     },
   });
 
