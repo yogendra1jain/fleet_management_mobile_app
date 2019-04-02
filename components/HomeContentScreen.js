@@ -8,7 +8,7 @@ import theme from '../theme';
 // import SvgLogo1 from '../assets/images/svg1.svg';
 // import TaskLogo from '../assets/images/tasks.svgx';
 
-import FMSLogo from '../assets/images/Webp.net-resizeimage.png';
+import FMSLogo from '../assets/images/fleetLogoNew.png';
 import gasFillImg from '../assets/images/ios/gas-fillups.png';
 import MileageImg from '../assets/images/ios/update-mileage.png';
 import tasksImg from '../assets/images/ios/tasks.png';
@@ -133,7 +133,7 @@ class HomeContentScreen extends React.Component {
                     <Icon name="ios-menu" style={{color: 'white'}} type="Ionicons"/>
                     </Left>
                 <Body style={{ flex: 4, justifyContent: 'center', alignItems: 'center' }}>
-                    <Title><Image source={FMSLogo} style={{ width: 405, height: 55 }} /></Title>
+                    <Title><Image source={FMSLogo} style={{ width: 405, height: 60 }} /></Title>
                 </Body>
                 <Right style={{ flex: 1 }}>
                 <Icon name="user" style={{ fontSize: 40, color: 'white' }} type="EvilIcons"/>
@@ -146,11 +146,11 @@ class HomeContentScreen extends React.Component {
                             onRefresh={this._onRefresh}
                         />
                     }
-                    style={{ backgroundColor: '#ededed' }}>
-                    <View style={{ flex: 1 }}>
+                    style={{ backgroundColor: '#eef0f0' }}>
+                    <View style={{ flex: 1, margin: 8 }}>
                         <TouchableOpacity activeOpacity={0.5} style={{ flex: 1 }}
                             onPress={() => this.handleCheckInCheckOut(_isEmpty(_get(userDetails, 'checkedInto', {})))} >
-                            <Card wrapperStyle={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} containerStyle={{ flex: 1, marginRight: 8, borderRadius: 20 }}>
+                            <Card wrapperStyle={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} containerStyle={{ flex: 1, borderRadius: 10, margin: 8 }}>
                             {
                                 !_isEmpty(_get(userDetails, 'checkedInto', {})) &&
                                 <View style={{ flex: 1, flexDirection: 'row' }}>
@@ -169,36 +169,36 @@ class HomeContentScreen extends React.Component {
                             </Card>
                         </TouchableOpacity>
                     </View>
-                    {/* {
-                        !_isEmpty(_get(userDetails, 'checkedInto', {})) && */}
+                    {
+                        !_isEmpty(_get(userDetails, 'checkedInto', {})) &&
                         <React.Fragment>
-                            <View style={{ flex: 1, flexDirection: 'row' }}>
+                            <View style={{ flexDirection: 'row',margin: 8 }}>
                                 <TouchableOpacity activeOpacity={0.5} style={{ flex: 1 }}
                                     onPress={() => this.props.navigation.navigate('TaskListScreen')} >
-                                    <Card wrapperStyle={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} containerStyle={{ flex: 1, marginRight: 8, borderRadius: 25 }}>
+                                    <Card wrapperStyle={{ justifyContent: 'center', alignItems: 'center' }} containerStyle={{ borderRadius: 10,  margin: 8 }}>
                                         <Image source={tasksImg} style={{ height: 75 }} />
                                         <Text style={[theme.buttonSmallTxt, {color: '#67DEBB', paddingTop: 15 }]}>{`${strings.taskButton}`}</Text>                                            
                                     </Card>
                                 </TouchableOpacity>
                                 <TouchableOpacity activeOpacity={0.5} style={{ flex: 1 }}
                                     onPress={() => this.props.navigation.navigate('GasFilUpHome')} >
-                                    <Card wrapperStyle={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} containerStyle={{ flex: 1, marginRight: 8, borderRadius: 25 }}>
+                                    <Card wrapperStyle={{ justifyContent: 'center', alignItems: 'center' }} containerStyle={{ borderRadius: 10,  margin: 8 }}>
                                         <Image source={gasFillImg} style={{ height: 75 }} />
                                         <Text style={[theme.buttonSmallTxt, {color: '#013BA4', paddingTop: 15 }]}>{`${strings.gasFillButton}`}</Text>
                                     </Card>
                                 </TouchableOpacity>
                             </View>
-                            <View style={{ flex: 1, flexDirection: 'row' }}>
+                            <View style={{ flex: 1, flexDirection: 'row', margin:8 }}>
                             <TouchableOpacity activeOpacity={0.5} style={{ flex: 1 }}
                                     onPress={() => this.props.navigation.navigate('UpdateMileageHome')} >
-                                    <Card wrapperStyle={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} containerStyle={{ flex: 1, marginRight: 8, borderRadius: 25 }}>
+                                    <Card wrapperStyle={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} containerStyle={{ flex: 1, borderRadius: 10,  margin: 8 }}>
                                         <Image source={MileageImg} style={{ height: 75 }} />
                                         <Text style={[theme.buttonSmallTxt, {color: '#CA54CA', paddingTop: 15 }]}>{`${strings.mileageButton}`}</Text>                                            
                                     </Card>
                                 </TouchableOpacity>
                                 <TouchableOpacity activeOpacity={0.5} style={{ flex: 1 }}
                                     onPress={() => this.props.navigation.navigate('ServiceTicketHome')} >
-                                    <Card wrapperStyle={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} containerStyle={{ flex: 1, marginRight: 8, borderRadius: 25 }}>
+                                    <Card wrapperStyle={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} containerStyle={{ flex: 1, borderRadius: 10,  margin: 8 }}>
                                         <Image source={ServiceImg} style={{ height: 75 }} />
                                         <Text style={[theme.buttonSmallTxt, {color: '#FF7D82', paddingTop: 15 }]}>{`${strings.serviceButton}`}</Text>
                                     </Card>
@@ -217,10 +217,10 @@ class HomeContentScreen extends React.Component {
                                 </TouchableOpacity> */}
                                 
                             </View>
-                            <View style={{ flex: 1, flexDirection: 'row' }}>
+                            <View style={{ flex: 1, flexDirection: 'row', margin:8 }}>
                                 <TouchableOpacity activeOpacity={0.5} style={{ flex: 1 }}
                                     onPress={() => this.props.navigation.navigate('DocumentsHome')} >
-                                    <Card wrapperStyle={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} containerStyle={{ flex: 1, marginRight: 8, borderRadius: 25 }}>
+                                    <Card wrapperStyle={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} containerStyle={{ flex: 1, borderRadius: 10,  margin: 8 }}>
                                         <Image source={DocumentsImg} style={{ height: 75 }} />
                                         {/* <Button onPress={() => this.props.navigation.navigate('DocumentsHome')} style={[theme.buttonAlignBottom, { marginLeft: 0 }]} full> */}
                                             <Text style={[theme.buttonSmallTxt, {color: '#2CA12F', paddingTop: 15 }]}>{`${strings.documentButton}`}</Text>
@@ -229,7 +229,7 @@ class HomeContentScreen extends React.Component {
                                 </TouchableOpacity>
                                 <TouchableOpacity activeOpacity={0.5} style={{ flex: 1 }}
                                     onPress={() => this.props.navigation.navigate('ContactPersonHome')} >
-                                    <Card wrapperStyle={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} containerStyle={{ flex: 1, marginRight: 8, borderRadius: 25 }}>
+                                    <Card wrapperStyle={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} containerStyle={{ flex: 1, borderRadius: 10,  margin: 8 }}>
                                         <Image source={ContactMechanic} style={{ height: 75 }} />
                                         {/* <Button onPress={() => this.props.navigation.navigate('ContactPersonHome')} style={[theme.buttonAlignBottom, { marginLeft: 0 }]} full> */}
                                             <Text style={[theme.buttonSmallTxt, {color: '#CD9827', paddingTop: 15 }]}>{`${strings.contactButton}`}</Text>
@@ -238,7 +238,7 @@ class HomeContentScreen extends React.Component {
                                 </TouchableOpacity>
                             </View>
                         </React.Fragment>
-                    {/* } */}
+                     } 
                 </Content >
             </ContainerWithLoading >
 

@@ -1,11 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { View, Image, StyleSheet, TouchableHighlight, TouchableOpacity, RefreshControl } from 'react-native';
+import { View, Image, StyleSheet, TouchableHighlight, TouchableOpacity, RefreshControl, Platform } from 'react-native';
 import documentsImg from '../../assets/images/ios/documents.png';
 import pdfIcon from '../../assets/images/pdficon.png';
 // import Input from 'react-native-elements';
 import { ListItem, Card } from 'react-native-elements';
 import _get from 'lodash/get';
+import _isEmpty from 'lodash/isEmpty';
+import _cloneDeep from 'lodash/cloneDeep';
 
 import theme from '../../theme';
 import { Text, Container, Content, Header, Button, Title, Body, Left, Right, Icon } from 'native-base';
@@ -14,6 +16,8 @@ import withErrorBoundary from '../hocs/withErrorBoundary';
 import { postData } from '../../actions/commonAction';
 import { showToast } from '../../utils';
 import withLocalization from '../hocs/withLocalization';
+import ImageResizer from 'react-native-image-resizer';
+import ImagePicker from 'react-native-image-picker';
 
 const ContainerWithLoading = withLoadingScreen(Container);
 
@@ -43,6 +47,14 @@ const list = [
         subtitle: '',
       },
   ];
+const options = {
+    title: 'Select Photo',
+    storageOptions: {
+        skipBackup: true,
+        path: 'images',
+    },
+};
+
 
 const getDocumentType = (type, strings) => {
     let typeValue = '';
@@ -74,6 +86,9 @@ class DocumentsHomeScreen extends React.Component {
         super(props);
         this.state = {
             selectedIndex: '',
+            expense: '',
+            links: [],
+            value: {},
         };
     }
     static navigationOptions = {
@@ -119,11 +134,114 @@ class DocumentsHomeScreen extends React.Component {
             this.props.navigation.navigate('PdfViewScreen', {uri: item.link});
         }
     }
+    handleDocumentUpload = () => {
+        this.props.navigation.navigate('ExpenseReportHomeScreen')
+        // this.uploadImage();
+    }
+    uploadImage = () => {
+        // showAlert('This is for upload image', '');
+        this.chooseImage('Expense Pic');
+    }
+
+    chooseImage = (title) => {
+        ImagePicker.launchCamera(options, (response) => {
+            if (response.didCancel) {
+                console.log('User cancelled image picker');
+            } else if (response.error) {
+                console.log('ImagePicker Error: ', response.error);
+            } else if (response.customButton) {
+                console.log('User tapped custom button: ', response.customButton);
+            } else {
+                response.title = title;
+                response.owner = 'operator';
+                if (Platform.OS == 'ios') {
+                    //    fileName = 'Image'+ new Date().toString() + '.jpg';
+                    let strs = response.uri.split('/');
+                    response.fileName = strs[strs.length - 1];
+                    response.type = 'image/jpeg';
+                }
+                this.setFile(response);
+            }
+        });
+    }
+    setFile = (res) => {
+        const { uri, type: mimeType, fileName } = res || {};
+        ImageResizer.createResizedImage(uri, 200, 600, 'JPEG', 80).then((response) => {
+            const { uri, name } = response || {};
+            this.setState({
+                imageSource: uri,
+                fileName: name,
+                uploadingFile: true,
+            });
+            const formData = new FormData();
+            formData.append('file', { uri, type: mimeType, name });
+            if (uri && !_isEmpty(uri)) {
+                console.log('data to be upload', formData);
+                this.uploadData(formData);
+            }
+        }).catch((err) => {
+            console.log('error while resizing image', err);
+        });
+    }
+
+    uploadData = (formData) => {
+        let url = `/Upload/File`;
+        let constants = {
+            init: 'UPLOAD_DOCUMENTS_INIT',
+            success: 'UPLOAD_DOCUMENTS_SUCCESS',
+            error: 'UPLOAD_DOCUMENTS_ERROR',
+        };
+        let data = {
+            id: _get(this.props, 'userDetails.checkedInto.id', ''),
+        };
+        let identifier = 'UPLOAD_DOCUMENTS';
+        let key = 'uploadedDocuments';
+        this.props.postData(url, formData, constants, identifier, key)
+            .then((data) => {
+                console.log('documents uploaded successfully.');
+                let links = _cloneDeep(this.state.links);
+                let uploadedLinks = _cloneDeep(this.state.uploadedLinks) || [];
+                let imageData = {
+                    imageSource: this.state.imageSource,
+                    fileName: this.state.fileName,
+                }
+                links.push(imageData);
+                uploadedLinks.push(data.url);
+
+                this.setState({
+                    links,
+                    uploadedLinks,
+                });
+                showToast('success', `${this.props.strings.uploadSuccessMsg}`, 3000);
+            }, (err) => {
+                console.log('error while uploading documents', err);
+            });
+    }
 
     render() {
         const { assetDocuments, strings } = this.props;
         console.log('asset documents', assetDocuments);
         const { selectedIndex } = this.state;
+        let images = [];
+        !_isEmpty(_get(this.state, 'links', [])) && _get(this.state, 'links', []).map((link, index) => {
+            images.push(
+                <View key={index} style={{ flex: 1, marginLeft: 20, marginBottom: 10, flexDirection: 'row' }}>
+                    {
+                        link.imageSource && link.imageSource != '' &&
+                        <Image source={{ uri: link.imageSource }} style={{ width: 100, height: 100 }} />
+                    }
+                    <View style={{ margin: 10 }}>
+                        <Text style={{ flexWrap: 'wrap' }}>{link.fileName}</Text>
+                    </View>
+                    <View style={{ margin: 10 }}>
+                    {
+                        link.imageSource && link.imageSource != '' &&
+                        <Icon onPress={() => this.handleDelete(index)} name='delete' type="MaterialCommunityIcons" />
+                    }
+                    </View>
+                </View>
+            )
+        })
         return (
             <ContainerWithLoading style={theme.container} isLoading={this.props.isLoading}>
                 <Header style={{backgroundColor: '#00A9E0'}} androidStatusBarColor="#00A9E0">
@@ -184,9 +302,18 @@ class DocumentsHomeScreen extends React.Component {
                                 </React.Fragment>
                                 ))
                             }
+                            <ListItem
+                                rightIcon={{ name: 'camera', type: 'font-awesome' }}
+                                title={`Upload Invoice/ Document`}
+                                // subtitle={l.subtitle}
+                                onPress={()=>this.handleDocumentUpload()}
+                            />
                             </View>
                         </View>
                     </View>
+                    {
+                        images
+                    }
                 </Content>
             </ContainerWithLoading>
         );

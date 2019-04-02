@@ -1,14 +1,17 @@
 import React from 'react';
 import { Text, View, Image } from 'react-native';
 // import serviceImg from '../assets/images/serviceImg.png';
-import contactMechanic from '../assets/images/bottom-tab/contact-mechanic-setting.png';
-import serviceImg from '../assets/images/bottom-tab/service-ticket-setting.png';
-import taskImg from '../assets/images/bottom-tab/tasks-setting.png';
+import contactMechanic from '../assets/images/bottom-tab/contact-mechnic.png';
+import serviceImg from '../assets/images/bottom-tab/service-ticket.png';
+import taskImg from '../assets/images/bottom-tab/tasks.png';
+import homeImg from '../assets/images/bottom-tab/home.png';
+import settingImg from '../assets/images/bottom-tab/setting.png';
 import { createStackNavigator, createAppContainer, createBottomTabNavigator } from 'react-navigation';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons'
 
 import HomeContentScreen from '../components/HomeContentScreen';
 
@@ -114,9 +117,10 @@ const ContactPersonStack = createStackNavigator({
 class ContactIcon extends React.PureComponent {
   // You should pass down the badgeCount in some other ways like context, redux, mobx or event emitters.
   render(){
+  const { opacity } = this.props;
   return (
-    <View>
-        <Image style={{ height:30 }} source={contactMechanic} />
+    <View style={{ opacity: opacity }}>
+        <Image style={{ width:30, height: 28 }} source={contactMechanic} />
     </View>
   )
 };
@@ -124,9 +128,10 @@ class ContactIcon extends React.PureComponent {
 class ServiceIcon extends React.PureComponent {
   // You should pass down the badgeCount in some other ways like context, redux, mobx or event emitters.
   render(){
+  const { opacity } = this.props;
   return (
-    <View>
-        <Image style={{ height:30 }} source={serviceImg} />
+    <View style={{ opacity: opacity }}>
+        <Image style={{ width: 33, height: 25 }} source={serviceImg} />
     </View>
   )
 };
@@ -134,18 +139,41 @@ class ServiceIcon extends React.PureComponent {
 class TaskIcon extends React.PureComponent {
   // You should pass down the badgeCount in some other ways like context, redux, mobx or event emitters.
   render(){
+  const { opacity } = this.props;
   return (
-    <View>
-        <Image style={{ height:30 }} source={taskImg} />
+    <View style={{ opacity: opacity }}>
+        <Image style={{ width: 19, height: 27 }} source={taskImg} />
+    </View>
+  )
+};
+}
+class HomeIcon extends React.PureComponent {
+  // You should pass down the badgeCount in some other ways like context, redux, mobx or event emitters.
+  render(){
+  const { opacity } = this.props;
+  return (
+    <View style={{ opacity: opacity }}>
+        <Image style={{ width: 28, height: 25 }} source={homeImg} />
+    </View>
+  )
+};
+}
+class SettingIcon extends React.PureComponent {
+  // You should pass down the badgeCount in some other ways like context, redux, mobx or event emitters.
+  render(){
+  const { opacity } = this.props;
+  return (
+    <View style={{ opacity: opacity }}>
+        <Image style={{ width: 24, height: 26 }} source={settingImg} />
     </View>
   )
 };
 }
   class IconWithBadge extends React.Component {
     render() {
-      const { name, badgeCount, color, size } = this.props;
+      const { name, badgeCount, color, size, opacity } = this.props;
       return (
-        <View style={{ }}>
+        <View style={{ opacity: opacity }}>
           <Image source={contactMechanic} />
           {/* <Ionicons name={name} size={size} color={color} /> */}
           {/* {badgeCount > 0 && (
@@ -182,34 +210,41 @@ class TaskIcon extends React.PureComponent {
     const { routeName } = navigation.state;
     let IconComponent = Ionicons;
     let iconName;
-    if (routeName === 'Home') {
-      iconName = `md-home${focused ? '' : ''}`;
+    let opacity = 1;
+    if (routeName === 'HOME') {
+      iconName = `home${focused ? '' : ''}`;
+      opacity = focused ? 1 : 0.3;
       // We want to add badges to home tab icon
-      // IconComponent = HomeIconWithBadge;
-    } else if (routeName === 'Settings') {
+      IconComponent = HomeIcon;
+    } else if (routeName === 'SETTINGS') {
       iconName = `ios-options${focused ? '' : '-outline'}`;
-    } else if (routeName === 'Tasks') {
+      opacity = focused ? 1 : 0.3;
+      IconComponent = SettingIcon;
+    } else if (routeName === 'TASKS') {
       iconName = `tasks${focused ? '' : ''}`;
+      opacity = focused ? 1 : 0.3;
       IconComponent = TaskIcon;
-    } else if (routeName === 'Services') {
+    } else if (routeName === 'SERVICES') {
       iconName = `screwdriver`;
+      opacity = focused ? 1 : 0.3;
       IconComponent = ServiceIcon;
-    } else if (routeName === 'Contact') {
+    } else if (routeName === 'CONTACT') {
       iconName = `contact-phone${focused ? '' : ''}`;
+      opacity = focused ? 1 : 0.3;
       IconComponent = ContactIcon;
     }
 
     // You can return any component that you like here!
-    return <IconComponent name={iconName} size={25} color={tintColor} />;
+    return <IconComponent style={{ }} opacity={opacity} name={iconName} size={25} color={tintColor} />;
   };
 
 const TabStack = createBottomTabNavigator(
     {
-      Home: AppStack,
-      Tasks: TasksStack,
-      Services: ServiceStack,
-      Contact: ContactPersonStack,
-      Settings: SettingsStack,
+      HOME: AppStack,
+      TASKS: TasksStack,
+      SERVICES: ServiceStack,
+      CONTACT: ContactPersonStack,
+      SETTINGS: SettingsStack,
     },
     {
         defaultNavigationOptions: ({ navigation }) => ({
@@ -217,8 +252,16 @@ const TabStack = createBottomTabNavigator(
             getTabBarIcon(navigation, focused, tintColor),
         }),
         tabBarOptions: {
-          activeTintColor: 'tomato',
+          activeTintColor: '#434242',
           inactiveTintColor: 'gray',
+          style: {
+            paddingTop: 8,
+            paddingBottom: 5,
+            height: 60,
+          },
+          labelStyle: {
+            paddingTop: 4,
+          },
         },
       }
   );

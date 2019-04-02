@@ -15,7 +15,9 @@ import { generateV1uuid, logError, compareAppVersion } from './utils';
 import _get from 'lodash/get';
 import { Text } from 'react-native-elements';
 import { Container, Content, Header, Body, Button, Left, Right, Title } from 'native-base';
-
+import {
+  setCustomText,
+} from 'react-native-global-props';
 
 YellowBox.ignoreWarnings(['Warning: isMounted(...) is deprecated', 'Module RCTImageLoader']);
 
@@ -45,8 +47,17 @@ export const interceptorForCorelationId = AXIOS.interceptors.request.use(functio
   return Promise.reject(error);
 });
 
+const customTextProps = {
+  style: {
+    // fontSize: 16,
+    fontFamily: Platform.OS === 'ios' ? 'HelveticaNeue' : 'Roboto',
+    color: 'black'
+  }
+};
+
 const { store, persistor } = configureStore();
 customize();
+setCustomText(customTextProps);
 
 class App extends React.Component {
   constructor(props) {
