@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { View, Image, StyleSheet, TouchableHighlight, TextInput, Platform } from 'react-native';
-import mileageImg from '../../assets/images/mileage.png';
+import mileageImg from '../../assets/images/ios/update-mileage.png';
 // import Input from 'react-native-elements';
 import ImagePicker from 'react-native-image-picker';
 
@@ -176,7 +176,7 @@ class UpdateMileageHomeScreen extends React.Component {
             .then((data) => {
                 console.log('mileage saved successfully.', data);
                 showToast('success', `${this.props.strings.saveSuccessMsg}`, 3000);
-                this.props.navigation.navigate('UploadDocsHomeScreen');
+                this.props.navigation.navigate('Home');
             }, (err) => {
                 console.log('error while saving mileage', err);
             });
@@ -203,7 +203,7 @@ class UpdateMileageHomeScreen extends React.Component {
                     <View style={{ flex: 1, flexDirection: 'column' }}>
                         <View style={[theme.centerAlign, { marginTop: 25 }]}>
                             <TouchableHighlight
-                                style={[styles.profileImgContainer, { borderColor: 'green', borderWidth: 1 }]}
+                                style={[]}
                             >
                                 <Image source={mileageImg} style={styles.profileImg} />
                             </TouchableHighlight>
@@ -293,7 +293,6 @@ const styles = StyleSheet.create({
     profileImg: {
       height: 120,
       width: 120,
-      borderRadius: 40,
     },
   });
 

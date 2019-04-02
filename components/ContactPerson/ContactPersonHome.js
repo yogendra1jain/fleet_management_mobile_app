@@ -74,7 +74,7 @@ class ContactPersonHomeScreen extends React.Component {
                     <View style={{ flex: 1, flexDirection: 'column' }}>
                         <View style={[theme.centerAlign, { marginTop: 25 }]}>
                             <TouchableHighlight
-                                style={[styles.profileImgContainer, { borderColor: 'green', borderWidth: 1 }]}
+                                style={[]}
                             >
                                 <Image source={contactMechanic} style={styles.profileImg} />
                             </TouchableHighlight>
@@ -130,7 +130,6 @@ const styles = StyleSheet.create({
     profileImg: {
       height: 120,
       width: 120,
-      borderRadius: 40,
     },
   });
 

@@ -222,7 +222,7 @@ class ExpenseReportHomeScreen extends React.Component {
             .then((data) => {
                 console.log('mileage saved successfully.', data);
                 showToast('success', `${this.props.strings.saveSuccessMsg}`, 3000);
-                this.props.navigation.navigate('UploadDocsHomeScreen');
+                this.props.navigation.navigate('Home');
             }, (err) => {
                 console.log('error while saving mileage', err);
             });

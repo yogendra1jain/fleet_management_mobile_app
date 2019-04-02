@@ -21,8 +21,6 @@ DerivedData
 *.ipa
 *.xcuserstate
 project.xcworkspace
-ios/release
-Pods
 
 # Android/IntelliJ
 #
@@ -31,11 +29,6 @@ build/
 .gradle
 local.properties
 *.iml
-
-# Firebase
-android/app/google-services.json
-ios/GoogleService-Info.plist
-firebase-prod
 
 # node.js
 #

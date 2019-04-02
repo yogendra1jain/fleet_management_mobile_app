@@ -155,7 +155,7 @@ class HomeContentScreen extends React.Component {
                                 !_isEmpty(_get(userDetails, 'checkedInto', {})) &&
                                 <View style={{ flex: 1, flexDirection: 'row' }}>
                                     <View style={{ flex: 1, justifyContent: 'flex-start', flexDirection: 'row', alignItems: 'center' }}>
-                                        <Text style={{ fontWeight: 'normal' }}>{`${strings.checkedText}`}</Text>
+                                        <Text style={{ fontWeight: 'normal', fontFamily: 'Montserrat' }}>{`${strings.checkedText}`}</Text>
                                     </View>
                                     <View style={{ flex: 1, justifyContent: 'flex-end', flexDirection: 'row', alignItems: 'center' }}>
                                         <Text style={{ fontWeight: 'bold', textAlign: 'right', color: '#00A9E0', fontSize: 18 }}> {_get(userDetails, 'checkedInto.assetId', 'NA')}</Text>
@@ -177,7 +177,7 @@ class HomeContentScreen extends React.Component {
                                     onPress={() => this.props.navigation.navigate('TaskListScreen')} >
                                     <Card wrapperStyle={{ justifyContent: 'center', alignItems: 'center' }} containerStyle={{ borderRadius: 10,  margin: 8 }}>
                                         <Image source={tasksImg} style={{ height: 75 }} />
-                                        <Text style={[theme.buttonSmallTxt, {color: '#67DEBB', paddingTop: 15 }]}>{`${strings.taskButton}`}</Text>                                            
+                                        <Text style={[theme.buttonSmallTxt, {color: '#67DEBB', paddingTop: 15, fontFamily: 'Montserrat' }]}>{`${strings.taskButton}`}</Text>                                            
                                     </Card>
                                 </TouchableOpacity>
                                 <TouchableOpacity activeOpacity={0.5} style={{ flex: 1 }}
