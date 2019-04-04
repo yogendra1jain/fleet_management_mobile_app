@@ -133,7 +133,7 @@ class HomeContentScreen extends React.Component {
                     <Icon name="ios-menu" style={{color: 'white'}} type="Ionicons"/>
                     </Left>
                 <Body style={{ flex: 4, justifyContent: 'center', alignItems: 'center' }}>
-                    <Title><Image source={FMSLogo} style={{ width: 405, height: 60 }} /></Title>
+                    <Title><Image source={FMSLogo} style={{ width: 150, height: 22 }} /></Title>
                 </Body>
                 <Right style={{ flex: 1 }}>
                 <Icon name="user" style={{ fontSize: 40, color: 'white' }} type="EvilIcons"/>

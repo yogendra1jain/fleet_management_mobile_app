@@ -52,7 +52,7 @@ function AssetView(props) {
                                 <Text style={{ fontWeight: 'normal' }}>{`${strings.checkedInUserText}`}</Text>
                             </View>
                             <View style={{ flex: 1, justifyContent: 'flex-end', flexDirection: 'row', alignItems: 'center' }}>
-                                <Text style={{ fontWeight: 'bold', textAlign: 'right', color: '#312783', fontSize: 18 }}> {_get(asset, 'checkInInfo.operatorId', 'NA')}</Text>
+                                <Text style={{ fontWeight: 'bold', textAlign: 'right', color: '#312783', fontSize: 18 }}> {_get(asset, 'checkInInfo.operatorId') ? `${_get(props, 'userDetails.user.firstName', '')} ${_get(props, 'userDetails.user.lastName', '')}`: 'NA' }</Text>
                             </View>
                         </View>
                         {
@@ -66,7 +66,7 @@ function AssetView(props) {
                             </View>:
                             <View style={{ flex: 1, flexDirection: 'row', paddingBottom: 10 }}>
                                 <View style={{ flex: 1, justifyContent: 'flex-end', flexDirection: 'row', alignItems: 'center' }}>
-                                    <Button onPress={() => props.handleCheckIn(index, asset, false)} style={[theme.buttonAlignBottom, { marginLeft: 0 }]} full>
+                                    <Button onPress={() => props.handleCheckOut(index, asset, false)} style={[theme.buttonAlignBottom, { marginLeft: 0 }]} full>
                                         <Text style={theme.buttonSmallTxt}>{`${strings.checkOut}`}</Text>
                                     </Button>
                                 </View>
