@@ -80,7 +80,18 @@ class GasFilUpHomeScreen extends React.Component {
     }
     setFile = (res) => {
         const { uri, type: mimeType, fileName } = res || {};
-        ImageResizer.createResizedImage(uri, 200, 600, 'JPEG', 80).then((response) => {
+        this.setState({
+            imageSource: uri,
+            fileName: fileName,
+            uploadingFile: true,
+        });
+        // const formData = new FormData();
+        // formData.append('file', { uri, type: mimeType, name });
+        // if (uri && !_isEmpty(uri)) {
+        //     console.log('data to be upload', formData);
+        //     this.uploadData(formData);
+        // }
+        ImageResizer.createResizedImage(uri, 1024, 1024, 'JPEG', 99).then((response) => {
             const { uri, name } = response || {};
             this.setState({
                 imageSource: uri,

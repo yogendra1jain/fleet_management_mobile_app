@@ -96,7 +96,7 @@ class ExpenseReportHomeScreen extends React.Component {
     }
     setFile = (res) => {
         const { uri, type: mimeType, fileName } = res || {};
-        ImageResizer.createResizedImage(uri, 200, 600, 'JPEG', 80).then((response) => {
+        ImageResizer.createResizedImage(uri, 1024, 1024, 'JPEG', 99).then((response) => {
             const { uri, name } = response || {};
             this.setState({
                 imageSource: uri,

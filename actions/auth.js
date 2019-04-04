@@ -76,14 +76,14 @@ export const login = (data) => {
                 if (!_isEmpty(data.token)) {
                     firebase.crashlytics().setUserIdentifier(decodedToken.id);
                     let data = {
-                        id: _get(decodedToken, 'Vendor.id', ''),
+                        id: _get(decodedToken, 'FleetUser.id', ''),
                     };
                     setAxiosAuthHeader(data.token);
                     // dispatch(fetchUserDetails(data, true, true));
                     Toast.show({
                         text: 'LoggedIn successfully',
                         type: 'success',
-                        duration: 2000,
+                        duration: 3000,
                         position: 'top',
                     });
                     // NavigationService.navigate('Home');
