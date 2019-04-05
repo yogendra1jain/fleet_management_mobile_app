@@ -80,7 +80,18 @@ class GasFilUpHomeScreen extends React.Component {
     }
     setFile = (res) => {
         const { uri, type: mimeType, fileName } = res || {};
-        ImageResizer.createResizedImage(uri, 200, 600, 'JPEG', 80).then((response) => {
+        this.setState({
+            imageSource: uri,
+            fileName: fileName,
+            uploadingFile: true,
+        });
+        // const formData = new FormData();
+        // formData.append('file', { uri, type: mimeType, name });
+        // if (uri && !_isEmpty(uri)) {
+        //     console.log('data to be upload', formData);
+        //     this.uploadData(formData);
+        // }
+        ImageResizer.createResizedImage(uri, 1024, 1024, 'JPEG', 99).then((response) => {
             const { uri, name } = response || {};
             this.setState({
                 imageSource: uri,
@@ -196,7 +207,7 @@ class GasFilUpHomeScreen extends React.Component {
         const { strings } = this.props;
         return (
             <ContainerWithLoading style={theme.container} isLoading={this.props.isLoading || this.state.isLoading}>
-                <Header style={{backgroundColor: '#003da5'}} androidStatusBarColor='#003da5' >
+                <Header translucent={false} style={{backgroundColor: '#003da5'}} androidStatusBarColor='#003da5' >
                     <Left style={{ flex: 1 }}>
                         <Button transparent onPress={() => this.props.navigation.goBack()}>
                             <Icon name='arrow-back' style={{ color: '#fff' }} />

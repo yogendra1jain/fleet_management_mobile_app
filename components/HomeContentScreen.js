@@ -29,7 +29,7 @@ import SplashScreen from 'react-native-splash-screen';
 import withErrorBoundary from './hocs/withErrorBoundary';
 import withLocalization from './hocs/withLocalization';
 import { postData, setLanguage } from '../actions/commonAction';
-import { setCheckInAsset } from '../actions/auth';
+import { setCheckInAsset, timerFunc } from '../actions/auth';
 import { showToast } from '../utils';
 
 const ContainerWithLoading = withLoadingScreen(Container);
@@ -55,6 +55,9 @@ class HomeContentScreen extends React.Component {
         // const { decodedToken } = this.props;
         this.loadUserInfo();
     }
+    // componentWillMount() {
+    //     this.loadUserInfo();
+    // }
     loadUserInfo = () => {
         let url = `/ClientUser/Detail`;
         let constants = {
@@ -69,7 +72,10 @@ class HomeContentScreen extends React.Component {
         let key = 'userDetails';
         this.props.postData(url, data, constants, identifier, key)
             .then((data) => {
-                console.log('user data fetched successfully.');
+                console.log('user data fetched successfully.', data);
+                if (_isEmpty(_get(data, 'checkedInto', {}))) {
+                    this.props.navigation.navigate('AssetCheckinScreen');
+                }
             }, (err) => {
                 console.log('error while fetching user data', err);
             });
@@ -132,8 +138,8 @@ class HomeContentScreen extends React.Component {
                 <Left style={{ flex: 1 }}>
                     <Icon name="ios-menu" style={{color: 'white'}} type="Ionicons"/>
                     </Left>
-                <Body style={{ flex: 4, justifyContent: 'center', alignItems: 'center' }}>
-                    <Title><Image source={FMSLogo} style={{ width: 405, height: 60 }} /></Title>
+                <Body style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                    <Image source={FMSLogo} style={{ width: 150, height: 22 }} />
                 </Body>
                 <Right style={{ flex: 1 }}>
                 <Icon name="user" style={{ fontSize: 40, color: 'white' }} type="EvilIcons"/>
@@ -268,6 +274,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
+        timerFunc: time => dispatch(timerFunc(time)),
         setCheckInAsset: isCheckin => dispatch(setCheckInAsset(isCheckin)),
         setLanguage: language => dispatch(setLanguage(language)),
         postData: (url, data, constants, identifier, key) => dispatch(postData(url, data, constants, identifier, key)),

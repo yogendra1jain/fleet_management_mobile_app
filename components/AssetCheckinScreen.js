@@ -31,7 +31,7 @@ class AssetCheckinScreen extends React.Component {
     componentDidMount() {
         this.loadData();
     }
-    loadData = () => {
+    loadData = (isCheckin) => {
         let url = `/Assets/AssignedToOperator`;
         let constants = {
             init: 'GET_ASSETS_FOR_OPERATOR_INIT',
@@ -45,7 +45,7 @@ class AssetCheckinScreen extends React.Component {
         let key = 'operatorAssets';
         this.props.postData(url, data, constants, identifier, key)
             .then((data) => {
-                this.loadUserInfo();
+                this.loadUserInfo(isCheckin);
             }, (err) => {
                 console.log('error while fetching fleet user list list', err);
             });
@@ -78,9 +78,33 @@ class AssetCheckinScreen extends React.Component {
             { enableHighAccuracy: false, timeout: 200000, maximumAge: 1000 },
           );
     }
+    handleCheckOut = () => {
+        let url = `/Assets/CheckOut`;
+        let constants = {
+            init: 'CHECKIN_FOR_ASSET_INIT',
+            success: 'CHECKIN_FOR_ASSET_SUCCESS',
+            error: 'CHECKIN_FOR_ASSET_ERROR',
+        };
+        let data = {
+            operatorId: _get(this.props, 'decodedToken.FleetUser.id', ''),
+            assetId: _get(this.props, 'userDetails.checkedInto.id', ''),
+        };
+        let identifier = 'CHECKIN_FOR_ASSET';
+        let key = 'checkInForAsset';
+        this.props.postData(url, data, constants, identifier, key)
+            .then((data) => {
+                console.log('checked out successfully.');
+                // this.props.timerFunc(0);
+                this.props.setCheckInAsset(false);
+                showToast('success', `Checked Out Successfully.`, 3000);
+                this.loadData();
+            }, (err) => {
+                console.log('error while checking in operator', err);
+            });
+    }
     handleCheckIn = (index, asset, isCheckin) => {
         let url = `/Assets/CheckIn`;
-        this.props.setCheckInAsset(false);
+        this.props.setCheckInAsset(isCheckin);
         if (!isCheckin) {
             url = `/Assets/CheckOut`;
         }
@@ -104,16 +128,16 @@ class AssetCheckinScreen extends React.Component {
                 console.log('checked in successfully.', data);
                 if (isCheckin) {
                     this.props.timerFunc(86400);
+                    this.loadData(isCheckin);
                 } else {
                     this.props.timerFunc(0);
                 }
                 showToast('success', `${this.props.strings.checkInSuccessMsg}`, 3000);
-                this.loadData();
             }, (err) => {
                 console.log('error while checking in operator', err);
             });
     }
-    loadUserInfo = () => {
+    loadUserInfo = (isCheckin) => {
         let url = `/ClientUser/Detail`;
         let constants = {
             init: 'GET_USER_DETAILS_INIT',
@@ -128,7 +152,10 @@ class AssetCheckinScreen extends React.Component {
         this.props.postData(url, data, constants, identifier, key)
             .then((data) => {
                 console.log('user data fetched successfully.', data);
-                showToast('success', `${this.props.strings.assetFetchSuccMsg}`, 3000);
+                // showToast('success', `${this.props.strings.assetFetchSuccMsg}`, 3000);
+                if (isCheckin) {
+                    this.props.navigation.navigate('Home');
+                }
             }, (err) => {
                 console.log('error while fetching user data', err);
             });
@@ -149,6 +176,8 @@ class AssetCheckinScreen extends React.Component {
                     handleAssetClick={this.handleAssetClick}
                     handleCheckIn={this.getCurrentLocation}
                     decodedToken={this.props.decodedToken}
+                    userDetails={this.props.userDetails}
+                    handleCheckOut={this.handleCheckOut}
                 />
             );
         }
@@ -186,8 +215,8 @@ function mapStateToProps(state) {
     let { commonReducer, auth } = state;
     let { operatorAssets } = commonReducer || [];
     let isLoading = commonReducer.isFetching || false;
-    let { appLanguage, languageDetails } = commonReducer || 'en';
-    console.log('appLanguage in check in screen', appLanguage);
+    let { appLanguage, languageDetails, userDetails } = commonReducer || 'en';
+    // console.log('appLanguage in check in screen', appLanguage);
     let { decodedToken } = auth || {};
     return {
         operatorAssets,
@@ -195,6 +224,7 @@ function mapStateToProps(state) {
         isLoading,
         appLanguage,
         languageDetails,
+        userDetails,
     };
 }
 

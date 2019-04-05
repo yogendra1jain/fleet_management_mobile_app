@@ -50,7 +50,7 @@ class ServiceTicketListScreen extends React.Component {
         const { selectedOption } = this.state;
         return (
             <ContainerWithLoading style={theme.container} isLoading={this.props.isLoading}>
-                <Header style={{backgroundColor: '#ff585d'}} androidStatusBarColor='#ff585d'>
+                <Header translucent={false} style={{backgroundColor: '#ff585d'}} androidStatusBarColor='#ff585d'>
                     <Left style={{ flex: 1 }}>
                         <Button transparent onPress={() => this.props.navigation.goBack()}>
                             <Icon name='arrow-back' style={{ color: '#fff' }} />

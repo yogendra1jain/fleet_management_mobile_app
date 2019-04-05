@@ -24,7 +24,7 @@ let strings = ({
         volumeLabel: "Volume",
         amountLabel: "Amount",
         goToCamera: "Go To Camera",
-        gasHelperText: "Take a picture of the fuel Pump Display after completing fill up. The display Should show gallons and sales amount. Make sure that there is no sun glare or reflaction off the display when taking the photo.",
+        gasHelperText: "Take a picture of the fuel Pump Display after completing fill up. The display Should show gallons and sales amount. Make sure that there is no sun glare or reflection off the display when taking the photo.",
         invalidDocType: "INVALID DOCUMENT TYPE",
         titleDoc: "TITLE DOCUMENT",
         insuranceDoc: "INSURANCE DOCUMENT",
