@@ -244,7 +244,7 @@ class DocumentsHomeScreen extends React.Component {
         })
         return (
             <ContainerWithLoading style={theme.container} isLoading={this.props.isLoading}>
-                <Header style={{backgroundColor: '#059312'}} androidStatusBarColor="#059312">
+                <Header translucent={false} style={{backgroundColor: '#059312'}} androidStatusBarColor="#059312">
                     <Left style={{ flex: 1 }}>
                         <Button transparent onPress={() => this.props.navigation.goBack()}>
                             <Icon name='arrow-back' style={{ color: '#fff' }} />

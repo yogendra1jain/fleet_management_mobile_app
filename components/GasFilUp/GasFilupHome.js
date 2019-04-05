@@ -207,7 +207,7 @@ class GasFilUpHomeScreen extends React.Component {
         const { strings } = this.props;
         return (
             <ContainerWithLoading style={theme.container} isLoading={this.props.isLoading || this.state.isLoading}>
-                <Header style={{backgroundColor: '#003da5'}} androidStatusBarColor='#003da5' >
+                <Header translucent={false} style={{backgroundColor: '#003da5'}} androidStatusBarColor='#003da5' >
                     <Left style={{ flex: 1 }}>
                         <Button transparent onPress={() => this.props.navigation.goBack()}>
                             <Icon name='arrow-back' style={{ color: '#fff' }} />
