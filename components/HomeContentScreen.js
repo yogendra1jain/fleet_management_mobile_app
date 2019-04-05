@@ -90,8 +90,27 @@ class HomeContentScreen extends React.Component {
         if (checkIn) {
             this.props.navigation.navigate('AssetCheckinScreen');
         } else {
-            this.handleCheckIn()
+            this.getCurrentLocation();
         }
+    }
+
+    getCurrentLocation = (index, asset, isCheckin) => {
+        this.setState({
+            isLoading: true,
+        });
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                this.setState({
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude,
+                    error: null,
+                    isLoading: false,
+                });
+                this.handleCheckIn();
+            },
+            error => this.setState({ error: error.message }),
+            { enableHighAccuracy: false, timeout: 200000, maximumAge: 1000 },
+          );
     }
     handleCheckIn = (index, asset) => {
         let url = `/Assets/CheckOut`;

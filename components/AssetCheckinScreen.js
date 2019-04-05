@@ -104,10 +104,10 @@ class AssetCheckinScreen extends React.Component {
     }
     handleCheckIn = (index, asset, isCheckin) => {
         let url = `/Assets/CheckIn`;
-        this.props.setCheckInAsset(isCheckin);
-        if (!isCheckin) {
-            url = `/Assets/CheckOut`;
-        }
+        this.props.setCheckInAsset(false);
+        // if (!isCheckin) {
+        //     url = `/Assets/CheckOut`;
+        // }
         let constants = {
             init: 'SAVE_CHECKIN_FOR_ASSET_INIT',
             success: 'SAVE_CHECKIN_FOR_ASSET_SUCCESS',
