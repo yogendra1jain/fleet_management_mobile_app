@@ -12,7 +12,7 @@
 		00C302E81ABCBA2D00DB3ED1 /* libRCTImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302C01ABCB91800DB3ED1 /* libRCTImage.a */; };
 		00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302DC1ABCB9D200DB3ED1 /* libRCTNetwork.a */; };
 		00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302E41ABCB9EE00DB3ED1 /* libRCTVibration.a */; };
-		00E356F31AD99517003FC87E /* BloomKonnectAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* BloomKonnectAppTests.m */; };
+		00E356F31AD99517003FC87E /* MyFMSAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* MyFMSAppTests.m */; };
 		09A46AD021393E2900C1399D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 09A46ACF21393E2900C1399D /* GoogleService-Info.plist */; };
 		09A46AD121393E2900C1399D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 09A46ACF21393E2900C1399D /* GoogleService-Info.plist */; };
 		09A46AD221393E2900C1399D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 09A46ACF21393E2900C1399D /* GoogleService-Info.plist */; };
@@ -38,7 +38,7 @@
 		2D02E4C71E0B4AEC006451C7 /* libRCTText-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3E941DF850E9000B6D8A /* libRCTText-tvOS.a */; };
 		2D02E4C81E0B4AEC006451C7 /* libRCTWebSocket-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3E991DF850E9000B6D8A /* libRCTWebSocket-tvOS.a */; };
 		2D16E6881FA4F8E400B85C8A /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D16E6891FA4F8E400B85C8A /* libReact.a */; };
-		2DCD954D1E0B4F2C00145EB5 /* BloomKonnectAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* BloomKonnectAppTests.m */; };
+		2DCD954D1E0B4F2C00145EB5 /* MyFMSAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* MyFMSAppTests.m */; };
 		2DF0FFEE2056DD460020B375 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3EA31DF850E9000B6D8A /* libReact.a */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		66091D0FCE30460DA5624B93 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B93AA400B7EE4DB6945A5545 /* Zocial.ttf */; };
@@ -54,17 +54,17 @@
 		A3ADE08E191C4795A923BDD6 /* libSplashScreen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 90F03CBA1BEE449A80C9810C /* libSplashScreen.a */; };
 		A4FE11FCA70341E4B9FDFD15 /* Roboto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4064DA5129F04B978D310DAC /* Roboto.ttf */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
-		AE5AEF24B877B40D344DCACF /* libPods-MyFMS-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2691CA659F391E4C46FDD9C5 /* libPods-MyFMS-tvOSTests.a */; };
+		AE5AEF24B877B40D344DCACF /* libPods-MyFMSApp-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2691CA659F391E4C46FDD9C5 /* libPods-MyFMSApp-tvOSTests.a */; };
 		AFA19A3A572D4DE8931A4084 /* rubicon-icon-font.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B72498DF26514A4489045FF3 /* rubicon-icon-font.ttf */; };
 		B67308F0EB254717AC41333B /* libReactNativeConfig.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E965666B0544275938BF7ED /* libReactNativeConfig.a */; };
 		CE48D5370B034F0FB060F0E9 /* libRNPrint.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 999EA488203D432C96095A0D /* libRNPrint.a */; };
 		CEF03C12FA754153B4DB4B67 /* libRNFirebase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F0748287C7C4C86A5207E77 /* libRNFirebase.a */; };
-		DC045A470FE755D090666D1B /* libPods-MyFMS-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DAD3A8162EF3A1AA5C2CD499 /* libPods-MyFMS-tvOS.a */; };
+		DC045A470FE755D090666D1B /* libPods-MyFMSApp-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DAD3A8162EF3A1AA5C2CD499 /* libPods-MyFMSApp-tvOS.a */; };
 		F0FB3F5D504145A1AAA4A8A0 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FEB0C275E809473EAAB5D668 /* Foundation.ttf */; };
 		FAADEA4CD30444658ECBB4D6 /* Roboto_medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 166DB332525B41B096949D54 /* Roboto_medium.ttf */; };
-		FBF36F45ADDB6E01978B6111 /* libPods-MyFMS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BF0B296C2B4E07F907BF58E8 /* libPods-MyFMS.a */; };
+		FBF36F45ADDB6E01978B6111 /* libPods-MyFMSApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BF0B296C2B4E07F907BF58E8 /* libPods-MyFMSApp.a */; };
 		FE7FDD8FBFE049A2A52A6602 /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 54F54FB0E9A447B9B29B957F /* libRNVectorIcons.a */; };
-		FEAC8B4A5969DC16E02FA4C4 /* libPods-BloomKonnectAppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5520BB095428AB685D187688 /* libPods-BloomKonnectAppTests.a */; };
+		FEAC8B4A5969DC16E02FA4C4 /* libPods-MyFMSAppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5520BB095428AB685D187688 /* libPods-MyFMSAppTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -108,7 +108,7 @@
 			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
-			remoteInfo = MyFMS;
+			remoteInfo = MyFMSApp;
 		};
 		09A469F221344AB400C1399D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -192,7 +192,7 @@
 			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 2D02E47A1E0B4A5D006451C7;
-			remoteInfo = "MyFMS-tvOS";
+			remoteInfo = "MyFMSApp-tvOS";
 		};
 		2D16E6711FA4F8DC00B85C8A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -406,44 +406,44 @@
 		00C302BB1ABCB91800DB3ED1 /* RCTImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTImage.xcodeproj; path = "../node_modules/react-native/Libraries/Image/RCTImage.xcodeproj"; sourceTree = "<group>"; };
 		00C302D31ABCB9D200DB3ED1 /* RCTNetwork.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTNetwork.xcodeproj; path = "../node_modules/react-native/Libraries/Network/RCTNetwork.xcodeproj"; sourceTree = "<group>"; };
 		00C302DF1ABCB9EE00DB3ED1 /* RCTVibration.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTVibration.xcodeproj; path = "../node_modules/react-native/Libraries/Vibration/RCTVibration.xcodeproj"; sourceTree = "<group>"; };
-		00E356EE1AD99517003FC87E /* BloomKonnectAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BloomKonnectAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		00E356EE1AD99517003FC87E /* MyFMSAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyFMSAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		00E356F21AD99517003FC87E /* BloomKonnectAppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BloomKonnectAppTests.m; sourceTree = "<group>"; };
-		016D7376EF7069E0B37C55BC /* Pods-MyFMS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyFMS.release.xcconfig"; path = "Pods/Target Support Files/Pods-MyFMS/Pods-MyFMS.release.xcconfig"; sourceTree = "<group>"; };
-		0985FD6D2154FE5300E7E3DB /* MyFMS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = MyFMS.entitlements; path = MyFMS/MyFMS.entitlements; sourceTree = "<group>"; };
+		00E356F21AD99517003FC87E /* MyFMSAppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyFMSAppTests.m; sourceTree = "<group>"; };
+		016D7376EF7069E0B37C55BC /* Pods-MyFMSApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyFMSApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-MyFMSApp/Pods-MyFMSApp.release.xcconfig"; sourceTree = "<group>"; };
+		0985FD6D2154FE5300E7E3DB /* MyFMSApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = MyFMSApp.entitlements; path = MyFMSApp/MyFMSApp.entitlements; sourceTree = "<group>"; };
 		09A46ACF21393E2900C1399D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0B52CDBA3E2E418394FB67F4 /* ReactNativeConfig.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = ReactNativeConfig.xcodeproj; path = "../node_modules/react-native-config/ios/ReactNativeConfig.xcodeproj"; sourceTree = "<group>"; };
 		139105B61AF99BAD00B5F7CC /* RCTSettings.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTSettings.xcodeproj; path = "../node_modules/react-native/Libraries/Settings/RCTSettings.xcodeproj"; sourceTree = "<group>"; };
 		139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTWebSocket.xcodeproj; path = "../node_modules/react-native/Libraries/WebSocket/RCTWebSocket.xcodeproj"; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* MyFMS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyFMS.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = MyFMS/AppDelegate.h; sourceTree = "<group>"; };
-		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = MyFMS/AppDelegate.m; sourceTree = "<group>"; };
-		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = MyFMS/Images.xcassets; sourceTree = "<group>"; };
-		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = MyFMS/Info.plist; sourceTree = "<group>"; };
-		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = MyFMS/main.m; sourceTree = "<group>"; };
+		13B07F961A680F5B00A75B9A /* MyFMSApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyFMSApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = MyFMSApp/AppDelegate.h; sourceTree = "<group>"; };
+		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = MyFMSApp/AppDelegate.m; sourceTree = "<group>"; };
+		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = MyFMSApp/Images.xcassets; sourceTree = "<group>"; };
+		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = MyFMSApp/Info.plist; sourceTree = "<group>"; };
+		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = MyFMSApp/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		166DB332525B41B096949D54 /* Roboto_medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Roboto_medium.ttf; path = "../node_modules/native-base/Fonts/Roboto_medium.ttf"; sourceTree = "<group>"; };
-		1B3CE7E9599F8B0E6ECAE80B /* Pods-BloomKonnectAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BloomKonnectAppTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BloomKonnectAppTests/Pods-BloomKonnectAppTests.debug.xcconfig"; sourceTree = "<group>"; };
+		1B3CE7E9599F8B0E6ECAE80B /* Pods-MyFMSAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyFMSAppTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MyFMSAppTests/Pods-MyFMSAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		1FDF25638F0C48499B76CF2D /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/native-base/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		2160660DA9734FEDAAA40CDD /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/native-base/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
-		2691CA659F391E4C46FDD9C5 /* libPods-MyFMS-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MyFMS-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		2D02E47B1E0B4A5D006451C7 /* MyFMS-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MyFMS-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		2D02E4901E0B4A5D006451C7 /* MyFMS-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "MyFMS-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2691CA659F391E4C46FDD9C5 /* libPods-MyFMSApp-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MyFMSApp-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2D02E47B1E0B4A5D006451C7 /* MyFMSApp-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MyFMSApp-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2D02E4901E0B4A5D006451C7 /* MyFMSApp-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "MyFMSApp-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		364B921C13A14302A9E3250E /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/native-base/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		4064DA5129F04B978D310DAC /* Roboto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Roboto.ttf; path = "../node_modules/native-base/Fonts/Roboto.ttf"; sourceTree = "<group>"; };
 		427142834EC94254B99AB53B /* libRNCamera.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNCamera.a; sourceTree = "<group>"; };
 		4BC6AC4EEE66451CA168A0AE /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/native-base/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		51535FC4069F4B13B0D74DE1 /* RNPrintTests.xctest */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = RNPrintTests.xctest; sourceTree = "<group>"; };
-		53869248A1CA4D3868E48F2E /* Pods-BloomKonnectAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BloomKonnectAppTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BloomKonnectAppTests/Pods-BloomKonnectAppTests.release.xcconfig"; sourceTree = "<group>"; };
+		53869248A1CA4D3868E48F2E /* Pods-MyFMSAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyFMSAppTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MyFMSAppTests/Pods-MyFMSAppTests.release.xcconfig"; sourceTree = "<group>"; };
 		54F54FB0E9A447B9B29B957F /* libRNVectorIcons.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNVectorIcons.a; sourceTree = "<group>"; };
-		5520BB095428AB685D187688 /* libPods-BloomKonnectAppTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BloomKonnectAppTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5520BB095428AB685D187688 /* libPods-MyFMSAppTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MyFMSAppTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		6C1A7FDF09864DBEB25FF624 /* ReactNativeFingerprintScanner.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = ReactNativeFingerprintScanner.xcodeproj; path = "../node_modules/react-native-fingerprint-scanner/ios/ReactNativeFingerprintScanner.xcodeproj"; sourceTree = "<group>"; };
-		7448F40575487064F8D5D1B1 /* Pods-MyFMS-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyFMS-tvOSTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MyFMS-tvOSTests/Pods-MyFMS-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		7448F40575487064F8D5D1B1 /* Pods-MyFMSApp-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyFMSApp-tvOSTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MyFMSApp-tvOSTests/Pods-MyFMSApp-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		7588F1F80D2B4094AB82120F /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/native-base/Fonts/Feather.ttf"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
-		7960DFB60597008D650D112D /* Pods-MyFMS-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyFMS-tvOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-MyFMS-tvOS/Pods-MyFMS-tvOS.release.xcconfig"; sourceTree = "<group>"; };
+		7960DFB60597008D650D112D /* Pods-MyFMSApp-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyFMSApp-tvOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-MyFMSApp-tvOS/Pods-MyFMSApp-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		8F0748287C7C4C86A5207E77 /* libRNFirebase.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNFirebase.a; sourceTree = "<group>"; };
 		90F03CBA1BEE449A80C9810C /* libSplashScreen.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libSplashScreen.a; sourceTree = "<group>"; };
@@ -459,12 +459,12 @@
 		B7CD2533806749E3B8BCB246 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/native-base/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 		B93AA400B7EE4DB6945A5545 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/native-base/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		BDD9919E2703446DA73DBA9F /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/native-base/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
-		BF0B296C2B4E07F907BF58E8 /* libPods-MyFMS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MyFMS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		C9FDE3A7238E4E113B2B02DF /* Pods-MyFMS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyFMS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MyFMS/Pods-MyFMS.debug.xcconfig"; sourceTree = "<group>"; };
-		DAD3A8162EF3A1AA5C2CD499 /* libPods-MyFMS-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MyFMS-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BF0B296C2B4E07F907BF58E8 /* libPods-MyFMSApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MyFMSApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C9FDE3A7238E4E113B2B02DF /* Pods-MyFMSApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyFMSApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MyFMSApp/Pods-MyFMSApp.debug.xcconfig"; sourceTree = "<group>"; };
+		DAD3A8162EF3A1AA5C2CD499 /* libPods-MyFMSApp-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MyFMSApp-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC632C2CEB6045B6A88E9552 /* SplashScreen.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = SplashScreen.xcodeproj; path = "../node_modules/react-native-splash-screen/ios/SplashScreen.xcodeproj"; sourceTree = "<group>"; };
-		DD3CB20DBBF4BFA73B385A27 /* Pods-MyFMS-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyFMS-tvOSTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MyFMS-tvOSTests/Pods-MyFMS-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
-		F7469A200C7DFF959165ADF0 /* Pods-MyFMS-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyFMS-tvOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MyFMS-tvOS/Pods-MyFMS-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
+		DD3CB20DBBF4BFA73B385A27 /* Pods-MyFMSApp-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyFMSApp-tvOSTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MyFMSApp-tvOSTests/Pods-MyFMSApp-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		F7469A200C7DFF959165ADF0 /* Pods-MyFMSApp-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyFMSApp-tvOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MyFMSApp-tvOS/Pods-MyFMSApp-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		F94AD232F118466FBEF25772 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/native-base/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		FA0B59AD4F7E47C7B43D4D4B /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/native-base/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		FEB0C275E809473EAAB5D668 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/native-base/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
@@ -476,7 +476,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */,
-				FEAC8B4A5969DC16E02FA4C4 /* libPods-BloomKonnectAppTests.a in Frameworks */,
+				FEAC8B4A5969DC16E02FA4C4 /* libPods-MyFMSAppTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -504,7 +504,7 @@
 				CE48D5370B034F0FB060F0E9 /* libRNPrint.a in Frameworks */,
 				A3ADE08E191C4795A923BDD6 /* libSplashScreen.a in Frameworks */,
 				CEF03C12FA754153B4DB4B67 /* libRNFirebase.a in Frameworks */,
-				FBF36F45ADDB6E01978B6111 /* libPods-MyFMS.a in Frameworks */,
+				FBF36F45ADDB6E01978B6111 /* libPods-MyFMSApp.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -520,7 +520,7 @@
 				2D02E4C61E0B4AEC006451C7 /* libRCTSettings-tvOS.a in Frameworks */,
 				2D02E4C71E0B4AEC006451C7 /* libRCTText-tvOS.a in Frameworks */,
 				2D02E4C81E0B4AEC006451C7 /* libRCTWebSocket-tvOS.a in Frameworks */,
-				DC045A470FE755D090666D1B /* libPods-MyFMS-tvOS.a in Frameworks */,
+				DC045A470FE755D090666D1B /* libPods-MyFMSApp-tvOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -529,7 +529,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2DF0FFEE2056DD460020B375 /* libReact.a in Frameworks */,
-				AE5AEF24B877B40D344DCACF /* libPods-MyFMS-tvOSTests.a in Frameworks */,
+				AE5AEF24B877B40D344DCACF /* libPods-MyFMSApp-tvOSTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -578,13 +578,13 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		00E356EF1AD99517003FC87E /* BloomKonnectAppTests */ = {
+		00E356EF1AD99517003FC87E /* MyFMSAppTests */ = {
 			isa = PBXGroup;
 			children = (
-				00E356F21AD99517003FC87E /* BloomKonnectAppTests.m */,
+				00E356F21AD99517003FC87E /* MyFMSAppTests.m */,
 				00E356F01AD99517003FC87E /* Supporting Files */,
 			);
-			path = BloomKonnectAppTests;
+			path = MyFMSAppTests;
 			sourceTree = "<group>";
 		};
 		00E356F01AD99517003FC87E /* Supporting Files */ = {
@@ -708,10 +708,10 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		13B07FAE1A68108700A75B9A /* MyFMS */ = {
+		13B07FAE1A68108700A75B9A /* MyFMSApp */ = {
 			isa = PBXGroup;
 			children = (
-				0985FD6D2154FE5300E7E3DB /* MyFMS.entitlements */,
+				0985FD6D2154FE5300E7E3DB /* MyFMSApp.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -719,7 +719,7 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
-			name = MyFMS;
+			name = MyFMSApp;
 			sourceTree = "<group>";
 		};
 		146834001AC3E56700842450 /* Products */ = {
@@ -749,10 +749,10 @@
 			isa = PBXGroup;
 			children = (
 				2D16E6891FA4F8E400B85C8A /* libReact.a */,
-				BF0B296C2B4E07F907BF58E8 /* libPods-MyFMS.a */,
-				DAD3A8162EF3A1AA5C2CD499 /* libPods-MyFMS-tvOS.a */,
-				2691CA659F391E4C46FDD9C5 /* libPods-MyFMS-tvOSTests.a */,
-				5520BB095428AB685D187688 /* libPods-BloomKonnectAppTests.a */,
+				BF0B296C2B4E07F907BF58E8 /* libPods-MyFMSApp.a */,
+				DAD3A8162EF3A1AA5C2CD499 /* libPods-MyFMSApp-tvOS.a */,
+				2691CA659F391E4C46FDD9C5 /* libPods-MyFMSApp-tvOSTests.a */,
+				5520BB095428AB685D187688 /* libPods-MyFMSAppTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -760,14 +760,14 @@
 		4139B1C2044430A2ED44261C /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				C9FDE3A7238E4E113B2B02DF /* Pods-MyFMS.debug.xcconfig */,
-				016D7376EF7069E0B37C55BC /* Pods-MyFMS.release.xcconfig */,
-				F7469A200C7DFF959165ADF0 /* Pods-MyFMS-tvOS.debug.xcconfig */,
-				7960DFB60597008D650D112D /* Pods-MyFMS-tvOS.release.xcconfig */,
-				7448F40575487064F8D5D1B1 /* Pods-MyFMS-tvOSTests.debug.xcconfig */,
-				DD3CB20DBBF4BFA73B385A27 /* Pods-MyFMS-tvOSTests.release.xcconfig */,
-				1B3CE7E9599F8B0E6ECAE80B /* Pods-BloomKonnectAppTests.debug.xcconfig */,
-				53869248A1CA4D3868E48F2E /* Pods-BloomKonnectAppTests.release.xcconfig */,
+				C9FDE3A7238E4E113B2B02DF /* Pods-MyFMSApp.debug.xcconfig */,
+				016D7376EF7069E0B37C55BC /* Pods-MyFMSApp.release.xcconfig */,
+				F7469A200C7DFF959165ADF0 /* Pods-MyFMSApp-tvOS.debug.xcconfig */,
+				7960DFB60597008D650D112D /* Pods-MyFMSApp-tvOS.release.xcconfig */,
+				7448F40575487064F8D5D1B1 /* Pods-MyFMSApp-tvOSTests.debug.xcconfig */,
+				DD3CB20DBBF4BFA73B385A27 /* Pods-MyFMSApp-tvOSTests.release.xcconfig */,
+				1B3CE7E9599F8B0E6ECAE80B /* Pods-MyFMSAppTests.debug.xcconfig */,
+				53869248A1CA4D3868E48F2E /* Pods-MyFMSAppTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -829,9 +829,9 @@
 			isa = PBXGroup;
 			children = (
 				09A46ACF21393E2900C1399D /* GoogleService-Info.plist */,
-				13B07FAE1A68108700A75B9A /* MyFMS */,
+				13B07FAE1A68108700A75B9A /* MyFMSApp */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
-				00E356EF1AD99517003FC87E /* BloomKonnectAppTests */,
+				00E356EF1AD99517003FC87E /* MyFMSAppTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				0633C92C29EF4D10978B4046 /* Resources */,
@@ -846,10 +846,10 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* MyFMS.app */,
-				00E356EE1AD99517003FC87E /* BloomKonnectAppTests.xctest */,
-				2D02E47B1E0B4A5D006451C7 /* MyFMS-tvOS.app */,
-				2D02E4901E0B4A5D006451C7 /* MyFMS-tvOSTests.xctest */,
+				13B07F961A680F5B00A75B9A /* MyFMSApp.app */,
+				00E356EE1AD99517003FC87E /* MyFMSAppTests.xctest */,
+				2D02E47B1E0B4A5D006451C7 /* MyFMSApp-tvOS.app */,
+				2D02E4901E0B4A5D006451C7 /* MyFMSApp-tvOSTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -866,9 +866,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		00E356ED1AD99517003FC87E /* BloomKonnectAppTests */ = {
+		00E356ED1AD99517003FC87E /* MyFMSAppTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "BloomKonnectAppTests" */;
+			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "MyFMSAppTests" */;
 			buildPhases = (
 				4B4650E12EBF472052B6E1D7 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
@@ -880,14 +880,14 @@
 			dependencies = (
 				00E356F51AD99517003FC87E /* PBXTargetDependency */,
 			);
-			name = BloomKonnectAppTests;
-			productName = BloomKonnectAppTests;
-			productReference = 00E356EE1AD99517003FC87E /* BloomKonnectAppTests.xctest */;
+			name = MyFMSAppTests;
+			productName = MyFMSAppTests;
+			productReference = 00E356EE1AD99517003FC87E /* MyFMSAppTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		13B07F861A680F5B00A75B9A /* MyFMS */ = {
+		13B07F861A680F5B00A75B9A /* MyFMSApp */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "MyFMS" */;
+			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "MyFMSApp" */;
 			buildPhases = (
 				F310DF6268F5A46B239B4915 /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
@@ -900,14 +900,14 @@
 			);
 			dependencies = (
 			);
-			name = MyFMS;
+			name = MyFMSApp;
 			productName = "Hello World";
-			productReference = 13B07F961A680F5B00A75B9A /* MyFMS.app */;
+			productReference = 13B07F961A680F5B00A75B9A /* MyFMSApp.app */;
 			productType = "com.apple.product-type.application";
 		};
-		2D02E47A1E0B4A5D006451C7 /* MyFMS-tvOS */ = {
+		2D02E47A1E0B4A5D006451C7 /* MyFMSApp-tvOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "MyFMS-tvOS" */;
+			buildConfigurationList = 2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "MyFMSApp-tvOS" */;
 			buildPhases = (
 				0376841AA12EBBB2BF4FA3CF /* [CP] Check Pods Manifest.lock */,
 				2D02E4771E0B4A5D006451C7 /* Sources */,
@@ -919,14 +919,14 @@
 			);
 			dependencies = (
 			);
-			name = "MyFMS-tvOS";
-			productName = "MyFMS-tvOS";
-			productReference = 2D02E47B1E0B4A5D006451C7 /* MyFMS-tvOS.app */;
+			name = "MyFMSApp-tvOS";
+			productName = "MyFMSApp-tvOS";
+			productReference = 2D02E47B1E0B4A5D006451C7 /* MyFMSApp-tvOS.app */;
 			productType = "com.apple.product-type.application";
 		};
-		2D02E48F1E0B4A5D006451C7 /* MyFMS-tvOSTests */ = {
+		2D02E48F1E0B4A5D006451C7 /* MyFMSApp-tvOSTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "MyFMS-tvOSTests" */;
+			buildConfigurationList = 2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "MyFMSApp-tvOSTests" */;
 			buildPhases = (
 				D8DE8CEB2B67EB250DDAF25A /* [CP] Check Pods Manifest.lock */,
 				2D02E48C1E0B4A5D006451C7 /* Sources */,
@@ -938,9 +938,9 @@
 			dependencies = (
 				2D02E4921E0B4A5D006451C7 /* PBXTargetDependency */,
 			);
-			name = "MyFMS-tvOSTests";
-			productName = "MyFMS-tvOSTests";
-			productReference = 2D02E4901E0B4A5D006451C7 /* MyFMS-tvOSTests.xctest */;
+			name = "MyFMSApp-tvOSTests";
+			productName = "MyFMSApp-tvOSTests";
+			productReference = 2D02E4901E0B4A5D006451C7 /* MyFMSApp-tvOSTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -976,7 +976,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "MyFMS" */;
+			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "MyFMSApp" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -1067,10 +1067,10 @@
 			);
 			projectRoot = "";
 			targets = (
-				13B07F861A680F5B00A75B9A /* MyFMS */,
-				00E356ED1AD99517003FC87E /* BloomKonnectAppTests */,
-				2D02E47A1E0B4A5D006451C7 /* MyFMS-tvOS */,
-				2D02E48F1E0B4A5D006451C7 /* MyFMS-tvOSTests */,
+				13B07F861A680F5B00A75B9A /* MyFMSApp */,
+				00E356ED1AD99517003FC87E /* MyFMSAppTests */,
+				2D02E47A1E0B4A5D006451C7 /* MyFMSApp-tvOS */,
+				2D02E48F1E0B4A5D006451C7 /* MyFMSApp-tvOSTests */,
 			);
 		};
 /* End PBXProject section */
@@ -1474,7 +1474,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-MyFMS-tvOS-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-MyFMSApp-tvOS-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1523,7 +1523,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-BloomKonnectAppTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-MyFMSAppTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1545,7 +1545,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-MyFMS-tvOSTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-MyFMSApp-tvOSTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1567,7 +1567,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-MyFMS-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-MyFMSApp-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1581,7 +1581,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00E356F31AD99517003FC87E /* BloomKonnectAppTests.m in Sources */,
+				00E356F31AD99517003FC87E /* MyFMSAppTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1607,7 +1607,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2DCD954D1E0B4F2C00145EB5 /* BloomKonnectAppTests.m in Sources */,
+				2DCD954D1E0B4F2C00145EB5 /* MyFMSAppTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1616,12 +1616,12 @@
 /* Begin PBXTargetDependency section */
 		00E356F51AD99517003FC87E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 13B07F861A680F5B00A75B9A /* MyFMS */;
+			target = 13B07F861A680F5B00A75B9A /* MyFMSApp */;
 			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
 		};
 		2D02E4921E0B4A5D006451C7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 2D02E47A1E0B4A5D006451C7 /* MyFMS-tvOS */;
+			target = 2D02E47A1E0B4A5D006451C7 /* MyFMSApp-tvOS */;
 			targetProxy = 2D02E4911E0B4A5D006451C7 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -1629,7 +1629,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1B3CE7E9599F8B0E6ECAE80B /* Pods-BloomKonnectAppTests.debug.xcconfig */;
+			baseConfigurationReference = 1B3CE7E9599F8B0E6ECAE80B /* Pods-MyFMSAppTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1646,7 +1646,7 @@
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 				);
-				INFOPLIST_FILE = BloomKonnectAppTests/Info.plist;
+				INFOPLIST_FILE = MyFMSAppTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -1658,13 +1658,13 @@
 					"-lc++",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyFMS.app/MyFMS";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyFMSApp.app/MyFMSApp";
 			};
 			name = Debug;
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 53869248A1CA4D3868E48F2E /* Pods-BloomKonnectAppTests.release.xcconfig */;
+			baseConfigurationReference = 53869248A1CA4D3868E48F2E /* Pods-MyFMSAppTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -1678,7 +1678,7 @@
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 				);
-				INFOPLIST_FILE = BloomKonnectAppTests/Info.plist;
+				INFOPLIST_FILE = MyFMSAppTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -1690,17 +1690,17 @@
 					"-lc++",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyFMS.app/MyFMS";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyFMSApp.app/MyFMSApp";
 			};
 			name = Release;
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C9FDE3A7238E4E113B2B02DF /* Pods-MyFMS.debug.xcconfig */;
+			baseConfigurationReference = C9FDE3A7238E4E113B2B02DF /* Pods-MyFMSApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_ENTITLEMENTS = MyFMS/MyFMS.entitlements;
+				CODE_SIGN_ENTITLEMENTS = MyFMSApp/MyFMSApp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1716,7 +1716,7 @@
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 				);
-				INFOPLIST_FILE = MyFMS/Info.plist;
+				INFOPLIST_FILE = MyFMSApp/Info.plist;
 				INFOPLIST_OTHER_PREPROCESSOR_FLAGS = "-traditional";
 				INFOPLIST_PREFIX_HEADER = "${BUILD_DIR}/GeneratedInfoPlistDotEnv.h";
 				INFOPLIST_PREPROCESS = YES;
@@ -1727,7 +1727,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.aob.myfms;
-				PRODUCT_NAME = MyFMS;
+				PRODUCT_NAME = MyFMSApp;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1736,11 +1736,11 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 016D7376EF7069E0B37C55BC /* Pods-MyFMS.release.xcconfig */;
+			baseConfigurationReference = 016D7376EF7069E0B37C55BC /* Pods-MyFMSApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_ENTITLEMENTS = MyFMS/MyFMS.entitlements;
+				CODE_SIGN_ENTITLEMENTS = MyFMSApp/MyFMSApp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1755,7 +1755,7 @@
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 				);
-				INFOPLIST_FILE = MyFMS/Info.plist;
+				INFOPLIST_FILE = MyFMSApp/Info.plist;
 				INFOPLIST_OTHER_PREPROCESSOR_FLAGS = "-traditional";
 				INFOPLIST_PREFIX_HEADER = "${BUILD_DIR}/GeneratedInfoPlistDotEnv.h";
 				INFOPLIST_PREPROCESS = YES;
@@ -1766,7 +1766,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.aob.myfms;
-				PRODUCT_NAME = MyFMS;
+				PRODUCT_NAME = MyFMSApp;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1775,7 +1775,7 @@
 		};
 		2D02E4971E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F7469A200C7DFF959165ADF0 /* Pods-MyFMS-tvOS.debug.xcconfig */;
+			baseConfigurationReference = F7469A200C7DFF959165ADF0 /* Pods-MyFMSApp-tvOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1796,7 +1796,7 @@
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 				);
-				INFOPLIST_FILE = "MyFMS-tvOS/Info.plist";
+				INFOPLIST_FILE = "MyFMSApp-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1806,7 +1806,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.MyFMS-tvOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.MyFMSApp-tvOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
@@ -1816,7 +1816,7 @@
 		};
 		2D02E4981E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7960DFB60597008D650D112D /* Pods-MyFMS-tvOS.release.xcconfig */;
+			baseConfigurationReference = 7960DFB60597008D650D112D /* Pods-MyFMSApp-tvOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1837,7 +1837,7 @@
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 				);
-				INFOPLIST_FILE = "MyFMS-tvOS/Info.plist";
+				INFOPLIST_FILE = "MyFMSApp-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1847,7 +1847,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.MyFMS-tvOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.MyFMSApp-tvOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
@@ -1857,7 +1857,7 @@
 		};
 		2D02E4991E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7448F40575487064F8D5D1B1 /* Pods-MyFMS-tvOSTests.debug.xcconfig */;
+			baseConfigurationReference = 7448F40575487064F8D5D1B1 /* Pods-MyFMSApp-tvOSTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1877,7 +1877,7 @@
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 				);
-				INFOPLIST_FILE = "MyFMS-tvOSTests/Info.plist";
+				INFOPLIST_FILE = "MyFMSApp-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1887,17 +1887,17 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.MyFMS-tvOSTests";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.MyFMSApp-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyFMS-tvOS.app/MyFMS-tvOS";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyFMSApp-tvOS.app/MyFMSApp-tvOS";
 				TVOS_DEPLOYMENT_TARGET = 10.1;
 			};
 			name = Debug;
 		};
 		2D02E49A1E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DD3CB20DBBF4BFA73B385A27 /* Pods-MyFMS-tvOSTests.release.xcconfig */;
+			baseConfigurationReference = DD3CB20DBBF4BFA73B385A27 /* Pods-MyFMSApp-tvOSTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1917,7 +1917,7 @@
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 				);
-				INFOPLIST_FILE = "MyFMS-tvOSTests/Info.plist";
+				INFOPLIST_FILE = "MyFMSApp-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1927,10 +1927,10 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.MyFMS-tvOSTests";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.MyFMSApp-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyFMS-tvOS.app/MyFMS-tvOS";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyFMSApp-tvOS.app/MyFMSApp-tvOS";
 				TVOS_DEPLOYMENT_TARGET = 10.1;
 			};
 			name = Release;
@@ -2014,7 +2014,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "BloomKonnectAppTests" */ = {
+		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "MyFMSAppTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				00E356F61AD99517003FC87E /* Debug */,
@@ -2023,7 +2023,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "MyFMS" */ = {
+		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "MyFMSApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
@@ -2032,7 +2032,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "MyFMS-tvOS" */ = {
+		2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "MyFMSApp-tvOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2D02E4971E0B4A5E006451C7 /* Debug */,
@@ -2041,7 +2041,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "MyFMS-tvOSTests" */ = {
+		2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "MyFMSApp-tvOSTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2D02E4991E0B4A5E006451C7 /* Debug */,
@@ -2050,7 +2050,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "MyFMS" */ = {
+		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "MyFMSApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,

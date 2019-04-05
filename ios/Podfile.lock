@@ -56,6 +56,12 @@ PODS:
     - React
   - react-native-image-picker (0.14.3):
     - React
+  - react-native-image-resizer (1.0.1):
+    - React
+  - react-native-maps (0.23.0):
+    - React
+  - react-native-pdf (5.0.8):
+    - React
   - React/Core (0.55.4):
     - yoga (= 0.55.4.React)
   - React/CxxBridge (0.55.4):
@@ -78,12 +84,21 @@ PODS:
   - React/PrivateDatabase (0.55.4)
   - React/RCTBlob (0.55.4):
     - React/Core
+  - React/RCTImage (0.55.4):
+    - React/Core
+    - React/RCTNetwork
   - React/RCTNetwork (0.55.4):
     - React/Core
   - React/RCTWebSocket (0.55.4):
     - React/Core
     - React/fishhook
     - React/RCTBlob
+  - rn-fetch-blob (0.10.6):
+    - React/Core
+  - RNGestureHandler (1.0.15):
+    - React
+  - RNPDF (0.8.1):
+    - React
   - yoga (0.55.4.React)
 
 DEPENDENCIES:
@@ -93,10 +108,17 @@ DEPENDENCIES:
   - Firebase/Performance (~> 5.3.0)
   - react-native-document-picker (from `../node_modules/react-native-document-picker`)
   - react-native-image-picker (from `../node_modules/react-native-image-picker`)
+  - react-native-image-resizer (from `../node_modules/react-native-image-resizer`)
+  - react-native-maps (from `../node_modules/react-native-maps`)
+  - react-native-pdf (from `../node_modules/react-native-pdf`)
   - React/Core (from `../node_modules/react-native`)
   - React/CxxBridge (from `../node_modules/react-native`)
   - React/DevSupport (from `../node_modules/react-native`)
+  - React/RCTImage (from `../node_modules/react-native`)
   - React/RCTNetwork (from `../node_modules/react-native`)
+  - rn-fetch-blob (from `../node_modules/rn-fetch-blob`)
+  - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
+  - RNPDF (from `../node_modules/react-native-view-pdf`)
   - yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -125,6 +147,18 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-document-picker"
   react-native-image-picker:
     :path: "../node_modules/react-native-image-picker"
+  react-native-image-resizer:
+    :path: "../node_modules/react-native-image-resizer"
+  react-native-maps:
+    :path: "../node_modules/react-native-maps"
+  react-native-pdf:
+    :path: "../node_modules/react-native-pdf"
+  rn-fetch-blob:
+    :path: "../node_modules/rn-fetch-blob"
+  RNGestureHandler:
+    :path: "../node_modules/react-native-gesture-handler"
+  RNPDF:
+    :path: "../node_modules/react-native-view-pdf"
   yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -148,8 +182,14 @@ SPEC CHECKSUMS:
   React: aa2040dbb6f317b95314968021bd2888816e03d5
   react-native-document-picker: e7934f6a3c898a1b62fa68b1f09371beef6ac51a
   react-native-image-picker: b303e31c3c4ada1d7cb1342423d328d2efb07fb3
+  react-native-image-resizer: 04a3409e7d4ad646c4468671c69dec490def139c
+  react-native-maps: 066c2afcc89e18726377bcc685315f989ca22449
+  react-native-pdf: de408b5d16850c38fdb017d010b8742883c60be9
+  rn-fetch-blob: 76a8f798dae965bbcd146a2438f2e1d381c91ae3
+  RNGestureHandler: afde2addc517e85cc97a25bfe119acbee779a7ce
+  RNPDF: f27f11d7dbbb49da65375c401eca73b7ef1d7b00
   yoga: a23273df0088bf7f2bb7e5d7b00044ea57a2a54a
 
-PODFILE CHECKSUM: 56f8a2562a86acb1c4e4a628ab6f16ba3b511775
+PODFILE CHECKSUM: a1a3ec5c7e3dcf29fad51e0854dc2fe19a7a9224
 
 COCOAPODS: 1.5.3
