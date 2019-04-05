@@ -31,7 +31,7 @@ class AssetCheckinScreen extends React.Component {
     componentDidMount() {
         this.loadData();
     }
-    loadData = () => {
+    loadData = (isCheckin) => {
         let url = `/Assets/AssignedToOperator`;
         let constants = {
             init: 'GET_ASSETS_FOR_OPERATOR_INIT',
@@ -45,7 +45,7 @@ class AssetCheckinScreen extends React.Component {
         let key = 'operatorAssets';
         this.props.postData(url, data, constants, identifier, key)
             .then((data) => {
-                this.loadUserInfo();
+                this.loadUserInfo(isCheckin);
             }, (err) => {
                 console.log('error while fetching fleet user list list', err);
             });
@@ -128,7 +128,7 @@ class AssetCheckinScreen extends React.Component {
                 console.log('checked in successfully.', data);
                 if (isCheckin) {
                     this.props.timerFunc(86400);
-                    this.loadData();
+                    this.loadData(isCheckin);
                 } else {
                     this.props.timerFunc(0);
                 }
@@ -137,7 +137,7 @@ class AssetCheckinScreen extends React.Component {
                 console.log('error while checking in operator', err);
             });
     }
-    loadUserInfo = () => {
+    loadUserInfo = (isCheckin) => {
         let url = `/ClientUser/Detail`;
         let constants = {
             init: 'GET_USER_DETAILS_INIT',
@@ -152,7 +152,10 @@ class AssetCheckinScreen extends React.Component {
         this.props.postData(url, data, constants, identifier, key)
             .then((data) => {
                 console.log('user data fetched successfully.', data);
-                showToast('success', `${this.props.strings.assetFetchSuccMsg}`, 3000);
+                // showToast('success', `${this.props.strings.assetFetchSuccMsg}`, 3000);
+                if (isCheckin) {
+                    this.props.navigation.navigate('Home');
+                }
             }, (err) => {
                 console.log('error while fetching user data', err);
             });

@@ -58,6 +58,8 @@ class Logout extends React.Component {
                     // this.loadUserInfo();
                 }, (err) => {
                     console.log('error while checking in operator', err);
+                    this.props.setCheckInAsset(false);
+                    this.handleLogout();
                 });
         }
     }
