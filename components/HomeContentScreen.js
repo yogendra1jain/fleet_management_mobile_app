@@ -73,7 +73,7 @@ class HomeContentScreen extends React.Component {
           );
           if (granted === PermissionsAndroid.RESULTS.GRANTED) {
             this.requestLocationPermission();
-            console.log('You can use the camera');
+            // console.log('You can use the camera');
           } else {
             console.log('Camera permission denied');
           }
@@ -95,7 +95,7 @@ class HomeContentScreen extends React.Component {
             },
           );
           if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-            console.log('You can use the location');
+            // console.log('You can use the location');
             this.requestStoragePermission();
           } else {
             console.log('Location permission denied');
@@ -119,7 +119,7 @@ class HomeContentScreen extends React.Component {
           );
           if (granted === PermissionsAndroid.RESULTS.GRANTED) {
             this.requestLocationPermission();
-            console.log('You can use the storage');
+            // console.log('You can use the storage');
           } else {
             console.log('Camera permission denied');
           }
@@ -144,7 +144,7 @@ class HomeContentScreen extends React.Component {
         let key = 'userDetails';
         this.props.postData(url, data, constants, identifier, key)
             .then((data) => {
-                console.log('user data fetched successfully.');
+                // console.log('user data fetched successfully.');
                 this.setState({
                     isLoading: false,
                 });
