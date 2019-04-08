@@ -185,7 +185,8 @@ class UpdateMileageHomeScreen extends React.Component {
         const { strings } = this.props;
         return (
             <ContainerWithLoading style={theme.container} isLoading={this.props.isLoading || this.state.isLoading}>
-                <Header translucent={false} style={{ backgroundColor: '#bb29bb' }} androidStatusBarColor="#bb29bb">
+                <Header translucent={false} style={{ backgroundColor: '#bb29bb',
+                shadowOffset: { height: 0, width: 0 }, shadowOpacity: 0 }} androidStatusBarColor="#bb29bb">
                     <Left style={{ flex: 1 }}>
                         <Button transparent onPress={() => this.props.navigation.goBack()}>
                             <Icon name='arrow-back' style={{ color: '#fff' }} />

@@ -37,6 +37,7 @@ import MechanicProfile from '../components/ContactPerson/MechanicProfile';
 import AssetCheckinScreen from '../components/AssetCheckinScreen';
 import LanguageSelectionScreen from '../components/LanguageSupportScreen/LanguageList';
 import PdfViewScreen from '../components/DocumentsView/PdfView';
+import ImageViewScreen from '../components/DocumentsView/ImageView';
 import ExpenseReportHomeScreen from '../components/ExpenseReports/ExpenseReportHome';
 import UploadDocsHomeScreen from '../components/UploadDocs/UploadDocsHome';
 import AnimatedMarkers from '../components/MapView/LiveLocationTracking';
@@ -66,6 +67,7 @@ const AppStack = createStackNavigator(
         MechanicProfile: MechanicProfile,
         LanguageSelectionScreen: LanguageSelectionScreen,
         PdfViewScreen: PdfViewScreen,
+        ImageViewScreen: ImageViewScreen,
         ExpenseReportHomeScreen: ExpenseReportHomeScreen,
         UploadDocsHomeScreen: UploadDocsHomeScreen,
         AnimatedMarkers: AnimatedMarkers,

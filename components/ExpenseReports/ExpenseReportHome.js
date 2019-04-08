@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { View, Image, StyleSheet, TouchableHighlight, TextInput, Platform } from 'react-native';
+import { View, Image, StyleSheet, TouchableHighlight, Platform, Keyboard } from 'react-native';
 // import expenseImg from '../../assets/images/expense.png';
 import documentsImg from '../../assets/images/active-icons/document-active.png';
 import ImagePicker from 'react-native-image-picker';
@@ -121,9 +121,9 @@ class ExpenseReportHomeScreen extends React.Component {
             success: 'UPLOAD_DOCUMENTS_SUCCESS',
             error: 'UPLOAD_DOCUMENTS_ERROR',
         };
-        let data = {
-            id: _get(this.props, 'userDetails.checkedInto.id', ''),
-        };
+        // let data = {
+        //     id: _get(this.props, 'userDetails.checkedInto.id', ''),
+        // };
         let identifier = 'UPLOAD_DOCUMENTS';
         let key = 'uploadedDocuments';
         this.props.postData(url, formData, constants, identifier, key)
@@ -134,7 +134,7 @@ class ExpenseReportHomeScreen extends React.Component {
                 let imageData = {
                     imageSource: this.state.imageSource,
                     fileName: this.state.fileName,
-                }
+                };
                 links.push(imageData);
                 uploadedLinks.push(data.url);
 
@@ -178,12 +178,13 @@ class ExpenseReportHomeScreen extends React.Component {
           );
     }
     onSave = () => {
+        Keyboard.dismiss();
         const value = this.refs.form.getValue();
         if (this.state.links.length==0) {
             showAlert('Warning', 'Please select document to proceed.');
         } else if (!value) {
             this.refs.form.getComponent('expense').refs.input.focus();
-        } else{
+        } else {
             let data = {};
             data = {
                 assetId: _get(this.props, 'userDetails.checkedInto.id', ''),
@@ -199,7 +200,7 @@ class ExpenseReportHomeScreen extends React.Component {
                     latitude: this.state.latitude,
                     longitude: this.state.longitude,
                 },
-            }
+            };
             this.saveMileageData(data);
         }
     }
@@ -238,7 +239,7 @@ class ExpenseReportHomeScreen extends React.Component {
                     secureTextEntry: false,
                     label: `${strings.expenseLabel}`,
                     error: `${strings.expenseErrorText}`,
-                    onSubmitEditing: () => this.refs.form.getComponent('confirmExpense').refs.input.focus()
+                    onSubmitEditing: () => this.refs.form.getComponent('confirmExpense').refs.input.focus(),
                 },
                 confirmExpense: {
                     keyboardType: 'numeric',
@@ -269,12 +270,12 @@ class ExpenseReportHomeScreen extends React.Component {
                     }
                     </View>
                 </View>
-            )
-        })
+            );
+        });
 
         return (
             <ContainerWithLoading style={theme.container} isLoading={this.props.isLoading || this.state.isLoading}>
-                <Header translucent={false} style={{backgroundColor: '#059312'}} androidStatusBarColor='#059312'>
+                <Header translucent={false} style={{ backgroundColor: '#059312' }} androidStatusBarColor='#059312'>
                     <Left style={{ flex: 1 }}>
                         <Button transparent onPress={() => this.props.navigation.goBack()}>
                             <Icon name='arrow-back' style={{ color: '#fff' }} />
@@ -325,7 +326,7 @@ class ExpenseReportHomeScreen extends React.Component {
                     }
                 </Content>
                 <View style={{ backgroundColor: '#ffffff' }}>
-                    <Button style={[theme.buttonNormal, {backgroundColor: '#059312'}]} onPress={() => this.getCurrentLocation()} full>
+                    <Button style={[theme.buttonNormal, { backgroundColor: '#059312' }]} onPress={() => this.getCurrentLocation()} full>
                         <Text style={theme.butttonFixTxt}>{`${strings.saveButton}`}</Text>
                     </Button>
                 </View>
@@ -346,7 +347,7 @@ function mapStateToProps(state) {
         userDetails,
         isLoading,
         appLanguage,
-        languageDetails
+        languageDetails,
     };
 }
 

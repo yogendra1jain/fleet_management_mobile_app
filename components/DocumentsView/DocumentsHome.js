@@ -132,6 +132,8 @@ class DocumentsHomeScreen extends React.Component {
         console.log('item clicked', item);
         if (item.link.indexOf('pdf') !==-1) {
             this.props.navigation.navigate('PdfViewScreen', {uri: item.link});
+        } else {
+            this.props.navigation.navigate('ImageViewScreen', {uri: item.link});
         }
     }
     handleDocumentUpload = () => {
