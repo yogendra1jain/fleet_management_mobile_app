@@ -236,6 +236,7 @@ class ExpenseReportHomeScreen extends React.Component {
                 expense: {
                     keyboardType: 'numeric',
                     autoFocus: false,
+                    returnKeyType: 'done',
                     secureTextEntry: false,
                     label: `${strings.expenseLabel}`,
                     error: `${strings.expenseErrorText}`,
@@ -245,6 +246,7 @@ class ExpenseReportHomeScreen extends React.Component {
                     keyboardType: 'numeric',
                     autoFocus: false,
                     secureTextEntry: false,
+                    returnKeyType: 'done',
                     label: `${strings.confirmExpenseLabel}`,
                     error: `${strings.confExpenseErrorText}`,
                     onSubmitEditing: () => this.onSave(),
