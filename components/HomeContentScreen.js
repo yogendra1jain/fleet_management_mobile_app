@@ -96,8 +96,32 @@ class HomeContentScreen extends React.Component {
           );
           if (granted === PermissionsAndroid.RESULTS.GRANTED) {
             console.log('You can use the location');
+            this.requestStoragePermission();
           } else {
             console.log('Location permission denied');
+          }
+        } catch (err) {
+          console.warn(err);
+        }
+      }
+      async requestStoragePermission() {
+        try {
+          const granted = await PermissionsAndroid.request(
+            PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+            {
+              title: 'FleetLinks Storage Permission',
+              message:
+                'FleetLinks needs access to your Storage ',
+              buttonNeutral: 'Ask Me Later',
+              buttonNegative: 'Cancel',
+              buttonPositive: 'OK',
+            },
+          );
+          if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+            this.requestLocationPermission();
+            console.log('You can use the storage');
+          } else {
+            console.log('Camera permission denied');
           }
         } catch (err) {
           console.warn(err);
