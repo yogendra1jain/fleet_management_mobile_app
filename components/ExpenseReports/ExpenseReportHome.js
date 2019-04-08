@@ -298,6 +298,16 @@ class ExpenseReportHomeScreen extends React.Component {
                                 <Image source={documentsImg} style={styles.profileImg} />
                             </TouchableHighlight>
                         </View>
+                        <TouchableHighlight onPress={() => this.uploadImage()}>
+                            <View style={[theme.centerAlign, { flex: 1, flexDirection: 'column', backgroundColor: '#ddd', margin: 20 }]}>
+                                <View style={{ flex: 1 }}>
+                                    <Text>{`${strings.goToCamera}`}</Text>
+                                </View>
+                                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                                    <Icon name='ios-camera' />
+                                </View>
+                            </View>
+                        </TouchableHighlight>
                         <View style={{ flex: 1, paddingTop: 15 }}>
                         <View style={[theme.marL15, theme.marR15, theme.mart15]} >
                             <Form
@@ -310,16 +320,6 @@ class ExpenseReportHomeScreen extends React.Component {
                             />
                         </View>
                         </View>
-                        <TouchableHighlight onPress={() => this.uploadImage()}>
-                            <View style={[theme.centerAlign, { flex: 1, flexDirection: 'column', backgroundColor: '#ddd', margin: 20 }]}>
-                                <View style={{ flex: 1 }}>
-                                    <Text>{`${strings.goToCamera}`}</Text>
-                                </View>
-                                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                                    <Icon name='ios-camera' />
-                                </View>
-                            </View>
-                        </TouchableHighlight>
                     </View>
                     {
                         images

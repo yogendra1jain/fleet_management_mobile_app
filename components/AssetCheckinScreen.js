@@ -66,6 +66,7 @@ class AssetCheckinScreen extends React.Component {
         });
         navigator.geolocation.getCurrentPosition(
             (position) => {
+                console.log('location got successfully.');
                 this.setState({
                     latitude: position.coords.latitude,
                     longitude: position.coords.longitude,

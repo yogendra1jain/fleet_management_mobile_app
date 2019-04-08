@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { View, Text, TouchableOpacity, Image, RefreshControl } from 'react-native';
+import { View, Text, TouchableOpacity, Image, RefreshControl, PermissionsAndroid, Platform } from 'react-native';
 import { Card, CheckBox } from 'react-native-elements';
 import _get from 'lodash/get';
 import _isEmpty from 'lodash/isEmpty';
@@ -54,7 +54,55 @@ class HomeContentScreen extends React.Component {
         // this.props.setLanguage('en');
         // const { decodedToken } = this.props;
         this.loadUserInfo();
+        if (Platform.OS == 'android') {
+            this.requestCameraPermission();
+        }
     }
+    async requestCameraPermission() {
+        try {
+          const granted = await PermissionsAndroid.request(
+            PermissionsAndroid.PERMISSIONS.CAMERA,
+            {
+              title: 'FleetLinks Camera Permission',
+              message:
+                'FleetLinks needs access to your camera ',
+              buttonNeutral: 'Ask Me Later',
+              buttonNegative: 'Cancel',
+              buttonPositive: 'OK',
+            },
+          );
+          if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+            this.requestLocationPermission();
+            console.log('You can use the camera');
+          } else {
+            console.log('Camera permission denied');
+          }
+        } catch (err) {
+          console.warn(err);
+        }
+      }
+      async requestLocationPermission() {
+        try {
+          const granted = await PermissionsAndroid.request(
+            PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+            {
+              title: 'FleetLinks Location Permission',
+              message:
+                'FleetLinks needs access to your location ',
+              buttonNeutral: 'Ask Me Later',
+              buttonNegative: 'Cancel',
+              buttonPositive: 'OK',
+            },
+          );
+          if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+            console.log('You can use the location');
+          } else {
+            console.log('Location permission denied');
+          }
+        } catch (err) {
+          console.warn(err);
+        }
+      }
     // componentWillMount() {
     //     this.loadUserInfo();
     // }
@@ -72,7 +120,10 @@ class HomeContentScreen extends React.Component {
         let key = 'userDetails';
         this.props.postData(url, data, constants, identifier, key)
             .then((data) => {
-                console.log('user data fetched successfully.', data);
+                console.log('user data fetched successfully.');
+                this.setState({
+                    isLoading: false,
+                });
                 if (_isEmpty(_get(data, 'checkedInto', {}))) {
                     this.props.navigation.navigate('AssetCheckinScreen');
                 }
@@ -100,11 +151,12 @@ class HomeContentScreen extends React.Component {
         });
         navigator.geolocation.getCurrentPosition(
             (position) => {
+                console.log('location got successfully.');
                 this.setState({
                     latitude: position.coords.latitude,
                     longitude: position.coords.longitude,
                     error: null,
-                    isLoading: false,
+                    // isLoading: false,
                 });
                 this.handleCheckIn();
             },
