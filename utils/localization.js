@@ -57,6 +57,10 @@ let strings = ({
         "confExpenseErrorText": "Both Amount should match.",
 
         "uploadTitle": "Upload Documents",
+        "spanishTitle": "Spanish",
+        "englishTitle": "English",
+        "proceedText": "PROCEED",
+        "selectLanguageTitle": "Select Language",
     },
     spn: {
         checkIn: "Registrarse",
@@ -115,6 +119,10 @@ let strings = ({
         "confirmExpenseLabel": "Confirmar la cantidad de gastos",
         "confExpenseErrorText": "Ambas cantidades deben coincidir.",
         "uploadTitle": "subir documentos",
+        "spanishTitle": "Español",
+        "englishTitle": "Inglés",
+        "proceedText": "PROCEDER",
+        "selectLanguageTitle": "Seleccione el idioma",
     }
 });
 

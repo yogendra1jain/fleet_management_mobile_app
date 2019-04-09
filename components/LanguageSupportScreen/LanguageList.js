@@ -5,6 +5,7 @@ import { Card, CheckBox } from 'react-native-elements';
 import _get from 'lodash/get';
 import _isEmpty from 'lodash/isEmpty';
 import theme from '../../theme';
+import strings from '../../utils/localization';
 
 import withLoadingScreen from '../withLoadingScreen';
 import { Container, Header, Content, List, ListItem, Text, Left, Right, Body, Title, Icon, Button } from 'native-base';
@@ -76,11 +77,11 @@ class LanguageSelectionScreen extends React.Component {
     }
 
     render() {
-        const { strings, appLanguage } = this.props;
-       
+        const { appLanguage } = this.props;
+        const string = strings[appLanguage];
         return (
             <ContainerWithLoading isLoading={this.props.isLoading}>
-               <Header style={{backgroundColor: '#00A9E0'}} androidStatusBarColor='#00A9E0'>
+               <Header style={{ backgroundColor: '#00A9E0' }} androidStatusBarColor='#00A9E0'>
                    {
                        this.fromMain &&
                        <Left style={{ flex: 1 }}>
@@ -90,7 +91,7 @@ class LanguageSelectionScreen extends React.Component {
                         </Left>
                    }
                     <Body style={{ flex: 4, justifyContent: 'center', alignItems: 'center' }}>
-                        <Title>{`Select Language`}</Title>
+                        <Title>{`${string.selectLanguageTitle}`}</Title>
                     </Body>
                     <Right style={{ flex: 1 }}>
                     </Right>
@@ -99,7 +100,7 @@ class LanguageSelectionScreen extends React.Component {
                     <List>
                         <ListItem selected={appLanguage=='en'} onPress={() => this.handleItem('en')}>
                             <Left>
-                                <Text>English</Text>
+                                <Text>{`${string.englishTitle}`}</Text>
                             </Left>
                             <Right>
                                 {/* <Icon name="arrow-forward" /> */}
@@ -107,7 +108,7 @@ class LanguageSelectionScreen extends React.Component {
                         </ListItem>
                         <ListItem selected={appLanguage=='spn'} onPress={() => this.handleItem('spn')}>
                             <Left>
-                                <Text>Spanish</Text>
+                                <Text>{`${string.spanishTitle}`}</Text>
                             </Left>
                             <Right>
                                 {/* <Icon name="arrow-forward" /> */}
@@ -117,7 +118,7 @@ class LanguageSelectionScreen extends React.Component {
                 </Content>
                 <View style={{ backgroundColor: '#ffffff' }}>
                     <Button style={theme.buttonNormal} onPress={() => this.onProceed()} full>
-                        <Text style={theme.butttonFixTxt}>{`PROCEED`}</Text>
+                        <Text style={theme.butttonFixTxt}>{`${string.proceedText}`}</Text>
                     </Button>
                 </View>
             </ContainerWithLoading >
