@@ -1,21 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { View, Image, StyleSheet, TouchableHighlight, Platform, TextInput } from 'react-native';
+import { View, Image, StyleSheet, TouchableHighlight, Platform } from 'react-native';
 import gasfillImg from '../../assets/images/active-icons/gas-fillup-active.png';
 // import Input from 'react-native-elements';
 import _isEmpty from 'lodash/isEmpty';
 import ImagePicker from 'react-native-image-picker';
 
 import _get from 'lodash/get';
-import _set from 'lodash/set';
-
 import theme from '../../theme';
 import { Text, Container, Content, Header, Button, Title, Body, Left, Right, Icon } from 'native-base';
 import withLoadingScreen from '../withLoadingScreen';
 import withErrorBoundary from '../hocs/withErrorBoundary';
 import withLocalization from '../hocs/withLocalization';
-import { showToast } from '../../utils';
-import strings from '../../utils/localization';
+import { showToast, showAlert } from '../../utils';
 
 import { uploadDoc } from '../../actions/signup';
 import { postData } from '../../actions/commonAction';
@@ -116,9 +113,6 @@ class GasFilUpHomeScreen extends React.Component {
             success: 'UPLOAD_DOCUMENTS_SUCCESS',
             error: 'UPLOAD_DOCUMENTS_ERROR',
         };
-        let data = {
-            id: _get(this.props, 'userDetails.checkedInto.id', ''),
-        };
         let identifier = 'UPLOAD_DOCUMENTS';
         let key = 'uploadedDocuments';
         this.props.postData(url, formData, constants, identifier, key)
@@ -154,16 +148,6 @@ class GasFilUpHomeScreen extends React.Component {
         if (this.state.link =='') {
             showAlert('Warning', 'Please select file to proceed.');
         } else {
-            let amount = {};
-            _set(amount, 'amount', parseFloat(this.state.amount));
-            _set(amount, 'currency', '$');
-
-            let volume = {
-                volume: parseFloat(this.state.volume),
-                uom: 1,
-                amount: amount,
-            }
-           
             let data = {
                 assetId: _get(this.props, 'userDetails.checkedInto.id', ''),
                 userId: _get(this.props, 'userDetails.user.id', ''),
@@ -174,7 +158,7 @@ class GasFilUpHomeScreen extends React.Component {
                     latitude: this.state.latitude,
                     longitude: this.state.longitude,
                 },
-            }
+            };
             this.savegasFillUpData(data);
         }
     }
@@ -207,7 +191,7 @@ class GasFilUpHomeScreen extends React.Component {
         const { strings } = this.props;
         return (
             <ContainerWithLoading style={theme.container} isLoading={this.props.isLoading || this.state.isLoading}>
-                <Header translucent={false} style={{backgroundColor: '#003da5'}} androidStatusBarColor='#003da5' >
+                <Header translucent={false} style={{ backgroundColor: '#003da5' }} androidStatusBarColor='#003da5' >
                     <Left style={{ flex: 1 }}>
                         <Button transparent onPress={() => this.props.navigation.goBack()}>
                             <Icon name='arrow-back' style={{ color: '#fff' }} />
@@ -242,7 +226,6 @@ class GasFilUpHomeScreen extends React.Component {
                                 </View>
                             </TouchableHighlight>
                         </View>
-                        
                         <View style={[{ flex: 1, flexDirection: 'row', margin: 20 }]}>
                             <View style={{ justifyContent: 'flex-start' }}>
                                 <Icon name='exclamation' type="FontAwesome" />
@@ -256,7 +239,7 @@ class GasFilUpHomeScreen extends React.Component {
                         <View style={{ flex: 1, marginLeft: 20, flexDirection: 'row' }}>
                             {
                                 this.state.imageSource !== '' &&
-                                <Image source={{ uri: this.state.imageSource  }} style={{ width: 100, height: 100 }} />
+                                <Image source={{ uri: this.state.imageSource }} style={{ width: 100, height: 100 }} />
                             }
                             <View style={{ margin: 10 }}>
                                 <Text style={{ flexWrap: 'wrap' }}>{this.state.fileName}</Text>
@@ -265,7 +248,7 @@ class GasFilUpHomeScreen extends React.Component {
                     </View>
                 </Content>
                 <View style={{ backgroundColor: '#ffffff' }}>
-                    <Button style={[theme.buttonNormal, {backgroundColor: '#003da5'}]} onPress={() => this.getCurrentLocation()} full>
+                    <Button style={[theme.buttonNormal, { backgroundColor: '#003da5' }]} onPress={() => this.getCurrentLocation()} full>
                         <Text style={theme.butttonFixTxt}>{`${strings.saveButton}`}</Text>
                     </Button>
                 </View>
@@ -286,7 +269,7 @@ function mapStateToProps(state) {
         userDetails,
         appLanguage,
         languageDetails,
-        isLoading
+        isLoading,
     };
 }
 

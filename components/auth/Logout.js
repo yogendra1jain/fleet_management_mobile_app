@@ -26,9 +26,10 @@ class Logout extends React.Component {
             .then((data) => {
                 console.log('documents uploaded successfully.');
                 // this.handleCheckOut();
-                this.props.logoutUser()
+                this.props.logoutUser();
             }, (err) => {
                 console.log('error while uploading documents', err);
+                this.props.logoutUser();
             });
     }
     handleCheckOut = () => {

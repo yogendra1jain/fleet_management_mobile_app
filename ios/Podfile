@@ -29,7 +29,6 @@ target 'MyFMSApp' do
   ]
   pod 'yoga', :path => '../node_modules/react-native/ReactCommon/yoga'
 
-  pod 'RNPDF', :path => '../node_modules/react-native-view-pdf'
 
   pod 'react-native-image-picker', :path => '../node_modules/react-native-image-picker'
 
@@ -45,7 +44,6 @@ target 'MyFMSApp' do
 
 
 
-  pod 'RNPDF', :path => '../node_modules/react-native-view-pdf'
 
   pod 'react-native-image-resizer', :path => '../node_modules/react-native-image-resizer'
 

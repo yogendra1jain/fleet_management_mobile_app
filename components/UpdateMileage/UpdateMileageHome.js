@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { View, Image, StyleSheet, TouchableHighlight, TextInput, Platform } from 'react-native';
+import { View, Image, StyleSheet, TouchableHighlight, Platform } from 'react-native';
 import mileageImg from '../../assets/images/active-icons/mileage-active.png';
 // import Input from 'react-native-elements';
 import ImagePicker from 'react-native-image-picker';
@@ -8,7 +8,6 @@ import ImagePicker from 'react-native-image-picker';
 import _get from 'lodash/get';
 import _isEmpty from 'lodash/isEmpty';
 import { showAlert, showToast } from '../../utils/index';
-import strings from '../../utils/localization';
 
 import theme from '../../theme';
 import { Text, Container, Content, Header, Button, Title, Body, Left, Right, Icon } from 'native-base';
@@ -100,9 +99,6 @@ class UpdateMileageHomeScreen extends React.Component {
             success: 'UPLOAD_DOCUMENTS_SUCCESS',
             error: 'UPLOAD_DOCUMENTS_ERROR',
         };
-        let data = {
-            id: _get(this.props, 'userDetails.checkedInto.id', ''),
-        };
         let identifier = 'UPLOAD_DOCUMENTS';
         let key = 'uploadedDocuments';
         this.props.postData(url, formData, constants, identifier, key)
@@ -144,10 +140,6 @@ class UpdateMileageHomeScreen extends React.Component {
             showAlert('Warning', 'Please select document to proceed.');
         } else {
             let data = {};
-            // let assetUsage = {
-            //     usage: parseFloat(this.state.mileage),
-            //     uom: _get(this.props, 'userDetails.checkedInto.usage.uom', ''),
-            // }
             data = {
                 assetId: _get(this.props, 'userDetails.checkedInto.id', ''),
                 userId: _get(this.props, 'userDetails.user.id', ''),
@@ -158,7 +150,7 @@ class UpdateMileageHomeScreen extends React.Component {
                     latitude: this.state.latitude,
                     longitude: this.state.longitude,
                 },
-            }
+            };
             this.saveMileageData(data);
         }
     }
@@ -231,7 +223,7 @@ class UpdateMileageHomeScreen extends React.Component {
                     </View>
                 </Content>
                 <View style={{ backgroundColor: '#ffffff' }}>
-                    <Button style={[theme.buttonNormal, {backgroundColor: '#bb29bb'}]} onPress={() => this.getCurrentLocation()} full>
+                    <Button style={[theme.buttonNormal, { backgroundColor: '#bb29bb' }]} onPress={() => this.getCurrentLocation()} full>
                         <Text style={theme.butttonFixTxt}>{`${strings.saveButton}`}</Text>
                     </Button>
                 </View>
@@ -253,7 +245,7 @@ function mapStateToProps(state) {
         userDetails,
         isLoading,
         appLanguage,
-        languageDetails
+        languageDetails,
     };
 }
 

@@ -162,7 +162,6 @@ dependencies {
     compile project(':react-native-pdf')
     compile project(':rn-fetch-blob')
     compile project(':react-native-image-resizer')
-    compile project(':react-native-view-pdf')
     compile(project(':react-native-maps')){
         exclude group: 'com.google.android.gms', module: 'play-services-base'
         exclude group: 'com.google.android.gms', module: 'play-services-maps'
