@@ -6,6 +6,7 @@ import _isArray from 'lodash/isArray';
 import _get from 'lodash/get';
 import _map from 'lodash/map';
 import tasksImg from '../../assets/images/active-icons/tasks-active.png';
+import comingSoonImg from '../../assets/images/comingSoonImg.png';
 
 import _isEmpty from 'lodash/isEmpty';
 import _groupBy from 'lodash/groupBy';
@@ -130,15 +131,21 @@ class TaskListScreen extends React.Component {
                             <Image source={tasksImg} style={styles.profileImg} />
                         </TouchableHighlight>
                     </View>
-                    <View style={[theme.marL15, theme.marR15, theme.mart15]} >
-                        
+                    <View style={[theme.centerAlign, { paddingBottom: 30, paddingTop: 30 }]}>
+                        <Image source={comingSoonImg} style={{ width: 140, height: 135 }} />
+                    </View>
+
+                    <View style={[theme.centerAlign]}>
+                        <Text style={{ fontSize: 30, fontWeight: 'bold', color: 'black' }}>COMING SOON...</Text>
+                    </View>
+                    {/* <View style={[theme.marL15, theme.marR15, theme.mart15]} >
                         {
                             DateView
                         }
-                    </View>
+                    </View> */}
 
                 </Content>
-                <Fab
+                {/* <Fab
                     active={this.state.active}
                     direction="up"
                     containerStyle={{ }}
@@ -146,7 +153,7 @@ class TaskListScreen extends React.Component {
                     position="bottomRight"
                     onPress={() => this.setState({ active: !this.state.active })}>
                     <Icon name="add" />
-                </Fab>
+                </Fab> */}
             </ContainerWithLoading>
         );
     }

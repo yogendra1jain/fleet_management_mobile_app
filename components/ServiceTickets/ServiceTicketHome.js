@@ -4,6 +4,7 @@ import { View, Image, StyleSheet, TouchableHighlight } from 'react-native';
 import serviceImg from '../../assets/images/active-icons/service-ticket-active.png';
 // import Input from 'react-native-elements';
 import { ListItem } from 'react-native-elements';
+import comingSoonImg from '../../assets/images/comingSoonImg.png';
 
 
 import theme from '../../theme';
@@ -86,7 +87,14 @@ class ServiceTicketHomeScreen extends React.Component {
                                 <Image source={serviceImg} style={styles.profileImg} />
                             </TouchableHighlight>                           
                         </View>
-                        <View style={{ flex: 1, paddingTop: 15 }}>
+                        <View style={[theme.centerAlign, { paddingBottom: 30, paddingTop: 30 }]}>
+                            <Image source={comingSoonImg} style={{ width: 140, height: 135 }} />
+                        </View>
+
+                        <View style={[theme.centerAlign]}>
+                            <Text style={{ fontSize: 30, fontWeight: 'bold', color: 'black' }}>COMING SOON...</Text>
+                        </View>
+                        {/* <View style={{ flex: 1, paddingTop: 15 }}>
                             <View style={{ flex: 1 }}>
                             {
                                 list.map((l, i) => (
@@ -100,19 +108,16 @@ class ServiceTicketHomeScreen extends React.Component {
                                 ))
                             }
                             </View>
-                        </View>
-                        <TouchableHighlight onPress={() => {}}>
+                        </View> */}
+                        {/* <TouchableHighlight onPress={() => {}}>
                             <View style={[theme.centerAlign, { flex: 1, flexDirection: 'row', margin: 20 }]}>
-                                {/* <View style={{ flex: 1 }}> */}
                                     <Icon name='ios-calendar' />
-                                {/* </View>
-                                <View style={{ flex: 1 }}> */}
+                               
                                     <Text style={{ marginLeft: 10 }}>Upcoming Appointments</Text>
-                                {/* </View> */}
                             </View>
-                        </TouchableHighlight>
+                        </TouchableHighlight> */}
                     </View>
-                    <View style={{ flex: 1, margin: 10, flexDirection: 'row' }}>
+                    {/* <View style={{ flex: 1, margin: 10, flexDirection: 'row' }}>
                         <TouchableHighlight onPress={() => this.props.navigation.navigate('TaskListScreen')} style={{ flex: 1, justifyContent: 'flex-start' }}>
                             <View>
                                 <Icon
@@ -135,7 +140,7 @@ class ServiceTicketHomeScreen extends React.Component {
                                 </View>
                             </View>
                         </TouchableHighlight>
-                    </View>
+                    </View> */}
                 </Content>
             </ContainerWithLoading>
         );

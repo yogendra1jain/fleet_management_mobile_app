@@ -4,7 +4,7 @@ import { View, Image, StyleSheet, TouchableHighlight } from 'react-native';
 import contactMechanic from '../../assets/images/active-icons/contact-mechnic-active.png';
 // import Input from 'react-native-elements';
 import { ListItem } from 'react-native-elements';
-
+import comingSoonImg from '../../assets/images/comingSoonImg.png';
 
 import theme from '../../theme';
 import { Text, Container, Content, Header, Button, Title, Body, Left, Right, Icon } from 'native-base';
@@ -79,7 +79,14 @@ class ContactPersonHomeScreen extends React.Component {
                                 <Image source={contactMechanic} style={styles.profileImg} />
                             </TouchableHighlight>
                         </View>
-                        <View style={{ flex: 1, paddingTop: 15 }}>
+                        <View style={[theme.centerAlign, { paddingBottom: 30, paddingTop: 30 }]}>
+                            <Image source={comingSoonImg} style={{ width: 140, height: 135 }} />
+                        </View>
+
+                        <View style={[theme.centerAlign]}>
+                            <Text style={{ fontSize: 30, fontWeight: 'bold', color: 'black' }}>COMING SOON...</Text>
+                        </View>
+                        {/* <View style={{ flex: 1, paddingTop: 15 }}>
                             <View style={{ flex: 1 }}>
                             {
                                 list.map((l, i) => (
@@ -93,7 +100,7 @@ class ContactPersonHomeScreen extends React.Component {
                                 ))
                             }
                             </View>
-                        </View>
+                        </View> */}
                     </View>
                 </Content>
             </ContainerWithLoading>
