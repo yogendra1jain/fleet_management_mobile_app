@@ -166,6 +166,7 @@ class AssetCheckinScreen extends React.Component {
         const { operatorAssets } = this.props;
         const { selectedIndex } = this.state;
         let assetListView = [];
+        console.log('assets', operatorAssets);
         _isArray(operatorAssets) && !_isEmpty(operatorAssets) && operatorAssets.map((asset, index) => {
             assetListView.push(
                 <AssetView
