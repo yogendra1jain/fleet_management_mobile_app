@@ -280,7 +280,10 @@ class DocumentsHomeScreen extends React.Component {
                                 <ListItem
                                     key={i}
                                     // rightIcon={{ name: 'camera', type: 'font-awesome' }}
-                                    title={getDocumentType(l.documentType, strings)}
+                                    title={
+                                        l.documentType.label
+                                        // getDocumentType(l.documentType.value, strings)
+                                    }
                                     subtitle={l.subtitle}
                                     onPress={()=>this.handleDocumentItem(l, i)}
                                 />

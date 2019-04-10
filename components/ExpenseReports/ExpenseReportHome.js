@@ -190,10 +190,11 @@ class ExpenseReportHomeScreen extends React.Component {
                 assetId: _get(this.props, 'userDetails.checkedInto.id', ''),
                 userId: _get(this.props, 'userDetails.user.id', ''),
                 documentType: 7,
-                amount: {
-                    amount: Number(value.expense),
-                    currency: _get(this.props, 'decodedToken.Client.defaultSettings.currency', ''),
-                },
+                amount: Number(value.expense),
+                // {
+                //     amount: Number(value.expense),
+                //     currency: _get(this.props, 'decodedToken.Client.defaultSettings.currency', ''),
+                // },
                 // status: 1,
                 links: this.state.uploadedLinks,
                 coordinate: {
