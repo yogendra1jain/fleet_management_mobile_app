@@ -320,7 +320,7 @@ const TabStack = createBottomTabNavigator(
           inactiveTintColor: 'gray',
           style: {
             paddingTop: 8,
-            paddingBottom: 1,
+            paddingBottom: 0,
             height: 60,
           },
           labelStyle: {
