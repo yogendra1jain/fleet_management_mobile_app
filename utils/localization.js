@@ -55,12 +55,18 @@ let strings = ({
         "expenseErrorText": "Amount should be greater than 0",
         "confirmExpenseLabel": "Confirm Expense Amount",
         "confExpenseErrorText": "Both Amount should match.",
+        "uploadInvoiceTitle": "Upload Invoice/ Document",
 
         "uploadTitle": "Upload Documents",
         "spanishTitle": "Spanish",
         "englishTitle": "English",
         "proceedText": "PROCEED",
         "selectLanguageTitle": "Select Language",
+        "HOME": "HOME",
+        "TASKS": "TASKS",
+        "SERVICES": "SERVICES",
+        "CONTACT": "CONTACT",
+        "SETTINGS": "SETTINGS",
     },
     spn: {
         checkIn: "Registrarse",
@@ -123,6 +129,12 @@ let strings = ({
         "englishTitle": "Inglés",
         "proceedText": "PROCEDER",
         "selectLanguageTitle": "Seleccione el idioma",
+        "uploadInvoiceTitle": "Cargar factura / documento",
+        "HOME": "CASA",
+        "TASKS": "TAREAS",
+        "SERVICES": "SERVICIOS",
+        "CONTACT": "CONTACTO",
+        "SETTINGS": "AJUSTES",
     }
 });
 

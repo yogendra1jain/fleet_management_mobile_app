@@ -1,5 +1,8 @@
 import React from 'react';
 import { Text, View, Image } from 'react-native';
+import { connect } from 'react-redux';
+import strings from '../utils/localization';
+
 // import serviceImg from '../assets/images/serviceImg.png';
 import contactMechanic from '../assets/images/bottom-tab/contact-mechnic.png';
 import serviceImg from '../assets/images/bottom-tab/service-ticket.png';
@@ -118,58 +121,58 @@ const ContactPersonStack = createStackNavigator({
 
 class ContactIcon extends React.PureComponent {
   // You should pass down the badgeCount in some other ways like context, redux, mobx or event emitters.
-  render(){
+  render() {
   const { opacity } = this.props;
   return (
     <View style={{ opacity: opacity }}>
-        <Image style={{ width:30, height: 28 }} source={contactMechanic} />
+        <Image style={{ width: 30, height: 28 }} source={contactMechanic} />
     </View>
-  )
-};
+  );
+}
 }
 class ServiceIcon extends React.PureComponent {
   // You should pass down the badgeCount in some other ways like context, redux, mobx or event emitters.
-  render(){
+  render() {
   const { opacity } = this.props;
   return (
     <View style={{ opacity: opacity }}>
         <Image style={{ width: 33, height: 25 }} source={serviceImg} />
     </View>
-  )
-};
+  );
+}
 }
 class TaskIcon extends React.PureComponent {
   // You should pass down the badgeCount in some other ways like context, redux, mobx or event emitters.
-  render(){
+  render() {
   const { opacity } = this.props;
   return (
     <View style={{ opacity: opacity }}>
         <Image style={{ width: 19, height: 27 }} source={taskImg} />
     </View>
-  )
-};
+  );
+}
 }
 class HomeIcon extends React.PureComponent {
   // You should pass down the badgeCount in some other ways like context, redux, mobx or event emitters.
-  render(){
+  render() {
   const { opacity } = this.props;
   return (
     <View style={{ opacity: opacity }}>
         <Image style={{ width: 28, height: 25 }} source={homeImg} />
     </View>
-  )
-};
+  );
+}
 }
 class SettingIcon extends React.PureComponent {
   // You should pass down the badgeCount in some other ways like context, redux, mobx or event emitters.
-  render(){
+  render() {
   const { opacity } = this.props;
   return (
     <View style={{ opacity: opacity }}>
         <Image style={{ width: 24, height: 26 }} source={settingImg} />
     </View>
-  )
-};
+  );
+}
 }
   class IconWithBadge extends React.Component {
     render() {
@@ -240,6 +243,56 @@ class SettingIcon extends React.PureComponent {
     return <IconComponent style={{ }} opacity={opacity} name={iconName} size={25} color={tintColor} />;
   };
 
+export class GetTabBarLabel extends React.PureComponent {
+  render() {
+    const { navigation, focused, appLanguage } = this.props;
+    const { routeName } = navigation.state;
+    console.log('app language', appLanguage);
+    const string = strings[appLanguage];
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', opacity: focused ? 1 : 0.3 }}>
+      <Text style={{ fontSize: 12 }}>{`${string[routeName]}`}</Text>
+    </View>
+  );
+  }
+}
+
+
+// const getTabBarLabel = (props) => {
+//   const { navigation, focused, appLanguage } = props;
+//   const { routeName } = navigation.state;
+//   return (
+//     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', opacity: focused ? 1 : 0.3 }}>
+//       <Text style={{ fontSize: 12 }}>{`${routeName}`}</Text>
+//     </View>
+//   );
+// };
+
+function mapStateToProps(state) {
+  let { auth, commonReducer } = state;
+  let { userDetails, languageDetails } = commonReducer || {};
+  let { appLanguage } = commonReducer || 'en';
+  let { token, isLoading } = auth.userStatus;
+  let { decodedToken, time, isCheckInAsset } = auth || {};
+  return {
+      auth,
+      token,
+      isLoading,
+      decodedToken,
+      userDetails,
+      isCheckInAsset,
+      time,
+      appLanguage,
+      languageDetails,
+  };
+}
+
+GetTabBarLabel = connect(mapStateToProps)(GetTabBarLabel);
+
+// getTabBarLabel = connect(mapStateToProps)(getTabBarLabel);
+
+
+
 const TabStack = createBottomTabNavigator(
     {
       HOME: AppStack,
@@ -252,13 +305,22 @@ const TabStack = createBottomTabNavigator(
         defaultNavigationOptions: ({ navigation }) => ({
           tabBarIcon: ({ focused, tintColor }) =>
             getTabBarIcon(navigation, focused, tintColor),
+          tabBarLabel: ({ focused, tintColor }) =>
+            <GetTabBarLabel
+            navigation={navigation} focused={focused}
+            />,
+            // getTabBarLabel(navigation, focused, tintColor),
         }),
+        // defaultNavigationOptions: ({ navigation }) => ({
+        //   tabBarLabel: ({ focused, tintColor }) =>
+        //     getTabBarLabel(navigation, focused, tintColor),
+        // }),
         tabBarOptions: {
           activeTintColor: '#434242',
           inactiveTintColor: 'gray',
           style: {
             paddingTop: 8,
-            paddingBottom: 5,
+            paddingBottom: 1,
             height: 60,
           },
           labelStyle: {

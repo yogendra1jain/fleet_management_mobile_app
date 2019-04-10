@@ -303,7 +303,7 @@ class DocumentsHomeScreen extends React.Component {
                             }
                             <ListItem
                                 rightIcon={{ name: 'camera', type: 'font-awesome' }}
-                                title={`Upload Invoice/ Document`}
+                                title={`${strings.uploadInvoiceTitle}`}
                                 // subtitle={l.subtitle}
                                 onPress={()=>this.handleDocumentUpload()}
                             />

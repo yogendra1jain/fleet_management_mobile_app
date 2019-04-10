@@ -109,13 +109,13 @@ class SetupNativeAuthScreen extends React.Component {
                    <View style={[theme.vialsblock, theme.padT10, theme.mart10]}>
                         <Text style={[theme.screenHeadingtxt1, theme.marL10, theme.marR10]}>Select a Mode for Authentication</Text>                      
                         <View style={[theme.marL15, theme.marR15, theme.mart15]}>
-                            {this.state.isFingerprintAv && <CheckBox
+                            {/* {this.state.isFingerprintAv && <CheckBox
                                 title='Device Native Auth Method'
                                 checkedIcon='dot-circle-o'
                                 uncheckedIcon='circle-o'
                                 checked={this.props.nativeAuth.method === 'fingerprint'}
                                 onPress={this.enableFingerprintMethod}
-                            />}
+                            />} */}
                             <CheckBox
                                 title='6-digit PIN'
                                 checkedIcon='dot-circle-o'
