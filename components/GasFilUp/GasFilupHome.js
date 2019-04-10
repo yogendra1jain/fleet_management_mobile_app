@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { View, Image, StyleSheet, TouchableHighlight, Platform } from 'react-native';
 import gasfillImg from '../../assets/images/active-icons/gas-fillup-active.png';
+import cameraIcon from '../../assets/images/cameraIcon.png';
 // import Input from 'react-native-elements';
 import _isEmpty from 'lodash/isEmpty';
 import ImagePicker from 'react-native-image-picker';
@@ -216,22 +217,23 @@ class GasFilUpHomeScreen extends React.Component {
                         </View>
                         <View style={{ flex: 1, paddingTop: 15 }}>
                             <TouchableHighlight onPress={() => this.uploadImage()}>
-                                <View style={[theme.centerAlign, { flex: 1, flexDirection: 'column', backgroundColor: '#ddd', margin: 20 }]}>
-                                    <View style={{ flex: 1 }}>
-                                        <Text>{`${strings.goToCamera}`}</Text>
+                                <View style={[theme.centerAlign, { flex: 1, flexDirection: 'column', margin: 20 }]}>
+                                    <View style={{ flex: 1, marginBottom: 15 }}>
+                                        <Text style={{ fontWeight: 'bold', fontSize: 20 }}>{`${strings.goToCamera}`}</Text>
                                     </View>
                                     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                                        <Icon name='ios-camera' />
+                                        <Image source={cameraIcon} style={{ width: 100, height: 101 }} />
+                                        {/* <Icon name='ios-camera' /> */}
                                     </View>
                                 </View>
                             </TouchableHighlight>
                         </View>
                         <View style={[{ flex: 1, flexDirection: 'row', margin: 20 }]}>
-                            <View style={{ justifyContent: 'flex-start' }}>
-                                <Icon name='exclamation' type="FontAwesome" />
+                            <View style={{ justifyContent: 'flex-start', paddingRight: 5 }}>
+                                <Icon name='exclamation' style={{ color: '#f6a800' }} type="FontAwesome" />
                             </View>
-                            <View style={{ flex: 1, backgroundColor: '#ddd', borderWidth: 1, flexWrap: 'wrap' }}>
-                                <Text>
+                            <View style={{ flex: 1, padding: 10, borderWidth: 1, borderColor: '#f6a800', flexWrap: 'wrap' }}>
+                                <Text style={{ fontSize: 13 }}>
                                     {`${strings.gasHelperText}`}
                                 </Text>
                             </View>
@@ -247,7 +249,7 @@ class GasFilUpHomeScreen extends React.Component {
                         </View>
                     </View>
                 </Content>
-                <View style={{ backgroundColor: '#ffffff' }}>
+                <View style={{ backgroundColor: '#ededed' }}>
                     <Button style={[theme.buttonNormal, { backgroundColor: '#003da5' }]} onPress={() => this.getCurrentLocation()} full>
                         <Text style={theme.butttonFixTxt}>{`${strings.saveButton}`}</Text>
                     </Button>
@@ -261,7 +263,7 @@ function mapStateToProps(state) {
     let { decodedToken } = state.auth || {};
     let { commonReducer } = state || {};
     let { userDetails } = commonReducer || {};
-    let { isLoading } = commonReducer || false;
+    let isLoading = commonReducer.isFetching || false;
     let { appLanguage, languageDetails } = commonReducer || 'en';
 
     return {

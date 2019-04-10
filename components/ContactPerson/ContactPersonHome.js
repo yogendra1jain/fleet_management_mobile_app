@@ -84,7 +84,7 @@ class ContactPersonHomeScreen extends React.Component {
                         </View>
 
                         <View style={[theme.centerAlign]}>
-                            <Text style={{ fontSize: 30, fontWeight: 'bold', color: 'black' }}>COMING SOON...</Text>
+                            <Text style={{ fontSize: 25, fontWeight: 'bold', color: 'black' }}>COMING SOON...</Text>
                         </View>
                         {/* <View style={{ flex: 1, paddingTop: 15 }}>
                             <View style={{ flex: 1 }}>

@@ -85,14 +85,14 @@ class ServiceTicketHomeScreen extends React.Component {
                                 style={[]}
                             >
                                 <Image source={serviceImg} style={styles.profileImg} />
-                            </TouchableHighlight>                           
+                            </TouchableHighlight>
                         </View>
                         <View style={[theme.centerAlign, { paddingBottom: 30, paddingTop: 30 }]}>
                             <Image source={comingSoonImg} style={{ width: 140, height: 135 }} />
                         </View>
 
                         <View style={[theme.centerAlign]}>
-                            <Text style={{ fontSize: 30, fontWeight: 'bold', color: 'black' }}>COMING SOON...</Text>
+                            <Text style={{ fontSize: 25, fontWeight: 'bold', color: 'black' }}>COMING SOON...</Text>
                         </View>
                         {/* <View style={{ flex: 1, paddingTop: 15 }}>
                             <View style={{ flex: 1 }}>

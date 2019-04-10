@@ -237,7 +237,7 @@ class HomeContentScreen extends React.Component {
                     <Image source={FMSLogo} style={{ width: 150, height: 22 }} />
                 </Body>
                 <Right style={{ flex: 1 }}>
-                <Icon name="user" style={{ fontSize: 40, color: 'white' }} type="EvilIcons"/>
+                <Icon onPress={() => this.props.navigation.navigate('UserAccount')} name="user" style={{ fontSize: 40, color: 'white' }} type="EvilIcons"/>
                 </Right>
                </Header>
                 <Content

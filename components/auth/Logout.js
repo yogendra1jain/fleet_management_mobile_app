@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
 import theme from '../../theme';
 import _get from 'lodash/get';
 import { logoutUser } from '../../actions/auth';
@@ -65,24 +65,48 @@ class Logout extends React.Component {
         }
     }
     render() {
-        return (
-            <View style={{ backgroundColor: '#ffffff' }}>
-                <Button style={[theme.buttonNormal]} onPress={() => this.handleCheckOut()} full>
-                    <Text style={theme.butttonFixTxt}>{_get(this.props, 'strings.logoutTitle', 'LOGOUT')}</Text>
-                </Button>
-            </View>
-        );
+        if (this.props.isLoading) {
+            return (
+                <View style={[styles.container, styles.horizontal]}>
+                    <ActivityIndicator size="large" color="black" />
+                </View>
+            );
+        } else {
+            return (
+                <View style={{ backgroundColor: '#ffffff' }}>
+                    <Button style={[theme.buttonNormal]} onPress={() => this.handleCheckOut()} full>
+                        <Text style={theme.butttonFixTxt}>{_get(this.props, 'strings.logoutTitle', 'LOGOUT')}</Text>
+                    </Button>
+                </View>
+            );
+        }
     }
 }
+
+
+const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      justifyContent: 'center',
+    },
+    horizontal: {
+      flexDirection: 'row',
+      justifyContent: 'space-around',
+      padding: 10,
+    },
+  });
+
 
 function mapStateToProps(state) {
     let { decodedToken } = state.auth || {};
     let { commonReducer } = state || {};
+    let isLoading = commonReducer.isFetching || false;
     let { userDetails } = commonReducer || {};
     console.log('decoded token', decodedToken, 'user details', userDetails);
     return {
         decodedToken,
         userDetails,
+        isLoading,
     };
 }
 

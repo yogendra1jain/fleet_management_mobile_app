@@ -4,6 +4,7 @@ import { View, Image, StyleSheet, TouchableHighlight, Platform, Keyboard } from 
 // import expenseImg from '../../assets/images/expense.png';
 import documentsImg from '../../assets/images/active-icons/document-active.png';
 import ImagePicker from 'react-native-image-picker';
+import cameraIcon from '../../assets/images/cameraIcon.png';
 
 import _get from 'lodash/get';
 import _cloneDeep from 'lodash/cloneDeep';
@@ -302,12 +303,15 @@ class ExpenseReportHomeScreen extends React.Component {
                             </TouchableHighlight>
                         </View>
                         <TouchableHighlight onPress={() => this.uploadImage()}>
-                            <View style={[theme.centerAlign, { flex: 1, flexDirection: 'column', backgroundColor: '#ddd', margin: 20 }]}>
-                                <View style={{ flex: 1 }}>
-                                    <Text>{`${strings.goToCamera}`}</Text>
-                                </View>
-                                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                                    <Icon name='ios-camera' />
+                            <View style={[theme.centerAlign, { flex: 1, flexDirection: 'column', margin: 20 }]}>
+                                <View style={[theme.centerAlign, { flex: 1, flexDirection: 'column', margin: 20 }]}>
+                                    <View style={{ flex: 1, marginBottom: 15 }}>
+                                        <Text style={{ fontWeight: 'bold', fontSize: 20 }}>{`${strings.goToCamera}`}</Text>
+                                    </View>
+                                    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                                        <Image source={cameraIcon} style={{ width: 100, height: 101 }} />
+                                        {/* <Icon name='ios-camera' /> */}
+                                    </View>
                                 </View>
                             </View>
                         </TouchableHighlight>

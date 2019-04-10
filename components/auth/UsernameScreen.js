@@ -134,8 +134,8 @@ class UsernameScreen extends React.Component {
 
 
         return (
-            <ContainerWithLoading style={theme.container} androidStatusBarColor="#4D47CD" iosBarStyle="light-content" isLoading={this.props.isLoading}>
-                    <Header style={{ backgroundColor: '#4D47CD' }} androidStatusBarColor="#4D47CD">
+            <ContainerWithLoading style={theme.container} androidStatusBarColor="#00A9E0" iosBarStyle="light-content" isLoading={this.props.isLoading}>
+                    <Header style={{ backgroundColor: '#00A9E0' }} androidStatusBarColor="#00A9E0">
                         <Left style={{ flex: 1 }}>
                             <Button transparent onPress={() => this.props.navigation.navigate('LanguageSelection')}>
                                 <Icon name='arrow-back' style={{ color: '#fff' }} />
@@ -143,13 +143,13 @@ class UsernameScreen extends React.Component {
                         </Left>
                      </Header>
                     <Content style={{ flexGrow: 1 }} contentContainerStyle={{ flexGrow: 1, backgroundColor: '#DBDBDB' }}>
-                        <View style={[theme.centerAlign, { backgroundColor: '#4D47CD', paddingBottom: 60, marginBottom: Dimensions.get('window').height - 230 }]}>
+                        <View style={[theme.centerAlign, { backgroundColor: '#00A9E0', paddingBottom: 60, marginBottom: Dimensions.get('window').height - 230 }]}>
                             <Image source={loginLogo} style={styles.profileImg} />
                         </View>
                         <View style={[theme.cardShape, { position: 'absolute', top: 0, left: 0, right: 0, bottom: 0,
                          backgroundColor: '#f3f3f3', margin: 20, marginTop: 100, zIndex: 9999, borderRadius: 5 }]}>
                             <View style={{ justifyContent: 'center', alignItems: 'center', paddingBottom: 40, paddingTop: 40 }}>
-                                <Text style={{ fontSize: 25, fontWeight: 'bold', color: '#4D47CD' }}>LOGIN</Text>
+                                <Text style={{ fontSize: 25, fontWeight: 'bold', color: '#00A9E0' }}>LOGIN</Text>
                             </View>
                             <View style={[theme.mart15, theme.marL25, theme.marR25]}>
                                 <Form
@@ -162,7 +162,7 @@ class UsernameScreen extends React.Component {
                                 />
                             </View>
                             <View style={[theme.mart25]}>
-                                <Button style={[theme.buttonLogin]} onPress={() => this.onPress()} full>
+                                <Button style={[theme.buttonLogin, { backgroundColor: '#00A9E0' }]} onPress={() => this.onPress()} full>
                                     <Text style={theme.butttonFixTxt}>{`${strings.loginLabel}`}</Text>
                                 </Button>
                             </View>

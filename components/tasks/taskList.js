@@ -136,7 +136,7 @@ class TaskListScreen extends React.Component {
                     </View>
 
                     <View style={[theme.centerAlign]}>
-                        <Text style={{ fontSize: 30, fontWeight: 'bold', color: 'black' }}>COMING SOON...</Text>
+                        <Text style={{ fontSize: 25, fontWeight: 'bold', color: 'black' }}>COMING SOON...</Text>
                     </View>
                     {/* <View style={[theme.marL15, theme.marR15, theme.mart15]} >
                         {

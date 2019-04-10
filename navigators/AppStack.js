@@ -125,7 +125,7 @@ class ContactIcon extends React.PureComponent {
   const { opacity } = this.props;
   return (
     <View style={{ opacity: opacity }}>
-        <Image style={{ width: 30, height: 28 }} source={contactMechanic} />
+        <Image style={{ width: 28, height: 26 }} source={contactMechanic} />
     </View>
   );
 }
@@ -247,11 +247,11 @@ export class GetTabBarLabel extends React.PureComponent {
   render() {
     const { navigation, focused, appLanguage } = this.props;
     const { routeName } = navigation.state;
-    console.log('app language', appLanguage);
+    // console.log('app language', appLanguage);
     const string = strings[appLanguage];
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', opacity: focused ? 1 : 0.3 }}>
-      <Text style={{ fontSize: 12 }}>{`${string[routeName]}`}</Text>
+      <Text style={{ fontSize: 12, color: 'black' }}>{`${string[routeName]}`}</Text>
     </View>
   );
   }
@@ -322,6 +322,7 @@ const TabStack = createBottomTabNavigator(
             paddingTop: 8,
             paddingBottom: 0,
             height: 60,
+            backgroundColor: '#fff',
           },
           labelStyle: {
             paddingTop: 4,
