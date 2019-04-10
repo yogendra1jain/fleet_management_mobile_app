@@ -70,6 +70,12 @@ export default theme = StyleSheet.create({
   mart25: {
     marginTop: 25,
   },
+  marR25: {
+    marginRight: 25,
+  },
+  marL25: {
+    marginLeft: 25,
+  },
   marB10: {
     marginBottom: 10,
   },
@@ -221,7 +227,7 @@ export default theme = StyleSheet.create({
   cardShape: {
     shadowColor: '#000000',
     shadowOffset: { width: 0, height: 2 },
-    elevation: 1,
+    elevation: 4,
     shadowOpacity: 0.6,
     shadowRadius: 2,
   },

@@ -1,11 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { View, ImageBackground, Image, TouchableOpacity } from 'react-native';
+import { View, ImageBackground, StyleSheet, Image, TouchableOpacity, Dimensions } from 'react-native';
 import ResponsiveImage from 'react-native-responsive-image';
 import { Text } from 'react-native-elements';
 import loginbg from '../../assets/images/login_bg/loginbg.png';
 import CarBg from '../../assets/images/bg.jpg';
 import logoimg from '../../assets/images/login_screen_logo.png';
+import loginLogo from '../../assets/images/fleetLoginLogo.png';
 
 import t from 'tcomb-form-native';
 import _set from 'lodash/set';
@@ -44,12 +45,12 @@ class UsernameScreen extends React.Component {
         super(props);
         this.state = { value: {}, isCondition: false };
         this.stylesheet = _cloneDeep(stylesheet);
-        this.stylesheet.textbox.normal.color = 'white';
-        this.stylesheet.controlLabel.normal.color = 'white';
-        this.stylesheet.textboxView.normal.borderBottomColor = 'white';
-        this.stylesheet.textbox.error.color = 'white';
-        this.stylesheet.controlLabel.error.color = 'white';
-        this.stylesheet.textboxView.error.borderBottomColor = 'white';
+        this.stylesheet.textbox.normal.color = 'black';
+        this.stylesheet.controlLabel.normal.color = 'black';
+        this.stylesheet.textboxView.normal.borderBottomColor = 'black';
+        this.stylesheet.textbox.error.color = 'red';
+        this.stylesheet.controlLabel.error.color = 'red';
+        this.stylesheet.textboxView.error.borderBottomColor = 'red';
     }
 
     static navigationOptions = {
@@ -133,50 +134,52 @@ class UsernameScreen extends React.Component {
 
 
         return (
-            <ContainerWithLoading style={theme.container} androidStatusBarColor="#0e0a65" iosBarStyle="light-content" isLoading={this.props.isLoading}>
-                
-                <ImageBackground source={CarBg}
-                    style={theme.backgroundImage}>
-                    <Header transparent translucent>
+            <ContainerWithLoading style={theme.container} androidStatusBarColor="#4D47CD" iosBarStyle="light-content" isLoading={this.props.isLoading}>
+                    <Header style={{ backgroundColor: '#4D47CD' }} androidStatusBarColor="#4D47CD">
                         <Left style={{ flex: 1 }}>
                             <Button transparent onPress={() => this.props.navigation.navigate('LanguageSelection')}>
                                 <Icon name='arrow-back' style={{ color: '#fff' }} />
                             </Button>
                         </Left>
                      </Header>
-                    <Content style={{ paddingTop: 50 }}>
-                    <View style={{ flex: 1, justifyContent: 'center' }}>
-                        <View style={{ paddingBottom: 40, justifyContent: 'center', alignItems: 'center' }}>
+                    <Content style={{ flexGrow: 1 }} contentContainerStyle={{ flexGrow: 1, backgroundColor: '#DBDBDB' }}>
+                        <View style={[theme.centerAlign, { backgroundColor: '#4D47CD', paddingBottom: 60, marginBottom: Dimensions.get('window').height - 230 }]}>
+                            <Image source={loginLogo} style={styles.profileImg} />
                         </View>
-                        <View style={[theme.mart15, theme.marL15, theme.marR15]}>
-                            <Form
-                                ref="form"
-                                options={options}
-                                type={LoginUser}
-                                value={this.state.value}
-                                onChange={this.onChange}
-                                style={theme.formStyle}
-                            />
+                        <View style={[theme.cardShape, { position: 'absolute', top: 0, left: 0, right: 0, bottom: 0,
+                         backgroundColor: '#f3f3f3', margin: 20, marginTop: 100, zIndex: 9999, borderRadius: 5 }]}>
+                            <View style={{ justifyContent: 'center', alignItems: 'center', paddingBottom: 40, paddingTop: 40 }}>
+                                <Text style={{ fontSize: 25, fontWeight: 'bold', color: '#4D47CD' }}>LOGIN</Text>
+                            </View>
+                            <View style={[theme.mart15, theme.marL25, theme.marR25]}>
+                                <Form
+                                    ref="form"
+                                    options={options}
+                                    type={LoginUser}
+                                    value={this.state.value}
+                                    onChange={this.onChange}
+                                    style={theme.formStyle}
+                                />
+                            </View>
+                            <View style={[theme.mart25]}>
+                                <Button style={[theme.buttonLogin]} onPress={() => this.onPress()} full>
+                                    <Text style={theme.butttonFixTxt}>{`${strings.loginLabel}`}</Text>
+                                </Button>
+                            </View>
                         </View>
-                    </View>
-                    <View >
-                        <Button style={[theme.buttonLogin]} onPress={() => this.onPress()} full>
-                            <Text style={theme.butttonFixTxt}>{`${strings.loginLabel}`}</Text>
-                        </Button>
-                    </View>
-
-                    <View style={{ paddingTop: 15, paddingBottom: 15, justifyContent: 'flex-end', alignItems: 'center' }}>
-                        <TouchableOpacity onPress={() => this.onPressSignup()}>
-                            <Text style={[theme.butttonFixTxt, { color: 'white' }]}>{`${strings.signupText}`}</Text>
-                        </TouchableOpacity>
-                    </View>
                     </Content>
-                </ImageBackground>
-                
             </ContainerWithLoading>
         );
     }
 }
+
+
+const styles = StyleSheet.create({
+    profileImg: {
+        width: 140,
+        height: 67,
+    },
+  });
 
 function mapStateToProps(state) {
     let { auth, commonReducer } = state;
