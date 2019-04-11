@@ -18,6 +18,8 @@ import withLocalization from '../hocs/withLocalization';
 import { uploadDoc } from '../../actions/signup';
 import { postData } from '../../actions/commonAction';
 import ImageResizer from 'react-native-image-resizer';
+import CustomSemiBoldText from '../stateless/CustomSemiBoldText';
+import CustomText from '../stateless/CustomText';
 
 
 const ContainerWithLoading = withLoadingScreen(Container);
@@ -186,7 +188,7 @@ class UpdateMileageHomeScreen extends React.Component {
                         </Button>
                     </Left>
                     <Body style={[theme.centerAlign, { flex: 4 }]}>
-                        <Title style={{ color: '#fff' }} >{`${strings.mileageButton}`}</Title>
+                        <Title style={{ color: '#fff', fontFamily: 'Montserrat-Bold' }} >{`${strings.mileageButton}`}</Title>
                     </Body>
                     <Right style={{ flex: 1 }}>
                     </Right>
@@ -205,7 +207,7 @@ class UpdateMileageHomeScreen extends React.Component {
                         <TouchableHighlight onPress={() => this.uploadImage()}>
                             <View style={[theme.centerAlign, { flex: 1, flexDirection: 'column', margin: 20 }]}>
                                 <View style={{ flex: 1, marginBottom: 15 }}>
-                                    <Text style={{ fontWeight: 'bold', fontSize: 20 }}>{`${strings.goToCamera}`}</Text>
+                                    <CustomSemiBoldText style={{ fontSize: 20, color: 'black' }}>{`${strings.goToCamera}`}</CustomSemiBoldText>
                                 </View>
                                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                                     <Image source={cameraIcon} style={{ width: 100, height: 101 }} />
@@ -220,7 +222,7 @@ class UpdateMileageHomeScreen extends React.Component {
                             <Image source={{ uri: this.state.imageSource }} style={{ width: 100, height: 100 }} />
                         }
                         <View style={{ margin: 10 }}>
-                            <Text style={{ flexWrap: 'wrap' }}>{this.state.fileName}</Text>
+                            <CustomText style={{ flexWrap: 'wrap' }}>{this.state.fileName}</CustomText>
                         </View>
                     </View>
                 </Content>

@@ -166,7 +166,7 @@ class AssetCheckinScreen extends React.Component {
         const { operatorAssets } = this.props;
         const { selectedIndex } = this.state;
         let assetListView = [];
-        console.log('assets', operatorAssets);
+        // console.log('assets', operatorAssets);
         _isArray(operatorAssets) && !_isEmpty(operatorAssets) && operatorAssets.map((asset, index) => {
             assetListView.push(
                 <AssetView
@@ -199,7 +199,7 @@ class AssetCheckinScreen extends React.Component {
                         </Button>
                     </Left>
                     <Body>
-                        <Title style={{ color: '#fff' }} >{`${strings.checkIn}`}</Title>
+                        <Title style={{ color: '#fff', fontFamily: 'Montserrat-Bold' }} >{`${strings.checkIn}`}</Title>
                     </Body>
                     <Right>
                     </Right>

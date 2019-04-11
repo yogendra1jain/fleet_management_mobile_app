@@ -4,6 +4,8 @@ import _get from 'lodash/get';
 import { Text, Card } from 'react-native-elements';
 import { Button } from 'native-base';
 import theme from '../../theme';
+import CustomText from './CustomText';
+import CustomSemiBoldText from './CustomSemiBoldText';
 
 function AssetView(props) {
     const { index, asset, selectedIndex, strings } = props;
@@ -14,8 +16,8 @@ function AssetView(props) {
             <Card >
                 <View style={{ flex: 1, flexDirection: 'row' }}>
                     <View style={{ flex: 1, justifyContent: 'flex-start', flexDirection: 'row', alignItems: 'center' }}>
-                        <Text style={{ fontWeight: 'normal', color: 'black' }}>{`${strings.assetId}:`}</Text>
-                        <Text style={{ fontWeight: 'bold', color: 'black', fontSize: 16 }}> {_get(asset, 'assetId', '')}</Text>
+                        <CustomText style={{ fontWeight: 'normal', color: 'black' }}>{`${strings.assetId}:`}</CustomText>
+                        <CustomSemiBoldText style={{ fontWeight: 'bold', color: 'black', fontSize: 16 }}> {_get(asset, 'assetId', '')}</CustomSemiBoldText>
                     </View>
                     <View style={{ flex: 1, justifyContent: 'flex-end', flexDirection: 'row', alignItems: 'center' }}>
                         <View style={{ width: 60, height: 40 }}>
@@ -29,42 +31,42 @@ function AssetView(props) {
                     <React.Fragment>
                         <View style={{ flex: 1, flexDirection: 'row', borderTopColor: '#ddd', borderTopWidth: 1, paddingTop: 10, marginTop: 10 }}>
                             <View style={{ flex: 1, justifyContent: 'flex-start', flexDirection: 'row', alignItems: 'center' }}>
-                                <Text style={{ fontWeight: 'normal' }}>{`${strings.make}:`}</Text>
+                                <CustomText style={{ fontWeight: 'normal' }}>{`${strings.make}:`}</CustomText>
                             </View>
                             <View style={{ flex: 1, justifyContent: 'flex-end', flexDirection: 'row', alignItems: 'center' }}>
-                                <Text style={{ fontWeight: 'bold', color: '#312783', fontSize: 14 }}> {_get(asset, 'assetFields.make', '')}</Text>
+                                <CustomText style={{ fontWeight: 'bold', color: '#312783', fontSize: 14 }}> {_get(asset, 'assetFields.make', '')}</CustomText>
                             </View>
                         </View>
                         <View style={{ flex: 1, flexDirection: 'row' }}>
                                 <View style={{ flex: 1, justifyContent: 'flex-start', flexDirection: 'row', alignItems: 'center' }}>
-                                <Text style={{ fontWeight: 'normal' }}>{`${strings.fuelType}:`}</Text>
+                                <CustomText style={{ fontWeight: 'normal' }}>{`${strings.fuelType}:`}</CustomText>
                             </View>
                             <View style={{ flex: 1, justifyContent: 'flex-end', flexDirection: 'row', alignItems: 'center' }}>
-                                <Text style={{ fontWeight: 'bold', color: '#312783', fontSize: 14 }}> {_get(asset, 'assetFields.fuelType', '')}</Text>
+                                <CustomText style={{ fontWeight: 'bold', color: '#312783', fontSize: 14 }}> {_get(asset, 'assetFields.fuelType', '')}</CustomText>
                             </View>
                         </View>
                         <View style={{ flex: 1, flexDirection: 'row' }}>
                                 <View style={{ flex: 1, justifyContent: 'flex-start', flexDirection: 'row', alignItems: 'center' }}>
-                                <Text style={{ fontWeight: 'normal' }}>{`${strings.model}:`}</Text>
+                                <CustomText style={{ fontWeight: 'normal' }}>{`${strings.model}:`}</CustomText>
                             </View>
                             <View style={{ flex: 1, justifyContent: 'flex-end', flexDirection: 'row', alignItems: 'flex-end' }}>
-                                <Text style={{ fontWeight: 'bold', color: '#312783', textAlign: 'right', fontSize: 14 }}> {_get(asset, 'assetFields.model', '')}</Text>
+                                <CustomText style={{ fontWeight: 'bold', color: '#312783', textAlign: 'right', fontSize: 14 }}> {_get(asset, 'assetFields.model', '')}</CustomText>
                             </View>
                         </View>
                         <View style={{ flex: 1, flexDirection: 'row' }}>
                             <View style={{ flex: 1, justifyContent: 'flex-start', flexDirection: 'row', alignItems: 'center' }}>
-                                <Text style={{ fontWeight: 'normal' }}>{`${strings.engineDisplacement}:`}</Text>
+                                <CustomText style={{ fontWeight: 'normal' }}>{`${strings.engineDisplacement}:`}</CustomText>
                             </View>
                             <View style={{ flex: 1, justifyContent: 'flex-end', flexDirection: 'row', alignItems: 'center' }}>
-                                <Text style={{ fontWeight: 'bold', color: '#312783', fontSize: 14 }}> {_get(asset, 'assetFields.engineDisplacement', '')}</Text>
+                                <CustomText style={{ fontWeight: 'bold', color: '#312783', fontSize: 14 }}> {_get(asset, 'assetFields.engineDisplacement', '')}</CustomText>
                             </View>
                         </View>
                         <View style={{ flex: 1, flexDirection: 'row' }}>
                             <View style={{ flex: 1, justifyContent: 'flex-start', flexDirection: 'row', alignItems: 'center' }}>
-                                <Text style={{ fontWeight: 'normal' }}>{`${strings.checkedInUserText}`}</Text>
+                                <CustomText style={{ fontWeight: 'normal' }}>{`${strings.checkedInUserText}`}</CustomText>
                             </View>
                             <View style={{ flex: 1, justifyContent: 'flex-end', flexDirection: 'row', alignItems: 'center' }}>
-                                <Text style={{ fontWeight: 'bold', textAlign: 'right', color: '#312783', fontSize: 14 }}> {_get(asset, 'checkInInfo.operatorId') ? `${_get(props, 'userDetails.user.firstName', '')} ${_get(props, 'userDetails.user.lastName', '')}`: 'NA' }</Text>
+                                <CustomText style={{ fontWeight: 'bold', textAlign: 'right', color: '#312783', fontSize: 14 }}> {_get(asset, 'checkInInfo.operatorId') ? `${_get(props, 'userDetails.user.firstName', '')} ${_get(props, 'userDetails.user.lastName', '')}`: 'NA' }</CustomText>
                             </View>
                         </View>
                         {

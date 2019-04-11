@@ -2,6 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { View, Text, TouchableOpacity, Image, RefreshControl, PermissionsAndroid, Platform } from 'react-native';
 import { Card, CheckBox } from 'react-native-elements';
+import CustomText from './stateless/CustomText';
+import CustomSemiBoldText from './stateless/CustomSemiBoldText';
+import CustomBoldText from './stateless/CustomBoldText';
 import _get from 'lodash/get';
 import _isEmpty from 'lodash/isEmpty';
 import theme from '../theme';
@@ -256,16 +259,17 @@ class HomeContentScreen extends React.Component {
                                 !_isEmpty(_get(userDetails, 'checkedInto', {})) &&
                                 <View style={{ flex: 1, flexDirection: 'row' }}>
                                     <View style={{ flex: 1, justifyContent: 'flex-start', flexDirection: 'row', alignItems: 'center' }}>
-                                        <Text style={{ fontWeight: 'normal', fontFamily: 'Montserrat' }}>{`${strings.checkedText}`}</Text>
+                                        <CustomSemiBoldText style={{ fontWeight: 'normal' }}>{`${strings.checkedText}`}</CustomSemiBoldText>
+                                        {/* <Text ></Text> */}
                                     </View>
                                     <View style={{ flex: 1, justifyContent: 'flex-end', flexDirection: 'row', alignItems: 'center' }}>
-                                        <Text style={{ fontWeight: 'bold', textAlign: 'right', color: '#00A9E0', fontSize: 18 }}> {_get(userDetails, 'checkedInto.assetId', 'NA')}</Text>
+                                        <CustomBoldText style={{ textAlign: 'right', color: '#00A9E0', fontSize: 18 }}> {_get(userDetails, 'checkedInto.assetId', 'NA')}</CustomBoldText>
                                     </View>
                                 </View>
                             }
                                 {/* <Image source={tasksImg} style={{ width: 110, height: 109 }} /> */}
                                 <Button onPress={() => this.handleCheckInCheckOut(_isEmpty(_get(userDetails, 'checkedInto', {})))} style={[theme.buttonAlignBottom, { marginLeft: 0 }]} full>
-                                    <Text style={theme.buttonSmallTxt}>{!_isEmpty(_get(userDetails, 'checkedInto', {})) ? `${strings.checkOut}`: `${strings.checkIn}`}</Text>
+                                    <CustomBoldText style={theme.buttonSmallTxt}>{!_isEmpty(_get(userDetails, 'checkedInto', {})) ? `${strings.checkOut}`: `${strings.checkIn}`}</CustomBoldText>
                                 </Button>
                             </Card>
                         </TouchableOpacity>
@@ -273,19 +277,19 @@ class HomeContentScreen extends React.Component {
                     {
                         !_isEmpty(_get(userDetails, 'checkedInto', {})) &&
                         <React.Fragment>
-                            <View style={{ flexDirection: 'row',margin: 8 }}>
+                            <View style={{ flexDirection: 'row', margin: 8 }}>
                                 <TouchableOpacity activeOpacity={0.5} style={{ flex: 1 }}
                                     onPress={() => this.props.navigation.navigate('TaskListScreen')} >
-                                    <Card wrapperStyle={{ justifyContent: 'center', alignItems: 'center' }} containerStyle={{ borderRadius: 10,  margin: 8 }}>
+                                    <Card wrapperStyle={{ justifyContent: 'center', alignItems: 'center' }} containerStyle={{ borderRadius: 10, margin: 8 }}>
                                         <Image source={tasksImg} style={{ height: 75 }} />
-                                        <Text style={[theme.buttonSmallTxt, {color: '#67DEBB', paddingTop: 15, fontFamily: 'Montserrat' }]}>{`${strings.taskButton}`}</Text>                                            
+                                        <CustomSemiBoldText style={[theme.buttonSmallTxt, {color: '#67DEBB', paddingTop: 15 }]}>{`${strings.taskButton}`}</CustomSemiBoldText>                                            
                                     </Card>
                                 </TouchableOpacity>
                                 <TouchableOpacity activeOpacity={0.5} style={{ flex: 1 }}
                                     onPress={() => this.props.navigation.navigate('GasFilUpHome')} >
-                                    <Card wrapperStyle={{ justifyContent: 'center', alignItems: 'center' }} containerStyle={{ borderRadius: 10,  margin: 8 }}>
+                                    <Card wrapperStyle={{ justifyContent: 'center', alignItems: 'center' }} containerStyle={{ borderRadius: 10, margin: 8 }}>
                                         <Image source={gasFillImg} style={{ height: 75 }} />
-                                        <Text style={[theme.buttonSmallTxt, {color: '#013BA4', paddingTop: 15 }]}>{`${strings.gasFillButton}`}</Text>
+                                        <CustomSemiBoldText style={[theme.buttonSmallTxt, {color: '#013BA4', paddingTop: 15 }]}>{`${strings.gasFillButton}`}</CustomSemiBoldText>
                                     </Card>
                                 </TouchableOpacity>
                             </View>
@@ -294,14 +298,14 @@ class HomeContentScreen extends React.Component {
                                     onPress={() => this.props.navigation.navigate('UpdateMileageHome')} >
                                     <Card wrapperStyle={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} containerStyle={{ flex: 1, borderRadius: 10,  margin: 8 }}>
                                         <Image source={MileageImg} style={{ height: 75 }} />
-                                        <Text style={[theme.buttonSmallTxt, {color: '#CA54CA', paddingTop: 15 }]}>{`${strings.mileageButton}`}</Text>                                            
+                                        <CustomSemiBoldText style={[theme.buttonSmallTxt, {color: '#CA54CA', paddingTop: 15 }]}>{`${strings.mileageButton}`}</CustomSemiBoldText>                                            
                                     </Card>
                                 </TouchableOpacity>
                                 <TouchableOpacity activeOpacity={0.5} style={{ flex: 1 }}
                                     onPress={() => this.props.navigation.navigate('ServiceTicketHome')} >
                                     <Card wrapperStyle={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} containerStyle={{ flex: 1, borderRadius: 10,  margin: 8 }}>
                                         <Image source={ServiceImg} style={{ height: 75 }} />
-                                        <Text style={[theme.buttonSmallTxt, {color: '#FF7D82', paddingTop: 15 }]}>{`${strings.serviceButton}`}</Text>
+                                        <CustomSemiBoldText style={[theme.buttonSmallTxt, {color: '#FF7D82', paddingTop: 15 }]}>{`${strings.serviceButton}`}</CustomSemiBoldText>
                                     </Card>
                                 </TouchableOpacity>
                                 { 
@@ -324,7 +328,7 @@ class HomeContentScreen extends React.Component {
                                     <Card wrapperStyle={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} containerStyle={{ flex: 1, borderRadius: 10,  margin: 8 }}>
                                         <Image source={DocumentsImg} style={{ height: 75 }} />
                                         {/* <Button onPress={() => this.props.navigation.navigate('DocumentsHome')} style={[theme.buttonAlignBottom, { marginLeft: 0 }]} full> */}
-                                            <Text style={[theme.buttonSmallTxt, {color: '#2CA12F', paddingTop: 15 }]}>{`${strings.documentButton}`}</Text>
+                                            <CustomSemiBoldText style={[theme.buttonSmallTxt, {color: '#2CA12F', paddingTop: 15 }]}>{`${strings.documentButton}`}</CustomSemiBoldText>
                                         {/* </Button> */}
                                     </Card>
                                 </TouchableOpacity>
@@ -333,7 +337,7 @@ class HomeContentScreen extends React.Component {
                                     <Card wrapperStyle={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} containerStyle={{ flex: 1, borderRadius: 10,  margin: 8 }}>
                                         <Image source={ContactMechanic} style={{ height: 75 }} />
                                         {/* <Button onPress={() => this.props.navigation.navigate('ContactPersonHome')} style={[theme.buttonAlignBottom, { marginLeft: 0 }]} full> */}
-                                            <Text style={[theme.buttonSmallTxt, {color: '#CD9827', paddingTop: 15 }]}>{`${strings.contactButton}`}</Text>
+                                            <CustomSemiBoldText style={[theme.buttonSmallTxt, {color: '#CD9827', paddingTop: 15 }]}>{`${strings.contactButton}`}</CustomSemiBoldText>
                                         {/* </Button> */}
                                     </Card>
                                 </TouchableOpacity>

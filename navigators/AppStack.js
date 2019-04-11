@@ -251,7 +251,7 @@ export class GetTabBarLabel extends React.PureComponent {
     const string = strings[appLanguage];
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', opacity: focused ? 1 : 0.3 }}>
-      <Text style={{ fontSize: 12, color: 'black' }}>{`${string[routeName]}`}</Text>
+      <Text style={{ fontSize: 12, color: 'black', fontFamily: 'Montserrat-SemiBold' }}>{`${string[routeName]}`}</Text>
     </View>
   );
   }

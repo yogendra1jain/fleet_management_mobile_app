@@ -16,6 +16,7 @@ import withLoadingScreen from '../withLoadingScreen';
 import TaskView from '../stateless/TaskView';
 import withErrorBoundary from '../hocs/withErrorBoundary';
 import { mapDateToDay } from '../../utils/index';
+import CustomBoldText from '../stateless/CustomBoldText';
 const ContainerWithLoading = withLoadingScreen(Container);
 
 const TaskDummyData = [
@@ -110,7 +111,7 @@ class TaskListScreen extends React.Component {
                         </Button>
                     </Left>
                     <Body style={{ flex: 4, justifyContent: 'center', alignItems: 'center' }}>
-                        <Title >Task List</Title>
+                        <Title style={{ fontFamily: 'Montserrat-Bold' }}>Task List</Title>
                     </Body>
                     <Right style={{ flex: 1 }}>
                     </Right>
@@ -136,7 +137,7 @@ class TaskListScreen extends React.Component {
                     </View>
 
                     <View style={[theme.centerAlign]}>
-                        <Text style={{ fontSize: 25, fontWeight: 'bold', color: 'black' }}>COMING SOON...</Text>
+                        <CustomBoldText style={{ fontSize: 25, color: 'black' }}>COMING SOON...</CustomBoldText>
                     </View>
                     {/* <View style={[theme.marL15, theme.marR15, theme.mart15]} >
                         {

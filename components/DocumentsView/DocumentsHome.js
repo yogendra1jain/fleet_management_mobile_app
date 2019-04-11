@@ -18,6 +18,7 @@ import { showToast } from '../../utils';
 import withLocalization from '../hocs/withLocalization';
 import ImageResizer from 'react-native-image-resizer';
 import ImagePicker from 'react-native-image-picker';
+import CustomText from '../stateless/CustomText';
 
 const ContainerWithLoading = withLoadingScreen(Container);
 
@@ -222,7 +223,7 @@ class DocumentsHomeScreen extends React.Component {
 
     render() {
         const { assetDocuments, strings } = this.props;
-        console.log('asset documents', assetDocuments);
+        // console.log('asset documents', assetDocuments);
         const { selectedIndex } = this.state;
         let images = [];
         !_isEmpty(_get(this.state, 'links', [])) && _get(this.state, 'links', []).map((link, index) => {
@@ -233,7 +234,7 @@ class DocumentsHomeScreen extends React.Component {
                         <Image source={{ uri: link.imageSource }} style={{ width: 100, height: 100 }} />
                     }
                     <View style={{ margin: 10 }}>
-                        <Text style={{ flexWrap: 'wrap' }}>{link.fileName}</Text>
+                        <CustomText style={{ flexWrap: 'wrap' }}>{link.fileName}</CustomText>
                     </View>
                     <View style={{ margin: 10 }}>
                     {
@@ -253,7 +254,7 @@ class DocumentsHomeScreen extends React.Component {
                         </Button>
                     </Left>
                     <Body style={[theme.centerAlign, { flex: 4 }]}>
-                        <Title style={{ color: '#fff' }} >{`${strings.documentButton}`}</Title>
+                        <Title style={{ color: '#fff', fontFamily: 'Montserrat-Bold' }} >{`${strings.documentButton}`}</Title>
                     </Body>
                     <Right style={{ flex: 1 }}>
                     </Right>
@@ -284,6 +285,7 @@ class DocumentsHomeScreen extends React.Component {
                                         l.documentType.label
                                         // getDocumentType(l.documentType.value, strings)
                                     }
+                                    titleStyle={{ fontFamily: 'Montserrat-Regular' }}
                                     subtitle={l.subtitle}
                                     onPress={()=>this.handleDocumentItem(l, i)}
                                 />
@@ -304,6 +306,7 @@ class DocumentsHomeScreen extends React.Component {
                             <ListItem
                                 rightIcon={{ name: 'camera', type: 'font-awesome' }}
                                 title={`${strings.uploadInvoiceTitle}`}
+                                titleStyle={{ fontFamily: 'Montserrat-Regular' }}
                                 // subtitle={l.subtitle}
                                 onPress={()=>this.handleDocumentUpload()}
                             />

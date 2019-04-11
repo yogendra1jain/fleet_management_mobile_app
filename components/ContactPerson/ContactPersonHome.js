@@ -10,6 +10,7 @@ import theme from '../../theme';
 import { Text, Container, Content, Header, Button, Title, Body, Left, Right, Icon } from 'native-base';
 import withLoadingScreen from '../withLoadingScreen';
 import withErrorBoundary from '../hocs/withErrorBoundary';
+import CustomBoldText from '../stateless/CustomBoldText';
 const ContainerWithLoading = withLoadingScreen(Container);
 
 const list = [
@@ -63,7 +64,7 @@ class ContactPersonHomeScreen extends React.Component {
                         </Button>
                     </Left>
                     <Body style={[theme.centerAlign, { flex: 4 }]}>
-                        <Title style={{ color: '#fff' }} >Contact Person</Title>
+                        <Title style={{ color: '#fff', fontFamily: 'Montserrat-Bold' }} >Contact Person</Title>
                     </Body>
                     <Right style={{ flex: 1 }}>
                     </Right>
@@ -84,7 +85,7 @@ class ContactPersonHomeScreen extends React.Component {
                         </View>
 
                         <View style={[theme.centerAlign]}>
-                            <Text style={{ fontSize: 25, fontWeight: 'bold', color: 'black' }}>COMING SOON...</Text>
+                            <CustomBoldText style={{ fontSize: 25, color: 'black' }}>COMING SOON...</CustomBoldText>
                         </View>
                         {/* <View style={{ flex: 1, paddingTop: 15 }}>
                             <View style={{ flex: 1 }}>

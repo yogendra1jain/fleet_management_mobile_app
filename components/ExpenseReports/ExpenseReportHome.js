@@ -286,7 +286,7 @@ class ExpenseReportHomeScreen extends React.Component {
                         </Button>
                     </Left>
                     <Body style={[theme.centerAlign, { flex: 4 }]}>
-                        <Title style={{ color: '#fff' }} >{`${strings.expenseReportTitle}`}</Title>
+                        <Title style={{ color: '#fff', fontFamily: 'Montserrat-Bold' }} >{`${strings.expenseReportTitle}`}</Title>
                     </Body>
                     <Right style={{ flex: 1 }}>
                     </Right>

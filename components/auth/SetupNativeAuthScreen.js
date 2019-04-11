@@ -102,7 +102,7 @@ class SetupNativeAuthScreen extends React.Component {
                         </Button>
                     </Left>
                     <Body>
-                        <Title style={{ color: '#fff' }} >Select Authentication Mode</Title>
+                        <Title style={{ color: '#fff', fontFamily: 'Montserrat-Bold' }} >Select Authentication Mode</Title>
                     </Body>
                 </Header>
                 <Content>

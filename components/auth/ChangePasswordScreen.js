@@ -144,7 +144,7 @@ class ChangePasswordScreen extends React.Component {
                         </Button>
                     </Left>
                     <Body style={{ flex: 4, justifyContent: 'center', alignItems: 'center' }}>
-                        <Title>{`${_get(this.props, 'strings.changePasswordTitle', '')}`}</Title>
+                        <Title style={{ color: '#fff', fontFamily: 'Montserrat-Bold' }}>{`${_get(this.props, 'strings.changePasswordTitle', '')}`}</Title>
                     </Body>
                     <Right>
                     </Right>

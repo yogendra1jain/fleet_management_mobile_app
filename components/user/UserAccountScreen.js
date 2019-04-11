@@ -12,6 +12,8 @@ import { setWarnings } from '../../actions/user';
 import { Container, Content, Header, Button, Title, Body, Left, Right, Icon } from 'native-base';
 import withErrorBoundary from '../hocs/withErrorBoundary';
 import withLocalization from '../hocs/withLocalization';
+import CustomBoldText from '../stateless/CustomBoldText';
+import CustomSemiBoldText from '../stateless/CustomSemiBoldText';
 
 class UserAccountScreen extends React.Component {
     constructor(props) {
@@ -68,7 +70,7 @@ class UserAccountScreen extends React.Component {
 
             <View key={index} >
                 <View key={index + 1}>
-                    <Text style={[theme.screenHeadingtxt, theme.mart25]} key={1 + index + 1}>{list.listTitle}</Text>
+                    <CustomSemiBoldText style={[theme.screenHeadingtxt, theme.mart25]} key={1 + index + 1}>{list.listTitle}</CustomSemiBoldText>
                 </View>
                 <View style={[theme.vialsblock, theme.mart15]}>
                     {
@@ -76,7 +78,7 @@ class UserAccountScreen extends React.Component {
                             <ListItem
                                 key={1 + i + index}
                                 title={item.title}
-                                titleStyle={{ fontSize: 14 }}
+                                titleStyle={{ fontSize: 14, fontFamily: 'Montserrat-Regular' }}
                                 hideChevron={item.link == 'showWarnings' ? false : true}
                                 onPress={() => this.listItemClicked(item, i)}
                                 leftIcon={{ name: item.icon, type: item.type, style: { fontSize: 22, color: '#00A9E0' } }}
@@ -97,7 +99,7 @@ class UserAccountScreen extends React.Component {
                         </Button>
                     </Left>
                     <Body style={{ flex: 4, justifyContent: 'center', alignItems: 'center' }}>
-                        <Title>{`${_get(this.props, 'strings.userAccountTitle', '')}`}</Title>
+                        <Title style={{ fontFamily: 'Montserrat-Bold' }}>{`${_get(this.props, 'strings.userAccountTitle', '')}`}</Title>
                     </Body>
                     <Right style={{ flex: 1 }}>
                     </Right>
@@ -116,7 +118,7 @@ class UserAccountScreen extends React.Component {
                             />
                         </View>
                         <View>
-                            <Text style={{ fontSize: 18, fontWeight: 'bold' }}>{`${(_get(this.props, 'decodedToken.FleetUser.firstName', 'John'))} ${(_get(this.props, 'decodedToken.FleetUser.lastName', ''))}`}</Text>
+                            <CustomBoldText style={{ fontSize: 18 }}>{`${(_get(this.props, 'decodedToken.FleetUser.firstName', 'John'))} ${(_get(this.props, 'decodedToken.FleetUser.lastName', ''))}`}</CustomBoldText>
                         </View>
                     </View>
                     <View>

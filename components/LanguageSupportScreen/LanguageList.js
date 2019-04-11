@@ -13,6 +13,7 @@ import SplashScreen from 'react-native-splash-screen';
 import withErrorBoundary from '../hocs/withErrorBoundary';
 import withLocalization from '../hocs/withLocalization';
 import { postData, setLanguage } from '../../actions/commonAction';
+import CustomText from '../stateless/CustomText';
 
 const ContainerWithLoading = withLoadingScreen(Container);
 
@@ -91,7 +92,7 @@ class LanguageSelectionScreen extends React.Component {
                         </Left>
                    }
                     <Body style={{ flex: 4, justifyContent: 'center', alignItems: 'center' }}>
-                        <Title>{`${string.selectLanguageTitle}`}</Title>
+                        <Title style={{ fontFamily: 'Montserrat-Bold' }}>{`${string.selectLanguageTitle}`}</Title>
                     </Body>
                     <Right style={{ flex: 1 }}>
                     </Right>
@@ -100,7 +101,7 @@ class LanguageSelectionScreen extends React.Component {
                     <List>
                         <ListItem selected={appLanguage=='en'} onPress={() => this.handleItem('en')}>
                             <Left>
-                                <Text>{`${string.englishTitle}`}</Text>
+                                <CustomText>{`${string.englishTitle}`}</CustomText>
                             </Left>
                             <Right>
                                 {/* <Icon name="arrow-forward" /> */}
@@ -108,7 +109,7 @@ class LanguageSelectionScreen extends React.Component {
                         </ListItem>
                         <ListItem selected={appLanguage=='spn'} onPress={() => this.handleItem('spn')}>
                             <Left>
-                                <Text>{`${string.spanishTitle}`}</Text>
+                                <CustomText>{`${string.spanishTitle}`}</CustomText>
                             </Left>
                             <Right>
                                 {/* <Icon name="arrow-forward" /> */}

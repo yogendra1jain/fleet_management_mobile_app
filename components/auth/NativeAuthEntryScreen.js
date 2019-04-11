@@ -148,7 +148,7 @@ class NativeAuthEntryScreen extends React.Component {
                         </Button>
                     </Left>
                     <Body>
-                        <Title style={{ color: '#fff' }} >Provide Authentication</Title>
+                        <Title style={{ color: '#fff', fontFamily: 'Montserrat-Bold' }} >Provide Authentication</Title>
                     </Body>
                 </Header>
                 <View style={theme.container}>
