@@ -7,6 +7,8 @@ import FingerprintScanner from 'react-native-fingerprint-scanner';
 import theme from '../../theme';
 import { setupNativeAuth, disableNativeAuth } from '../../actions/nativeAuth';
 import { Container, Content, Header, Button, Title, Body, Left, Icon } from 'native-base';
+import CustomSemiBoldText from '../stateless/CustomSemiBoldText';
+import CustomText from '../stateless/CustomText';
 
 class SetupNativeAuthScreen extends React.Component {
     constructor(props) {
@@ -107,7 +109,7 @@ class SetupNativeAuthScreen extends React.Component {
                 </Header>
                 <Content>
                    <View style={[theme.vialsblock, theme.padT10, theme.mart10]}>
-                        <Text style={[theme.screenHeadingtxt1, theme.marL10, theme.marR10]}>Select a Mode for Authentication</Text>                      
+                        <CustomSemiBoldText style={[theme.screenHeadingtxt1, theme.marL10, theme.marR10]}>Select a Mode for Authentication</CustomSemiBoldText>                      
                         <View style={[theme.marL15, theme.marR15, theme.mart15]}>
                             {/* {this.state.isFingerprintAv && <CheckBox
                                 title='Device Native Auth Method'
@@ -130,7 +132,7 @@ class SetupNativeAuthScreen extends React.Component {
                                 checked={!this.props.nativeAuth.isEnabled}
                                 onPress={this.disablePinMethod}
                             />
-                            <Text>{this.state.changeResult}</Text>
+                            <CustomText>{this.state.changeResult}</CustomText>
                         </View>
                     </View>
                 </Content>

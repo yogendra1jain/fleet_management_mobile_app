@@ -79,10 +79,11 @@ class ChangePasswordScreen extends React.Component {
         const value = this.refs.form.getValue();
         let data = {};
         if (value) {
-            _set(data, 'id', _get(this.props, 'decodedToken.FleetUser.id', ''),);
-            _set(data, 'password', value.newPassword);
+            _set(data, 'id', _get(this.props, 'decodedToken.FleetUser.id', ''));
+            _set(data, 'oldPassword', value.oldPassword);
+            _set(data, 'newPassword', value.newPassword);
             // this.props.updatePassword(data);
-            let url = `/ClientUser/ResetPassword`;
+            let url = `/ClientUser/UpdatePassword`;
             let constants = {
                 init: 'UPDATE_PASSWORD_INIT',
                 success: 'UPDATE_PASSWORD_SUCCESS',
