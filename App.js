@@ -50,9 +50,9 @@ export const interceptorForCorelationId = AXIOS.interceptors.request.use(functio
 const customTextProps = {
   style: {
     // fontSize: 16,
-    fontFamily: Platform.OS === 'ios' ? 'HelveticaNeue' : 'Montserrat',
-    color: 'black'
-  }
+    fontFamily: 'Montserrat-Bold',
+    color: 'black',
+  },
 };
 
 const { store, persistor } = configureStore();

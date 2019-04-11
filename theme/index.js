@@ -389,6 +389,7 @@ export default theme = StyleSheet.create({
   },
   butttonFixTxt: {
     color: '#fff',
+    fontFamily: 'Montserrat-Bold',
   },
   butttonFixTxtCancel: {
     color: '#fff',

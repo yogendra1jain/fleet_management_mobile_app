@@ -9,15 +9,18 @@ export default () => {
     console.log('-------------------------Inside Customize function----------------------------------');
     const stylesheet = t.form.Form.stylesheet;
     // overriding the text color
+    stylesheet.textbox.error.fontFamily = 'Montserrat-Regular';
     stylesheet.textbox.error.fontSize = 14;
     stylesheet.errorBlock.fontSize = 14;
     stylesheet.errorBlock.marginTop = 5;
     stylesheet.controlLabel.error.fontSize =15;
     stylesheet.controlLabel.error.fontWeight = 'normal';
+    stylesheet.controlLabel.normal.fontFamily = 'Montserrat-Regular';
     stylesheet.controlLabel.normal.fontSize = 15;
     stylesheet.controlLabel.normal.marginBottom =2;
     stylesheet.controlLabel.normal.color = '#7c7c7c';
     stylesheet.controlLabel.normal.fontWeight = 'normal';
+    stylesheet.textbox.normal.fontFamily = 'Montserrat-Regular';
     stylesheet.textbox.normal.borderWidth = 0;
     stylesheet.textbox.error.borderWidth = 0;
     stylesheet.textbox.normal.marginBottom = 0;

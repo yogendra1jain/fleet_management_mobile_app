@@ -163,7 +163,7 @@ class UsernameScreen extends React.Component {
                             </View>
                             <View style={[theme.mart25]}>
                                 <Button style={[theme.buttonLogin, { backgroundColor: '#00A9E0' }]} onPress={() => this.onPress()} full>
-                                    <Text style={theme.butttonFixTxt}>{`${strings.loginLabel}`}</Text>
+                                    <Text style={[theme.butttonFixTxt]}>{`${strings.loginLabel}`}</Text>
                                 </Button>
                             </View>
                         </View>
