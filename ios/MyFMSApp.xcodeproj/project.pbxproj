@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		0094480130B040A6B89A34D1 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4BC6AC4EEE66451CA168A0AE /* FontAwesome.ttf */; };
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
@@ -27,6 +28,7 @@
 		140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		1C39D82E1E9F4C3C8D6A0076 /* libReactNativeFingerprintScanner.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AE8B3FC9685645DFADE47347 /* libReactNativeFingerprintScanner.a */; };
+		1EDA5288072AD3D3CFF52FEB /* libPods-MyFMSApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 63D188042543A85AF5A4BD3B /* libPods-MyFMSApp.a */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
@@ -40,13 +42,17 @@
 		2D16E6881FA4F8E400B85C8A /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D16E6891FA4F8E400B85C8A /* libReact.a */; };
 		2DCD954D1E0B4F2C00145EB5 /* MyFMSAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* MyFMSAppTests.m */; };
 		2DF0FFEE2056DD460020B375 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3EA31DF850E9000B6D8A /* libReact.a */; };
+		3DDF6B875B58477AA64CA90D /* Arvo-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CE0480F246074F06B78960A5 /* Arvo-Regular.ttf */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
+		605DCD9B7EAD4C8A95E7A26F /* Montserrat-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF63E931CBB644BFB34C9C9C /* Montserrat-SemiBold.ttf */; };
 		66091D0FCE30460DA5624B93 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B93AA400B7EE4DB6945A5545 /* Zocial.ttf */; };
 		75A4B32C7E93445BA2398ACD /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FA0B59AD4F7E47C7B43D4D4B /* EvilIcons.ttf */; };
 		79BE6F29777F4B5FADE2C337 /* libRNCamera.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 427142834EC94254B99AB53B /* libRNCamera.a */; };
 		7AFF94479ADD4B50AA80B470 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2160660DA9734FEDAAA40CDD /* SimpleLineIcons.ttf */; };
 		804D089878FF4861A36E29C4 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1FDF25638F0C48499B76CF2D /* MaterialIcons.ttf */; };
+		82F6AB67C6AD40C285443935 /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 33D692DDBE744FAE8B774AB2 /* Montserrat-Bold.ttf */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
+		8563872BE2ECE4D0F9121431 /* libPods-MyFMSApp-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 98734D23A1E6A7B270FD0C5B /* libPods-MyFMSApp-tvOSTests.a */; };
 		86032CC5924C4D9DAA4B52B4 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 364B921C13A14302A9E3250E /* Ionicons.ttf */; };
 		A2B7192F78D14D8DB7E11935 /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B7CD2533806749E3B8BCB246 /* MaterialCommunityIcons.ttf */; };
 		A30A00855CA14FA8B8135699 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F94AD232F118466FBEF25772 /* Entypo.ttf */; };
@@ -54,21 +60,16 @@
 		A3ADE08E191C4795A923BDD6 /* libSplashScreen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 90F03CBA1BEE449A80C9810C /* libSplashScreen.a */; };
 		A4FE11FCA70341E4B9FDFD15 /* Roboto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4064DA5129F04B978D310DAC /* Roboto.ttf */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
-		AE5AEF24B877B40D344DCACF /* libPods-MyFMSApp-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2691CA659F391E4C46FDD9C5 /* libPods-MyFMSApp-tvOSTests.a */; };
 		AFA19A3A572D4DE8931A4084 /* rubicon-icon-font.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B72498DF26514A4489045FF3 /* rubicon-icon-font.ttf */; };
 		B67308F0EB254717AC41333B /* libReactNativeConfig.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E965666B0544275938BF7ED /* libReactNativeConfig.a */; };
+		B86B950E369DC96B398F595D /* libPods-MyFMSApp-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 63054157BA19F8C338E02AC3 /* libPods-MyFMSApp-tvOS.a */; };
+		CAEC8DEEB13D4D37B9A485BC /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0C24145BDFD8415FA9DDE168 /* Montserrat-Regular.ttf */; };
 		CE48D5370B034F0FB060F0E9 /* libRNPrint.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 999EA488203D432C96095A0D /* libRNPrint.a */; };
 		CEF03C12FA754153B4DB4B67 /* libRNFirebase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F0748287C7C4C86A5207E77 /* libRNFirebase.a */; };
-		DC045A470FE755D090666D1B /* libPods-MyFMSApp-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DAD3A8162EF3A1AA5C2CD499 /* libPods-MyFMSApp-tvOS.a */; };
+		ED00505C82F5F38C630BE243 /* libPods-MyFMSAppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C24AC71CA12B075C6FA2CD38 /* libPods-MyFMSAppTests.a */; };
 		F0FB3F5D504145A1AAA4A8A0 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FEB0C275E809473EAAB5D668 /* Foundation.ttf */; };
 		FAADEA4CD30444658ECBB4D6 /* Roboto_medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 166DB332525B41B096949D54 /* Roboto_medium.ttf */; };
-		FBF36F45ADDB6E01978B6111 /* libPods-MyFMSApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BF0B296C2B4E07F907BF58E8 /* libPods-MyFMSApp.a */; };
 		FE7FDD8FBFE049A2A52A6602 /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 54F54FB0E9A447B9B29B957F /* libRNVectorIcons.a */; };
-		FEAC8B4A5969DC16E02FA4C4 /* libPods-MyFMSAppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5520BB095428AB685D187688 /* libPods-MyFMSAppTests.a */; };
-		3DDF6B875B58477AA64CA90D /* Arvo-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CE0480F246074F06B78960A5 /* Arvo-Regular.ttf */; };
-		82F6AB67C6AD40C285443935 /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 33D692DDBE744FAE8B774AB2 /* Montserrat-Bold.ttf */; };
-		CAEC8DEEB13D4D37B9A485BC /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0C24145BDFD8415FA9DDE168 /* Montserrat-Regular.ttf */; };
-		605DCD9B7EAD4C8A95E7A26F /* Montserrat-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF63E931CBB644BFB34C9C9C /* Montserrat-SemiBold.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -413,10 +414,11 @@
 		00E356EE1AD99517003FC87E /* MyFMSAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyFMSAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* MyFMSAppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyFMSAppTests.m; sourceTree = "<group>"; };
-		016D7376EF7069E0B37C55BC /* Pods-MyFMSApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyFMSApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-MyFMSApp/Pods-MyFMSApp.release.xcconfig"; sourceTree = "<group>"; };
+		03B0F39F7CD88C4649D9B986 /* Pods-MyFMSAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyFMSAppTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MyFMSAppTests/Pods-MyFMSAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		0985FD6D2154FE5300E7E3DB /* MyFMSApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = MyFMSApp.entitlements; path = MyFMSApp/MyFMSApp.entitlements; sourceTree = "<group>"; };
 		09A46ACF21393E2900C1399D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0B52CDBA3E2E418394FB67F4 /* ReactNativeConfig.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = ReactNativeConfig.xcodeproj; path = "../node_modules/react-native-config/ios/ReactNativeConfig.xcodeproj"; sourceTree = "<group>"; };
+		0C24145BDFD8415FA9DDE168 /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-Regular.ttf"; path = "../assets/fonts/Montserrat-Regular.ttf"; sourceTree = "<group>"; };
 		139105B61AF99BAD00B5F7CC /* RCTSettings.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTSettings.xcodeproj; path = "../node_modules/react-native/Libraries/Settings/RCTSettings.xcodeproj"; sourceTree = "<group>"; };
 		139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTWebSocket.xcodeproj; path = "../node_modules/react-native/Libraries/WebSocket/RCTWebSocket.xcodeproj"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* MyFMSApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyFMSApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -427,33 +429,36 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = MyFMSApp/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		166DB332525B41B096949D54 /* Roboto_medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Roboto_medium.ttf; path = "../node_modules/native-base/Fonts/Roboto_medium.ttf"; sourceTree = "<group>"; };
-		1B3CE7E9599F8B0E6ECAE80B /* Pods-MyFMSAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyFMSAppTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MyFMSAppTests/Pods-MyFMSAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		1FDF25638F0C48499B76CF2D /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/native-base/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		2160660DA9734FEDAAA40CDD /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/native-base/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
-		2691CA659F391E4C46FDD9C5 /* libPods-MyFMSApp-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MyFMSApp-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E47B1E0B4A5D006451C7 /* MyFMSApp-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MyFMSApp-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* MyFMSApp-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "MyFMSApp-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		33D692DDBE744FAE8B774AB2 /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-Bold.ttf"; path = "../assets/fonts/Montserrat-Bold.ttf"; sourceTree = "<group>"; };
 		364B921C13A14302A9E3250E /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/native-base/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		4064DA5129F04B978D310DAC /* Roboto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Roboto.ttf; path = "../node_modules/native-base/Fonts/Roboto.ttf"; sourceTree = "<group>"; };
+		407DE14A14E28A03F6B786F8 /* Pods-MyFMSApp-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyFMSApp-tvOSTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MyFMSApp-tvOSTests/Pods-MyFMSApp-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		427142834EC94254B99AB53B /* libRNCamera.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNCamera.a; sourceTree = "<group>"; };
+		42E0FE81F8566FF1F8BC19F8 /* Pods-MyFMSApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyFMSApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-MyFMSApp/Pods-MyFMSApp.release.xcconfig"; sourceTree = "<group>"; };
+		43FCA3D99B9558E9F5FA6F2D /* Pods-MyFMSApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyFMSApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MyFMSApp/Pods-MyFMSApp.debug.xcconfig"; sourceTree = "<group>"; };
+		4764A1C04E2954CD7045F7E3 /* Pods-MyFMSApp-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyFMSApp-tvOSTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MyFMSApp-tvOSTests/Pods-MyFMSApp-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		4BC6AC4EEE66451CA168A0AE /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/native-base/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		51535FC4069F4B13B0D74DE1 /* RNPrintTests.xctest */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = RNPrintTests.xctest; sourceTree = "<group>"; };
-		53869248A1CA4D3868E48F2E /* Pods-MyFMSAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyFMSAppTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MyFMSAppTests/Pods-MyFMSAppTests.release.xcconfig"; sourceTree = "<group>"; };
 		54F54FB0E9A447B9B29B957F /* libRNVectorIcons.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNVectorIcons.a; sourceTree = "<group>"; };
-		5520BB095428AB685D187688 /* libPods-MyFMSAppTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MyFMSAppTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
+		63054157BA19F8C338E02AC3 /* libPods-MyFMSApp-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MyFMSApp-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		63D188042543A85AF5A4BD3B /* libPods-MyFMSApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MyFMSApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C1A7FDF09864DBEB25FF624 /* ReactNativeFingerprintScanner.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = ReactNativeFingerprintScanner.xcodeproj; path = "../node_modules/react-native-fingerprint-scanner/ios/ReactNativeFingerprintScanner.xcodeproj"; sourceTree = "<group>"; };
-		7448F40575487064F8D5D1B1 /* Pods-MyFMSApp-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyFMSApp-tvOSTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MyFMSApp-tvOSTests/Pods-MyFMSApp-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		7588F1F80D2B4094AB82120F /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/native-base/Fonts/Feather.ttf"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
-		7960DFB60597008D650D112D /* Pods-MyFMSApp-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyFMSApp-tvOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-MyFMSApp-tvOS/Pods-MyFMSApp-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		8F0748287C7C4C86A5207E77 /* libRNFirebase.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNFirebase.a; sourceTree = "<group>"; };
 		90F03CBA1BEE449A80C9810C /* libSplashScreen.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libSplashScreen.a; sourceTree = "<group>"; };
+		98734D23A1E6A7B270FD0C5B /* libPods-MyFMSApp-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MyFMSApp-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		999EA488203D432C96095A0D /* libRNPrint.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNPrint.a; sourceTree = "<group>"; };
 		9E965666B0544275938BF7ED /* libReactNativeConfig.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libReactNativeConfig.a; sourceTree = "<group>"; };
 		A6AC441EC4AD47CDB3FF8DAD /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNVectorIcons.xcodeproj; path = "../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; };
+		A9AB13746C1F7A3B492D1DE1 /* Pods-MyFMSApp-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyFMSApp-tvOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-MyFMSApp-tvOS/Pods-MyFMSApp-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
 		AE54FF0AEE3549CE9B2320F6 /* RNCamera.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNCamera.xcodeproj; path = "../node_modules/react-native-camera/ios/RNCamera.xcodeproj"; sourceTree = "<group>"; };
 		AE8B3FC9685645DFADE47347 /* libReactNativeFingerprintScanner.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libReactNativeFingerprintScanner.a; sourceTree = "<group>"; };
@@ -463,19 +468,15 @@
 		B7CD2533806749E3B8BCB246 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/native-base/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 		B93AA400B7EE4DB6945A5545 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/native-base/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		BDD9919E2703446DA73DBA9F /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/native-base/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
-		BF0B296C2B4E07F907BF58E8 /* libPods-MyFMSApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MyFMSApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		C9FDE3A7238E4E113B2B02DF /* Pods-MyFMSApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyFMSApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MyFMSApp/Pods-MyFMSApp.debug.xcconfig"; sourceTree = "<group>"; };
-		DAD3A8162EF3A1AA5C2CD499 /* libPods-MyFMSApp-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MyFMSApp-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C24AC71CA12B075C6FA2CD38 /* libPods-MyFMSAppTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MyFMSAppTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C4374A9FBD05FBB5501BF1E9 /* Pods-MyFMSApp-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyFMSApp-tvOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MyFMSApp-tvOS/Pods-MyFMSApp-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
+		C6589289DC1D360C8292D78A /* Pods-MyFMSAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyFMSAppTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MyFMSAppTests/Pods-MyFMSAppTests.release.xcconfig"; sourceTree = "<group>"; };
+		CE0480F246074F06B78960A5 /* Arvo-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Arvo-Regular.ttf"; path = "../assets/fonts/Arvo-Regular.ttf"; sourceTree = "<group>"; };
+		CF63E931CBB644BFB34C9C9C /* Montserrat-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-SemiBold.ttf"; path = "../assets/fonts/Montserrat-SemiBold.ttf"; sourceTree = "<group>"; };
 		DC632C2CEB6045B6A88E9552 /* SplashScreen.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = SplashScreen.xcodeproj; path = "../node_modules/react-native-splash-screen/ios/SplashScreen.xcodeproj"; sourceTree = "<group>"; };
-		DD3CB20DBBF4BFA73B385A27 /* Pods-MyFMSApp-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyFMSApp-tvOSTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MyFMSApp-tvOSTests/Pods-MyFMSApp-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
-		F7469A200C7DFF959165ADF0 /* Pods-MyFMSApp-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyFMSApp-tvOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MyFMSApp-tvOS/Pods-MyFMSApp-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		F94AD232F118466FBEF25772 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/native-base/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		FA0B59AD4F7E47C7B43D4D4B /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/native-base/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		FEB0C275E809473EAAB5D668 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/native-base/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
-		CE0480F246074F06B78960A5 /* Arvo-Regular.ttf */ = {isa = PBXFileReference; name = "Arvo-Regular.ttf"; path = "../assets/fonts/Arvo-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		33D692DDBE744FAE8B774AB2 /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; name = "Montserrat-Bold.ttf"; path = "../assets/fonts/Montserrat-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		0C24145BDFD8415FA9DDE168 /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; name = "Montserrat-Regular.ttf"; path = "../assets/fonts/Montserrat-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		CF63E931CBB644BFB34C9C9C /* Montserrat-SemiBold.ttf */ = {isa = PBXFileReference; name = "Montserrat-SemiBold.ttf"; path = "../assets/fonts/Montserrat-SemiBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -484,7 +485,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */,
-				FEAC8B4A5969DC16E02FA4C4 /* libPods-MyFMSAppTests.a in Frameworks */,
+				ED00505C82F5F38C630BE243 /* libPods-MyFMSAppTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -512,7 +513,7 @@
 				CE48D5370B034F0FB060F0E9 /* libRNPrint.a in Frameworks */,
 				A3ADE08E191C4795A923BDD6 /* libSplashScreen.a in Frameworks */,
 				CEF03C12FA754153B4DB4B67 /* libRNFirebase.a in Frameworks */,
-				FBF36F45ADDB6E01978B6111 /* libPods-MyFMSApp.a in Frameworks */,
+				1EDA5288072AD3D3CFF52FEB /* libPods-MyFMSApp.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -528,7 +529,7 @@
 				2D02E4C61E0B4AEC006451C7 /* libRCTSettings-tvOS.a in Frameworks */,
 				2D02E4C71E0B4AEC006451C7 /* libRCTText-tvOS.a in Frameworks */,
 				2D02E4C81E0B4AEC006451C7 /* libRCTWebSocket-tvOS.a in Frameworks */,
-				DC045A470FE755D090666D1B /* libPods-MyFMSApp-tvOS.a in Frameworks */,
+				B86B950E369DC96B398F595D /* libPods-MyFMSApp-tvOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -537,7 +538,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2DF0FFEE2056DD460020B375 /* libReact.a in Frameworks */,
-				AE5AEF24B877B40D344DCACF /* libPods-MyFMSApp-tvOSTests.a in Frameworks */,
+				8563872BE2ECE4D0F9121431 /* libPods-MyFMSApp-tvOSTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -761,27 +762,12 @@
 			isa = PBXGroup;
 			children = (
 				2D16E6891FA4F8E400B85C8A /* libReact.a */,
-				BF0B296C2B4E07F907BF58E8 /* libPods-MyFMSApp.a */,
-				DAD3A8162EF3A1AA5C2CD499 /* libPods-MyFMSApp-tvOS.a */,
-				2691CA659F391E4C46FDD9C5 /* libPods-MyFMSApp-tvOSTests.a */,
-				5520BB095428AB685D187688 /* libPods-MyFMSAppTests.a */,
+				63D188042543A85AF5A4BD3B /* libPods-MyFMSApp.a */,
+				63054157BA19F8C338E02AC3 /* libPods-MyFMSApp-tvOS.a */,
+				98734D23A1E6A7B270FD0C5B /* libPods-MyFMSApp-tvOSTests.a */,
+				C24AC71CA12B075C6FA2CD38 /* libPods-MyFMSAppTests.a */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		4139B1C2044430A2ED44261C /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				C9FDE3A7238E4E113B2B02DF /* Pods-MyFMSApp.debug.xcconfig */,
-				016D7376EF7069E0B37C55BC /* Pods-MyFMSApp.release.xcconfig */,
-				F7469A200C7DFF959165ADF0 /* Pods-MyFMSApp-tvOS.debug.xcconfig */,
-				7960DFB60597008D650D112D /* Pods-MyFMSApp-tvOS.release.xcconfig */,
-				7448F40575487064F8D5D1B1 /* Pods-MyFMSApp-tvOSTests.debug.xcconfig */,
-				DD3CB20DBBF4BFA73B385A27 /* Pods-MyFMSApp-tvOSTests.release.xcconfig */,
-				1B3CE7E9599F8B0E6ECAE80B /* Pods-MyFMSAppTests.debug.xcconfig */,
-				53869248A1CA4D3868E48F2E /* Pods-MyFMSAppTests.release.xcconfig */,
-			);
-			name = Pods;
 			sourceTree = "<group>";
 		};
 		5E91572E1DD0AC6500FF2AA8 /* Products */ = {
@@ -848,7 +834,7 @@
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				0633C92C29EF4D10978B4046 /* Resources */,
 				099DB10A2119777E0074D1E0 /* Recovered References */,
-				4139B1C2044430A2ED44261C /* Pods */,
+				91E021CC23E896DB348C0B11 /* Pods */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -864,6 +850,21 @@
 				2D02E4901E0B4A5D006451C7 /* MyFMSApp-tvOSTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		91E021CC23E896DB348C0B11 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				43FCA3D99B9558E9F5FA6F2D /* Pods-MyFMSApp.debug.xcconfig */,
+				42E0FE81F8566FF1F8BC19F8 /* Pods-MyFMSApp.release.xcconfig */,
+				C4374A9FBD05FBB5501BF1E9 /* Pods-MyFMSApp-tvOS.debug.xcconfig */,
+				A9AB13746C1F7A3B492D1DE1 /* Pods-MyFMSApp-tvOS.release.xcconfig */,
+				4764A1C04E2954CD7045F7E3 /* Pods-MyFMSApp-tvOSTests.debug.xcconfig */,
+				407DE14A14E28A03F6B786F8 /* Pods-MyFMSApp-tvOSTests.release.xcconfig */,
+				03B0F39F7CD88C4649D9B986 /* Pods-MyFMSAppTests.debug.xcconfig */,
+				C6589289DC1D360C8292D78A /* Pods-MyFMSAppTests.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 		ADBDB9201DFEBF0600ED6528 /* Products */ = {
@@ -882,7 +883,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "MyFMSAppTests" */;
 			buildPhases = (
-				4B4650E12EBF472052B6E1D7 /* [CP] Check Pods Manifest.lock */,
+				591EE2A5B421D42C8DB64F06 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
@@ -901,7 +902,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "MyFMSApp" */;
 			buildPhases = (
-				F310DF6268F5A46B239B4915 /* [CP] Check Pods Manifest.lock */,
+				E6B60A399DC70B705F4191F0 /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
@@ -921,7 +922,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "MyFMSApp-tvOS" */;
 			buildPhases = (
-				0376841AA12EBBB2BF4FA3CF /* [CP] Check Pods Manifest.lock */,
+				AE1AC1AB3DA99D59B2E5A8F6 /* [CP] Check Pods Manifest.lock */,
 				2D02E4771E0B4A5D006451C7 /* Sources */,
 				2D02E4781E0B4A5D006451C7 /* Frameworks */,
 				2D02E4791E0B4A5D006451C7 /* Resources */,
@@ -940,7 +941,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "MyFMSApp-tvOSTests" */;
 			buildPhases = (
-				D8DE8CEB2B67EB250DDAF25A /* [CP] Check Pods Manifest.lock */,
+				3628059396595DFD136576B1 /* [CP] Check Pods Manifest.lock */,
 				2D02E48C1E0B4A5D006451C7 /* Sources */,
 				2D02E48D1E0B4A5D006451C7 /* Frameworks */,
 				2D02E48E1E0B4A5D006451C7 /* Resources */,
@@ -1475,28 +1476,6 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
 		};
-		0376841AA12EBBB2BF4FA3CF /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-MyFMSApp-tvOS-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 		09A46AE72139468500C1399D /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1524,29 +1503,7 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
 		};
-		4B4650E12EBF472052B6E1D7 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-MyFMSAppTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		D8DE8CEB2B67EB250DDAF25A /* [CP] Check Pods Manifest.lock */ = {
+		3628059396595DFD136576B1 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1568,7 +1525,51 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		F310DF6268F5A46B239B4915 /* [CP] Check Pods Manifest.lock */ = {
+		591EE2A5B421D42C8DB64F06 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MyFMSAppTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AE1AC1AB3DA99D59B2E5A8F6 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MyFMSApp-tvOS-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E6B60A399DC70B705F4191F0 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1645,7 +1646,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1B3CE7E9599F8B0E6ECAE80B /* Pods-MyFMSAppTests.debug.xcconfig */;
+			baseConfigurationReference = 03B0F39F7CD88C4649D9B986 /* Pods-MyFMSAppTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1665,9 +1666,7 @@
 				INFOPLIST_FILE = MyFMSAppTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1680,7 +1679,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 53869248A1CA4D3868E48F2E /* Pods-MyFMSAppTests.release.xcconfig */;
+			baseConfigurationReference = C6589289DC1D360C8292D78A /* Pods-MyFMSAppTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -1697,9 +1696,7 @@
 				INFOPLIST_FILE = MyFMSAppTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1712,7 +1709,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C9FDE3A7238E4E113B2B02DF /* Pods-MyFMSApp.debug.xcconfig */;
+			baseConfigurationReference = 43FCA3D99B9558E9F5FA6F2D /* Pods-MyFMSApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1752,7 +1749,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 016D7376EF7069E0B37C55BC /* Pods-MyFMSApp.release.xcconfig */;
+			baseConfigurationReference = 42E0FE81F8566FF1F8BC19F8 /* Pods-MyFMSApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1791,7 +1788,7 @@
 		};
 		2D02E4971E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F7469A200C7DFF959165ADF0 /* Pods-MyFMSApp-tvOS.debug.xcconfig */;
+			baseConfigurationReference = C4374A9FBD05FBB5501BF1E9 /* Pods-MyFMSApp-tvOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1814,9 +1811,7 @@
 				);
 				INFOPLIST_FILE = "MyFMSApp-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1832,7 +1827,7 @@
 		};
 		2D02E4981E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7960DFB60597008D650D112D /* Pods-MyFMSApp-tvOS.release.xcconfig */;
+			baseConfigurationReference = A9AB13746C1F7A3B492D1DE1 /* Pods-MyFMSApp-tvOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1855,9 +1850,7 @@
 				);
 				INFOPLIST_FILE = "MyFMSApp-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1873,7 +1866,7 @@
 		};
 		2D02E4991E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7448F40575487064F8D5D1B1 /* Pods-MyFMSApp-tvOSTests.debug.xcconfig */;
+			baseConfigurationReference = 4764A1C04E2954CD7045F7E3 /* Pods-MyFMSApp-tvOSTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1895,9 +1888,7 @@
 				);
 				INFOPLIST_FILE = "MyFMSApp-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1913,7 +1904,7 @@
 		};
 		2D02E49A1E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DD3CB20DBBF4BFA73B385A27 /* Pods-MyFMSApp-tvOSTests.release.xcconfig */;
+			baseConfigurationReference = 407DE14A14E28A03F6B786F8 /* Pods-MyFMSApp-tvOSTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1935,9 +1926,7 @@
 				);
 				INFOPLIST_FILE = "MyFMSApp-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",

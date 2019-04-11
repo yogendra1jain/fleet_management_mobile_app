@@ -190,12 +190,13 @@ class GasFilUpHomeScreen extends React.Component {
             [name]: value,
         });
     }
+    //shadowColor: 'transparent', elevation: 0, shadowRadius: 0, shadowOffset: { height: 0, width: 0 }, shadowOpacity: 0 
 
     render() {
         const { strings } = this.props;
         return (
             <ContainerWithLoading style={theme.container} isLoading={this.props.isLoading || this.state.isLoading}>
-                <Header translucent={false} style={{ backgroundColor: '#003da5' }} androidStatusBarColor='#003da5' >
+                <Header translucent={false} style={{ backgroundColor: '#003da5', borderBottomWidth: 0}} androidStatusBarColor='#003da5' >
                     <Left style={{ flex: 1 }}>
                         <Button transparent onPress={() => this.props.navigation.goBack()}>
                             <Icon name='arrow-back' style={{ color: '#fff' }} />

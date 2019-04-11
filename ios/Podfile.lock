@@ -97,8 +97,6 @@ PODS:
     - React/Core
   - RNGestureHandler (1.0.15):
     - React
-  - RNPDF (0.8.1):
-    - React
   - yoga (0.55.4.React)
 
 DEPENDENCIES:
@@ -118,7 +116,6 @@ DEPENDENCIES:
   - React/RCTNetwork (from `../node_modules/react-native`)
   - rn-fetch-blob (from `../node_modules/rn-fetch-blob`)
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
-  - RNPDF (from `../node_modules/react-native-view-pdf`)
   - yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -157,8 +154,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/rn-fetch-blob"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
-  RNPDF:
-    :path: "../node_modules/react-native-view-pdf"
   yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -187,9 +182,8 @@ SPEC CHECKSUMS:
   react-native-pdf: de408b5d16850c38fdb017d010b8742883c60be9
   rn-fetch-blob: 76a8f798dae965bbcd146a2438f2e1d381c91ae3
   RNGestureHandler: afde2addc517e85cc97a25bfe119acbee779a7ce
-  RNPDF: f27f11d7dbbb49da65375c401eca73b7ef1d7b00
   yoga: a23273df0088bf7f2bb7e5d7b00044ea57a2a54a
 
-PODFILE CHECKSUM: a1a3ec5c7e3dcf29fad51e0854dc2fe19a7a9224
+PODFILE CHECKSUM: 6ae533d5c385701dac7d449ac36161cff8ad4e1e
 
 COCOAPODS: 1.5.3
