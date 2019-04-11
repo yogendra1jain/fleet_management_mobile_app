@@ -36,6 +36,7 @@ class GasFilUpHomeScreen extends React.Component {
         this.state = {
             imageSource: '',
             fileName: '',
+            link: '',
         };
     }
     static navigationOptions = {
@@ -250,7 +251,7 @@ class GasFilUpHomeScreen extends React.Component {
                     </View>
                 </Content>
                 <View style={{ backgroundColor: '#ededed' }}>
-                    <Button style={[theme.buttonNormal, { backgroundColor: '#003da5' }]} onPress={() => this.getCurrentLocation()} full>
+                    <Button style={[theme.buttonNormal, { backgroundColor: this.state.link == '' ? '#ddd': '#003da5' }]} onPress={() => this.state.link == '' ? {}: this.getCurrentLocation()} full>
                         <Text style={theme.butttonFixTxt}>{`${strings.saveButton}`}</Text>
                     </Button>
                 </View>

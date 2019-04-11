@@ -332,8 +332,8 @@ class ExpenseReportHomeScreen extends React.Component {
                         images
                     }
                 </Content>
-                <View style={{ backgroundColor: '#ffffff' }}>
-                    <Button style={[theme.buttonNormal, { backgroundColor: '#059312' }]} onPress={() => this.getCurrentLocation()} full>
+                <View style={{ backgroundColor: '#ededed' }}>
+                    <Button style={[theme.buttonNormal, { backgroundColor: _get(this.state, 'links.length', 0) == 0 ? '#ddd': '#059312' }]} onPress={() => _get(this.state, 'links.length', 0) == 0 ? {}: this.getCurrentLocation()} full>
                         <Text style={theme.butttonFixTxt}>{`${strings.saveButton}`}</Text>
                     </Button>
                 </View>

@@ -224,8 +224,8 @@ class UpdateMileageHomeScreen extends React.Component {
                         </View>
                     </View>
                 </Content>
-                <View style={{ backgroundColor: '#ffffff' }}>
-                    <Button style={[theme.buttonNormal, { backgroundColor: '#bb29bb' }]} onPress={() => this.getCurrentLocation()} full>
+                <View style={{ backgroundColor: '#ededed' }}>
+                    <Button style={[theme.buttonNormal, { backgroundColor: this.state.link == ''? '#ddd': '#bb29bb' }]} onPress={() => this.state.link == ''? {}: this.getCurrentLocation()} full>
                         <Text style={theme.butttonFixTxt}>{`${strings.saveButton}`}</Text>
                     </Button>
                 </View>
