@@ -232,7 +232,7 @@ class HomeContentScreen extends React.Component {
         }
         return (
             <ContainerWithLoading isLoading={this.props.isLoading || this.state.isLoading}>
-               <Header style={{ backgroundColor: '#00A9E0' }} androidStatusBarColor="#00A9E0">
+               <Header style={{ backgroundColor: '#00A9E0', borderBottomWidth: 0 }} androidStatusBarColor="#00A9E0">
                 <Left style={{ flex: 1 }}>
                     <Icon name="ios-menu" style={{color: 'white'}} type="Ionicons"/>
                     </Left>

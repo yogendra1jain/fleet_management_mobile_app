@@ -66,7 +66,7 @@ class ServiceTicketHomeScreen extends React.Component {
     render() {
         return (
             <ContainerWithLoading style={theme.container} isLoading={this.props.isLoading}>
-                <Header translucent={false} style={{backgroundColor: '#ff585d'}} androidStatusBarColor='#ff585d'>
+                <Header translucent={false} style={{backgroundColor: '#ff585d', borderBottomWidth: 0 }} androidStatusBarColor='#ff585d'>
                     <Left style={{ flex: 1 }}>
                         <Button transparent onPress={() => this.props.navigation.navigate('Home')}>
                             <Icon name='arrow-back' style={{ color: '#fff' }} />

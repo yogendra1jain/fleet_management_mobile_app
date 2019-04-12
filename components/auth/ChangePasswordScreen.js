@@ -138,7 +138,7 @@ class ChangePasswordScreen extends React.Component {
 
         return (
             <ContainerWithLoading style={theme.container} isLoading={this.props.isLoading}>
-                <Header translucent={false} style={{ backgroundColor: '#00A9E0' }} androidStatusBarColor="#00A9E0" iosBarStyle="light-content">
+                <Header translucent={false} style={{ backgroundColor: '#00A9E0', borderBottomWidth: 0 }} androidStatusBarColor="#00A9E0" iosBarStyle="light-content">
                     <Left style={{ flex: 1 }}>
                         <Button transparent onPress={() => this.props.navigation.goBack()}>
                             <Icon name='arrow-back' style={{ color: '#fff' }} />

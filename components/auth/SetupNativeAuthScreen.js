@@ -97,7 +97,7 @@ class SetupNativeAuthScreen extends React.Component {
     render() {
         return (
             <Container>
-              <Header translucent={false} style={{ backgroundColor: '#00A9E0' }} androidStatusBarColor="#00A9E0" iosBarStyle="light-content">
+              <Header translucent={false} style={{ backgroundColor: '#00A9E0', borderBottomWidth: 0 }} androidStatusBarColor="#00A9E0" iosBarStyle="light-content">
                     <Left >
                         <Button transparent onPress={() => this.props.navigation.goBack()}>
                             <Icon name='arrow-back' style={{ color: '#fff' }} />

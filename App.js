@@ -118,7 +118,7 @@ class App extends React.Component {
   updateView = () => {
     return (
       <Container >
-        <Header translucent={false} style={{ backgroundColor: '#4d47cd' }} androidStatusBarColor="#0e0a65" iosBarStyle="light-content">
+        <Header translucent={false} style={{ backgroundColor: '#4d47cd', borderBottomWidth: 0 }} androidStatusBarColor="#0e0a65" iosBarStyle="light-content">
           <Left >
             <Image source={logoimg} style={{ width: 40, height: 40 }} />
           </Left>

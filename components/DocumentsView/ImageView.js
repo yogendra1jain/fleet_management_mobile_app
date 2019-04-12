@@ -19,7 +19,7 @@ export default class ImageViewScreen extends React.Component {
         // const source = { uri: this.uri, cache: true};
         return (
             <Container style={theme.container} isLoading={this.props.isLoading}>
-                <Header style={{ backgroundColor: '#00A9E0' }} androidStatusBarColor='#00A9E0'>
+                <Header style={{ backgroundColor: '#00A9E0', borderBottomWidth: 0 }} androidStatusBarColor='#00A9E0'>
                     <Left style={{ flex: 1 }}>
                         <Button transparent onPress={() => this.props.navigation.goBack()}>
                             <Icon name='arrow-back' style={{ color: '#fff' }} />

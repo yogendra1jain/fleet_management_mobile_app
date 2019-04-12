@@ -57,7 +57,7 @@ class ContactPersonHomeScreen extends React.Component {
     render() {
         return (
             <ContainerWithLoading style={theme.container} isLoading={this.props.isLoading}>
-                <Header style={{backgroundColor: '#ffb81c'}} androidStatusBarColor="#ffb81c">
+                <Header style={{ backgroundColor: '#ffb81c', borderBottomWidth: 0 }} androidStatusBarColor="#ffb81c">
                     <Left style={{ flex: 1 }}>
                         <Button transparent onPress={() => this.props.navigation.navigate('Home')}>
                             <Icon name='arrow-back' style={{ color: '#fff' }} />

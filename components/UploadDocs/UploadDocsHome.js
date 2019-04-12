@@ -48,7 +48,7 @@ class UploadDocsHomeScreen extends React.Component {
         const { strings } = this.props;
         return (
             <ContainerWithLoading isLoading={this.props.isLoading}>
-               <Header style={{ backgroundColor: '#00A9E0' }} androidStatusBarColor="#00A9E0">
+               <Header style={{ backgroundColor: '#00A9E0', borderBottomWidth: 0 }} androidStatusBarColor="#00A9E0">
                     <Left style={{ flex: 1 }}>
                         <Button transparent onPress={() => this.props.navigation.goBack()}>
                             <Icon name='arrow-back' style={{ color: '#fff' }} />
