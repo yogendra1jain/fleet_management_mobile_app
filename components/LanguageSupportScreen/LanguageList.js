@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { View } from 'react-native';
+import { View, RefreshControl } from 'react-native';
 import { Card, CheckBox } from 'react-native-elements';
 import _get from 'lodash/get';
 import _isEmpty from 'lodash/isEmpty';
@@ -33,7 +33,10 @@ class LanguageSelectionScreen extends React.Component {
         // this.props.setLanguage('en');
         // const { decodedToken } = this.props;
         this.loadLanguageInfo();
-        console.log('this.props in languae screen', this.props);
+        // console.log('this.props in languae screen', this.props);
+    }
+    _onRefresh = () => {
+        this.loadLanguageInfo();
     }
     loadLanguageInfo = () => {
         let url = `/LanguageBundle/Get`;
@@ -49,7 +52,7 @@ class LanguageSelectionScreen extends React.Component {
         let key = 'languageDetails';
         this.props.postData(url, data, constants, identifier, key)
             .then((data) => {
-                console.log('language data fetched successfully.');
+                console.log('language data fetched successfully.', data);
             }, (err) => {
                 console.log('error while fetching language data', err);
             });
@@ -77,8 +80,21 @@ class LanguageSelectionScreen extends React.Component {
     }
 
     render() {
-        const { appLanguage } = this.props;
-        const string = strings[appLanguage];
+        const { appLanguage, languageDetails } = this.props;
+        const { supportedLanguages, bundle } = languageDetails || [];
+        const string = bundle[appLanguage];
+        let languageList = [];
+        !_isEmpty(supportedLanguages) && supportedLanguages.map((language, i) => {
+            languageList.push(
+                <ListItem key={i} selected={appLanguage==language.value } onPress={() => this.handleItem(language.value)}>
+                    <Left>
+                        <Text style={{ fontFamily: 'Montserrat-Regular' }}>{`${language.value == 'en' ? string.englishTitle: string.spanishTitle}`}</Text>
+                    </Left>
+                    <Right>
+                    </Right>
+                </ListItem>
+            );
+        });
         return (
             <ContainerWithLoading isLoading={this.props.isLoading}>
                <Header style={{ backgroundColor: '#00A9E0', borderBottomWidth: 0 }} androidStatusBarColor='#00A9E0'>
@@ -96,24 +112,18 @@ class LanguageSelectionScreen extends React.Component {
                     <Right style={{ flex: 1 }}>
                     </Right>
                </Header>
-                <Content>
+                <Content
+                refreshControl={
+                    <RefreshControl
+                        refreshing={this.props.isLoading}
+                        onRefresh={this._onRefresh}
+                    />
+                }
+                >
                     <List>
-                        <ListItem selected={appLanguage=='en'} onPress={() => this.handleItem('en')}>
-                            <Left>
-                                <Text style={{ fontFamily: 'Montserrat-Regular' }}>{`${string.englishTitle}`}</Text>
-                            </Left>
-                            <Right>
-                                {/* <Icon name="arrow-forward" /> */}
-                            </Right>
-                        </ListItem>
-                        <ListItem selected={appLanguage=='spn'} onPress={() => this.handleItem('spn')}>
-                            <Left>
-                                <Text style={{ fontFamily: 'Montserrat-Regular' }}>{`${string.spanishTitle}`}</Text>
-                            </Left>
-                            <Right>
-                                {/* <Icon name="arrow-forward" /> */}
-                            </Right>
-                        </ListItem>
+                        {
+                            languageList
+                        }
                     </List>
                 </Content>
                 <View style={{ backgroundColor: '#ffffff' }}>
@@ -131,7 +141,8 @@ function mapStateToProps(state) {
     let { auth, commonReducer } = state;
     let { userDetails, languageDetails } = commonReducer || {};
     let { appLanguage } = commonReducer || 'en';
-    let { token, isLoading } = auth.userStatus;
+    let { token } = auth.userStatus;
+    let isLoading = commonReducer.isFetching || false;
     let { decodedToken, time, isCheckInAsset } = auth || {};
     return {
         auth,
