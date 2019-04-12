@@ -190,7 +190,13 @@ class GasFilUpHomeScreen extends React.Component {
             [name]: value,
         });
     }
-    //shadowColor: 'transparent', elevation: 0, shadowRadius: 0, shadowOffset: { height: 0, width: 0 }, shadowOpacity: 0 
+    handleDelete = (index) => {
+        this.setState({
+            link: '',
+            imageSource: '',
+        });
+    }
+    // shadowColor: 'transparent', elevation: 0, shadowRadius: 0, shadowOffset: { height: 0, width: 0 }, shadowOpacity: 0
 
     render() {
         const { strings } = this.props;
@@ -232,16 +238,20 @@ class GasFilUpHomeScreen extends React.Component {
                                 </View>
                             </TouchableHighlight>
                         </View>
-                        <View style={[{ flex: 1, flexDirection: 'row', margin: 20 }]}>
-                            <View style={{ justifyContent: 'flex-start', paddingRight: 5 }}>
-                                <Icon name='exclamation' style={{ color: '#f6a800' }} type="FontAwesome" />
+                        {
+                            this.state.imageSource == '' &&
+                            <View style={[{ flex: 1, flexDirection: 'row', margin: 20 }]}>
+                                <View style={{ justifyContent: 'flex-start', paddingRight: 5 }}>
+                                    <Icon name='exclamation' style={{ color: '#f6a800' }} type="FontAwesome" />
+                                </View>
+                                <View style={{ flex: 1, padding: 10, borderWidth: 1, borderColor: '#f6a800', flexWrap: 'wrap' }}>
+                                    <CustomText style={{ fontSize: 13 }}>
+                                        {`${strings.gasHelperText}`}
+                                    </CustomText>
+                                </View>
                             </View>
-                            <View style={{ flex: 1, padding: 10, borderWidth: 1, borderColor: '#f6a800', flexWrap: 'wrap' }}>
-                                <CustomText style={{ fontSize: 13 }}>
-                                    {`${strings.gasHelperText}`}
-                                </CustomText>
-                            </View>
-                        </View>
+                        }
+                        
                         <View style={{ flex: 1, marginLeft: 20, flexDirection: 'row' }}>
                             {
                                 this.state.imageSource !== '' &&
@@ -249,6 +259,13 @@ class GasFilUpHomeScreen extends React.Component {
                             }
                             <View style={{ margin: 10 }}>
                                 <CustomText style={{ flexWrap: 'wrap' }}>{this.state.fileName}</CustomText>
+                            </View>
+                            <View style={{ margin: 10 }}>
+                            {
+                                this.state.imageSource && this.state.imageSource != '' ?
+                                <Icon onPress={() => this.handleDelete()} name='delete' type="MaterialCommunityIcons" />
+                                :<Text></Text>
+                            }
                             </View>
                         </View>
                     </View>

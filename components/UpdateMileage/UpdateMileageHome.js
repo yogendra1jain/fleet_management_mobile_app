@@ -176,6 +176,13 @@ class UpdateMileageHomeScreen extends React.Component {
                 console.log('error while saving mileage', err);
             });
     }
+    handleDelete = (index) => {
+        this.setState({
+            link: '',
+            imageSource: '',
+        });
+    }
+
     render() {
         const { strings } = this.props;
         return (
@@ -215,15 +222,20 @@ class UpdateMileageHomeScreen extends React.Component {
                             </View>
                         </TouchableHighlight>
                     </View>
-                    <View style={{ flex: 1, marginLeft: 20, flexDirection: 'row' }}>
-                        {
-                            this.state.imageSource && this.state.imageSource != '' &&
-                            <Image source={{ uri: this.state.imageSource }} style={{ width: 100, height: 100 }} />
-                        }
-                        <View style={{ margin: 10 }}>
-                            <CustomText style={{ flexWrap: 'wrap' }}>{this.state.fileName}</CustomText>
+                    {
+                        this.state.imageSource && this.state.imageSource != '' ?
+                            <View style={{ flex: 1, marginLeft: 20, flexDirection: 'row' }}>
+                                <Image source={{ uri: this.state.imageSource }} style={{ width: 100, height: 100 }} />
+                            <View style={{ margin: 10 }}>
+                                <CustomText style={{ flexWrap: 'wrap' }}>{this.state.fileName}</CustomText>
+                            </View>
+                            <View style={{ margin: 10 }}>
+                                <Icon onPress={() => this.handleDelete()} name='delete' type="MaterialCommunityIcons" />
+                            </View>
                         </View>
-                    </View>
+                        :
+                        <Text></Text>
+                    }
                 </Content>
                 <View style={{ backgroundColor: '#ededed' }}>
                     <Button style={[theme.buttonNormal, { backgroundColor: this.state.link == ''? '#ddd': '#bb29bb' }]} onPress={() => this.state.link == ''? {}: this.getCurrentLocation()} full>
