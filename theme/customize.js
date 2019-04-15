@@ -1,6 +1,6 @@
 import t from 'tcomb-form-native';
 import select from './customSelect';
-// import textbox from './customForm';
+import textbox from './customForm';
 import datepicker from './customDatePicker';
 // import i18n from 'tcomb-form-native/lib/i18n/en';
 // import templates from 'tcomb-form-native/lib/templates/bootstrap';
@@ -41,7 +41,7 @@ export default () => {
 
     const templates = t.form.Form.templates;
     templates.select = select;
-    // templates.textbox = textbox;
+    templates.textbox = textbox;
     templates.datepicker = datepicker;
     console.log('Templates. ', templates);
 };

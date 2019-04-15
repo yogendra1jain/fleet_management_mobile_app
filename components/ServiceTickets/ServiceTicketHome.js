@@ -13,6 +13,8 @@ import withLoadingScreen from '../withLoadingScreen';
 import withErrorBoundary from '../hocs/withErrorBoundary';
 import CustomSemiBoldText from '../stateless/CustomSemiBoldText';
 import CustomBoldText from '../stateless/CustomBoldText';
+import { NavigationEvents } from 'react-navigation';
+
 const ContainerWithLoading = withLoadingScreen(Container);
 
 const list = [
@@ -62,6 +64,11 @@ class ServiceTicketHomeScreen extends React.Component {
                 return;
         }
     }
+    goBack = () => {
+        setTimeout(() => {
+            this.props.navigation.navigate('Home');
+        }, 2000);
+    }
 
     render() {
         return (
@@ -81,6 +88,9 @@ class ServiceTicketHomeScreen extends React.Component {
                 <Content
                     style={{ backgroundColor: '#ededed' }}
                 >
+                <NavigationEvents
+                    onDidFocus={payload => this.goBack()}
+                />
                     <View style={{ flex: 1, flexDirection: 'column' }}>
                         <View style={[theme.centerAlign, { backgroundColor: '#ff585d', paddingBottom: 30 }]}>
                             <TouchableHighlight

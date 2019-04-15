@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { View, Text, TouchableOpacity, Image, RefreshControl, PermissionsAndroid, Platform } from 'react-native';
+import { View, Alert, TouchableOpacity, Image, RefreshControl, PermissionsAndroid, Platform } from 'react-native';
 import { Card, CheckBox } from 'react-native-elements';
 import CustomText from './stateless/CustomText';
 import CustomSemiBoldText from './stateless/CustomSemiBoldText';
@@ -151,7 +151,7 @@ class HomeContentScreen extends React.Component {
                 this.setState({
                     isLoading: false,
                 });
-                if (_isEmpty(_get(data, 'checkedInto', {}))) {
+                if (_isEmpty(_get(data, 'clockedInto', {}))) {
                     this.props.navigation.navigate('AssetCheckinScreen');
                 }
             }, (err) => {
@@ -164,11 +164,19 @@ class HomeContentScreen extends React.Component {
         });
         this.loadUserInfo();
     }
-    handleCheckInCheckOut = (checkIn) => {
+    handleCheckInCheckOut = (checkIn, strings) => {
         if (checkIn) {
             this.props.navigation.navigate('AssetCheckinScreen');
         } else {
-            this.getCurrentLocation();
+            Alert.alert(
+                `${strings.confirmTitle}`,
+                `${strings.clockOutMsg}`,
+                [
+                    { text: 'OK', onPress: () => this.getCurrentLocation() },
+                    { text: 'CANCEL', onPress: () => {} },
+                ],
+                { cancelable: false }
+            );
         }
     }
 
@@ -192,7 +200,7 @@ class HomeContentScreen extends React.Component {
           );
     }
     handleCheckIn = (index, asset) => {
-        let url = `/Assets/CheckOut`;
+        let url = `/Assets/ClockOut`;
         let constants = {
             init: 'CHECKIN_FOR_ASSET_INIT',
             success: 'CHECKIN_FOR_ASSET_SUCCESS',
@@ -200,7 +208,7 @@ class HomeContentScreen extends React.Component {
         };
         let data = {
             operatorId: _get(this.props, 'decodedToken.FleetUser.id', ''),
-            assetId: _get(this.props, 'userDetails.checkedInto.id', ''),
+            assetId: _get(this.props, 'userDetails.clockedInto.id', ''),
         };
         let identifier = 'CHECKIN_FOR_ASSET';
         let key = 'checkInForAsset';
@@ -252,30 +260,40 @@ class HomeContentScreen extends React.Component {
                     }
                     style={{ backgroundColor: '#eef0f0' }}>
                     <View style={{ flex: 1, margin: 8 }}>
-                        <TouchableOpacity activeOpacity={0.5} style={{ flex: 1 }}
-                            onPress={() => this.handleCheckInCheckOut(_isEmpty(_get(userDetails, 'checkedInto', {})))} >
-                            <Card wrapperStyle={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} containerStyle={{ flex: 1, borderRadius: 10, margin: 8 }}>
+                        {/* <TouchableOpacity activeOpacity={0.5} style={{ flex: 1 }}
+                             > */}
+                            <Card wrapperStyle={{ flex: 1 }} containerStyle={{ flex: 1, borderRadius: 10, margin: 8 }}>
                             {
-                                !_isEmpty(_get(userDetails, 'checkedInto', {})) &&
+                                !_isEmpty(_get(userDetails, 'clockedInto', {})) ?
                                 <View style={{ flex: 1, flexDirection: 'row' }}>
-                                    <View style={{ flex: 1, justifyContent: 'flex-start', flexDirection: 'row', alignItems: 'center' }}>
-                                        <CustomSemiBoldText style={{ fontWeight: 'normal' }}>{`${strings.checkedText}`}</CustomSemiBoldText>
+                                    <View style={{ flex: 1, justifyContent: 'flex-start', flexDirection: 'column', alignItems: 'flex-start' }}>
+                                        <CustomSemiBoldText style={{ fontWeight: 'normal' }}>{`${strings.clockedText}`}</CustomSemiBoldText>
+                                        <CustomBoldText style={{ textAlign: 'right', color: '#00A9E0', fontSize: 20 }}> {_get(userDetails, 'clockedInto.assetId', 'NA')}</CustomBoldText>
                                         {/* <Text ></Text> */}
                                     </View>
-                                    <View style={{ flex: 1, justifyContent: 'flex-end', flexDirection: 'row', alignItems: 'center' }}>
-                                        <CustomBoldText style={{ textAlign: 'right', color: '#00A9E0', fontSize: 18 }}> {_get(userDetails, 'checkedInto.assetId', 'NA')}</CustomBoldText>
+                                    <Button onPress={() => this.handleCheckInCheckOut(_isEmpty(_get(userDetails, 'clockedInto', {})), strings)} style={[theme.buttonAlignBottom, { marginLeft: 0, marginTop: 0 }]}>
+                                        <CustomBoldText style={theme.buttonSmallTxt}>{!_isEmpty(_get(userDetails, 'clockedInto', {})) ? `${strings.clockOut}`: `${strings.clockIn}`}</CustomBoldText>
+                                    </Button>
+                                </View>
+                                :
+                                <View style={{ flex: 1, flexDirection: 'row' }}>
+                                    <View style={{ flex: 1, justifyContent: 'flex-start', flexDirection: 'column', alignItems: 'flex-start' }}>
+                                        <CustomSemiBoldText style={{ fontWeight: 'normal' }}>{`${strings.clockedText}`}</CustomSemiBoldText>
+                                        <CustomBoldText style={{ textAlign: 'right', color: '#00A9E0', fontSize: 20 }}> {_get(userDetails, 'clockedInto.assetId', 'NA')}</CustomBoldText>
+                                        {/* <Text ></Text> */}
                                     </View>
+                                    <Button onPress={() => this.handleCheckInCheckOut(_isEmpty(_get(userDetails, 'clockedInto', {})), strings)} style={[theme.buttonAlignBottom, { marginLeft: 0, marginTop: 0 }]}>
+                                        <CustomBoldText style={theme.buttonSmallTxt}>{!_isEmpty(_get(userDetails, 'clockedInto', {})) ? `${strings.clockOut}`: `${strings.clockIn}`}</CustomBoldText>
+                                    </Button>
                                 </View>
                             }
                                 {/* <Image source={tasksImg} style={{ width: 110, height: 109 }} /> */}
-                                <Button onPress={() => this.handleCheckInCheckOut(_isEmpty(_get(userDetails, 'checkedInto', {})))} style={[theme.buttonAlignBottom, { marginLeft: 0 }]} full>
-                                    <CustomBoldText style={theme.buttonSmallTxt}>{!_isEmpty(_get(userDetails, 'checkedInto', {})) ? `${strings.checkOut}`: `${strings.checkIn}`}</CustomBoldText>
-                                </Button>
+                                
                             </Card>
-                        </TouchableOpacity>
+                        {/* </TouchableOpacity> */}
                     </View>
                     {
-                        !_isEmpty(_get(userDetails, 'checkedInto', {})) &&
+                        !_isEmpty(_get(userDetails, 'clockedInto', {})) &&
                         <React.Fragment>
                             <View style={{ flexDirection: 'row', margin: 8 }}>
                                 <TouchableOpacity activeOpacity={0.5} style={{ flex: 1 }}

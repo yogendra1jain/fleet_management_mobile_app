@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
 import { connect } from 'react-redux';
 import _isArray from 'lodash/isArray';
 import _isEmpty from 'lodash/isEmpty';
@@ -104,7 +104,7 @@ class AssetCheckinScreen extends React.Component {
             });
     }
     handleCheckIn = (index, asset, isCheckin) => {
-        let url = `/Assets/CheckIn`;
+        let url = `/Assets/ClockIn`;
         this.props.setCheckInAsset(false);
         // if (!isCheckin) {
         //     url = `/Assets/CheckOut`;
@@ -198,13 +198,16 @@ class AssetCheckinScreen extends React.Component {
                         </Button>
                     </Left>
                     <Body>
-                        <Title style={{ color: '#fff', fontFamily: 'Montserrat-Bold' }} >{`${strings.checkIn}`}</Title>
+                        <Title style={{ color: '#fff', fontFamily: 'Montserrat-Bold' }} >{`${strings.clockIn}`}</Title>
                     </Body>
                     <Right>
                     </Right>
                 </Header>
                 <Content style={{ backgroundColor: '#ededed' }}>
-                    <View style={[]} >
+                    <View style={[{ marginTop: 10 }]} >
+                         <View style={[theme.headingstyleMP, { margin: 15, marginBottom: 0 }]}>
+                            <Text style={theme.screenHeadingtxtMP}>Clock In to Asset</Text>
+                        </View>
                         {this.renderContent(strings)}
                     </View>
                 </Content>

@@ -27,7 +27,7 @@ function AssetView(props) {
                     </View>
                 </View>
                 {
-                    selectedIndex === index &&
+                    // selectedIndex === index &&
                     <React.Fragment>
                         <View style={{ flex: 1, flexDirection: 'row', borderTopColor: '#ddd', borderTopWidth: 1, paddingTop: 10, marginTop: 10 }}>
                             <View style={{ flex: 1, justifyContent: 'flex-start', flexDirection: 'row', alignItems: 'center' }}>
@@ -74,14 +74,14 @@ function AssetView(props) {
                             <View style={{ flex: 1, flexDirection: 'row', paddingBottom: 10 }}>
                                 <View style={{ flex: 1, justifyContent: 'flex-end', flexDirection: 'row', alignItems: 'center' }}>
                                     <Button onPress={() => props.handleCheckIn(index, asset, true)} style={[theme.buttonAlignBottom, { marginLeft: 0 }]} full>
-                                        <Text style={theme.buttonSmallTxt}>{`${strings.checkIn}`}</Text>
+                                        <Text style={theme.buttonSmallTxt}>{`${strings.confirmText}`}</Text>
                                     </Button>
                                 </View>
                             </View>:
                             <View style={{ flex: 1, flexDirection: 'row', paddingBottom: 10 }}>
                                 <View style={{ flex: 1, justifyContent: 'flex-end', flexDirection: 'row', alignItems: 'center' }}>
                                     <Button onPress={() => props.handleCheckOut(index, asset, false)} style={[theme.buttonAlignBottom, { marginLeft: 0 }]} full>
-                                        <Text style={theme.buttonSmallTxt}>{`${strings.checkOut}`}</Text>
+                                        <Text style={theme.buttonSmallTxt}>{`${strings.clockOut}`}</Text>
                                     </Button>
                                 </View>
                             </View>

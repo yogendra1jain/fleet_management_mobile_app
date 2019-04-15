@@ -247,8 +247,9 @@ export class GetTabBarLabel extends React.PureComponent {
   render() {
     const { navigation, focused, appLanguage } = this.props;
     const { routeName } = navigation.state;
+    const { bundle } = strings || {};
     // console.log('app language', appLanguage);
-    const string = strings[appLanguage];
+    const string = bundle[appLanguage];
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', opacity: focused ? 1 : 0.3 }}>
       <Text style={{ fontSize: 10, color: 'black', fontFamily: 'Montserrat-SemiBold' }}>{`${string[routeName]}`}</Text>
@@ -321,7 +322,7 @@ const TabStack = createBottomTabNavigator(
           style: {
             paddingTop: 8,
             paddingBottom: 0,
-            height: 60,
+            height: 62,
             backgroundColor: '#fff',
           },
           labelStyle: {

@@ -21,6 +21,7 @@ import { Container, Content, Button, Header, Body, Left, Icon } from 'native-bas
 import withLoadingScreen from '../withLoadingScreen';
 import SplashScreen from 'react-native-splash-screen';
 import withLocalization from '../hocs/withLocalization';
+import CustomText from '../stateless/CustomText';
 
 
 const Form = t.form.Form;
@@ -109,6 +110,12 @@ class UsernameScreen extends React.Component {
         this.props.clearNewDoctorData('newDoctor');
         this.props.navigation.navigate('SignupScreen');
     }
+    handlePasswordVisiblity = () => {
+        console.log('came in handle password.==============>');
+        this.setState({
+            showPassword: !this.state.showPassword,
+        });
+    }
     render() {
         const { error, strings, appLanguage } = this.props;
         const options = {
@@ -118,14 +125,21 @@ class UsernameScreen extends React.Component {
                     // autoFocus: true,
                     label: `${strings.emailLabel}`,
                     stylesheet: this.stylesheet,
+                    config: {
+                        strings: strings,
+                    },
                     onSubmitEditing: () => this.refs.form.getComponent('password').refs.input.focus(),
                 },
                 password: {
-                    secureTextEntry: true,
+                    secureTextEntry: !this.state.showPassword,
                     // placeholder: 'Enter Password',
                     returnKeyType: 'done',
                     label: `${strings.passwordLabel}`,
                     stylesheet: this.stylesheet,
+                    config: {
+                        handlePasswordVisiblity: () => this.handlePasswordVisiblity(),
+                        strings: strings,
+                    },
                     onSubmitEditing: () => this.onPress(),
                 },
             },
@@ -165,6 +179,9 @@ class UsernameScreen extends React.Component {
                                 <Button style={[theme.buttonLogin, { backgroundColor: '#00A9E0' }]} onPress={() => this.onPress()} full>
                                     <Text style={[theme.butttonFixTxt]}>{`${strings.loginLabel}`}</Text>
                                 </Button>
+                            </View>
+                            <View style={[theme.mart10, { justifyContent: 'center', alignItems: 'center' }]}>
+                                <CustomText style={{ fontSize: 10 }}>{`${strings.customerSupport}`}</CustomText>
                             </View>
                         </View>
                     </Content>

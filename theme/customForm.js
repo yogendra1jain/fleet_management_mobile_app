@@ -1,13 +1,19 @@
 import React from 'react';
 import { View, Text, TextInput } from 'react-native';
+import _get from 'lodash/get';
 import Entypo from 'react-native-vector-icons/dist/Entypo';
 
 import Zocial from 'react-native-vector-icons/dist/Zocial';
+import { Icon } from 'react-native-elements';
 
 function textbox(locals) {
   if (locals.hidden) {
     return null;
   }
+  // const handlePasswordVisiblity = (locals, isVisible) => {
+  //   locals.secureTextEntry = !isVisible;
+  //   return locals;
+  // }
 
   let stylesheet = locals.stylesheet;
   let formGroupStyle = stylesheet.formGroup.normal;
@@ -42,18 +48,19 @@ function textbox(locals) {
         {locals.error}
       </Text>
     ) : null;
+    console.log('locals in theme', locals);
 
   return (
-    <View style={formGroupStyle}>
+    <View style={[formGroupStyle, { marginBottom: 15 }]}>
       {label}
       <View style={[textboxViewStyle, { flexDirection: 'row' }]}>
         {
-          locals.label == 'UserName' &&
+          locals.label == 'Email' &&
           <Zocial name="email"
           size={22} color="black" />
         }
         {
-          locals.label == 'Password' &&
+          locals.label == _get(locals, 'config.strings.passwordLabel', '') &&
           <Entypo name="lock"
           size={22} color="black" />
         }
@@ -91,9 +98,22 @@ function textbox(locals) {
           onChangeText={value => locals.onChange(value)}
           onChange={locals.onChangeNative}
           placeholder={locals.placeholder}
-          style={textboxStyle}
+          style={[textboxStyle, { flex: 1 }]}
           value={locals.value}
         />
+         {
+          locals.label == _get(locals, 'config.strings.passwordLabel', '') &&
+          <Icon
+            name={locals.secureTextEntry? 'eye': 'eye-with-line'}
+            size={22}
+            onPress={locals.config.handlePasswordVisiblity}
+            iconStyle={{ alignItems: 'flex-end' }}
+            containerStyle={{ alignItems: 'flex-end' }}
+            type="entypo"
+          />
+          // <Entypo name="eye"
+          //   size={22} color="black" />
+         }
       </View>
       {help}
       {error}

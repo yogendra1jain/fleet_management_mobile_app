@@ -17,6 +17,8 @@ import TaskView from '../stateless/TaskView';
 import withErrorBoundary from '../hocs/withErrorBoundary';
 import { mapDateToDay } from '../../utils/index';
 import CustomBoldText from '../stateless/CustomBoldText';
+import { NavigationEvents } from 'react-navigation';
+
 const ContainerWithLoading = withLoadingScreen(Container);
 
 const TaskDummyData = [
@@ -63,12 +65,18 @@ class TaskListScreen extends React.Component {
         header: null,
     };
 
-    componentWillUnmount() {
+    componentWillMount() {
+        console.log('came in will mount of task list');
     }
     componentDidMount() {
         let data = {};
         data.id = _get(this.props, 'decodedToken.Vendor.id', '');
         // this.props.fetchOrderList(true, data);
+    }
+    goBack = () => {
+        setTimeout(() => {
+            this.props.navigation.navigate('Home');
+        }, 2000);
     }
     orderClicked = (order, role) => {
         this.props.navigation.navigate('LocationA', { order: order });
@@ -125,6 +133,9 @@ class TaskListScreen extends React.Component {
                     }
                     style={{ backgroundColor: '#ededed' }}
                 >
+                <NavigationEvents
+                    onDidFocus={payload => this.goBack()}
+                />
                     <View style={[theme.centerAlign, { backgroundColor: '#47d7ac', paddingBottom: 30 }]}>
                         <TouchableHighlight
                             style={[]}

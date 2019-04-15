@@ -11,6 +11,8 @@ import { Text, Container, Content, Header, Button, Title, Body, Left, Right, Ico
 import withLoadingScreen from '../withLoadingScreen';
 import withErrorBoundary from '../hocs/withErrorBoundary';
 import CustomBoldText from '../stateless/CustomBoldText';
+import { NavigationEvents } from 'react-navigation';
+
 const ContainerWithLoading = withLoadingScreen(Container);
 
 const list = [
@@ -53,6 +55,12 @@ class ContactPersonHomeScreen extends React.Component {
                 return;
         }
     }
+    goBack = () => {
+        setTimeout(() => {
+            this.props.navigation.navigate('Home');
+        }, 2000);
+    }
+
 
     render() {
         return (
@@ -72,6 +80,9 @@ class ContactPersonHomeScreen extends React.Component {
                 <Content
                     style={{ backgroundColor: '#ededed' }}
                 >
+                <NavigationEvents
+                    onDidFocus={payload => this.goBack()}
+                />
                     <View style={{ flex: 1, flexDirection: 'column' }}>
                         <View style={[theme.centerAlign, { backgroundColor: '#ffb81c', paddingBottom: 30 }]}>
                             <TouchableHighlight
