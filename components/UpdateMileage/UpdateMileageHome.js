@@ -144,7 +144,7 @@ class UpdateMileageHomeScreen extends React.Component {
         } else {
             let data = {};
             data = {
-                assetId: _get(this.props, 'userDetails.checkedInto.id', ''),
+                assetId: _get(this.props, 'userDetails.clockedInto.id', ''),
                 userId: _get(this.props, 'userDetails.user.id', ''),
                 documentType: 5,
                 status: 1,

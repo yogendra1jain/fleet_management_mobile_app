@@ -88,7 +88,7 @@ class AssetCheckinScreen extends React.Component {
         };
         let data = {
             operatorId: _get(this.props, 'decodedToken.FleetUser.id', ''),
-            assetId: _get(this.props, 'userDetails.checkedInto.id', ''),
+            assetId: _get(this.props, 'userDetails.clockedInto.id', ''),
         };
         let identifier = 'CHECKIN_FOR_ASSET';
         let key = 'checkInForAsset';

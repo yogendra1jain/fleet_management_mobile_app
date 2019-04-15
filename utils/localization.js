@@ -28,7 +28,8 @@ let strings = ({
     "volumeLabel": "Volume",
     "amountLabel": "Amount",
     "goToCamera": "Go To Camera",
-    "gasHelperText": "Take a picture of the fuel Pump Display after completing fill up. The display Should show gallons and sales amount. Make sure that there is no sun glare or reflection off the display when taking the photo.",
+    "gasHelperText": "Take a picture of your gas fill up receipt. Make sure it is clear and not blurry.",
+    
     "invalidDocType": "INVALID DOCUMENT TYPE",
     "titleDoc": "TITLE DOCUMENT",
     "insuranceDoc": "INSURANCE DOCUMENT",
@@ -102,7 +103,7 @@ let strings = ({
     "volumeLabel": "Volumen",
     "amountLabel": "Cantidad",
     "goToCamera": "Ir a la camara",
-    "gasHelperText": "Tome una fotografía de la pantalla de la bomba de combustible después de completar el llenado. La pantalla debe mostrar galones y cantidad de ventas. Al tomar la foto, asegúrese de que no haya reflejos ni reflejos en la pantalla.",
+    "gasHelperText": "Tome una foto de su recibo de llenado de gas. Asegúrate de que esté claro y no borroso.",
     "invalidDocType": "TIPO DE DOCUMENTO NO VÁLIDO",
     "titleDoc": "TITLE DOCUMENT",
     "insuranceDoc": "DOCUMENTO DE TITULOS",

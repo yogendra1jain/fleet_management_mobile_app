@@ -121,11 +121,11 @@ class GasFilUpHomeScreen extends React.Component {
         let key = 'uploadedDocuments';
         this.props.postData(url, formData, constants, identifier, key)
             .then((data) => {
-                console.log('documents uploaded successfully.', data);
+                // console.log('documents uploaded successfully.', data);
                 this.setState({
                     link: data.url,
                 });
-                showToast('success', `${this.props.strings.uploadSuccessMsg}`, 3000);
+                // showToast('success', `${this.props.strings.uploadSuccessMsg}`, 3000);
             }, (err) => {
                 console.log('error while uploading documents', err);
             });
@@ -153,7 +153,7 @@ class GasFilUpHomeScreen extends React.Component {
             showAlert('Warning', 'Please select file to proceed.');
         } else {
             let data = {
-                assetId: _get(this.props, 'userDetails.checkedInto.id', ''),
+                assetId: _get(this.props, 'userDetails.clockedInto.id', ''),
                 userId: _get(this.props, 'userDetails.user.id', ''),
                 documentType: 6,
                 status: 1,

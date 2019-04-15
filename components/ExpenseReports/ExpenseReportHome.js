@@ -123,7 +123,7 @@ class ExpenseReportHomeScreen extends React.Component {
             error: 'UPLOAD_DOCUMENTS_ERROR',
         };
         // let data = {
-        //     id: _get(this.props, 'userDetails.checkedInto.id', ''),
+        //     id: _get(this.props, 'userDetails.clockedInto.id', ''),
         // };
         let identifier = 'UPLOAD_DOCUMENTS';
         let key = 'uploadedDocuments';
@@ -188,7 +188,7 @@ class ExpenseReportHomeScreen extends React.Component {
         } else {
             let data = {};
             data = {
-                assetId: _get(this.props, 'userDetails.checkedInto.id', ''),
+                assetId: _get(this.props, 'userDetails.clockedInto.id', ''),
                 userId: _get(this.props, 'userDetails.user.id', ''),
                 documentType: 7,
                 amount: Number(value.expense),

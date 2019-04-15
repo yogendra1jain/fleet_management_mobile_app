@@ -109,7 +109,7 @@ class DocumentsHomeScreen extends React.Component {
             error: 'GET_ASSET_DOCUMENTS_ERROR',
         };
         let data = {
-            id: _get(this.props, 'userDetails.checkedInto.id', ''),
+            id: _get(this.props, 'userDetails.clockedInto.id', ''),
         };
         let identifier = 'GET_ASSET_DOCUMENTS';
         let key = 'assetDocuments';
@@ -195,7 +195,7 @@ class DocumentsHomeScreen extends React.Component {
             error: 'UPLOAD_DOCUMENTS_ERROR',
         };
         let data = {
-            id: _get(this.props, 'userDetails.checkedInto.id', ''),
+            id: _get(this.props, 'userDetails.clockedInto.id', ''),
         };
         let identifier = 'UPLOAD_DOCUMENTS';
         let key = 'uploadedDocuments';

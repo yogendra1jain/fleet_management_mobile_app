@@ -33,7 +33,7 @@ class Logout extends React.Component {
             });
     }
     handleCheckOut = () => {
-        if (_get(this.props, 'userDetails.checkedInto.id', '') == '') {
+        if (_get(this.props, 'userDetails.clockedInto.id', '') == '') {
             this.handleLogout();
             return;
         } else {
@@ -45,7 +45,7 @@ class Logout extends React.Component {
             };
             let data = {
                 operatorId: _get(this.props, 'decodedToken.FleetUser.id', ''),
-                assetId: _get(this.props, 'userDetails.checkedInto.id', ''),
+                assetId: _get(this.props, 'userDetails.clockedInto.id', ''),
             };
             let identifier = 'CHECKIN_FOR_ASSET';
             let key = 'checkInForAsset';
