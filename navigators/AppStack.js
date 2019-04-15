@@ -44,6 +44,7 @@ import ImageViewScreen from '../components/DocumentsView/ImageView';
 import ExpenseReportHomeScreen from '../components/ExpenseReports/ExpenseReportHome';
 import UploadDocsHomeScreen from '../components/UploadDocs/UploadDocsHome';
 import AnimatedMarkers from '../components/MapView/LiveLocationTracking';
+import ExpenseReportInputScreen from '../components/ExpenseReports/ExpenseReportInput';
 
 const AppStack = createStackNavigator(
     {
@@ -73,6 +74,7 @@ const AppStack = createStackNavigator(
         ExpenseReportHomeScreen: ExpenseReportHomeScreen,
         UploadDocsHomeScreen: UploadDocsHomeScreen,
         AnimatedMarkers: AnimatedMarkers,
+        ExpenseReportInput: ExpenseReportInputScreen,
     }, {
         initialRouteName: 'Home',
         navigationOptions: {

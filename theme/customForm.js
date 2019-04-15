@@ -48,7 +48,6 @@ function textbox(locals) {
         {locals.error}
       </Text>
     ) : null;
-    console.log('locals in theme', locals);
 
   return (
     <View style={[formGroupStyle, { marginBottom: 15 }]}>

@@ -56,7 +56,7 @@ let strings = ({
     "confirmPasswordLabel": "Confirm Password",
     "passwordErrorText": "Invalid Password. Atleast 4 digits.",
     "confirmPasswordErrorText": "Confirm password should match with new password.",
-    "expenseReportTitle": "Expense Report",
+    "expenseReportTitle": "Upload Invoice",
     "expenseLabel": "Expense Amount",
     "expenseErrorText": "Amount should be greater than 0",
     "confirmExpenseLabel": "Confirm Expense Amount",
@@ -78,6 +78,9 @@ let strings = ({
     "clockOutMsg": "Are you sure you want to clock out?",
     "confirmText": "Confirm",
     "clockInHelperText": "This will start your daily time sheet. Clock in only when ready.",
+    "nextText": "NEXT",
+    "expenseHelperText": "Take a picture of the full document – one photo for every page – and upload. Make sure each image is clear and not blurry.",
+    "expenseAmountHelperText": "Input total amount of invoice and confirm. Enter amount as xx.xx – no $ sign or text required.",
   },
   "spn": {
     "clockIn": "Reloj en",
@@ -130,7 +133,7 @@ let strings = ({
     "confirmPasswordLabel": "Confirmar contraseña",
     "passwordErrorText": "Contraseña invalida. Al menos 4 dígitos.",
     "confirmPasswordErrorText": "Confirmar contraseña debe coincidir con la nueva contraseña.",
-    "expenseReportTitle": "Informe de gastos",
+    "expenseReportTitle": "Cargar factura",
     "expenseLabel": "Cantidad de gastos",
     "expenseErrorText": "La cantidad debe ser mayor que 0",
     "confirmExpenseLabel": "Confirmar la cantidad de gastos",
@@ -152,6 +155,9 @@ let strings = ({
     "confirmText": "Confirmar",
     "clockInHelperText": "Esto comenzará su hoja de horas diaria. Registre solo cuando esté listo.",
     "mileageHelperText": "Tome una fotografía de su odómetro. Asegúrese de que esté claro y no borroso.",
+    "nextText": "SIGUIENTE",
+    "expenseHelperText": "Tome una fotografía del documento completo (una foto para cada página) y cárguela. Asegúrese de que cada imagen sea clara y no borrosa.",
+    "expenseAmountHelperText": "Ingrese el importe total de la factura y confirme. Ingrese la cantidad como xx.xx - no se requiere $ signo o texto.",
   }
 }
 }

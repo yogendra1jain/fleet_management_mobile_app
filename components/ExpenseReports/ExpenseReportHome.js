@@ -20,6 +20,7 @@ import withLocalization from '../hocs/withLocalization';
 import { uploadDoc } from '../../actions/signup';
 import { postData } from '../../actions/commonAction';
 import ImageResizer from 'react-native-image-resizer';
+import CustomText from '../stateless/CustomText';
 
 
 const Form = t.form.Form;
@@ -122,9 +123,6 @@ class ExpenseReportHomeScreen extends React.Component {
             success: 'UPLOAD_DOCUMENTS_SUCCESS',
             error: 'UPLOAD_DOCUMENTS_ERROR',
         };
-        // let data = {
-        //     id: _get(this.props, 'userDetails.clockedInto.id', ''),
-        // };
         let identifier = 'UPLOAD_DOCUMENTS';
         let key = 'uploadedDocuments';
         this.props.postData(url, formData, constants, identifier, key)
@@ -143,7 +141,7 @@ class ExpenseReportHomeScreen extends React.Component {
                     links,
                     uploadedLinks,
                 });
-                showToast('success', `${this.props.strings.uploadSuccessMsg}`, 3000);
+                // showToast('success', `${this.props.strings.uploadSuccessMsg}`, 3000);
             }, (err) => {
                 console.log('error while uploading documents', err);
             });
@@ -155,107 +153,13 @@ class ExpenseReportHomeScreen extends React.Component {
             links,
         });
     }
-    setMileage = (value) => {
-        this.setState({
-            expense: value,
-        });
-    }
-    getCurrentLocation = () => {
-        this.setState({
-            isLoading: true,
-        });
-        navigator.geolocation.getCurrentPosition(
-            (position) => {
-                this.setState({
-                    latitude: position.coords.latitude,
-                    longitude: position.coords.longitude,
-                    error: null,
-                    isLoading: false,
-                });
-                this.onSave();
-            },
-            error => this.setState({ error: error.message }),
-            { enableHighAccuracy: false, timeout: 200000, maximumAge: 1000 },
-          );
-    }
-    onSave = () => {
-        Keyboard.dismiss();
-        const value = this.refs.form.getValue();
-        if (this.state.links.length==0) {
-            showAlert('Warning', 'Please select document to proceed.');
-        } else if (!value) {
-            this.refs.form.getComponent('expense').refs.input.focus();
-        } else {
-            let data = {};
-            data = {
-                assetId: _get(this.props, 'userDetails.clockedInto.id', ''),
-                userId: _get(this.props, 'userDetails.user.id', ''),
-                documentType: 7,
-                amount: Number(value.expense),
-                // {
-                //     amount: Number(value.expense),
-                //     currency: _get(this.props, 'decodedToken.Client.defaultSettings.currency', ''),
-                // },
-                // status: 1,
-                links: this.state.uploadedLinks,
-                coordinate: {
-                    latitude: this.state.latitude,
-                    longitude: this.state.longitude,
-                },
-            };
-            this.saveMileageData(data);
-        }
-    }
-    onChange = (value) => {
-        this.setState({ value });
-        if (value.confirmExpense != null && value.confirmExpense != '') {
-            this.validate = this.refs.form.getValue();
-        }
+    handleNextPage = () => {
+        this.props.navigation.navigate('ExpenseReportInput', { links: this.state.uploadedLinks });
     }
 
-    saveMileageData = (data) => {
-        let url = `/Assets/UploadMandatoryDocument`;
-        let constants = {
-            init: 'SAVE_MILEAGE_DATA_INIT',
-            success: 'SAVE_MILEAGE_DATA_SUCCESS',
-            error: 'SAVE_MILEAGE_DATA_ERROR',
-        };
-        let identifier = 'SAVE_MILEAGE_DATA';
-        let key = 'savedMileageData';
-        this.props.postData(url, data, constants, identifier, key)
-            .then((data) => {
-                console.log('mileage saved successfully.', data);
-                showToast('success', `${this.props.strings.saveSuccessMsg}`, 3000);
-                this.props.navigation.navigate('Home');
-            }, (err) => {
-                console.log('error while saving mileage', err);
-            });
-    }
+
     render() {
         const { strings } = this.props;
-        const options = {
-            fields: {
-                expense: {
-                    keyboardType: 'numeric',
-                    autoFocus: false,
-                    returnKeyType: 'done',
-                    secureTextEntry: false,
-                    label: `${strings.expenseLabel}`,
-                    error: `${strings.expenseErrorText}`,
-                    onSubmitEditing: () => this.refs.form.getComponent('confirmExpense').refs.input.focus(),
-                },
-                confirmExpense: {
-                    keyboardType: 'numeric',
-                    autoFocus: false,
-                    secureTextEntry: false,
-                    returnKeyType: 'done',
-                    label: `${strings.confirmExpenseLabel}`,
-                    error: `${strings.confExpenseErrorText}`,
-                    onSubmitEditing: () => this.onSave(),
-                },
-            },
-
-        };
         let images = [];
         !_isEmpty(_get(this.state, 'links', [])) && _get(this.state, 'links', []).map((link, index) => {
             images.push(
@@ -315,26 +219,29 @@ class ExpenseReportHomeScreen extends React.Component {
                                 </View>
                             </View>
                         </TouchableHighlight>
-                        <View style={{ flex: 1, paddingTop: 15 }}>
-                        <View style={[theme.marL15, theme.marR15, theme.mart15]} >
-                            <Form
-                                ref="form"
-                                options={options}
-                                type={this.ExpenseStruct}
-                                value={this.state.value}
-                                onChange={this.onChange}
-                                style={[theme.formStyle]}
-                            />
-                        </View>
-                        </View>
                     </View>
+                    {
+                        _get(this.state, 'links.length', 0) == 0 &&
+                        <View style={[{ flex: 1, flexDirection: 'row', margin: 20 }]}>
+                            <View style={{ justifyContent: 'flex-start', paddingRight: 5 }}>
+                                <Icon name='exclamation' style={{ color: '#f6a800' }} type="FontAwesome" />
+                            </View>
+                            <View style={{ flex: 1, padding: 10, borderWidth: 1, borderColor: '#f6a800', flexWrap: 'wrap' }}>
+                                <CustomText style={{ fontSize: 13 }}>
+                                    {`${strings.expenseHelperText}`}
+                                </CustomText>
+                            </View>
+                        </View>
+                    }
                     {
                         images
                     }
                 </Content>
                 <View style={{ backgroundColor: '#ededed' }}>
-                    <Button style={[theme.buttonNormal, { backgroundColor: _get(this.state, 'links.length', 0) == 0 ? '#ddd': '#059312' }]} onPress={() => _get(this.state, 'links.length', 0) == 0 ? {}: this.getCurrentLocation()} full>
-                        <Text style={theme.butttonFixTxt}>{`${strings.saveButton}`}</Text>
+                    <Button style={[theme.buttonNormal, { backgroundColor: _get(this.state, 'links.length', 0) == 0 ? '#ddd': '#059312' }]} onPress={() => 
+                        _get(this.state, 'links.length', 0) == 0 ? {}:
+                         this.handleNextPage()} full>
+                        <Text style={theme.butttonFixTxt}>{`${strings.nextText}`}</Text>
                     </Button>
                 </View>
             </ContainerWithLoading>
