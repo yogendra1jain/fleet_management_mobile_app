@@ -34,6 +34,7 @@ import withLocalization from './hocs/withLocalization';
 import { postData, setLanguage } from '../actions/commonAction';
 import { setCheckInAsset, timerFunc } from '../actions/auth';
 import { showToast } from '../utils';
+import TimerComp from './stateless/TimerComp';
 
 const ContainerWithLoading = withLoadingScreen(Container);
 
@@ -242,7 +243,7 @@ class HomeContentScreen extends React.Component {
             <ContainerWithLoading isLoading={this.props.isLoading || this.state.isLoading}>
                <Header style={{ backgroundColor: '#00A9E0', borderBottomWidth: 0 }} androidStatusBarColor="#00A9E0">
                 <Left style={{ flex: 1 }}>
-                    <Icon name="ios-menu" style={{color: 'white'}} type="Ionicons"/>
+                    {/* <Icon name="ios-menu" style={{color: 'white'}} type="Ionicons"/> */}
                     </Left>
                 <Body style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                     <Image source={FMSLogo} style={{ width: 150, height: 22 }} />
@@ -293,7 +294,7 @@ class HomeContentScreen extends React.Component {
                         {/* </TouchableOpacity> */}
                     </View>
                     {
-                        !_isEmpty(_get(userDetails, 'clockedInto', {})) &&
+                        !_isEmpty(_get(userDetails, 'clockedInto', {})) ?
                         <React.Fragment>
                             <View style={{ flexDirection: 'row', margin: 8 }}>
                                 <TouchableOpacity activeOpacity={0.5} style={{ flex: 1 }}
@@ -361,7 +362,17 @@ class HomeContentScreen extends React.Component {
                                 </TouchableOpacity>
                             </View>
                         </React.Fragment>
-                     } 
+                        :
+                        <React.Fragment>
+                            <View style={{ marginTop: 25 }}>
+                                <TimerComp
+                                />
+                            </View>
+                            <View style={{ flex: 1, paddingTop: 15, justifyContent: 'center', alignItems: 'center' }}>
+                                <CustomText style={{ textAlign: 'center' }}>{`${strings.clockInHelperText}`}</CustomText>
+                            </View>
+                        </React.Fragment>
+                     }
                 </Content >
             </ContainerWithLoading >
 

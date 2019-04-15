@@ -75,6 +75,7 @@ let strings = ({
     "confirmTitle": "Confirmation",
     "clockOutMsg": "Are you sure you want to clock out?",
     "confirmText": "Confirm",
+    "clockInHelperText": "This will start your daily time sheet. Clock in only when ready.",
   },
   "spn": {
     "clockIn": "Reloj en",
@@ -147,6 +148,7 @@ let strings = ({
     "confirmTitle": "Confirmación",
     "clockOutMsg": "¿Estás seguro de que quieres salir?",
     "confirmText": "Confirmar",
+    "clockInHelperText": "Esto comenzará su hoja de horas diaria. Registre solo cuando esté listo.",
   }
 }
 }
