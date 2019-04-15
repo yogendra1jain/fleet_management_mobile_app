@@ -29,6 +29,7 @@ let strings = ({
     "amountLabel": "Amount",
     "goToCamera": "Go To Camera",
     "gasHelperText": "Take a picture of your gas fill up receipt. Make sure it is clear and not blurry.",
+    "mileageHelperText": "Take a picture of your odometer. Make sure it is clear and not blurry.",
     
     "invalidDocType": "INVALID DOCUMENT TYPE",
     "titleDoc": "TITLE DOCUMENT",
@@ -150,6 +151,7 @@ let strings = ({
     "clockOutMsg": "¿Estás seguro de que quieres salir?",
     "confirmText": "Confirmar",
     "clockInHelperText": "Esto comenzará su hoja de horas diaria. Registre solo cuando esté listo.",
+    "mileageHelperText": "Tome una fotografía de su odómetro. Asegúrese de que esté claro y no borroso.",
   }
 }
 }

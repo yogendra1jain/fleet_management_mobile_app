@@ -38,6 +38,7 @@ class UpdateMileageHomeScreen extends React.Component {
         this.state = {
             mileage: '',
             link: '',
+            imageSource: '',
         };
     }
     static navigationOptions = {
@@ -106,11 +107,11 @@ class UpdateMileageHomeScreen extends React.Component {
         let key = 'uploadedDocuments';
         this.props.postData(url, formData, constants, identifier, key)
             .then((data) => {
-                console.log('documents uploaded successfully.', data);
+                // console.log('documents uploaded successfully.', data);
                 this.setState({
                     link: data.url,
                 });
-                showToast('success', `${this.props.strings.uploadSuccessMsg}`, 3000);
+                // showToast('success', `${this.props.strings.uploadSuccessMsg}`, 3000);
             }, (err) => {
                 console.log('error while uploading documents', err);
             });
@@ -222,6 +223,19 @@ class UpdateMileageHomeScreen extends React.Component {
                             </View>
                         </TouchableHighlight>
                     </View>
+                    {
+                            this.state.imageSource == '' &&
+                            <View style={[{ flex: 1, flexDirection: 'row', margin: 20 }]}>
+                                <View style={{ justifyContent: 'flex-start', paddingRight: 5 }}>
+                                    <Icon name='exclamation' style={{ color: '#f6a800' }} type="FontAwesome" />
+                                </View>
+                                <View style={{ flex: 1, padding: 10, borderWidth: 1, borderColor: '#f6a800', flexWrap: 'wrap' }}>
+                                    <CustomText style={{ fontSize: 13 }}>
+                                        {`${strings.mileageHelperText}`}
+                                    </CustomText>
+                                </View>
+                            </View>
+                        }
                     {
                         this.state.imageSource && this.state.imageSource != '' ?
                             <View style={{ flex: 1, marginLeft: 20, flexDirection: 'row' }}>
