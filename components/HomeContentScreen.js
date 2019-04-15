@@ -368,7 +368,7 @@ class HomeContentScreen extends React.Component {
                                 <TimerComp
                                 />
                             </View>
-                            <View style={{ flex: 1, paddingTop: 15, justifyContent: 'center', alignItems: 'center' }}>
+                            <View style={{ flex: 1, padding: 15, justifyContent: 'center', alignItems: 'center' }}>
                                 <CustomText style={{ textAlign: 'center' }}>{`${strings.clockInHelperText}`}</CustomText>
                             </View>
                         </React.Fragment>

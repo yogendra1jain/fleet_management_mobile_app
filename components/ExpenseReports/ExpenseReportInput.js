@@ -7,7 +7,9 @@ import ImagePicker from 'react-native-image-picker';
 import cameraIcon from '../../assets/images/cameraIcon.png';
 
 import _get from 'lodash/get';
+import _map from 'lodash/map';
 import _cloneDeep from 'lodash/cloneDeep';
+import _set from 'lodash/set';
 import _isEmpty from 'lodash/isEmpty';
 import { showAlert, showToast } from '../../utils/index';
 import t from 'tcomb-form-native';
@@ -28,9 +30,9 @@ const stylesheet = t.form.Form.stylesheet;
 
 const ContainerWithLoading = withLoadingScreen(Container);
 
-const ValidExpense = t.refinement(t.Number, (n) => {
+const ValidExpense = t.refinement(t.String, (n) => {
     if (n) {
-        return n > 0;
+        return n.length > 0;
     }
 });
 
@@ -44,6 +46,8 @@ class ExpenseReportInputScreen extends React.Component {
             expense: '',
             uploadedLinks: this.props.navigation.getParam('links', []),
             value: {},
+            previousExpense: '',
+            previousConfExpense: '',
         };
         this.ExpenseStruct = t.struct({
             expense: ValidExpense,
@@ -106,9 +110,69 @@ class ExpenseReportInputScreen extends React.Component {
         }
     }
     onChange = (value) => {
-        this.setState({ value });
+        let tempStateValue = {};
+        _map(value, (val, key) => {
+            let prevVal = _get(this.state, `value.${key}`, '');
+            let currentVal = val;
+            currentVal = currentVal.split('.');
+            // let tempPrevVal = prevVal.split('.');
+            // tempPrevVal = _cloneDeep(tempPrevVal);
+            let tempVal = _cloneDeep(currentVal[0]);
+            tempVal = tempVal.replace(/,/g, '');
+            if (tempVal.toString().length % 3 == 0 && prevVal.length < currentVal[0].length) {
+                currentVal[0] += ',';
+            }
+            if (currentVal[1] && currentVal[1].length > 2) {
+                val = prevVal;
+                _set(tempStateValue, `${key}`, val);
+            } else {
+                let newVal = currentVal[0] + (currentVal[1] || currentVal[1] == '' ? `.${currentVal[1]}`: '');
+                _set(tempStateValue, `${key}`, newVal);
+            }
+        });
+        this.setState({
+            value: tempStateValue,
+        });
+        // this.setState({ value });
         if (value.confirmExpense != null && value.confirmExpense != '') {
             this.validate = this.refs.form.getValue();
+        }
+    }
+    onChangeNative = (event) => {
+        console.log('native evnt', event.nativeEvent);
+    }
+    handleExpenseChange = (event) => {
+        console.log('expense value from native event', event, 'native event', _get(event, 'target.value', ''));
+        console.log('expense value', _get(event, 'target.value', ''));
+        let previousExpense = this.state.previousExpense;
+        let value = _get(this.state, 'value', {});
+        let currentVal = _get(value, 'expense', '');
+        currentVal = currentVal.split('.');
+        console.log('current val', currentVal, 'prev val', previousExpense, 'email', value.expense);
+        let tempVal = _cloneDeep(currentVal[0]);
+        tempVal = tempVal.replace(/,/g, '');
+        console.log('tempval', tempVal);
+        if (tempVal.toString().length % 3 == 0 && previousExpense.length < currentVal[0].length) {
+            console.log('came in check..');
+            currentVal[0] += ',';
+        }
+
+        console.log('current val after split', currentVal);
+        if (currentVal[1] && currentVal[1].length > 2) {
+            value.expense = previousExpense;
+            console.log('old value', value.expense);
+            this.setState({
+                previousExpense: previousExpense,
+                value,
+            });
+        } else {
+            let newVal = currentVal[0] + (currentVal[1] || currentVal[1] == '' ? `.${currentVal[1]}`: '');
+            value.expense = newVal;
+            console.log('expense ---', value.expense);
+            this.setState({
+                previousExpense: newVal,
+                value,
+            });
         }
     }
 

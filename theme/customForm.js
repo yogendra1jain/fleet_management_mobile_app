@@ -56,12 +56,12 @@ function textbox(locals) {
         {
           locals.label == 'Email' &&
           <Zocial name="email"
-          size={22} color="black" />
+          size={20} color="#00A9E0" />
         }
         {
           locals.label == _get(locals, 'config.strings.passwordLabel', '') &&
           <Entypo name="lock"
-          size={22} color="black" />
+          size={22} color="#00A9E0" />
         }
         <TextInput
           accessibilityLabel={locals.label}
@@ -75,6 +75,7 @@ function textbox(locals) {
           maxLength={locals.maxLength}
           multiline={locals.multiline}
           onBlur={locals.onBlur}
+          onChange={locals.onChange}
           onEndEditing={locals.onEndEditing}
           onFocus={locals.onFocus}
           onLayout={locals.onLayout}
@@ -105,6 +106,7 @@ function textbox(locals) {
           <Icon
             name={locals.secureTextEntry? 'eye': 'eye-with-line'}
             size={22}
+            color="#00A9E0"
             onPress={locals.config.handlePasswordVisiblity}
             iconStyle={{ alignItems: 'flex-end' }}
             containerStyle={{ alignItems: 'flex-end' }}

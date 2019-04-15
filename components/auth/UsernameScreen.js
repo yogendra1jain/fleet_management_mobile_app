@@ -44,7 +44,7 @@ const LoginUser = t.struct({
 class UsernameScreen extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { value: {}, isCondition: false };
+        this.state = { value: {}, isCondition: false, num: '' };
         this.stylesheet = _cloneDeep(stylesheet);
         this.stylesheet.textbox.normal.color = 'black';
         this.stylesheet.controlLabel.normal.color = 'black';
@@ -72,6 +72,7 @@ class UsernameScreen extends React.Component {
 
     onChange = (value) => {
         // const val = this.refs.form.getValue();
+        // this.handleInputChange(value.email);
         this.setState({ value });
     }
     loadLanguageData = () => {
@@ -116,6 +117,7 @@ class UsernameScreen extends React.Component {
             showPassword: !this.state.showPassword,
         });
     }
+    
     render() {
         const { error, strings, appLanguage } = this.props;
         const options = {

@@ -37,7 +37,7 @@ class Logout extends React.Component {
             this.handleLogout();
             return;
         } else {
-            let url = `/Assets/CheckOut`;
+            let url = `/Assets/ClockOut`;
             let constants = {
                 init: 'CHECKIN_FOR_ASSET_INIT',
                 success: 'CHECKIN_FOR_ASSET_SUCCESS',

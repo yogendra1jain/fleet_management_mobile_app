@@ -212,6 +212,39 @@ export function mapDateToDay(date) {
     }
     return finalDay;
 }
+
+export function formatedNumber(value1) {
+        let num = this.state.num;
+        let value = this.state.value;
+        let currentVal = value1;
+        currentVal = currentVal.split('.');
+        console.log('current val', currentVal, 'prev val', num, 'email', value.email);
+        let tempVal = _cloneDeep(currentVal[0]);
+        tempVal = tempVal.replace(/,/g, '');
+        console.log('tempval', tempVal);
+        if (tempVal.toString().length % 3 == 0 && num.length < currentVal[0].length) {
+            console.log('came in check..');
+            currentVal[0] += ',';
+        }
+
+        console.log('current val after split', currentVal);
+        if (currentVal[1] && currentVal[1].length > 2) {
+            value.email = num;
+            console.log('old value', value.email);
+            this.setState({
+                num: num,
+                value,
+            });
+        } else {
+            let newVal = currentVal[0] + (currentVal[1] || currentVal[1] == '' ? `.${currentVal[1]}`: '');
+            value.email = newVal;
+            console.log('email', value.email);
+            this.setState({
+                num: newVal,
+                value,
+            });
+        }
+    }
 /*
 export const postAPI = (username, path, paramObj, addOnOptions, addOnHeaders) => {
     let api = restServerConfig.httpURL + 'api/'+ path;
