@@ -6,7 +6,7 @@ const withLoadingScreen = (WrappedComponent) => {
   class LoadingScreen extends React.PureComponent {
     render() {
       if (this.props.isLoading) {
-        console.log('came in loading hoc', this.props.isLoading);
+        // console.log('came in loading hoc', this.props.isLoading);
         return (
           <View style={[styles.container, styles.horizontal]}>
             <ActivityIndicator size="large" color="black" />

@@ -17,6 +17,8 @@ import strings from '../utils/localization';
 
 import { setTimer, timerFunc, setCheckInAsset } from '../actions/auth';
 import { showToast } from '../utils';
+import Geolocation from 'react-native-geolocation-service';
+
 const ContainerWithLoading = withLoadingScreen(Container);
 
 class AssetCheckinScreen extends React.Component {
@@ -64,7 +66,9 @@ class AssetCheckinScreen extends React.Component {
         this.setState({
             isLoading: true,
         });
-        navigator.geolocation.getCurrentPosition(
+        console.log('came in get loca method....');
+        // navigator.geolocation.getCurrentPosition(
+            Geolocation.getCurrentPosition(
             (position) => {
                 console.log('location got successfully.');
                 this.setState({
@@ -76,7 +80,7 @@ class AssetCheckinScreen extends React.Component {
                 this.handleCheckIn(index, asset, isCheckin);
             },
             error => this.setState({ error: error.message }),
-            { enableHighAccuracy: false, timeout: 200000, maximumAge: 1000 },
+            { enableHighAccuracy: true },
           );
     }
     handleCheckOut = () => {

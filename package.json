@@ -38,6 +38,7 @@
     "react-native-elements": "^0.19.1",
     "react-native-fingerprint-scanner": "^2.3.2",
     "react-native-firebase": "^4.3.8",
+    "react-native-geolocation-service": "^1.1.0",
     "react-native-gesture-handler": "^1.0.15",
     "react-native-global-props": "^1.1.5",
     "react-native-google-maps-directions": "^2.0.0",

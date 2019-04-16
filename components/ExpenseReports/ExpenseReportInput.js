@@ -22,6 +22,8 @@ import withLocalization from '../hocs/withLocalization';
 import { uploadDoc } from '../../actions/signup';
 import { postData } from '../../actions/commonAction';
 import ImageResizer from 'react-native-image-resizer';
+import Geolocation from 'react-native-geolocation-service';
+
 import CustomText from '../stateless/CustomText';
 
 
@@ -74,7 +76,7 @@ class ExpenseReportInputScreen extends React.Component {
         this.setState({
             isLoading: true,
         });
-        navigator.geolocation.getCurrentPosition(
+        Geolocation.getCurrentPosition(
             (position) => {
                 this.setState({
                     latitude: position.coords.latitude,
@@ -83,11 +85,12 @@ class ExpenseReportInputScreen extends React.Component {
                     isLoading: false,
                 });
                 let data = {};
+                let expense = value.expense.replace(/,/g, '');
                 data = {
                     assetId: _get(this.props, 'userDetails.clockedInto.id', ''),
                     userId: _get(this.props, 'userDetails.user.id', ''),
                     documentType: 7,
-                    amount: Number(value.expense),
+                    amount: Number(expense),
                     links: this.state.uploadedLinks,
                     coordinate: {
                         latitude: this.state.latitude,
@@ -97,7 +100,7 @@ class ExpenseReportInputScreen extends React.Component {
                 this.saveMileageData(data);
             },
             error => this.setState({ error: error.message }),
-            { enableHighAccuracy: false, timeout: 200000, maximumAge: 1000 },
+            { enableHighAccuracy: true },
           );
     }
     onSave = () => {

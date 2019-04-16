@@ -9,6 +9,7 @@ import CustomSemiBoldText from './CustomSemiBoldText';
 
 function AssetView(props) {
     const { index, asset, selectedIndex, strings } = props;
+    // console.log('asset data', asset);
     return (
         <View style={{ flex: 1 }} key={index}>
         <TouchableOpacity activeOpacity={0.5} style={{ flex: 1 }}
@@ -63,14 +64,14 @@ function AssetView(props) {
                         </View>
                         <View style={{ flex: 1, flexDirection: 'row' }}>
                             <View style={{ flex: 1, justifyContent: 'flex-start', flexDirection: 'row', alignItems: 'center' }}>
-                                <CustomText style={{ fontWeight: 'normal' }}>{`${strings.checkedInUserText}`}</CustomText>
+                                <CustomText style={{ fontWeight: 'normal' }}>{`${strings.clockedInUserText}`}</CustomText>
                             </View>
                             <View style={{ flex: 1, justifyContent: 'flex-end', flexDirection: 'row', alignItems: 'center' }}>
-                                <CustomText style={{ fontWeight: 'bold', textAlign: 'right', color: '#312783', fontSize: 14 }}> {_get(asset, 'checkInInfo.operatorId') ? `${_get(props, 'userDetails.user.firstName', '')} ${_get(props, 'userDetails.user.lastName', '')}`: 'NA' }</CustomText>
+                                <CustomText style={{ fontWeight: 'bold', textAlign: 'right', color: '#312783', fontSize: 14 }}> {_get(asset, 'clockInInfo.operatorId') ? `${_get(props, 'userDetails.user.firstName', '')} ${_get(props, 'userDetails.user.lastName', '')}`: 'NA' }</CustomText>
                             </View>
                         </View>
                         {
-                            _get(asset, 'checkInInfo.operatorId', 'NA') !== _get(props, 'decodedToken.FleetUser.id', '') ?
+                            _get(asset, 'clockInInfo.operatorId', 'NA') !== _get(props, 'decodedToken.FleetUser.id', '') ?
                             <View style={{ flex: 1, flexDirection: 'row', paddingBottom: 10 }}>
                                 <View style={{ flex: 1, justifyContent: 'flex-end', flexDirection: 'row', alignItems: 'center' }}>
                                     <Button onPress={() => props.handleCheckIn(index, asset, true)} style={[theme.buttonAlignBottom, { marginLeft: 0 }]} full>

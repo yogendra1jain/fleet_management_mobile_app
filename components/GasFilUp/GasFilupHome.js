@@ -20,6 +20,7 @@ import { postData } from '../../actions/commonAction';
 import ImageResizer from 'react-native-image-resizer';
 import CustomSemiBoldText from '../stateless/CustomSemiBoldText';
 import CustomText from '../stateless/CustomText';
+import Geolocation from 'react-native-geolocation-service';
 
 const ContainerWithLoading = withLoadingScreen(Container);
 
@@ -134,7 +135,7 @@ class GasFilUpHomeScreen extends React.Component {
         this.setState({
             isLoading: true,
         });
-        navigator.geolocation.getCurrentPosition(
+        Geolocation.getCurrentPosition(
             (position) => {
                 this.setState({
                     latitude: position.coords.latitude,
@@ -145,7 +146,7 @@ class GasFilUpHomeScreen extends React.Component {
                 this.onSave();
             },
             error => this.setState({ error: error.message }),
-            { enableHighAccuracy: false, timeout: 200000, maximumAge: 1000 },
+            { enableHighAccuracy: true },
           );
     }
     onSave = () => {

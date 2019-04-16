@@ -35,6 +35,8 @@ import { postData, setLanguage } from '../actions/commonAction';
 import { setCheckInAsset, timerFunc } from '../actions/auth';
 import { showToast } from '../utils';
 import TimerComp from './stateless/TimerComp';
+import Geolocation from 'react-native-geolocation-service';
+
 
 const ContainerWithLoading = withLoadingScreen(Container);
 
@@ -185,7 +187,7 @@ class HomeContentScreen extends React.Component {
         this.setState({
             isLoading: true,
         });
-        navigator.geolocation.getCurrentPosition(
+        Geolocation.getCurrentPosition(
             (position) => {
                 console.log('location got successfully.');
                 this.setState({
@@ -197,7 +199,7 @@ class HomeContentScreen extends React.Component {
                 this.handleCheckIn();
             },
             error => this.setState({ error: error.message }),
-            { enableHighAccuracy: false, timeout: 200000, maximumAge: 1000 },
+            { enableHighAccuracy: true },
           );
     }
     handleCheckIn = (index, asset) => {

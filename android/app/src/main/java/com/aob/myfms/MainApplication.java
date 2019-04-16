@@ -8,6 +8,7 @@ import com.RNFetchBlob.RNFetchBlobPackage;
 import fr.bamlab.rnimageresizer.ImageResizerPackage;
 import com.airbnb.android.react.maps.MapsPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
+import com.agontuk.RNFusedLocation.RNFusedLocationPackage;
 import com.imagepicker.ImagePickerPackage;
 import com.reactnativedocumentpicker.ReactNativeDocumentPicker;
 import io.invertase.firebase.RNFirebasePackage;
@@ -45,6 +46,7 @@ public class MainApplication extends Application implements ReactApplication {
             new ImageResizerPackage(),
             new MapsPackage(),
             new RNGestureHandlerPackage(),
+            new RNFusedLocationPackage(),
             new ImagePickerPackage(),
             new ReactNativeDocumentPicker(),
             new RNFirebasePackage(),

@@ -169,6 +169,10 @@ dependencies {
     compile 'com.google.android.gms:play-services-base:15.0.1'
     compile 'com.google.android.gms:play-services-maps:15.0.1'
     compile project(':react-native-gesture-handler')
+    compile(project(':react-native-geolocation-service')) {
+        exclude group: 'com.google.android.gms', module: 'play-services-location'
+    }
+    compile 'com.google.android.gms:play-services-location:15.0.1'
     // compile project(':react-native-document-picker')
     compile project(':react-native-image-picker')
     implementation project(':react-native-document-picker')
