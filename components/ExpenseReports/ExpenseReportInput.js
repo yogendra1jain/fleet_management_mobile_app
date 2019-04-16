@@ -115,12 +115,14 @@ class ExpenseReportInputScreen extends React.Component {
             let prevVal = _get(this.state, `value.${key}`, '');
             let currentVal = val;
             currentVal = currentVal.split('.');
-            // let tempPrevVal = prevVal.split('.');
-            // tempPrevVal = _cloneDeep(tempPrevVal);
-            let tempVal = _cloneDeep(currentVal[0]);
+            let tempPrevVal = prevVal.split('.');
+            let tempVal = _cloneDeep(tempPrevVal[0]);
+            // let tempVal = _cloneDeep(currentVal[0]);
             tempVal = tempVal.replace(/,/g, '');
-            if (tempVal.toString().length % 3 == 0 && prevVal.length < currentVal[0].length) {
-                currentVal[0] += ',';
+            // console.log('preVal', prevVal, 'current val', currentVal);
+            if (tempVal.toString().length > 0 && tempVal.toString().length % 3 == 0 && prevVal.length < currentVal[0].length) {
+                currentVal[0] = currentVal[0].slice(0, currentVal[0].length-1)+','+currentVal[0].slice(currentVal[0].length-1);
+                // currentVal[0] += ',';
             }
             if (currentVal[1] && currentVal[1].length > 2) {
                 val = prevVal;
