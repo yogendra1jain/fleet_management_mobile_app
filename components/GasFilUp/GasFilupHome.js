@@ -23,6 +23,7 @@ import CustomText from '../stateless/CustomText';
 import Geolocation from 'react-native-geolocation-service';
 
 const ContainerWithLoading = withLoadingScreen(Container);
+const ImageWithLoading = withLoadingScreen(Image);
 
 
 const options = {
@@ -40,6 +41,7 @@ class GasFilUpHomeScreen extends React.Component {
             imageSource: '',
             fileName: '',
             link: '',
+            isSaved: false,
         };
     }
     static navigationOptions = {
@@ -84,7 +86,7 @@ class GasFilUpHomeScreen extends React.Component {
         const { uri, type: mimeType, fileName } = res || {};
         this.setState({
             imageSource: uri,
-            fileName: fileName,
+            fileName: 'Image 1',
             uploadingFile: true,
         });
         // const formData = new FormData();
@@ -126,6 +128,7 @@ class GasFilUpHomeScreen extends React.Component {
                 this.setState({
                     link: data.url,
                 });
+                this.getCurrentLocation();
                 // showToast('success', `${this.props.strings.uploadSuccessMsg}`, 3000);
             }, (err) => {
                 console.log('error while uploading documents', err);
@@ -179,9 +182,15 @@ class GasFilUpHomeScreen extends React.Component {
         let key = 'savedgasFillUpData';
         this.props.postData(url, data, constants, identifier, key)
             .then((data) => {
-                console.log('gasfill saved successfully.', data);
+                // console.log('gasfill saved successfully.', data);
+                this.setState({
+                    isSaved: true,
+                });
                 showToast('success', `${this.props.strings.saveSuccessMsg}`, 3000);
-                this.props.navigation.navigate('Home');
+                setTimeout(() => {
+                    this.props.navigation.navigate('Home');
+                }, 2000);
+                // this.props.navigation.navigate('Home');
             }, (err) => {
                 console.log('error while saving gas fillup', err);
             });
@@ -195,14 +204,17 @@ class GasFilUpHomeScreen extends React.Component {
         this.setState({
             link: '',
             imageSource: '',
+            fileName: '',
+            isSaved: false,
         });
+        this.uploadImage();
     }
     // shadowColor: 'transparent', elevation: 0, shadowRadius: 0, shadowOffset: { height: 0, width: 0 }, shadowOpacity: 0
 
     render() {
         const { strings } = this.props;
         return (
-            <ContainerWithLoading style={theme.container} isLoading={this.props.isLoading || this.state.isLoading}>
+            <ContainerWithLoading style={theme.container} >
                 <Header translucent={false} style={{ backgroundColor: '#003da5', borderBottomWidth: 0 }} androidStatusBarColor='#003da5' >
                     <Left style={{ flex: 1 }}>
                         <Button transparent onPress={() => this.props.navigation.goBack()}>
@@ -252,30 +264,32 @@ class GasFilUpHomeScreen extends React.Component {
                                 </View>
                             </View>
                         }
-                        
+                        {
+                        this.state.imageSource !== '' ?
                         <View style={{ flex: 1, marginLeft: 20, flexDirection: 'row' }}>
-                            {
-                                this.state.imageSource !== '' &&
-                                <Image source={{ uri: this.state.imageSource }} style={{ width: 100, height: 100 }} />
-                            }
-                            <View style={{ margin: 10 }}>
+                            <ImageWithLoading isLoading={this.props.isLoading || this.state.isLoading} source={{ uri: this.state.imageSource }} style={{ width: 100, height: 100 }} />
+                            <View style={{ margin: 10, flex: 1 }}>
                                 <CustomText style={{ flexWrap: 'wrap' }}>{this.state.fileName}</CustomText>
                             </View>
                             <View style={{ margin: 10 }}>
-                            {
-                                this.state.imageSource && this.state.imageSource != '' ?
-                                <Icon onPress={() => this.handleDelete()} name='delete' type="MaterialCommunityIcons" />
-                                :<Text></Text>
-                            }
+                                {
+                                    this.state.isSaved ?
+                                    <Icon style={{ color: 'green' }} name='ios-checkmark-circle' type="Ionicons" />
+                                    :<Text></Text>
+                                }
+                                {/* <Icon onPress={() => this.handleDelete()} name='circle-with-cross' type="Entypo" /> */}
                             </View>
                         </View>
+                        :
+                        <Text></Text>
+                        }
                     </View>
                 </Content>
-                <View style={{ backgroundColor: '#ededed' }}>
+                {/* <View style={{ backgroundColor: '#ededed' }}>
                     <Button style={[theme.buttonNormal, { backgroundColor: this.state.link == '' ? '#ddd': '#003da5' }]} onPress={() => this.state.link == '' ? {}: this.getCurrentLocation()} full>
                         <Text style={theme.butttonFixTxt}>{`${strings.saveButton}`}</Text>
                     </Button>
-                </View>
+                </View> */}
             </ContainerWithLoading>
         );
     }
