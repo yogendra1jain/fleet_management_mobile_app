@@ -239,7 +239,7 @@ class ExpenseReportHomeScreen extends React.Component {
                 </Content>
                 <View style={{ backgroundColor: '#ededed' }}>
                     <Button style={[theme.buttonNormal, { backgroundColor: _get(this.state, 'links.length', 0) == 0 ? '#ddd': '#059312' }]} onPress={() => 
-                        _get(this.state, 'links.length', 0) == 0 ? {}:
+                        // _get(this.state, 'links.length', 0) == 0 ? {}:
                          this.handleNextPage()} full>
                         <Text style={theme.butttonFixTxt}>{`${strings.nextText}`}</Text>
                     </Button>

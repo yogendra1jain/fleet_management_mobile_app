@@ -4,7 +4,7 @@ import { View, Image, StyleSheet, TouchableHighlight } from 'react-native';
 import serviceImg from '../../assets/images/active-icons/service-ticket-active.png';
 // import Input from 'react-native-elements';
 import { ListItem } from 'react-native-elements';
-import comingSoonImg from '../../assets/images/comingSoonImg.png';
+import comingSoonImg from '../../assets/images/active-icons/comingservice.png';
 
 
 import theme from '../../theme';
@@ -96,16 +96,16 @@ class ServiceTicketHomeScreen extends React.Component {
                             <TouchableHighlight
                                 style={[]}
                             >
-                                <Image source={serviceImg} style={styles.profileImg} />
+                                <Image source={comingSoonImg} style={styles.profileImg} />
                             </TouchableHighlight>
                         </View>
-                        <View style={[theme.centerAlign, { paddingBottom: 30, paddingTop: 30 }]}>
+                        {/* <View style={[theme.centerAlign, { paddingBottom: 30, paddingTop: 30 }]}>
                             <Image source={comingSoonImg} style={{ width: 140, height: 135 }} />
                         </View>
 
                         <View style={[theme.centerAlign]}>
                             <CustomBoldText style={{ fontSize: 25, color: 'black' }}>COMING SOON...</CustomBoldText>
-                        </View>
+                        </View> */}
                         {/* <View style={{ flex: 1, paddingTop: 15 }}>
                             <View style={{ flex: 1 }}>
                             {

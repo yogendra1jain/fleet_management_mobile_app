@@ -6,7 +6,7 @@ import _isArray from 'lodash/isArray';
 import _get from 'lodash/get';
 import _map from 'lodash/map';
 import tasksImg from '../../assets/images/active-icons/tasks-active.png';
-import comingSoonImg from '../../assets/images/comingSoonImg.png';
+import comingSoonImg from '../../assets/images/active-icons/comingtask.png';
 
 import _isEmpty from 'lodash/isEmpty';
 import _groupBy from 'lodash/groupBy';
@@ -140,16 +140,16 @@ class TaskListScreen extends React.Component {
                         <TouchableHighlight
                             style={[]}
                         >
-                            <Image source={tasksImg} style={styles.profileImg} />
+                            <Image source={comingSoonImg} style={styles.profileImg} />
                         </TouchableHighlight>
                     </View>
-                    <View style={[theme.centerAlign, { paddingBottom: 30, paddingTop: 30 }]}>
+                    {/* <View style={[theme.centerAlign, { paddingBottom: 30, paddingTop: 30 }]}>
                         <Image source={comingSoonImg} style={{ width: 140, height: 135 }} />
                     </View>
 
                     <View style={[theme.centerAlign]}>
                         <CustomBoldText style={{ fontSize: 25, color: 'black' }}>COMING SOON...</CustomBoldText>
-                    </View>
+                    </View> */}
                     {/* <View style={[theme.marL15, theme.marR15, theme.mart15]} >
                         {
                             DateView
