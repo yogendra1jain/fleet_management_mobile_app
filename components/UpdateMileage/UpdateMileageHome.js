@@ -150,7 +150,7 @@ class UpdateMileageHomeScreen extends React.Component {
             data = {
                 assetId: _get(this.props, 'userDetails.clockedInto.id', ''),
                 userId: _get(this.props, 'userDetails.user.id', ''),
-                documentType: 5,
+                documentType: 4,
                 status: 1,
                 link: this.state.link,
                 coordinate: {

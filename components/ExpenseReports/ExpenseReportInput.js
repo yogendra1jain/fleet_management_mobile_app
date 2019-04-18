@@ -91,7 +91,7 @@ class ExpenseReportInputScreen extends React.Component {
                 data = {
                     assetId: _get(this.props, 'userDetails.clockedInto.id', ''),
                     userId: _get(this.props, 'userDetails.user.id', ''),
-                    documentType: 7,
+                    documentType: 6,
                     amount: Number(expense),
                     links: this.state.uploadedLinks,
                     coordinate: {

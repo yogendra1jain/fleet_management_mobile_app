@@ -159,7 +159,7 @@ class GasFilUpHomeScreen extends React.Component {
             let data = {
                 assetId: _get(this.props, 'userDetails.clockedInto.id', ''),
                 userId: _get(this.props, 'userDetails.user.id', ''),
-                documentType: 6,
+                documentType: 5,
                 status: 1,
                 link: this.state.link,
                 coordinate: {
