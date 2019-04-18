@@ -38,12 +38,12 @@ class UserAccountScreen extends React.Component {
                         type: 'ionicon',
                         link: 'ChangePasswordScreen',
                     },
-                    {
-                        title: `${_get(this.props, 'strings.appLockTitle', '')}`,
-                        icon: 'md-lock',
-                        type: 'ionicon',
-                        link: 'SetupNativeAuth',
-                    },
+                    // {
+                    //     title: `${_get(this.props, 'strings.appLockTitle', '')}`,
+                    //     icon: 'md-lock',
+                    //     type: 'ionicon',
+                    //     link: 'SetupNativeAuth',
+                    // },
                     {
                         title: `${_get(this.props, 'strings.manageLanguageTitle', '')}`,
                         icon: 'language',

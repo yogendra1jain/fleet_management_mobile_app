@@ -137,7 +137,7 @@ class AssetCheckinScreen extends React.Component {
                 } else {
                     this.props.timerFunc(0);
                 }
-                showToast('success', `${this.props.strings.checkInSuccessMsg}`, 3000);
+                showToast('success', `${this.props.strings.clockInSuccessMsg}`, 3000);
             }, (err) => {
                 console.log('error while checking in operator', err);
             });

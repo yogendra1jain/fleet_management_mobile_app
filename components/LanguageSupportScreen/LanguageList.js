@@ -81,8 +81,8 @@ class LanguageSelectionScreen extends React.Component {
 
     render() {
         const { appLanguage, languageDetails } = this.props;
-        const { supportedLanguages, bundle } = strings || [];
-        const string = bundle[appLanguage];
+        const { supportedLanguages, bundle } = languageDetails || [];
+        const string = bundle ? bundle[appLanguage] : {};
         let languageList = [];
         !_isEmpty(supportedLanguages) && supportedLanguages.map((language, i) => {
             languageList.push(

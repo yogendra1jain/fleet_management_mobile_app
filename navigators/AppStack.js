@@ -247,14 +247,15 @@ class SettingIcon extends React.PureComponent {
 
 export class GetTabBarLabel extends React.PureComponent {
   render() {
-    const { navigation, focused, appLanguage } = this.props;
+    const { navigation, focused, appLanguage, languageDetails } = this.props;
     const { routeName } = navigation.state;
-    const { bundle } = strings || {};
-    // console.log('app language', appLanguage);
-    const string = bundle[appLanguage];
+    const bundle = languageDetails.bundle || {};
+    // console.log('app language', appLanguage, 'bundle', bundle);
+    const string = bundle ? bundle[appLanguage] : {};
+    // console.log('string', string);
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', opacity: focused ? 1 : 0.3 }}>
-      <Text style={{ fontSize: 10, color: 'black', fontFamily: 'Montserrat-SemiBold' }}>{`${string[routeName]}`}</Text>
+      <Text style={{ fontSize: 10, color: 'black', fontFamily: 'Montserrat-SemiBold' }}>{`${string ? string[routeName]: routeName}`}</Text>
     </View>
   );
   }
@@ -273,8 +274,11 @@ export class GetTabBarLabel extends React.PureComponent {
 
 function mapStateToProps(state) {
   let { auth, commonReducer } = state;
-  let { userDetails, languageDetails } = commonReducer || {};
-  let { appLanguage } = commonReducer || 'en';
+  let { userDetails } = commonReducer || {};
+
+  let languageDetails = commonReducer.languageDetails || {};
+  let appLanguage = commonReducer.appLanguage || 'en';
+  // console.log('language details', languageDetails, 'app ', appLanguage);
   let { token, isLoading } = auth.userStatus;
   let { decodedToken, time, isCheckInAsset } = auth || {};
   return {
