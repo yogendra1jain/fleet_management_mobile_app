@@ -16,12 +16,7 @@ import gasFillImg from '../assets/images/ios/gas-fillups.png';
 import MileageImg from '../assets/images/ios/update-mileage.png';
 import tasksImg from '../assets/images/ios/tasks.png';
 import ServiceImg from '../assets/images/ios/service-ticket.png';
-// import tasksImg from '../assets/images/tasks.png';
-import mapIcon from '../assets/images/mapIcon.png';
-import uploadImg from '../assets/images/uploadImg.jpeg';
-// import MileageImg from '../assets/images/mileageImg.png';
-// import ServiceImg from '../assets/images/serviceImg.png';
-import expenseImg from '../assets/images/expense.png';
+
 import DocumentsImg from '../assets/images/ios/documents.png';
 import ContactMechanic from '../assets/images/ios/contact-mechanic.png';
 

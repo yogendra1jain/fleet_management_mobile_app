@@ -8,9 +8,11 @@ import configureStore from './store/configureStore';
 import customize from './theme/customize';
 import theme from './theme';
 import axios from 'axios';
+import FMSLogo from './assets/images/fleetLogoNew.png';
+
 import { ActivityIndicator, YellowBox, Alert, Linking, Platform, View, Image } from 'react-native';
 import Config from 'react-native-config';
-import logoimg from './assets/images/login_screen_logo.png';
+// import logoimg from './assets/images/login_screen_logo.png';
 import { generateV1uuid, logError, compareAppVersion } from './utils';
 import _get from 'lodash/get';
 import { Text } from 'react-native-elements';
@@ -85,13 +87,14 @@ class App extends React.Component {
   }
 
   fetchAppVersion = () => {
-    AXIOS.get(`/api/mobileappversion`)
+    AXIOS.post(`/config/currentVersion`, {})
       .then((response) => {
         let data = response.data;
+        console.log('app version', _get(data, 'currentMobileAppVersion', ''), 'data', data);
         this.setState({
-          appVersion: _get(data, 'data', ''),
+          appVersion: _get(data, 'currentMobileAppVersion', ''),
         });
-        console.log('success response after fetch mobile app version service');
+        console.log('success response after fetch mobile app version service', response);
       }
       )
       .catch((err) => {
@@ -99,6 +102,7 @@ class App extends React.Component {
       });
   }
   async componentDidMount() {
+    this.fetchAppVersion();
     this.setState({ isReady: true });
   }
 
@@ -118,14 +122,14 @@ class App extends React.Component {
   updateView = () => {
     return (
       <Container >
-        <Header translucent={false} style={{ backgroundColor: '#4d47cd', borderBottomWidth: 0 }} androidStatusBarColor="#0e0a65" iosBarStyle="light-content">
-          <Left >
-            <Image source={logoimg} style={{ width: 40, height: 40 }} />
+        <Header style={{ backgroundColor: '#00A9E0', borderBottomWidth: 0 }} androidStatusBarColor="#00A9E0">
+          <Left style={{ flex: 1 }}>
+            {/* <Image source={FMSLogo} style={{ width: 120, height: 22 }} /> */}
           </Left>
-          <Body>
-            <Title style={{ color: '#fff' }} >Update App</Title>
+          <Body style={[theme.centerAlign, { flex: 4 }]}>
+            <Title style={{ color: '#fff', fontFamily: 'Montserrat-Bold' }} >{`Update App`}</Title>
           </Body>
-          <Right>
+          <Right style={{ flex: 1 }}>
           </Right>
         </Header>
         <Content>

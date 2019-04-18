@@ -10,7 +10,7 @@ import { Alert } from 'react-native';
 import { Toast } from 'native-base';
 import firebase from 'react-native-firebase';
 
-const generateV1uuid = () => '21112';
+const generateV1uuid = () => new Date().getTime().toString();
 
 export {
     generateV1uuid,

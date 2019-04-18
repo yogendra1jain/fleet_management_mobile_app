@@ -5,9 +5,9 @@ import { Card, CheckBox } from 'react-native-elements';
 import _get from 'lodash/get';
 import _isEmpty from 'lodash/isEmpty';
 import theme from '../../theme';
-import gasFillImg from '../../assets/images/ios/gas-fillups.png';
-import MileageImg from '../../assets/images/ios/update-mileage.png';
-import expenseImg from '../../assets/images/expense.png';
+// import gasFillImg from '../../assets/images/ios/gas-fillups.png';
+// import MileageImg from '../../assets/images/ios/update-mileage.png';
+// import expenseImg from '../../assets/images/expense.png';
 
 import withLoadingScreen from './../withLoadingScreen';
 import { Container, Content, Header, Body, Left, Right, Button, Toast, Title, Icon } from 'native-base';
@@ -74,7 +74,7 @@ class UploadDocsHomeScreen extends React.Component {
                                 <TouchableOpacity activeOpacity={0.5} style={{ flex: 1 }}
                                     onPress={() => this.props.navigation.navigate('UpdateMileageHome')} >
                                     <Card wrapperStyle={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} containerStyle={{ flex: 1, marginRight: 8 }}>
-                                        <Image source={MileageImg} style={{ width: 110, height: 109 }} />
+                                        <Image source={''} style={{ width: 110, height: 109 }} />
                                         <Button onPress={() => this.props.navigation.navigate('UpdateMileageHome')} style={[theme.buttonAlignBottom, { marginLeft: 0 }]} full>
                                             <Text style={theme.buttonSmallTxt}>{`${strings.mileageButton}`}</Text>
                                         </Button>
@@ -83,7 +83,7 @@ class UploadDocsHomeScreen extends React.Component {
                                 <TouchableOpacity activeOpacity={0.5} style={{ flex: 1 }}
                                     onPress={() => this.props.navigation.navigate('GasFilUpHome')} >
                                     <Card wrapperStyle={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} containerStyle={{ flex: 1, marginRight: 8 }}>
-                                        <Image source={gasFillImg} style={{ width: 110, height: 109 }} />
+                                        <Image source={''} style={{ width: 110, height: 109 }} />
                                         <Button onPress={() => this.props.navigation.navigate('GasFilUpHome')} style={[theme.buttonAlignBottom, { marginLeft: 0 }]} full>
                                             <Text style={theme.buttonSmallTxt}>{`${strings.gasFillButton}`}</Text>
                                         </Button>
@@ -94,7 +94,7 @@ class UploadDocsHomeScreen extends React.Component {
                                 <TouchableOpacity activeOpacity={0.5} style={{ flex: 1 }}
                                     onPress={() => this.props.navigation.navigate('ExpenseReportHomeScreen')} >
                                     <Card wrapperStyle={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} containerStyle={{ flex: 1, marginRight: 8 }}>
-                                        <Image source={expenseImg} style={{ width: 110, height: 109 }} />
+                                        <Image source={''} style={{ width: 110, height: 109 }} />
                                         <Button onPress={() => this.props.navigation.navigate('ExpenseReportHomeScreen')} style={[theme.buttonAlignBottom, { marginLeft: 0 }]} full>
                                             <Text style={theme.buttonSmallTxt}>{`${strings.expenseReportTitle}`}</Text>
                                         </Button>

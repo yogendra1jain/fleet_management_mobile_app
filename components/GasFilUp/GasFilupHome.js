@@ -268,7 +268,7 @@ class GasFilUpHomeScreen extends React.Component {
                         this.state.imageSource !== '' ?
                         <View style={{ flex: 1, marginLeft: 20, flexDirection: 'row' }}>
                             <ImageWithLoading isLoading={this.props.isLoading || this.state.isLoading} source={{ uri: this.state.imageSource }} style={{ width: 100, height: 100 }} />
-                            <View style={{ margin: 10, flex: 1 }}>
+                            <View style={{ margin: 10, flex: 1, flexWrap: 'wrap' }}>
                                 <CustomText style={{ flexWrap: 'wrap' }}>{this.state.fileName}</CustomText>
                             </View>
                             <View style={{ margin: 10 }}>

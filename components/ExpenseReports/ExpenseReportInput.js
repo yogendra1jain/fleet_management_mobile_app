@@ -118,44 +118,16 @@ class ExpenseReportInputScreen extends React.Component {
         let tempStateValue = {};
         _map(value, (val, key) => {
             let decimalNumber = val.split('.');
-            decimalNumber[0] = numeral(Number(decimalNumber[0])).format('0,0');
-            console.log('decimal number', decimalNumber);
+            decimalNumber[0] = numeral((decimalNumber[0])).format('0,0');
             if (decimalNumber[1]) {
-                decimalNumber[1] = numeral(Number(val)).format('0.00');
+                if (decimalNumber[1].length == 1) {
+                    decimalNumber[1] = numeral((val)).format('0.0');
+                } else {
+                    decimalNumber[1] = numeral((val)).format('0.00');
+                }
                 decimalNumber[1] = decimalNumber[1].split('.')[1];
             }
             let finalNum = decimalNumber.join('.');
-            // let prevVal = _get(this.state, `value.${key}`, '');
-            // let currentVal = Number(val);
-            // // currentVal = currentVal.split('.');
-
-            // currentVal = currentVal.toLocaleString();
-            // let tempPrevVal = prevVal.split('.');
-            // let tempVal = _cloneDeep(tempPrevVal[0]);
-            // // let tempVal = _cloneDeep(currentVal[0]);
-            // tempVal = tempVal.replace(/,/g, '');
-            // console.log('preVal', prevVal, 'current val', currentVal, 'tempVal', tempVal);
-            // if (tempVal.toString().length >= 3 && tempVal.toString().length % 3 == 0 && prevVal.length < currentVal[0].length) {
-            //     console.log('mod=0', 'first set', currentVal[0].slice(0, 1), 'second set', currentVal[0].slice(1));
-            //     currentVal[0] = currentVal[0].slice(0, 1)+','+currentVal[0].slice(1);
-            //     // currentVal[0] += ',';
-            // } else if (tempVal.toString().length >= 3 && tempVal.toString().length % 3 == 1 && prevVal.length < currentVal[0].length) {
-            //     console.log('came in mod 1');
-            //     currentVal[0] = currentVal[0].slice(0, 1)+ currentVal[0].slice(2, 3) +','+currentVal[0].slice(3);
-            //     // currentVal[0] += ',';
-            // } else
-            // if (tempVal.toString().length >= 3 && tempVal.toString().length % 3 == 2 && prevVal.length < currentVal[0].length) {
-            //     console.log('came in mod 2');
-            //     currentVal[0] = currentVal[0].slice(0, 2)+ currentVal[0].slice(3, 4) +','+currentVal[0].slice(4);
-            //     // currentVal[0] += ',';
-            // }
-            // if (currentVal[1] && currentVal[1].length > 2) {
-            //     val = prevVal;
-            //     _set(tempStateValue, `${key}`, val);
-            // } else {
-            //     let newVal = currentVal[0] + (currentVal[1] || currentVal[1] == '' ? `.${currentVal[1]}`: '');
-            //     _set(tempStateValue, `${key}`, newVal);
-            // }
             _set(tempStateValue, `${key}`, finalNum);
         });
         this.setState({
@@ -166,7 +138,6 @@ class ExpenseReportInputScreen extends React.Component {
             }
         });
         // this.setState({ value });
-        console.log('value after set', value, 'temp value', tempStateValue);
     }
     onChangeNative = (event) => {
         console.log('native evnt', event.nativeEvent);

@@ -168,7 +168,7 @@ class ExpenseReportHomeScreen extends React.Component {
                         link.imageSource && link.imageSource != '' &&
                         <Image source={{ uri: link.imageSource }} style={{ width: 100, height: 100 }} />
                     }
-                    <View style={{ margin: 10 }}>
+                    <View style={{ margin: 10, flex: 1, flexWrap: 'wrap' }}>
                         <Text style={{ flexWrap: 'wrap' }}>{link.fileName}</Text>
                     </View>
                     <View style={{ margin: 10 }}>
@@ -239,7 +239,7 @@ class ExpenseReportHomeScreen extends React.Component {
                 </Content>
                 <View style={{ backgroundColor: '#ededed' }}>
                     <Button style={[theme.buttonNormal, { backgroundColor: _get(this.state, 'links.length', 0) == 0 ? '#ddd': '#059312' }]} onPress={() => 
-                        // _get(this.state, 'links.length', 0) == 0 ? {}:
+                        _get(this.state, 'links.length', 0) == 0 ? {}:
                          this.handleNextPage()} full>
                         <Text style={theme.butttonFixTxt}>{`${strings.nextText}`}</Text>
                     </Button>

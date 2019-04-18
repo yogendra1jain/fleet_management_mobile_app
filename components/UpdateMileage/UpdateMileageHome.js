@@ -22,6 +22,7 @@ import CustomSemiBoldText from '../stateless/CustomSemiBoldText';
 import CustomText from '../stateless/CustomText';
 import Geolocation from 'react-native-geolocation-service';
 
+const ImageWithLoading = withLoadingScreen(Image);
 const ContainerWithLoading = withLoadingScreen(Container);
 
 const options = {
@@ -39,6 +40,7 @@ class UpdateMileageHomeScreen extends React.Component {
             mileage: '',
             link: '',
             imageSource: '',
+            isSaved: false,
         };
     }
     static navigationOptions = {
@@ -111,6 +113,7 @@ class UpdateMileageHomeScreen extends React.Component {
                 this.setState({
                     link: data.url,
                 });
+                this.getCurrentLocation();
                 // showToast('success', `${this.props.strings.uploadSuccessMsg}`, 3000);
             }, (err) => {
                 console.log('error while uploading documents', err);
@@ -171,8 +174,13 @@ class UpdateMileageHomeScreen extends React.Component {
         this.props.postData(url, data, constants, identifier, key)
             .then((data) => {
                 console.log('mileage saved successfully.', data);
+                this.setState({
+                    isSaved: true,
+                });
                 showToast('success', `${this.props.strings.saveSuccessMsg}`, 3000);
-                this.props.navigation.navigate('Home');
+                setTimeout(() => {
+                    this.props.navigation.navigate('Home');
+                }, 2000);
             }, (err) => {
                 console.log('error while saving mileage', err);
             });
@@ -187,7 +195,7 @@ class UpdateMileageHomeScreen extends React.Component {
     render() {
         const { strings } = this.props;
         return (
-            <ContainerWithLoading style={theme.container} isLoading={this.props.isLoading || this.state.isLoading}>
+            <ContainerWithLoading style={theme.container} >
                 <Header translucent={false} style={{ backgroundColor: '#bb29bb', borderBottomWidth: 0 }} androidStatusBarColor="#bb29bb">
                     <Left style={{ flex: 1 }}>
                         <Button transparent onPress={() => this.props.navigation.goBack()}>
@@ -237,25 +245,30 @@ class UpdateMileageHomeScreen extends React.Component {
                             </View>
                         }
                     {
-                        this.state.imageSource && this.state.imageSource != '' ?
-                            <View style={{ flex: 1, marginLeft: 20, flexDirection: 'row' }}>
-                                <Image source={{ uri: this.state.imageSource }} style={{ width: 100, height: 100 }} />
-                            <View style={{ margin: 10 }}>
+                        this.state.imageSource !== '' ?
+                        <View style={{ flex: 1, marginLeft: 20, flexDirection: 'row' }}>
+                            <ImageWithLoading isLoading={this.props.isLoading || this.state.isLoading} source={{ uri: this.state.imageSource }} style={{ width: 100, height: 100 }} />
+                            <View style={{ margin: 10, flex: 1, flexWrap: 'wrap' }}>
                                 <CustomText style={{ flexWrap: 'wrap' }}>{this.state.fileName}</CustomText>
                             </View>
                             <View style={{ margin: 10 }}>
-                                <Icon onPress={() => this.handleDelete()} name='delete' type="MaterialCommunityIcons" />
+                                {
+                                    this.state.isSaved ?
+                                    <Icon style={{ color: 'green' }} name='ios-checkmark-circle' type="Ionicons" />
+                                    :<Text></Text>
+                                }
+                                {/* <Icon onPress={() => this.handleDelete()} name='circle-with-cross' type="Entypo" /> */}
                             </View>
                         </View>
                         :
                         <Text></Text>
                     }
                 </Content>
-                <View style={{ backgroundColor: '#ededed' }}>
+                {/* <View style={{ backgroundColor: '#ededed' }}>
                     <Button style={[theme.buttonNormal, { backgroundColor: this.state.link == ''? '#ddd': '#bb29bb' }]} onPress={() => this.state.link == ''? {}: this.getCurrentLocation()} full>
                         <Text style={theme.butttonFixTxt}>{`${strings.saveButton}`}</Text>
                     </Button>
-                </View>
+                </View> */}
             </ContainerWithLoading>
         );
     }

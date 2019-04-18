@@ -3,9 +3,7 @@ import { connect } from 'react-redux';
 import { View, ImageBackground, StyleSheet, Image, TouchableOpacity, Dimensions } from 'react-native';
 import ResponsiveImage from 'react-native-responsive-image';
 import { Text } from 'react-native-elements';
-import loginbg from '../../assets/images/login_bg/loginbg.png';
-import CarBg from '../../assets/images/bg.jpg';
-import logoimg from '../../assets/images/login_screen_logo.png';
+
 import loginLogo from '../../assets/images/fleetLoginLogo.png';
 
 import t from 'tcomb-form-native';
