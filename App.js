@@ -91,6 +91,11 @@ class App extends React.Component {
       .then((response) => {
         let data = response.data;
         console.log('app version', _get(data, 'currentMobileAppVersion', ''), 'data', data);
+        this.appUrl = _get(data, 'appUrl', '');
+        if (Platform.OS !== 'ios') {
+          this.appUrl = _get(data, 'playStoreUrl', '') !='' ?_get(data, 'playStoreUrl', ''): _get(data, 'serverUrl', 'https://drive.google.com/file/d/1imAd2-MPHwlx0MNerVubKNkQP9BZiUF3/view?usp=drivesdk');
+        }
+        // 'https://drive.google.com/file/d/1imAd2-MPHwlx0MNerVubKNkQP9BZiUF3/view?usp=drivesdk';
         this.setState({
           appVersion: _get(data, 'currentMobileAppVersion', ''),
         });
