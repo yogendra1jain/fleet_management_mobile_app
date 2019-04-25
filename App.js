@@ -94,6 +94,8 @@ class App extends React.Component {
         this.appUrl = _get(data, 'appUrl', '');
         if (Platform.OS !== 'ios') {
           this.appUrl = _get(data, 'playStoreUrl', '') !='' ?_get(data, 'playStoreUrl', ''): _get(data, 'serverUrl', '');
+        } else {
+          this.appUrl = _get(data, 'iosStoreUrl', '') !='' ?_get(data, 'iosStoreUrl', ''): _get(data, 'serverUrl', '');
         }
         // 'https://drive.google.com/file/d/1imAd2-MPHwlx0MNerVubKNkQP9BZiUF3/view?usp=drivesdk';
         this.setState({
