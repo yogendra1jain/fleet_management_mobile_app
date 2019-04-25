@@ -271,7 +271,7 @@ class ExpenseReportInputScreen extends React.Component {
                     </View>
                 </Content>
                 <View style={{ backgroundColor: '#ededed' }}>
-                    <Button style={[theme.buttonNormal]} onPress={() => this.onSave()} full>
+                    <Button style={[theme.buttonNormal, { backgroundColor: '#059312' }]} onPress={() => this.onSave()} full>
                         <Text style={theme.butttonFixTxt}>{`${strings.saveButton}`}</Text>
                     </Button>
                 </View>
