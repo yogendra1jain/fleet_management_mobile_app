@@ -7,6 +7,8 @@ import _get from 'lodash/get';
 import _isEmpty from 'lodash/isEmpty';
 import _sortBy from 'lodash/sortBy';
 import _reverse from 'lodash/reverse';
+import _groupBy from 'lodash/groupBy';
+import _map from 'lodash/map';
 import { postData } from '../../actions/commonAction';
 import moment from 'moment';
 
@@ -15,6 +17,7 @@ import { Container, Content, Header, Button, Title, Body, Left, Right, Icon } fr
 import withLoadingScreen from '../withLoadingScreen';
 import withErrorBoundary from '../hocs/withErrorBoundary';
 import CustomText from '../stateless/CustomText';
+import { mapDateToDay } from '../../utils';
 const ContainerWithLoading = withLoadingScreen(Container);
 
 class ServiceTicketListScreen extends React.Component {
@@ -88,18 +91,14 @@ class ServiceTicketListScreen extends React.Component {
         this.getTicketData(ticket);
     }
 
-    render() {
-        const { selectedOption } = this.state;
-        const { getTicketData } = this.props;
-        let sortedTicketData = _sortBy(getTicketData, 'modifiedOn.seconds');
-        sortedTicketData = _reverse(sortedTicketData);
+    renderTicketView = (sortedTicketData) => {
         let ticketsView = [];
         !_isEmpty(sortedTicketData) && sortedTicketData.map((ticket, index) => {
             ticketsView.push(
                 <TouchableHighlight onPress={() => this.selectTicket(ticket)} key={index}>
                     <View style={{ flex: 1, flexDirection: 'row', backgroundColor: this.state.selectedTicket == ticket.id ? '#ff585d': 'transparent', justifyContent: 'space-between', padding: 15, borderBottomColor: '#ddd', borderBottomWidth: 1 }}>
                         <View style={{ justifyContent: 'flex-start', alignItems: 'center' }}>
-                            <CustomText>{moment.unix(_get(ticket, 'creation.actionTime.seconds', 0)).format('MM/DD/YYYY')}</CustomText>
+                            <CustomText>{_get(ticket, 'asset.label', '')}</CustomText>
                         </View>
                         <View style={{ justifyContent: 'flex-end', alignItems: 'center', flexWrap: 'wrap' }}>
                             <CustomText>{_get(ticket, 'description', '')}</CustomText>
@@ -108,6 +107,22 @@ class ServiceTicketListScreen extends React.Component {
                 </TouchableHighlight>
             );
         });
+        return ticketsView;
+    }
+
+    render() {
+        const { selectedOption } = this.state;
+        const { getTicketData } = this.props;
+        let sortedTicketData = _sortBy(getTicketData, 'modifiedOn.seconds');
+        sortedTicketData = _reverse(sortedTicketData);
+        let groupedTicketList = _groupBy(sortedTicketData, 'creation.actionTime.seconds');
+        const DateView = _map(groupedTicketList, (value, key) => (
+            <View key={key} style={{ paddingTop: 5 }}>
+                <CustomText>{moment.unix(mapDateToDay(key)).format('MM/DD/YYYY')}</CustomText>
+                {this.renderTicketView(value)}
+            </View>
+        ));
+        
         return (
             <ContainerWithLoading style={theme.container} isLoading={this.props.isLoading}>
                 <Header translucent={false} style={{ backgroundColor: '#ff585d' }} androidStatusBarColor='#ff585d'>
@@ -135,7 +150,7 @@ class ServiceTicketListScreen extends React.Component {
                         </View>
                         <View style={{ flex: 1, paddingTop: 15 }}>
                             <View style={{ flex: 1 }}>
-                            {ticketsView}
+                            {DateView}
                             {/* {
                                 getTicketData.map((l, i) => (
                                 <ListItem

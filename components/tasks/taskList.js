@@ -6,10 +6,12 @@ import _isArray from 'lodash/isArray';
 import _get from 'lodash/get';
 import _map from 'lodash/map';
 import tasksImg from '../../assets/images/active-icons/tasks-active.png';
-import comingSoonImg from '../../assets/images/active-icons/comingtask.png';
-
+// import comingSoonImg from '../../assets/images/active-icons/comingtask.png';
+import moment from 'moment';
 import _isEmpty from 'lodash/isEmpty';
 import _groupBy from 'lodash/groupBy';
+import _sortBy from 'lodash/sortBy';
+import _reverse from 'lodash/reverse';
 import theme from '../../theme';
 import { Container, Content, Header, Button, Title, Body, Left, Right, Icon, Toast, Fab } from 'native-base';
 import withLoadingScreen from '../withLoadingScreen';
@@ -18,6 +20,7 @@ import withErrorBoundary from '../hocs/withErrorBoundary';
 import { mapDateToDay } from '../../utils/index';
 import CustomBoldText from '../stateless/CustomBoldText';
 import { NavigationEvents } from 'react-navigation';
+import { postData } from '../../actions/commonAction';
 
 const ContainerWithLoading = withLoadingScreen(Container);
 
@@ -69,9 +72,28 @@ class TaskListScreen extends React.Component {
         console.log('came in will mount of task list');
     }
     componentDidMount() {
+        this.fetchTaskList();
+    }
+    fetchTaskList = () => {
         let data = {};
-        data.id = _get(this.props, 'decodedToken.Vendor.id', '');
-        // this.props.fetchOrderList(true, data);
+            data = {
+                status: 0,
+                id: _get(this.props, 'userDetails.clockedInto.id', ''),
+            };
+            let url = `/Task/GetByStatusAndAssetId`;
+            let constants = {
+                init: 'GET_TASKS_DATA_INIT',
+                success: 'GET_TASKS_DATA_SUCCESS',
+                error: 'GET_TASKS_DATA_ERROR',
+            };
+            let identifier = 'GET_TASKS_DATA';
+            let key = 'getTasksData';
+            this.props.postData(url, data, constants, identifier, key)
+            .then((data) => {
+                console.log('tasks get successfully.', data);
+            }, (err) => {
+                console.log('error while getting tasks', err);
+            });
     }
     goBack = () => {
         setTimeout(() => {
@@ -83,9 +105,9 @@ class TaskListScreen extends React.Component {
     }
     _onRefresh = () => {
         Toast.show({
-            text: 'Updating Orders',
+            text: 'Updating Tasks',
           });
-        //   this.props.fetchOrderList(false);
+          this.fetchTaskList();
     }
     renderDateView = (taskData) => {
         const orderView = _isArray(taskData) && !_isEmpty(taskData) && taskData.map((task, index) =>
@@ -101,12 +123,14 @@ class TaskListScreen extends React.Component {
     return orderView;
     }
     render() {
-        const { taskList, decodedToken, isLoading } = this.props;
-        let groupedTaskList = _groupBy(TaskDummyData, 'date');
-        console.log('date by grouped data', groupedTaskList);
+        const { getTasksData, decodedToken, isLoading } = this.props;
+        let sortedTaskData = _sortBy(getTasksData, 'modifiedOn.seconds');
+        sortedTaskData = _reverse(sortedTaskData);
+        let groupedTaskList = _groupBy(sortedTaskData, 'creation.actionTime.seconds');
+        // console.log('date by grouped data', groupedTaskList);
         const DateView = _map(groupedTaskList, (value, key) => (
             <View key={key}>
-                <Text>{mapDateToDay(key)}</Text>
+                <Text>{moment.unix(mapDateToDay(key)).format('MM/DD/YYYY')}</Text>
                 {this.renderDateView(value)}
             </View>
         ));
@@ -133,28 +157,18 @@ class TaskListScreen extends React.Component {
                     }
                     style={{ backgroundColor: '#ededed' }}
                 >
-                <NavigationEvents
-                    onDidFocus={payload => this.goBack()}
-                />
                     <View style={[theme.centerAlign, { backgroundColor: '#47d7ac', paddingBottom: 30 }]}>
                         <TouchableHighlight
                             style={[]}
                         >
-                            <Image source={comingSoonImg} style={styles.profileImg} />
+                            <Image source={tasksImg} style={styles.profileImg} />
                         </TouchableHighlight>
                     </View>
-                    {/* <View style={[theme.centerAlign, { paddingBottom: 30, paddingTop: 30 }]}>
-                        <Image source={comingSoonImg} style={{ width: 140, height: 135 }} />
-                    </View>
-
-                    <View style={[theme.centerAlign]}>
-                        <CustomBoldText style={{ fontSize: 25, color: 'black' }}>COMING SOON...</CustomBoldText>
-                    </View> */}
-                    {/* <View style={[theme.marL15, theme.marR15, theme.mart15]} >
+                    <View style={[theme.marL15, theme.marR15, theme.mart15]} >
                         {
                             DateView
                         }
-                    </View> */}
+                    </View>
 
                 </Content>
                 {/* <Fab
@@ -172,19 +186,23 @@ class TaskListScreen extends React.Component {
 }
 
 function mapStateToProps(state) {
-    let { auth, user } = state;
-    let { decodedToken } = auth || {};
-    let { userDetails } = user || {};
-
+    let { decodedToken } = state.auth || {};
+    let { commonReducer } = state || {};
+    let { userDetails } = commonReducer || {};
+    let { getTasksData } = commonReducer || [];
+    // console.log('user details in ticket', userDetails);
+    let isLoading = commonReducer.isFetching || false;
     return {
         decodedToken,
         userDetails,
+        isLoading,
+        getTasksData,
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        fetchOrderList: (isLoading, data) => dispatch(fetchOrderList(isLoading, data)),
+        postData: (url, formData, constants, identifier, key) => dispatch(postData(url, formData, constants, identifier, key)),
     };
 }
 

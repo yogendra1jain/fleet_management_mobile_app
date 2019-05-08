@@ -16,12 +16,12 @@ function TaskView(props) {
                 <TouchableOpacity style={[{ flex: 1, flexDirection: 'column' }]} onPress={() => props.onPress()}>
                     <View style={{ paddingLeft: 25 }}>
                         <ShowTitle
-                            title={_get(props, 'task.taskTitle', '')}
+                            title={_get(props, 'task.asset.label', '')}
                             maxChar={20}
                         />
                     </View>
                     <View style={{ paddingLeft: 25 }}>
-                        <Text style={{ fontSize: 14, color: 'black' }} >{`${_get(props, 'task.taskDesc', '')}`}</Text>
+                        <Text style={{ fontSize: 14, color: 'black' }} >{`${_get(props, 'task.description', '')}`}</Text>
                     </View>
                 </TouchableOpacity>
             </View>
