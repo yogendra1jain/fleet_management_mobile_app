@@ -8,7 +8,8 @@ const withLocalization = (WrappedComponent) => {
   class LocalizedScreen extends React.PureComponent {
     render() {
         const { appLanguage, languageDetails } = this.props;
-        const { bundle } = languageDetails || {};
+        // const { bundle } = languageDetails || {};
+        const { bundle } = strings || {};
         const string = bundle ? bundle[appLanguage]: {};
         // console.log('language details from server', strings);
         // const string = strings[appLanguage];

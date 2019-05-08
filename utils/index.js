@@ -9,6 +9,10 @@ import _cloneDeep from 'lodash/cloneDeep';
 import { Alert } from 'react-native';
 import { Toast } from 'native-base';
 import firebase from 'react-native-firebase';
+import { Platform } from 'react-native';
+import ImageResizer from 'react-native-image-resizer';
+import ImagePicker from 'react-native-image-picker';
+
 
 const generateV1uuid = () => new Date().getTime().toString();
 
@@ -245,6 +249,54 @@ export function formatedNumber(value1) {
             });
         }
     }
+
+const options = {
+    title: 'Select Photo',
+    storageOptions: {
+        skipBackup: true,
+        path: 'images',
+    },
+};
+
+export function chooseImage(title) {
+    return new Promise((resolve, reject) => {
+        ImagePicker.launchCamera(options, (response) => {
+            if (response.didCancel) {
+                console.log('User cancelled image picker');
+            } else if (response.error) {
+                console.log('ImagePicker Error: ', response.error);
+            } else if (response.customButton) {
+                console.log('User tapped custom button: ', response.customButton);
+            } else {
+                response.title = title;
+                response.owner = 'operator';
+                if (Platform.OS == 'ios') {
+                    //    fileName = 'Image'+ new Date().toString() + '.jpg';
+                    let strs = response.uri.split('/');
+                    response.fileName = strs[strs.length - 1];
+                    response.type = 'image/jpeg';
+                }
+                setFile(response, resolve, reject);
+            }
+        });
+    });
+}
+export function setFile(res, resolve, reject) {
+    const { uri, type: mimeType, fileName } = res || {};
+    ImageResizer.createResizedImage(uri, 1024, 1024, 'JPEG', 99).then((response) => {
+        // const { uri, name } = response || {};
+        response.mimeType = mimeType;
+        // this.setState({
+        //     imageSource: uri,
+        //     fileName: name,
+        //     uploadingFile: true,
+        // });
+        return resolve(response);
+    }).catch((err) => {
+        console.log('error while resizing image', err);
+        return reject(err);
+    });
+}
 /*
 export const postAPI = (username, path, paramObj, addOnOptions, addOnHeaders) => {
     let api = restServerConfig.httpURL + 'api/'+ path;

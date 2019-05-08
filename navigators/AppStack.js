@@ -35,6 +35,7 @@ import GasFilUpHome from '../components/GasFilUp/GasFilupHome';
 import NewTicketScreen from '../components/ServiceTickets/NewTicket';
 import ScheduleMaintenanceScreen from '../components/ServiceTickets/ScheduleMaintenance';
 import OtherTicketScreen from '../components/ServiceTickets/OtherTickets';
+import ReviewTicketScreen from '../components/ServiceTickets/ReviewTicket';
 import ServiceTicketListScreen from '../components/ServiceTickets/ServiceTicketsList';
 import MechanicProfile from '../components/ContactPerson/MechanicProfile';
 import AssetCheckinScreen from '../components/AssetCheckinScreen';
@@ -114,6 +115,7 @@ const ServiceStack = createStackNavigator({
   ScheduleMaintenanceScreen: ScheduleMaintenanceScreen,
   OtherTicketScreen: OtherTicketScreen,
   ServiceTicketListScreen: ServiceTicketListScreen,
+  ReviewTicketScreen: ReviewTicketScreen,
 });
 const ContactPersonStack = createStackNavigator({
   ContactPersonHome: ContactPersonHome,

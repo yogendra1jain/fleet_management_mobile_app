@@ -226,7 +226,6 @@ class UpdateMileageHomeScreen extends React.Component {
                                 </View>
                                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                                     <Image source={cameraIcon} style={{ width: 100, height: 101 }} />
-                                    {/* <Icon name='ios-camera' /> */}
                                 </View>
                             </View>
                         </TouchableHighlight>

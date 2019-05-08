@@ -14,6 +14,8 @@ import withErrorBoundary from '../hocs/withErrorBoundary';
 import CustomSemiBoldText from '../stateless/CustomSemiBoldText';
 import CustomBoldText from '../stateless/CustomBoldText';
 import { NavigationEvents } from 'react-navigation';
+import CustomText from '../stateless/CustomText';
+import withLocalization from '../hocs/withLocalization';
 
 const ContainerWithLoading = withLoadingScreen(Container);
 
@@ -42,6 +44,30 @@ class ServiceTicketHomeScreen extends React.Component {
             mileage: '',
         };
     }
+    getListLabels = (strings) => {
+        return [
+            {
+              name: strings.openNewTicketLabel,
+              avatar_url: '',
+              subtitle: '',
+            },
+            {
+              name: strings.reviewOpenTicketsLabel,
+              avatar_url: '',
+              subtitle: '',
+            },
+            {
+                name: strings.approvedTicketsLabel,
+                avatar_url: '',
+                subtitle: '',
+              },
+              {
+                name: strings.rejectedTicketsLabel,
+                avatar_url: '',
+                subtitle: '',
+              },
+          ];
+    }
     static navigationOptions = {
         header: null,
     };
@@ -51,14 +77,20 @@ class ServiceTicketHomeScreen extends React.Component {
     componentDidMount() {
 
     }
-    handleTicketItem = (item) => {
+    handleTicketItem = (item, strings) => {
         console.log('item', item);
         switch (item.name) {
-            case 'Open NEW Ticket':
+            case strings.openNewTicketLabel:
                 this.props.navigation.navigate('NewTicketScreen');
                 break;
-            case 'Review OPEN Ticket(s)':
-                this.props.navigation.navigate('ServiceTicketListScreen');
+            case strings.reviewOpenTicketsLabel:
+                this.props.navigation.navigate('ServiceTicketListScreen', { status: 0 });
+                break;
+            case strings.approvedTicketsLabel:
+                this.props.navigation.navigate('ServiceTicketListScreen', { status: 2 });
+                break;
+            case strings.rejectedTicketsLabel:
+                this.props.navigation.navigate('ServiceTicketListScreen', { status: 1 });
                 break;
             default:
                 return;
@@ -71,6 +103,7 @@ class ServiceTicketHomeScreen extends React.Component {
     }
 
     render() {
+        const { strings } = this.props;
         return (
             <ContainerWithLoading style={theme.container} isLoading={this.props.isLoading}>
                 <Header translucent={false} style={{backgroundColor: '#ff585d', borderBottomWidth: 0 }} androidStatusBarColor='#ff585d'>
@@ -80,7 +113,7 @@ class ServiceTicketHomeScreen extends React.Component {
                         </Button>
                     </Left>
                     <Body style={[theme.centerAlign, { flex: 4 }]}>
-                        <Title style={{ color: '#fff', fontFamily: 'Montserrat-Bold' }} >Service Ticket</Title>
+                        <Title style={{ color: '#fff', fontFamily: 'Montserrat-Bold' }} >{`${strings.serviceButton}`}</Title>
                     </Body>
                     <Right style={{ flex: 1 }}>
                     </Right>
@@ -88,15 +121,15 @@ class ServiceTicketHomeScreen extends React.Component {
                 <Content
                     style={{ backgroundColor: '#ededed' }}
                 >
-                <NavigationEvents
+                {/* <NavigationEvents
                     onDidFocus={payload => this.goBack()}
-                />
+                /> */}
                     <View style={{ flex: 1, flexDirection: 'column' }}>
                         <View style={[theme.centerAlign, { backgroundColor: '#ff585d', paddingBottom: 30 }]}>
                             <TouchableHighlight
                                 style={[]}
                             >
-                                <Image source={comingSoonImg} style={styles.profileImg} />
+                                <Image source={serviceImg} style={styles.profileImg} />
                             </TouchableHighlight>
                         </View>
                         {/* <View style={[theme.centerAlign, { paddingBottom: 30, paddingTop: 30 }]}>
@@ -106,30 +139,30 @@ class ServiceTicketHomeScreen extends React.Component {
                         <View style={[theme.centerAlign]}>
                             <CustomBoldText style={{ fontSize: 25, color: 'black' }}>COMING SOON...</CustomBoldText>
                         </View> */}
-                        {/* <View style={{ flex: 1, paddingTop: 15 }}>
+                        <View style={{ flex: 1, paddingTop: 15 }}>
                             <View style={{ flex: 1 }}>
                             {
-                                list.map((l, i) => (
+                                this.getListLabels(strings).map((l, i) => (
                                 <ListItem
                                     key={i}
                                     leftAvatar={{ source: { uri: l.avatar_url } }}
                                     title={l.name}
                                     subtitle={l.subtitle}
-                                    onPress={()=>this.handleTicketItem(l)}
+                                    onPress={()=>this.handleTicketItem(l, strings)}
                                 />
                                 ))
                             }
                             </View>
-                        </View> */}
-                        {/* <TouchableHighlight onPress={() => {}}>
+                        </View>
+                        <TouchableHighlight onPress={() => {}}>
                             <View style={[theme.centerAlign, { flex: 1, flexDirection: 'row', margin: 20 }]}>
                                     <Icon name='ios-calendar' />
                                
-                                    <Text style={{ marginLeft: 10 }}>Upcoming Appointments</Text>
+                                    <CustomText style={{ marginLeft: 10 }}>{`${strings.upcomingAppointmentsLabel}`}</CustomText>
                             </View>
-                        </TouchableHighlight> */}
+                        </TouchableHighlight>
                     </View>
-                    {/* <View style={{ flex: 1, margin: 10, flexDirection: 'row' }}>
+                    <View style={{ flex: 1, margin: 10, flexDirection: 'row' }}>
                         <TouchableHighlight onPress={() => this.props.navigation.navigate('TaskListScreen')} style={{ flex: 1, justifyContent: 'flex-start' }}>
                             <View>
                                 <Icon
@@ -137,7 +170,7 @@ class ServiceTicketHomeScreen extends React.Component {
                                     type='FontAwesome'
                                 />
                                 <View style={{ flexWrap: 'wrap' }}>
-                                    <Text>Tasks</Text>
+                                    <CustomText>{`${strings.TASKS}`}</CustomText>
                                 </View>
                             </View>
                         </TouchableHighlight>
@@ -148,11 +181,11 @@ class ServiceTicketHomeScreen extends React.Component {
                                     type='MaterialIcons'
                                 />
                                 <View style={{ flexWrap: 'wrap' }}>
-                                    <Text>Contact Fleet Manager</Text>
+                                    <CustomText>{`${strings.contactManagerLabel}`}</CustomText>
                                 </View>
                             </View>
                         </TouchableHighlight>
-                    </View> */}
+                    </View>
                 </Content>
             </ContainerWithLoading>
         );
@@ -188,4 +221,4 @@ const styles = StyleSheet.create({
     },
   });
 
-export default withErrorBoundary()(connect(mapStateToProps, mapDispatchToProps)(ServiceTicketHomeScreen));
+export default withErrorBoundary()(connect(mapStateToProps, mapDispatchToProps)(withLocalization(ServiceTicketHomeScreen)));
