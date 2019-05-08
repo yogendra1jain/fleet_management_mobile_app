@@ -11,6 +11,7 @@ import moment from 'moment';
 import _isEmpty from 'lodash/isEmpty';
 import _groupBy from 'lodash/groupBy';
 import _set from 'lodash/set';
+import _cloneDeep from 'lodash/cloneDeep';
 import _sortBy from 'lodash/sortBy';
 import _reverse from 'lodash/reverse';
 import theme from '../../theme';
@@ -195,8 +196,9 @@ function mapStateToProps(state) {
     let isLoading = commonReducer.isFetching || false;
     let getTasksData = [];
     !_isEmpty(_get(commonReducer, 'getTasksData', [])) && _get(commonReducer, 'getTasksData', []).map((row) => {
-        _set(row, 'creation.actionTime.seconds', moment.unix(_get(row, 'creation.actionTime.seconds', 0)).format('MM-DD-YYYY'));
-        getTasksData.push(row);
+        let tempRow = _cloneDeep(row);
+        _set(tempRow, 'creation.actionTime.seconds', moment.unix(_get(row, 'creation.actionTime.seconds', 0)).format('MM-DD-YYYY'));
+        getTasksData.push(tempRow);
     });
     return {
         decodedToken,

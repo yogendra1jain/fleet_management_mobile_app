@@ -9,6 +9,7 @@ import _isEmpty from 'lodash/isEmpty';
 import _sortBy from 'lodash/sortBy';
 import _reverse from 'lodash/reverse';
 import _groupBy from 'lodash/groupBy';
+import _cloneDeep from 'lodash/cloneDeep';
 import _map from 'lodash/map';
 import { postData } from '../../actions/commonAction';
 import moment from 'moment';
@@ -177,8 +178,9 @@ function mapStateToProps(state) {
     // console.log('ticket data in red', getTicketData);
     let getTicketData = [];
     !_isEmpty(_get(commonReducer, 'getTicketData', [])) && _get(commonReducer, 'getTicketData', []).map((row) => {
-        _set(row, 'creation.actionTime.seconds', moment.unix(_get(row, 'creation.actionTime.seconds', 0)).format('MM-DD-YYYY'));
-        getTicketData.push(row);
+       let tempRow = _cloneDeep(row);
+        _set(tempRow, 'creation.actionTime.seconds', moment.unix(_get(row, 'creation.actionTime.seconds', 0)).format('MM-DD-YYYY'));
+        getTicketData.push(tempRow);
     });
     return {
         decodedToken,
