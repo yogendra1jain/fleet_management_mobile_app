@@ -19,6 +19,8 @@ import withLoadingScreen from '../withLoadingScreen';
 import withErrorBoundary from '../hocs/withErrorBoundary';
 import Geolocation from 'react-native-geolocation-service';
 import CustomBoldText from '../stateless/CustomBoldText';
+import { DocumentPicker, DocumentPickerUtil } from 'react-native-document-picker';
+import pdfIcon from '../../assets/images/pdficon.png';
 
 const ContainerWithLoading = withLoadingScreen(Container);
 const ImageWithLoading = withLoadingScreen(Image);
@@ -73,6 +75,55 @@ class OtherTicketScreen extends React.Component {
         this.setState({
             links,
         });
+    }
+    chooseSelectFileMethod = (title) => {
+        Alert.alert(
+            'Select File',
+            `Please Select which file you want to select.`,
+            [
+                { text: 'Select PDF', onPress: () => this.chooseFile(title) },
+                { text: 'Select Image', onPress: () => this.uploadImage(title) },
+                { text: 'Cancel', onPress: () => { } },
+            ],
+            { cancelable: true }
+        );
+    }
+    chooseFile = (title) => {
+        if (DocumentPicker && DocumentPicker.show) {
+            DocumentPicker.show({
+                filetype: [DocumentPickerUtil.pdf()],
+            }, (error, res) => {
+                // Android
+                if (!error) {
+                    res.title = title;
+                    res.owner = 'doctor';
+                    this.setFile(res);
+                }
+            });
+        }
+    }
+    setFile = (res) => {
+        const { uri, type: mimeType, fileName } = res || {};
+        let links = _cloneDeep(this.state.links);
+        let imageData = {
+            imageSource: uri,
+            fileName: fileName,
+            isLoading: true,
+            isPdf: true,
+        };
+        links.push(imageData);
+        this.setState({
+            imageSource: uri,
+            fileName: fileName,
+            uploadingFile: true,
+            links,
+        });
+        const formData = new FormData();
+        formData.append('file', { uri, type: mimeType, fileName });
+        if (uri && !_isEmpty(uri)) {
+            // console.log('data to be upload', formData);
+            this.uploadData(formData, uri);
+        }
     }
     uploadImage = () => {
         // showAlert('This is for upload image', '');
@@ -160,24 +211,6 @@ class OtherTicketScreen extends React.Component {
             );
         }
     }
-    // getCurrentLocation = () => {
-    //     this.setState({
-    //         isLoading: true,
-    //     });
-    //     Geolocation.getCurrentPosition(
-    //         (position) => {
-    //             this.setState({
-    //                 latitude: position.coords.latitude,
-    //                 longitude: position.coords.longitude,
-    //                 error: null,
-    //                 isLoading: false,
-    //             });
-    //             this.handleSave();
-    //         },
-    //         error => this.setState({ error: error.message }),
-    //         { enableHighAccuracy: true },
-    //       );
-    // }
     handleSave = () => {
         let attachments = [];
         !_isEmpty(_get(this.state, 'links', [])) && _get(this.state, 'links', []).map((link) => {
@@ -235,11 +268,11 @@ class OtherTicketScreen extends React.Component {
         const { strings } = this.props;
         let images = [];
         !_isEmpty(_get(this.state, 'links', [])) && _get(this.state, 'links', []).map((link, index) => {
-            // console.log('link in loop', link, 'uploaded links', this.state.uploadedLinks);
+            console.log('link in loop', link, 'uploaded links', this.state.uploadedLinks);
             images.push(
                 <View key={index} style={{ flex: 1, marginLeft: 20, marginBottom: 10, flexDirection: 'row' }}>
                     {
-                        <ImageWithLoading isLoading={link.isLoading} source={{ uri: link.imageSource }} style={{ width: 100, height: 100 }} />
+                        <ImageWithLoading isLoading={link.isLoading} source={!link.isPdf ? { uri: link.imageSource }: pdfIcon} style={{ width: 100, height: 100 }} />
                     }
                     <View style={{ margin: 10, flex: 1, flexWrap: 'wrap' }}>
                         <View style={{ flex: 1, flexDirection: 'column' }}>
@@ -330,7 +363,7 @@ class OtherTicketScreen extends React.Component {
                             {
                                 images
                             }
-                            <TouchableHighlight onPress={() => this.uploadImage()}>
+                            <TouchableHighlight onPress={() => this.chooseSelectFileMethod('service img')}>
                                 <View style={[theme.centerAlign, { flex: 1, flexDirection: 'column', margin: 20 }]}>
                                     <View style={{ flex: 1, marginBottom: 15 }}>
                                         <CustomSemiBoldText style={{ fontSize: 20, color: 'black' }}>{`${strings.goToCamera}`}</CustomSemiBoldText>

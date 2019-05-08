@@ -17,6 +17,7 @@ import { Text, Container, Content, Header, Button, Title, Body, Left, Right, Ico
 import withLoadingScreen from '../withLoadingScreen';
 import withErrorBoundary from '../hocs/withErrorBoundary';
 import CustomBoldText from '../stateless/CustomBoldText';
+import pdfIcon from '../../assets/images/pdficon.png';
 
 const ContainerWithLoading = withLoadingScreen(Container);
 
@@ -207,10 +208,11 @@ class ReviewTicketScreen extends React.Component {
             );
         });
         !_isEmpty(_get(getTicketDataById, 'attachments', [])) && _get(getTicketDataById, 'attachments', []).map((attachment, index) => {
+            console.log('attetcjmant', attachment);
             images.push(
                 <View key={index} style={{ flex: 1, marginLeft: 20, marginBottom: 10, flexDirection: 'row' }}>
                     {
-                        <Image source={{ uri: attachment.link }} style={{ width: 100, height: 100 }} />
+                        <Image source={attachment.link.indexOf('.JPEG') != -1? { uri: attachment.link }: pdfIcon } style={{ width: 100, height: 100 }} />
                     }
                     <View style={{ margin: 10, flex: 1, flexWrap: 'wrap' }}>
                         <View style={{ flex: 1, flexDirection: 'column' }}>

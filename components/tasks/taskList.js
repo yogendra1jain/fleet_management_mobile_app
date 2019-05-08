@@ -10,6 +10,7 @@ import tasksImg from '../../assets/images/active-icons/tasks-active.png';
 import moment from 'moment';
 import _isEmpty from 'lodash/isEmpty';
 import _groupBy from 'lodash/groupBy';
+import _set from 'lodash/set';
 import _sortBy from 'lodash/sortBy';
 import _reverse from 'lodash/reverse';
 import theme from '../../theme';
@@ -130,7 +131,7 @@ class TaskListScreen extends React.Component {
         // console.log('date by grouped data', groupedTaskList);
         const DateView = _map(groupedTaskList, (value, key) => (
             <View key={key}>
-                <Text>{moment.unix(mapDateToDay(key)).format('MM/DD/YYYY')}</Text>
+                <Text>{mapDateToDay(key)}</Text>
                 {this.renderDateView(value)}
             </View>
         ));
@@ -189,9 +190,14 @@ function mapStateToProps(state) {
     let { decodedToken } = state.auth || {};
     let { commonReducer } = state || {};
     let { userDetails } = commonReducer || {};
-    let { getTasksData } = commonReducer || [];
+    // let { getTasksData } = commonReducer || [];
     // console.log('user details in ticket', userDetails);
     let isLoading = commonReducer.isFetching || false;
+    let getTasksData = [];
+    !_isEmpty(_get(commonReducer, 'getTasksData', [])) && _get(commonReducer, 'getTasksData', []).map((row) => {
+        _set(row, 'creation.actionTime.seconds', moment.unix(_get(row, 'creation.actionTime.seconds', 0)).format('MM-DD-YYYY'));
+        getTasksData.push(row);
+    });
     return {
         decodedToken,
         userDetails,

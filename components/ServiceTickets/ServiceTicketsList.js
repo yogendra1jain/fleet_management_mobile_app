@@ -4,6 +4,7 @@ import { View, Image, StyleSheet, TouchableHighlight } from 'react-native';
 import serviceImg from '../../assets/images/active-icons/service-ticket-active.png';
 // import Input from 'react-native-elements';
 import _get from 'lodash/get';
+import _set from 'lodash/set';
 import _isEmpty from 'lodash/isEmpty';
 import _sortBy from 'lodash/sortBy';
 import _reverse from 'lodash/reverse';
@@ -118,7 +119,7 @@ class ServiceTicketListScreen extends React.Component {
         let groupedTicketList = _groupBy(sortedTicketData, 'creation.actionTime.seconds');
         const DateView = _map(groupedTicketList, (value, key) => (
             <View key={key} style={{ paddingTop: 5 }}>
-                <CustomText>{moment.unix(mapDateToDay(key)).format('MM/DD/YYYY')}</CustomText>
+                <CustomText>{mapDateToDay(key)}</CustomText>
                 {this.renderTicketView(value)}
             </View>
         ));
@@ -151,54 +152,14 @@ class ServiceTicketListScreen extends React.Component {
                         <View style={{ flex: 1, paddingTop: 15 }}>
                             <View style={{ flex: 1 }}>
                             {DateView}
-                            {/* {
-                                getTicketData.map((l, i) => (
-                                <ListItem
-                                    selected={selectedOption == l.name}
-                                    key={i}
-                                    onPress={()=>this.handleOption(l)}
-                                >
-                                    <Left>
-                                        <Text>{l.name}</Text>
-                                    </Left>
-                                    <Right>
-                                        <Text>{l.ticketNu}</Text>
-                                    </Right>
-                                </ListItem>
-                                ))
-                            } */}
                             </View>
                         </View>
-                        <TouchableHighlight onPress={() => {}}>
+                        {/* <TouchableHighlight onPress={() => {}}>
                             <View style={[theme.centerAlign, { flex: 1, flexDirection: 'row', margin: 20 }]}>
                                 <Icon name='ios-calendar' />
                                 <CustomText style={{ marginLeft: 10 }}>Upcoming Appointments</CustomText>
                             </View>
-                        </TouchableHighlight>
-                    </View>
-                    <View style={{ flex: 1, margin: 10, flexDirection: 'row' }}>
-                        <TouchableHighlight onPress={() => this.props.navigation.navigate('TaskListScreen')} style={{ flex: 1, justifyContent: 'flex-start' }}>
-                            <View>
-                                <Icon
-                                    name='tasks'
-                                    type='FontAwesome'
-                                />
-                                <View style={{ flexWrap: 'wrap' }}>
-                                    <CustomText>Tasks</CustomText>
-                                </View>
-                            </View>
-                        </TouchableHighlight>
-                        <TouchableHighlight style={{ justifyContent: 'flex-end' }}>
-                            <View>
-                                <Icon
-                                    name='contact-phone'
-                                    type='MaterialIcons'
-                                />
-                                <View style={{ flexWrap: 'wrap' }}>
-                                    <CustomText>Contact Fleet Manager</CustomText>
-                                </View>
-                            </View>
-                        </TouchableHighlight>
+                        </TouchableHighlight> */}
                     </View>
                 </Content>
             </ContainerWithLoading>
@@ -210,10 +171,15 @@ function mapStateToProps(state) {
     let { decodedToken } = state.auth || {};
     let { commonReducer } = state || {};
     let { userDetails } = commonReducer || {};
-    let { getTicketData } = commonReducer || [];
+    // let { getTicketData } = commonReducer || [];
     // console.log('user details in ticket', userDetails);
     let isLoading = commonReducer.isFetching || false;
-    console.log('ticket data in red', getTicketData);
+    // console.log('ticket data in red', getTicketData);
+    let getTicketData = [];
+    !_isEmpty(_get(commonReducer, 'getTicketData', [])) && _get(commonReducer, 'getTicketData', []).map((row) => {
+        _set(row, 'creation.actionTime.seconds', moment.unix(_get(row, 'creation.actionTime.seconds', 0)).format('MM-DD-YYYY'));
+        getTicketData.push(row);
+    });
     return {
         decodedToken,
         userDetails,

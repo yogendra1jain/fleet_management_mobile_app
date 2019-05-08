@@ -260,7 +260,7 @@ const options = {
 
 export function chooseImage(title) {
     return new Promise((resolve, reject) => {
-        ImagePicker.launchCamera(options, (response) => {
+        ImagePicker.showImagePicker(options, (response) => {
             if (response.didCancel) {
                 console.log('User cancelled image picker');
             } else if (response.error) {
