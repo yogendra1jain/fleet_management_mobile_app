@@ -21,6 +21,8 @@ import Geolocation from 'react-native-geolocation-service';
 import CustomBoldText from '../stateless/CustomBoldText';
 import { DocumentPicker, DocumentPickerUtil } from 'react-native-document-picker';
 import pdfIcon from '../../assets/images/pdficon.png';
+// import Voice from 'react-native-voice';
+import TextToSpeech from '../stateless/SpeechToText';
 
 const ContainerWithLoading = withLoadingScreen(Container);
 const ImageWithLoading = withLoadingScreen(Image);
@@ -53,15 +55,32 @@ class OtherTicketScreen extends React.Component {
             imageSource: '',
             links: [],
             uploadedLinks: [],
+            isSpeeking: false,
         };
+        // Voice.onSpeechStart = this.onSpeechStartHandler.bind(this);
+        // Voice.onSpeechEnd = this.onSpeechEndHandler.bind(this);
+        // Voice.onSpeechResults = this.onSpeechResultsHandler.bind(this);
     }
     static navigationOptions = {
         header: null,
     };
+    // onSpeechStartHandler = (e) => {
+    //     console.log('e in speech start', e);
+    // }
+    // onSpeechEndHandler = (e) => {
+    //     console.log('e in speech end', e);
+    // }
+    // onSpeechResultsHandler = (e) => {
+    //     console.log('e in speech result', e);
+    //     this.setState({
+    //         isSpeeking: false,
+    //         notes: _get(e, `value[0]`, ''),
+    //     });
+    // }
 
     componentWillUnmount() {
     }
-    componentDidMount() {
+    componentDidMount() {                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
 
     }
     handleNotes = (value) => {
@@ -82,7 +101,8 @@ class OtherTicketScreen extends React.Component {
             `Please Select which file you want to select.`,
             [
                 { text: 'Select PDF', onPress: () => this.chooseFile(title) },
-                { text: 'Select Image', onPress: () => this.uploadImage(title) },
+                { text: 'Select Image', onPress: () => this.uploadImage('photo') },
+                { text: 'Select Video', onPress: () => this.uploadImage('video') },
                 { text: 'Cancel', onPress: () => { } },
             ],
             { cancelable: true }
@@ -125,9 +145,9 @@ class OtherTicketScreen extends React.Component {
             this.uploadData(formData, uri);
         }
     }
-    uploadImage = () => {
+    uploadImage = (mediaType) => {
         // showAlert('This is for upload image', '');
-        chooseImage('service pic')
+        chooseImage(mediaType)
         .then((data) => {
             const { uri, name, mimeType } = data || {};
             let links = _cloneDeep(this.state.links);
@@ -262,6 +282,17 @@ class OtherTicketScreen extends React.Component {
             links,
         });
     }
+    // startSpeech = () => {
+    //     this.setState({
+    //         isSpeeking: true,
+    //     });
+    //     Voice.start('en-US');
+    // }
+    handleTextToSpeech = (e, name) => {
+        this.setState({
+            [name]: _get(e, 'value[0]', ''),
+        });
+    }
 
     render() {
         const { selectedOption, notes } = this.state;
@@ -279,7 +310,7 @@ class OtherTicketScreen extends React.Component {
                             {/* <View style={{ justifyContent: 'flex-start', alignItems: 'center', paddingLeft: 10 }}>
                                 <Text>Comments: </Text>
                             </View> */}
-                            <View style={{ flex: 1, marginLeft: 10, marginRight: 10 }}>
+                            <View style={{ flex: 1, marginLeft: 10, marginRight: 10, position: 'relative' }}>
                                 <TextInput
                                     style={{ height: 50, borderColor: 'gray', borderWidth: 1, paddingLeft: 10 }}
                                     onChangeText={value => this.handleComments(value, index)}
@@ -289,6 +320,9 @@ class OtherTicketScreen extends React.Component {
                                     value={_get(link, 'comments', '').toString()}
                                     underlineColorAndroid={'transparent'}
                                     keyboardType={'default'}
+                                />
+                                <TextToSpeech
+                                    handleTextToSpeech={e => this.handleComments(_get(e, 'value[0]', ''), index)}
                                 />
                             </View>
                         </View>
@@ -349,14 +383,17 @@ class OtherTicketScreen extends React.Component {
                                     style={{ height: 135, borderColor: 'gray', borderWidth: 1, paddingLeft: 10 }}
                                     onChangeText={value => this.handleNotes(value)}
                                     multiline={true}
-                                    maxLength={120}
+                                    maxLength={1200}
                                     value={_get(this, 'state.notes', '').toString()}
                                     underlineColorAndroid={'transparent'}
                                     keyboardType={'default'}
                                 />
+                                <TextToSpeech
+                                    handleTextToSpeech={e => this.handleTextToSpeech(e, 'notes')}
+                                />
                             </View>
                             <View style={{ justifyContent: 'flex-start', alignItems: 'center', paddingLeft: 10 }}>
-                                <CustomText>{`${notes.length}/120`}</CustomText>
+                                <CustomText>{`${notes.length}/1200`}</CustomText>
                             </View>
                         </View>
                         <View style={{ flex: 1, paddingTop: 15 }}>

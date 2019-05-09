@@ -250,16 +250,15 @@ export function formatedNumber(value1) {
         }
     }
 
-const options = {
-    title: 'Select Photo',
-    // mediaType: 'video',
-    storageOptions: {
-        skipBackup: true,
-        path: 'images',
-    },
-};
-
 export function chooseImage(title) {
+    const options = {
+        title: `Select ${title}`,
+        mediaType: title,
+        storageOptions: {
+            skipBackup: true,
+            path: 'images',
+        },
+    }
     return new Promise((resolve, reject) => {
         ImagePicker.showImagePicker(options, (response) => {
             if (response.didCancel) {
@@ -271,13 +270,17 @@ export function chooseImage(title) {
             } else {
                 response.title = title;
                 response.owner = 'operator';
-                if (Platform.OS == 'ios') {
+                if (Platform.OS == 'ios' && title == 'photo') {
                     //    fileName = 'Image'+ new Date().toString() + '.jpg';
                     let strs = response.uri.split('/');
                     response.fileName = strs[strs.length - 1];
                     response.type = 'image/jpeg';
                 }
-                setFile(response, resolve, reject);
+                if (title == 'video') {
+                    return resolve(response);
+                } else {
+                    setFile(response, resolve, reject);
+                }
             }
         });
     });
