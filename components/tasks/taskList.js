@@ -160,6 +160,10 @@ class TaskListScreen extends React.Component {
                     }
                     style={{ backgroundColor: '#ededed' }}
                 >
+                <NavigationEvents
+                    // onDidFocus={payload => this.fetchTaskList()}
+                    onWillFocus={payload => this.fetchTaskList()}
+                />
                     <View style={[theme.centerAlign, { backgroundColor: '#47d7ac', paddingBottom: 30 }]}>
                         <TouchableHighlight
                             style={[]}

@@ -42,7 +42,27 @@ class TaskDetailScreen extends React.Component {
     componentWillUnmount() {
     }
     componentDidMount() {
-
+        this.fetchTaskDetails();
+    }
+    fetchTaskDetails = () => {
+        let data = {};
+            data = {
+                id: _get(this.state, 'task.id', ''),
+            };
+            let url = `/Task/Get`;
+            let constants = {
+                init: 'GET_TASK_DATA_BY_ID_INIT',
+                success: 'GET_TASK_DATA_BY_ID_SUCCESS',
+                error: 'GET_TASK_DATA_BY_ID_ERROR',
+            };
+            let identifier = 'GET_TASK_DATA_BY_ID';
+            let key = 'getTaskDataById';
+            this.props.postData(url, data, constants, identifier, key)
+            .then((data) => {
+                console.log('task get successfully.', data);
+            }, (err) => {
+                console.log('error while getting task', err);
+            });
     }
     handleNotes = (value) => {
         this.setState({
@@ -68,7 +88,7 @@ class TaskDetailScreen extends React.Component {
         console.log('came in save comment');
         let data = {};
             data = {
-                id: _get(this.props, 'getTicketDataById.id', ''),
+                id: _get(this.props, 'getTaskDataById.id', ''),
                 userId: _get(this.props, 'userDetails.user.id', ''),
                 comment: this.state.newComment,
             };
@@ -228,18 +248,19 @@ class TaskDetailScreen extends React.Component {
 
     render() {
         const { selectedOption, notes, task } = this.state;
-        const { strings } = this.props;
-        const getTicketDataById = task;
+        const { strings, getTaskDataById } = this.props;
+        // const getTaskDataById = task;
+        console.log('task data', getTaskDataById);
 
         let images = [];
         let commentsView = [];
-        let status = _get(getTicketDataById, 'status.value', 0);
-        !_isEmpty(_get(getTicketDataById, 'comments', [])) && _get(getTicketDataById, 'comments', []).map((comment, index) => {
+        let status = _get(getTaskDataById, 'status.value', 0);
+        !_isEmpty(_get(getTaskDataById, 'comments', [])) && _get(getTaskDataById, 'comments', []).map((comment, index) => {
             commentsView.push(
                 this.renderComment(comment, index)
             );
         });
-        !_isEmpty(_get(getTicketDataById, 'attachments', [])) && _get(getTicketDataById, 'attachments', []).map((attachment, index) => {
+        !_isEmpty(_get(getTaskDataById, 'attachments', [])) && _get(getTaskDataById, 'attachments', []).map((attachment, index) => {
             console.log('attetcjmant', attachment);
             images.push(
                 <View key={index} style={{ flex: 1, marginLeft: 20, marginBottom: 10, flexDirection: 'row' }}>
@@ -286,7 +307,7 @@ class TaskDetailScreen extends React.Component {
                 >
                 <View style={{ flex: 1, paddingTop: 15, borderBottomColor: '#ddd', borderBottomWidth: 1 }}>
                     <View style={{ justifyContent: 'flex-start', alignItems: 'center', paddingLeft: 10 }}>
-                        <CustomSemiBoldText>{`${strings.assetId}: ${_get(getTicketDataById, 'asset.label', '')}`}</CustomSemiBoldText>
+                        <CustomSemiBoldText>{`${strings.assetId}: ${_get(getTaskDataById, 'asset.label', '')}`}</CustomSemiBoldText>
                     </View>
                 </View>
                 <View style={{ flex: 1, paddingTop: 15, borderBottomColor: '#ddd', borderBottomWidth: 1 }}>
@@ -301,6 +322,11 @@ class TaskDetailScreen extends React.Component {
                     }
                     </View>
                     <View style={{ flex: 1, paddingTop: 15, borderBottomColor: '#ddd', borderBottomWidth: 1 }}>
+                        <View style={{ justifyContent: 'flex-start', alignItems: 'center', paddingLeft: 10 }}>
+                            <CustomSemiBoldText>{`${strings.destinationText}: ${_get(getTaskDataById, 'destination.destination.label', 'NA')}`}</CustomSemiBoldText>
+                        </View>
+                    </View>
+                    <View style={{ flex: 1, paddingTop: 15, borderBottomColor: '#ddd', borderBottomWidth: 1 }}>
                         <View style={{ flex: 1, flexDirection: 'column' }}>
                             <View style={{ justifyContent: 'flex-start', alignItems: 'center', paddingLeft: 10 }}>
                                 <CustomSemiBoldText>{`${strings.notesLabel}`}</CustomSemiBoldText>
@@ -312,13 +338,13 @@ class TaskDetailScreen extends React.Component {
                                     multiline={true}
                                     editable={false}
                                     maxLength={120}
-                                    value={_get(getTicketDataById, 'description', '').toString()}
+                                    value={_get(getTaskDataById, 'description', '').toString()}
                                     underlineColorAndroid={'transparent'}
                                     keyboardType={'default'}
                                 />
                             </View>
                             <View style={{ justifyContent: 'flex-start', alignItems: 'center', paddingLeft: 10 }}>
-                                <CustomText>{`${_get(getTicketDataById, 'description.length', '')}/120`}</CustomText>
+                                <CustomText>{`${_get(getTaskDataById, 'description.length', '')}/120`}</CustomText>
                             </View>
                         </View>
                         <View style={{ flex: 1, paddingTop: 15 }}>
@@ -329,7 +355,7 @@ class TaskDetailScreen extends React.Component {
                     </View>
                 </Content>
                 <View style={{ backgroundColor: '#ededed' }}>
-                    {/* <Button disabled={_get(getTicketDataById, 'status.value', 0) != 0} style={[theme.buttonNormal, theme.spaceAdd1, { backgroundColor: _get(getTicketDataById, 'status.value', 0) != 0 ? '#ededed': '#ff585d' }]} onPress={() => this.onCancel()} full>
+                    {/* <Button disabled={_get(getTaskDataById, 'status.value', 0) != 0} style={[theme.buttonNormal, theme.spaceAdd1, { backgroundColor: _get(getTaskDataById, 'status.value', 0) != 0 ? '#ededed': '#ff585d' }]} onPress={() => this.onCancel()} full>
                         <CustomBoldText style={theme.butttonFixTxt}>{`${strings.cancelText}`}</CustomBoldText>
                     </Button> */}
                     <Button style={[theme.buttonNormal, { backgroundColor: '#ff585d' }]} onPress={() => this.completeTask()} full>
@@ -347,13 +373,13 @@ function mapStateToProps(state) {
     let { userDetails } = commonReducer || {};
     // console.log('user details in ticket', userDetails);
     let isLoading = commonReducer.isFetching || false;
-    let { getTicketDataById } = commonReducer || {};
+    let { getTaskDataById } = commonReducer || {};
 
     return {
         decodedToken,
         userDetails,
         isLoading,
-        getTicketDataById,
+        getTaskDataById,
     };
 }
 

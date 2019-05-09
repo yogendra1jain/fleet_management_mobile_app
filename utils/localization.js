@@ -96,6 +96,7 @@ let strings = ({
     "addCommentText": "Add Comment",
     "noCommentsTitle": "No Comments Yet",
     "completeText": "Complete",
+    "destinationText": "Destination",
   },
   "spn": {
     "clockIn": "Reloj en",
@@ -188,6 +189,7 @@ let strings = ({
     "addCommentText": "Agregar comentario",
     "noCommentsTitle": "Sin comentarios aún",
     "completeText": "Completar",
+    "destinationText": "Destino",
   }
 }
 }
