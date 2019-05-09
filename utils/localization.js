@@ -95,6 +95,7 @@ let strings = ({
     "cancelText": "Cancel",
     "addCommentText": "Add Comment",
     "noCommentsTitle": "No Comments Yet",
+    "completeText": "Complete",
   },
   "spn": {
     "clockIn": "Reloj en",
@@ -186,6 +187,7 @@ let strings = ({
     "cancelText": "Cancelar",
     "addCommentText": "Agregar comentario",
     "noCommentsTitle": "Sin comentarios aún",
+    "completeText": "Completar",
   }
 }
 }

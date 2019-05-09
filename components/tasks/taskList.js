@@ -102,8 +102,9 @@ class TaskListScreen extends React.Component {
             this.props.navigation.navigate('Home');
         }, 2000);
     }
-    orderClicked = (order, role) => {
-        this.props.navigation.navigate('LocationA', { order: order });
+    taskClicked = (task, role) => {
+        // this.props.navigation.navigate('LocationA', { order: order });
+        this.props.navigation.navigate('TaskDetailScreen', { task: task });
     }
     _onRefresh = () => {
         Toast.show({
@@ -119,7 +120,7 @@ class TaskListScreen extends React.Component {
             task={task}
             role={_get(this.props, 'decodedToken.role', '')}
             cancelOrder={() => this.cancelAlert(task)}
-            onPress={() => this.orderClicked(task, _get(this.props, 'decodedToken.role', ''))}
+            onPress={() => this.taskClicked(task, _get(this.props, 'decodedToken.role', ''))}
         />
     );
     return orderView;

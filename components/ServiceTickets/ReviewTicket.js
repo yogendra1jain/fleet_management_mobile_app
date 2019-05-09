@@ -106,7 +106,9 @@ class ReviewTicketScreen extends React.Component {
     handleCancel = () => {
         let data = {};
             data = {
-                id: _get(this.props, 'getTicketDataById.id', ''),
+                ticketId: _get(this.props, 'getTicketDataById.id', ''),
+                userId: _get(this.props, 'userDetails.user.id', ''),
+                comment: 'Not Required',
             };
             let url = `/Ticket/Cancel`;
             let constants = {
@@ -262,7 +264,7 @@ class ReviewTicketScreen extends React.Component {
                         <CustomSemiBoldText>{`${strings.commentsTitle}`}</CustomSemiBoldText>
                     </View>
                     {commentsView.length > 0 ?
-                    commentsView: <View style={{ justifyContent: 'center', alignItems: 'center' }}><CustomText >{`${strings.noCommentsTitle}`}</CustomText></View>}
+                    commentsView: !this.state.isSaved ? <View style={{ justifyContent: 'center', alignItems: 'center' }}><CustomText >{`${strings.noCommentsTitle}`}</CustomText></View>: <Text></Text>}
                     {
                         this.state.addNewComment &&
                         this.renderComment(undefined, 0, true)
@@ -296,11 +298,11 @@ class ReviewTicketScreen extends React.Component {
                         </View>
                     </View>
                 </Content>
-                <View style={{ flexDirection: 'row', backgroundColor: '#ededed' }}>
-                    <Button disabled={_get(getTicketDataById, 'status.value', 0) != 0} style={[theme.buttonNormal, theme.spaceAdd1, { backgroundColor: _get(getTicketDataById, 'status.value', 0) != 0 ? '#ededed': '#ff585d' }]} onPress={() => this.onCancel()} full>
+                <View style={{ backgroundColor: '#ededed' }}>
+                    {/* <Button disabled={_get(getTicketDataById, 'status.value', 0) != 0} style={[theme.buttonNormal, theme.spaceAdd1, { backgroundColor: _get(getTicketDataById, 'status.value', 0) != 0 ? '#ededed': '#ff585d' }]} onPress={() => this.onCancel()} full>
                         <CustomBoldText style={theme.butttonFixTxt}>{`${strings.cancelText}`}</CustomBoldText>
-                    </Button>
-                    <Button disabled={this.state.addNewComment} style={[theme.buttonNormal, theme.spaceAdd2, { backgroundColor: this.state.addNewComment ? '#ededed': '#ff585d' }]} onPress={() => this.addComment()} full>
+                    </Button> */}
+                    <Button disabled={this.state.addNewComment} style={[theme.buttonNormal, { backgroundColor: this.state.addNewComment ? '#ededed': '#ff585d' }]} onPress={() => this.addComment()} full>
                         <CustomBoldText style={theme.butttonFixTxt}>{`${strings.addCommentText}`}</CustomBoldText>
                     </Button>
                 </View>
@@ -313,7 +315,7 @@ function mapStateToProps(state) {
     let { decodedToken } = state.auth || {};
     let { commonReducer } = state || {};
     let { userDetails } = commonReducer || {};
-    console.log('user details in ticket', userDetails);
+    // console.log('user details in ticket', userDetails);
     let isLoading = commonReducer.isFetching || false;
     let { getTicketDataById } = commonReducer || {};
 

@@ -252,6 +252,7 @@ export function formatedNumber(value1) {
 
 const options = {
     title: 'Select Photo',
+    // mediaType: 'video',
     storageOptions: {
         skipBackup: true,
         path: 'images',
