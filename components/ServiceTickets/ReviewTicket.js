@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { View, TextInput, Alert, Image } from 'react-native';
+import { View, TextInput, Alert, Image, TouchableOpacity } from 'react-native';
 import _get from 'lodash/get';
 // import Input from 'react-native-elements';
 import { showToast } from '../../utils/index';
@@ -18,6 +18,7 @@ import withLoadingScreen from '../withLoadingScreen';
 import withErrorBoundary from '../hocs/withErrorBoundary';
 import CustomBoldText from '../stateless/CustomBoldText';
 import pdfIcon from '../../assets/images/pdficon.png';
+import videoIcon from '../../assets/images/videoIcon.png';
 
 const ContainerWithLoading = withLoadingScreen(Container);
 
@@ -132,6 +133,13 @@ class ReviewTicketScreen extends React.Component {
                 console.log('error while cancelling Ticket', err);
             });
     }
+    handleImageNavigation = (item) => {
+        if (item.link.indexOf('pdf') !==-1) {
+            this.props.navigation.navigate('PdfViewScreen', { uri: item.link });
+        } else if (item.link.indexOf('JPEG') !==-1) {
+            this.props.navigation.navigate('ImageViewScreen', { uri: item.link });
+        }
+    }
 
     renderComment = (comment, index, newComment) => {
         if (newComment) {
@@ -214,7 +222,9 @@ class ReviewTicketScreen extends React.Component {
             images.push(
                 <View key={index} style={{ flex: 1, marginLeft: 20, marginBottom: 10, flexDirection: 'row' }}>
                     {
-                        <Image source={attachment.link.indexOf('.JPEG') != -1? { uri: attachment.link }: pdfIcon } style={{ width: 100, height: 100 }} />
+                        <TouchableOpacity onPress={() => this.handleImageNavigation(attachment)} activeOpacity={0.5} style={{ flex: 1 }}>
+                            <Image source={attachment.link.indexOf('.JPEG') != -1? { uri: attachment.link }: attachment.link.indexOf('.MP4') != -1? videoIcon: pdfIcon } style={{ width: 100, height: 100 }} />
+                        </TouchableOpacity>
                     }
                     <View style={{ margin: 10, flex: 1, flexWrap: 'wrap' }}>
                         <View style={{ flex: 1, flexDirection: 'column' }}>
@@ -256,7 +266,7 @@ class ReviewTicketScreen extends React.Component {
                 >
                 <View style={{ flex: 1, paddingTop: 15, borderBottomColor: '#ddd', borderBottomWidth: 1 }}>
                     <View style={{ justifyContent: 'flex-start', alignItems: 'center', paddingLeft: 10 }}>
-                        <CustomSemiBoldText>{`${strings.assetId}: ${_get(getTicketDataById, 'asset.label', '')}`}</CustomSemiBoldText>
+                        <CustomSemiBoldText>{`${strings.assetId}: ${_get(getTicketDataById, 'asset.assetId', '')}`}</CustomSemiBoldText>
                     </View>
                 </View>
                 <View style={{ flex: 1, paddingTop: 15, borderBottomColor: '#ddd', borderBottomWidth: 1 }}>

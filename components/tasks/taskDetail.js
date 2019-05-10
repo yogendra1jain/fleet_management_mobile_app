@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { View, TextInput, Alert, Image } from 'react-native';
+import { View, TextInput, Alert, Image, Linking, TouchableHighlight } from 'react-native';
 import _get from 'lodash/get';
 // import Input from 'react-native-elements';
 import { showToast } from '../../utils/index';
@@ -121,6 +121,13 @@ class TaskDetailScreen extends React.Component {
             ],
             { cancelable: false }
         );
+    }
+    openMap = (destination) => {
+        let query = 'mansarovar plaza jaipur';
+        if (destination !='') {
+            query = destination;
+        }
+        Linking.openURL(`https://www.google.com/maps/search/?api=1&query=${query}`);
     }
     completeTask = () => {
         let data = {};
@@ -307,7 +314,7 @@ class TaskDetailScreen extends React.Component {
                 >
                 <View style={{ flex: 1, paddingTop: 15, borderBottomColor: '#ddd', borderBottomWidth: 1 }}>
                     <View style={{ justifyContent: 'flex-start', alignItems: 'center', paddingLeft: 10 }}>
-                        <CustomSemiBoldText>{`${strings.assetId}: ${_get(getTaskDataById, 'asset.label', '')}`}</CustomSemiBoldText>
+                        <CustomSemiBoldText>{`${strings.assetId}: ${_get(getTaskDataById, 'asset.assetId', '')}`}</CustomSemiBoldText>
                     </View>
                 </View>
                 <View style={{ flex: 1, paddingTop: 15, borderBottomColor: '#ddd', borderBottomWidth: 1 }}>
@@ -322,9 +329,11 @@ class TaskDetailScreen extends React.Component {
                     }
                     </View>
                     <View style={{ flex: 1, paddingTop: 15, borderBottomColor: '#ddd', borderBottomWidth: 1 }}>
+                        <TouchableHighlight onPress={() => this.openMap(_get(getTaskDataById, 'destination.name', ''))}>
                         <View style={{ justifyContent: 'flex-start', alignItems: 'center', paddingLeft: 10 }}>
-                            <CustomSemiBoldText>{`${strings.destinationText}: ${_get(getTaskDataById, 'destination.destination.label', 'NA')}`}</CustomSemiBoldText>
+                            <CustomSemiBoldText >{`${strings.destinationText}: ${_get(getTaskDataById, 'destination.name', 'NA')}`}</CustomSemiBoldText>
                         </View>
+                        </TouchableHighlight>
                     </View>
                     <View style={{ flex: 1, paddingTop: 15, borderBottomColor: '#ddd', borderBottomWidth: 1 }}>
                         <View style={{ flex: 1, flexDirection: 'column' }}>

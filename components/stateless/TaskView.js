@@ -21,7 +21,8 @@ function TaskView(props) {
                         />
                     </View>
                     <View style={{ paddingLeft: 25 }}>
-                        <Text style={{ fontSize: 14, color: 'black' }} >{`${_get(props, 'task.description', '')}`}</Text>
+                        <Text style={{ fontSize: 14, color: 'gray' }} >{`Destination`}</Text>
+                        <Text style={{ fontSize: 14, color: 'black' }} >{`${_get(props, 'task.destination.destination.label', '')}`}</Text>
                     </View>
                 </TouchableOpacity>
             </View>

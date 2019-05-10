@@ -21,6 +21,7 @@ import Geolocation from 'react-native-geolocation-service';
 import CustomBoldText from '../stateless/CustomBoldText';
 import { DocumentPicker, DocumentPickerUtil } from 'react-native-document-picker';
 import pdfIcon from '../../assets/images/pdficon.png';
+import videoIcon from '../../assets/images/videoIcon.png';
 // import Voice from 'react-native-voice';
 import TextToSpeech from '../stateless/SpeechToText';
 
@@ -139,7 +140,7 @@ class OtherTicketScreen extends React.Component {
             links,
         });
         const formData = new FormData();
-        formData.append('file', { uri, type: mimeType, fileName });
+        formData.append('file', { uri, type: mimeType, name: fileName });
         if (uri && !_isEmpty(uri)) {
             // console.log('data to be upload', formData);
             this.uploadData(formData, uri);
@@ -155,6 +156,7 @@ class OtherTicketScreen extends React.Component {
                 imageSource: uri,
                 fileName: name,
                 isLoading: true,
+                isVideo: mediaType=='video'? true: false,
             };
             links.push(imageData);
             this.setState({
@@ -164,7 +166,12 @@ class OtherTicketScreen extends React.Component {
                 links,
             });
             const formData = new FormData();
-            formData.append('file', { uri, type: mimeType, name });
+            if (mediaType == 'photo') {
+                formData.append('file', { uri, type: mimeType, name });
+            } else {
+                formData.append('file', { uri, type: 'video/MP4', name: `${(new Date().getTime())}.MP4` });
+            }
+            
             if (uri && !_isEmpty(uri)) {
                 // console.log('data to be upload', formData);
                 this.uploadData(formData, uri);
@@ -299,11 +306,11 @@ class OtherTicketScreen extends React.Component {
         const { strings } = this.props;
         let images = [];
         !_isEmpty(_get(this.state, 'links', [])) && _get(this.state, 'links', []).map((link, index) => {
-            console.log('link in loop', link, 'uploaded links', this.state.uploadedLinks);
+            // console.log('link in loop', link, 'uploaded links', this.state.uploadedLinks);
             images.push(
                 <View key={index} style={{ flex: 1, marginLeft: 20, marginBottom: 10, flexDirection: 'row' }}>
                     {
-                        <ImageWithLoading isLoading={link.isLoading} source={!link.isPdf ? { uri: link.imageSource }: pdfIcon} style={{ width: 100, height: 100 }} />
+                        <ImageWithLoading isLoading={link.isLoading} source={link.isVideo? videoIcon: !link.isPdf ? { uri: link.imageSource }: pdfIcon} style={{ width: 100, height: 100 }} />
                     }
                     <View style={{ margin: 10, flex: 1, flexWrap: 'wrap' }}>
                         <View style={{ flex: 1, flexDirection: 'column' }}>
