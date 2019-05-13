@@ -188,11 +188,11 @@ class ReviewTicketScreen extends React.Component {
                             <View style={{ flex: 1, marginLeft: 10, marginRight: 10 }}>
                                 <TextInput
                                     style={{ height: 50, borderColor: 'gray', borderWidth: 1, paddingLeft: 10 }}
-                                    onChangeText={value => this.handleComments(value, index)}
+                                    // onChangeText={value => this.handleComments(value, index)}
                                     multiline={true}
                                     placeholder={'Comments'}
                                     maxLength={120}
-                                    editable={false}
+                                    editable={true}
                                     value={_get(comment, 'comment', '').toString()}
                                     underlineColorAndroid={'transparent'}
                                     keyboardType={'default'}
@@ -231,11 +231,11 @@ class ReviewTicketScreen extends React.Component {
                             <View style={{ flex: 1, marginLeft: 10, marginRight: 10 }}>
                                 <TextInput
                                     style={{ height: 50, borderColor: 'gray', borderWidth: 1, paddingLeft: 10 }}
-                                    onChangeText={value => this.handleComments(value, index)}
+                                    // onChangeText={value => this.handleComments(value, index)}
                                     multiline={true}
                                     placeholder={'Comments'}
                                     maxLength={120}
-                                    editable={false}
+                                    // editable={false}
                                     value={_get(attachment, 'comment', '').toString()}
                                     underlineColorAndroid={'transparent'}
                                     keyboardType={'default'}
@@ -288,10 +288,10 @@ class ReviewTicketScreen extends React.Component {
                             <View style={{ flex: 1, marginLeft: 10, marginRight: 10 }}>
                                 <TextInput
                                     style={{ height: 135, borderColor: 'gray', borderWidth: 1, paddingLeft: 10 }}
-                                    onChangeText={value => this.handleNotes(value)}
+                                    // onChangeText={value => this.handleNotes(value)}
                                     multiline={true}
-                                    editable={false}
-                                    maxLength={120}
+                                    // editable={false}
+                                    // maxLength={120}
                                     value={_get(getTicketDataById, 'description', '').toString()}
                                     underlineColorAndroid={'transparent'}
                                     keyboardType={'default'}

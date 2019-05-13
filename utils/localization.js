@@ -97,6 +97,7 @@ let strings = ({
     "noCommentsTitle": "No Comments Yet",
     "completeText": "Complete",
     "destinationText": "Destination",
+    "dailyCheckList": "Daily Check List",
   },
   "spn": {
     "clockIn": "Reloj en",
@@ -190,6 +191,7 @@ let strings = ({
     "noCommentsTitle": "Sin comentarios aún",
     "completeText": "Completar",
     "destinationText": "Destino",
+    "dailyCheckList": "Lista de verificación diaria",
   }
 }
 }

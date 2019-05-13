@@ -46,6 +46,7 @@ import ExpenseReportHomeScreen from '../components/ExpenseReports/ExpenseReportH
 import UploadDocsHomeScreen from '../components/UploadDocs/UploadDocsHome';
 import AnimatedMarkers from '../components/MapView/LiveLocationTracking';
 import ExpenseReportInputScreen from '../components/ExpenseReports/ExpenseReportInput';
+import CheckListHome from '../components/CheckList/CheckListHome';
 
 const AppStack = createStackNavigator(
     {
@@ -76,6 +77,7 @@ const AppStack = createStackNavigator(
         UploadDocsHomeScreen: UploadDocsHomeScreen,
         AnimatedMarkers: AnimatedMarkers,
         ExpenseReportInput: ExpenseReportInputScreen,
+        CheckListHome: CheckListHome,
     }, {
         initialRouteName: 'Home',
         navigationOptions: {

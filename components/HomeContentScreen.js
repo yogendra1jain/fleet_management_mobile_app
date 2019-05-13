@@ -295,6 +295,15 @@ class HomeContentScreen extends React.Component {
                         <React.Fragment>
                             <View style={{ flexDirection: 'row', margin: 8 }}>
                                 <TouchableOpacity activeOpacity={0.5} style={{ flex: 1 }}
+                                    onPress={() => this.props.navigation.navigate('CheckListHome')} >
+                                    <Card wrapperStyle={{ justifyContent: 'center', alignItems: 'center' }} containerStyle={{ borderRadius: 10, margin: 8 }}>
+                                        <Image source={tasksImg} style={{ height: 75 }} />
+                                        <CustomSemiBoldText style={[theme.buttonSmallTxt, {color: '#67DEBB', paddingTop: 15 }]}>{`${strings.dailyCheckList}`}</CustomSemiBoldText>                                            
+                                    </Card>
+                                </TouchableOpacity>
+                            </View>
+                            <View style={{ flexDirection: 'row', margin: 8 }}>
+                                <TouchableOpacity activeOpacity={0.5} style={{ flex: 1 }}
                                     onPress={() => this.props.navigation.navigate('TaskListScreen')} >
                                     <Card wrapperStyle={{ justifyContent: 'center', alignItems: 'center' }} containerStyle={{ borderRadius: 10, margin: 8 }}>
                                         <Image source={tasksImg} style={{ height: 75 }} />
