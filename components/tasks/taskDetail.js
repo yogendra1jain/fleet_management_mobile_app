@@ -297,7 +297,7 @@ class TaskDetailScreen extends React.Component {
 
         return (
             <ContainerWithLoading style={theme.container} isLoading={_findIndex(this.state.links, { isLoading: true }) == -1 && this.props.isLoading}>
-                <Header style={{ backgroundColor: '#ff585d', borderBottomWidth: 0 }} androidStatusBarColor='#ff585d'>
+                <Header style={{ backgroundColor: '#47d7ac', borderBottomWidth: 0 }} androidStatusBarColor='#47d7ac'>
                     <Left style={{ flex: 1 }}>
                         <Button transparent onPress={() => this.props.navigation.goBack()}>
                             <Icon name='arrow-back' style={{ color: '#fff' }} />
@@ -367,7 +367,7 @@ class TaskDetailScreen extends React.Component {
                     {/* <Button disabled={_get(getTaskDataById, 'status.value', 0) != 0} style={[theme.buttonNormal, theme.spaceAdd1, { backgroundColor: _get(getTaskDataById, 'status.value', 0) != 0 ? '#ededed': '#ff585d' }]} onPress={() => this.onCancel()} full>
                         <CustomBoldText style={theme.butttonFixTxt}>{`${strings.cancelText}`}</CustomBoldText>
                     </Button> */}
-                    <Button style={[theme.buttonNormal, { backgroundColor: '#ff585d' }]} onPress={() => this.completeTask()} full>
+                    <Button style={[theme.buttonNormal, { backgroundColor: '#47d7ac' }]} onPress={() => this.completeTask()} full>
                         <CustomBoldText style={theme.butttonFixTxt}>{`${strings.completeText}`}</CustomBoldText>
                     </Button>
                 </View>
