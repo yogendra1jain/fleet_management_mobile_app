@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, TextInput } from 'react-native';
 import { connect } from 'react-redux';
 import _isArray from 'lodash/isArray';
 import _isEmpty from 'lodash/isEmpty';
@@ -27,13 +27,20 @@ class AssetCheckinScreen extends React.Component {
         this.state = {
             modalVisible: false,
             itemCount: 0,
+            license: '',
         };
     }
 
     componentDidMount() {
-        this.loadData();
+        // this.loadData();
+    }
+    handleSearch = () => {
+        let licenseNumber = _get(this, 'state.license', '');
+        licenseNumber = licenseNumber.trim();
+        this.loadData(licenseNumber);
     }
     loadData = (isCheckin) => {
+        console.log('came in load data method');
         let url = `/Assets/AssignedToOperator`;
         let constants = {
             init: 'GET_ASSETS_FOR_OPERATOR_INIT',
@@ -158,12 +165,17 @@ class AssetCheckinScreen extends React.Component {
             .then((data) => {
                 console.log('user data fetched successfully.', data);
                 // showToast('success', `${this.props.strings.assetFetchSuccMsg}`, 3000);
-                if (isCheckin) {
+                if (isCheckin === true) {
                     this.props.navigation.navigate('Home');
                 }
             }, (err) => {
                 console.log('error while fetching user data', err);
             });
+    }
+    handleLicense = (license) => {
+        this.setState({
+            license,
+        });
     }
 
     renderContent = (strings) => {
@@ -211,6 +223,23 @@ class AssetCheckinScreen extends React.Component {
                     <View style={[{ marginTop: 10 }]} >
                          <View style={[theme.headingstyleMP, { margin: 15, marginBottom: 0 }]}>
                             <Text style={theme.screenHeadingtxtMP}>Clock In to Asset</Text>
+                        </View>
+                        <View style={{ flex: 1, flexDirection: 'row', margin: 15 }}>
+                            <TextInput
+                                style={{ height: 40, width: 200, borderColor: 'gray', borderWidth: 1, paddingLeft: 10 }}
+                                onChangeText={value => this.handleLicense(value)}
+                                multiline={false}
+                                // maxLength={120}
+                                value={_get(this, 'state.license', '').toString()}
+                                underlineColorAndroid={'transparent'}
+                                keyboardType={'default'}
+                                placeholder={'Enter License Plate Number'}
+                            />
+                            <View style={{ flex: 1, justifyContent: 'flex-end', flexDirection: 'row', alignItems: 'center', marginTop: 0 }}>
+                                <Button onPress={() => this.handleSearch()} style={[theme.buttonAlignBottom, { marginLeft: 0, marginTop: 0 }]} full>
+                                    <Text style={theme.buttonSmallTxt}>{`Search`}</Text>
+                                </Button>
+                            </View>
                         </View>
                         {this.renderContent(strings)}
                     </View>

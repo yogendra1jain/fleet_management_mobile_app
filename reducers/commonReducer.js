@@ -1,3 +1,5 @@
+import { LOGOUT_USER } from '../actions/auth';
+
 const commonReducer = (state = {
     type: '',
     isFetching: false,
@@ -35,6 +37,12 @@ const commonReducer = (state = {
                 isFetching: false,
                 appLanguage: action.language,
             });
+        case LOGOUT_USER:
+            console.log('state...', state);
+            return {
+                languageDetails: state.languageDetails,
+                appLanguage: state.appLanguage,
+            };
         default:
             return state;
     }
