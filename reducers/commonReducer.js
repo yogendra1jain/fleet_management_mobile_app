@@ -38,7 +38,6 @@ const commonReducer = (state = {
                 appLanguage: action.language,
             });
         case LOGOUT_USER:
-            console.log('state...', state);
             return {
                 languageDetails: state.languageDetails,
                 appLanguage: state.appLanguage,
