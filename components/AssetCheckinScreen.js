@@ -18,6 +18,7 @@ import strings from '../utils/localization';
 import { setTimer, timerFunc, setCheckInAsset } from '../actions/auth';
 import { showToast, showAlert } from '../utils';
 import Geolocation from 'react-native-geolocation-service';
+import CustomBoldText from './stateless/CustomBoldText';
 
 const ContainerWithLoading = withLoadingScreen(Container);
 
@@ -28,6 +29,7 @@ class AssetCheckinScreen extends React.Component {
             modalVisible: false,
             itemCount: 0,
             license: '',
+            searchClicked: false,
         };
     }
 
@@ -37,6 +39,9 @@ class AssetCheckinScreen extends React.Component {
     handleSearch = () => {
         let licenseNumber = _get(this, 'state.license', '');
         licenseNumber = licenseNumber.trim();
+        this.setState({
+            searchClicked: true,
+        });
         this.loadData(licenseNumber);
     }
     loadData = (licenseNumber, isCheckin) => {
@@ -184,7 +189,7 @@ class AssetCheckinScreen extends React.Component {
         const { selectedIndex } = this.state;
         let assetListView = [];
         // console.log('assets', operatorAssets);
-        _isArray(operatorAssets) && !_isEmpty(operatorAssets) && operatorAssets.map((asset, index) => {
+        _get(this, 'state.searchClicked', false) && _isArray(operatorAssets) && !_isEmpty(operatorAssets) && operatorAssets.map((asset, index) => {
             assetListView.push(
                 <AssetView
                     key={index}
@@ -201,6 +206,13 @@ class AssetCheckinScreen extends React.Component {
             );
         }
         );
+        if (_get(this, 'state.searchClicked', false) && _isEmpty(operatorAssets)) {
+            assetListView.push(
+                <View key={1} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', paddingTop: 25 }}>
+                    <CustomBoldText style={{ textAlign: 'center' }}>No Assets Found</CustomBoldText>
+                </View>
+            );
+        }
             return assetListView;
     }
 
