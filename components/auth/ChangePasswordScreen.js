@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { View } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { Text } from 'react-native-elements';
 import t from 'tcomb-form-native';
 import _set from 'lodash/set';
@@ -31,6 +31,36 @@ function validatePassword(password) {
     return re.test(String(password));
 }
 
+function creditCard (locals) {
+    // console.log('locals', locals);
+    return (
+      <View>
+        {locals.inputs.oldPassword}
+        <View style={styles.expirationContainer}>
+          <View style={[styles.expirationField, styles.margin]}>
+            {locals.inputs.newPassword}
+          </View>
+          <View style={[styles.expirationField, styles.margin]}>
+            {locals.inputs.confirmPassword}
+          </View>
+          {/* <View style={styles.expirationField}>
+            {locals.inputs.card_cvv2}
+          </View> */}
+        </View>
+      </View>
+    )
+  }
+  const styles = StyleSheet.create({
+    expirationContainer: {
+      flexDirection: 'row',
+    },
+    expirationField: {
+      flex: 1,
+    },
+    margin: {
+      paddingRight: 5,
+    },
+  })
 class ChangePasswordScreen extends React.Component {
     constructor(props) {
         super(props);
@@ -107,6 +137,7 @@ class ChangePasswordScreen extends React.Component {
     render() {
         const { error, strings } = this.props || {};
         const options = {
+            // template: creditCard,
             fields: {
                 oldPassword: {
                     keyboardType: 'default',

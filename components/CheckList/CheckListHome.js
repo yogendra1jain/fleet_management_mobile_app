@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Image, StyleSheet, TouchableHighlight, TextInput } from 'react-native';
 import withErrorBoundary from '../hocs/withErrorBoundary';
-import taskImg from '../../assets/images/active-icons/tasks-active.png';
+import tasksImg from '../../assets/images/active-icons/tasks-active.png';
 import { CheckBox } from 'react-native-elements';
 import { connect } from 'react-redux';
 import _get from 'lodash/get';
@@ -310,7 +310,7 @@ class CheckListHome extends React.Component {
                             <TouchableHighlight
                                 style={[]}
                             >
-                                <Image source={taskImg} style={styles.profileImg} />
+                                <Image source={tasksImg} style={styles.profileImg} />
                             </TouchableHighlight>
                         </View>
                     </View>
@@ -320,7 +320,7 @@ class CheckListHome extends React.Component {
                     </View>
                 </Content>
                 <View style={{ backgroundColor: '#ededed' }}>
-                    <Button style={[theme.buttonNormal, {backgroundColor: '#ff585d'}]} onPress={() => this.onSave()} full>
+                    <Button style={[theme.buttonNormal, {backgroundColor: '#47d7ac'}]} onPress={() => this.onSave()} full>
                         <CustomBoldText style={theme.butttonFixTxt}>{`CONFIRM`}</CustomBoldText>
                     </Button>
                 </View>
@@ -360,8 +360,8 @@ const styles = StyleSheet.create({
       borderWidth: 1,
     },
     profileImg: {
-      height: 71,
-      width: 80,
+        height: 90,
+        width: 63,
     },
   });
 
