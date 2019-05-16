@@ -16,7 +16,7 @@ import AssetView from './stateless/AssetView';
 import strings from '../utils/localization';
 
 import { setTimer, timerFunc, setCheckInAsset } from '../actions/auth';
-import { showToast } from '../utils';
+import { showToast, showAlert } from '../utils';
 import Geolocation from 'react-native-geolocation-service';
 
 const ContainerWithLoading = withLoadingScreen(Container);
@@ -39,7 +39,7 @@ class AssetCheckinScreen extends React.Component {
         licenseNumber = licenseNumber.trim();
         this.loadData(licenseNumber);
     }
-    loadData = (isCheckin) => {
+    loadData = (licenseNumber, isCheckin) => {
         console.log('came in load data method');
         let url = `/Assets/GetByClientIdAndLicensePlate`;
         let constants = {
@@ -48,7 +48,8 @@ class AssetCheckinScreen extends React.Component {
             error: 'GET_ASSETS_FOR_OPERATOR_ERROR',
         };
         let data = {
-            id: _get(this.props, 'decodedToken.FleetUser.id', ''),
+            clientId: _get(this.props, 'decodedToken.Client.id', ''),
+            licensePlate: licenseNumber,
         };
         let identifier = 'GET_ASSETS_FOR_OPERATOR';
         let key = 'operatorAssets';
@@ -73,11 +74,9 @@ class AssetCheckinScreen extends React.Component {
         this.setState({
             isLoading: true,
         });
-        console.log('came in get loca method....');
         // navigator.geolocation.getCurrentPosition(
             Geolocation.getCurrentPosition(
             (position) => {
-                console.log('location got successfully.');
                 this.setState({
                     latitude: position.coords.latitude,
                     longitude: position.coords.longitude,
@@ -109,7 +108,7 @@ class AssetCheckinScreen extends React.Component {
                 // this.props.timerFunc(0);
                 this.props.setCheckInAsset(false);
                 showToast('success', `Checked Out Successfully.`, 3000);
-                this.loadData();
+                // this.loadData();
             }, (err) => {
                 console.log('error while checking in operator', err);
             });
@@ -138,9 +137,11 @@ class AssetCheckinScreen extends React.Component {
         this.props.postData(url, data, constants, identifier, key)
             .then((data) => {
                 console.log('checked in successfully.', data);
-                if (isCheckin) {
+                if (isCheckin === true) {
                     this.props.timerFunc(86400);
-                    this.loadData(isCheckin);
+                    let licenseNumber = _get(this, 'state.license', '');
+                    licenseNumber = licenseNumber.trim();
+                    this.loadData(licenseNumber, isCheckin);
                 } else {
                     this.props.timerFunc(0);
                 }
