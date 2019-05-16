@@ -41,7 +41,7 @@ class AssetCheckinScreen extends React.Component {
     }
     loadData = (isCheckin) => {
         console.log('came in load data method');
-        let url = `/Assets/AssignedToOperator`;
+        let url = `/Assets/GetByClientIdAndLicensePlate`;
         let constants = {
             init: 'GET_ASSETS_FOR_OPERATOR_INIT',
             success: 'GET_ASSETS_FOR_OPERATOR_SUCCESS',
