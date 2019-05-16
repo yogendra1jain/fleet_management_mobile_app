@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, TextInput } from 'react-native';
 import { connect } from 'react-redux';
 import _isArray from 'lodash/isArray';
 import _isEmpty from 'lodash/isEmpty';
@@ -16,8 +16,9 @@ import AssetView from './stateless/AssetView';
 import strings from '../utils/localization';
 
 import { setTimer, timerFunc, setCheckInAsset } from '../actions/auth';
-import { showToast } from '../utils';
+import { showToast, showAlert } from '../utils';
 import Geolocation from 'react-native-geolocation-service';
+import CustomBoldText from './stateless/CustomBoldText';
 
 const ContainerWithLoading = withLoadingScreen(Container);
 
@@ -27,21 +28,33 @@ class AssetCheckinScreen extends React.Component {
         this.state = {
             modalVisible: false,
             itemCount: 0,
+            license: '',
+            searchClicked: false,
         };
     }
 
     componentDidMount() {
-        this.loadData();
+        // this.loadData();
     }
-    loadData = (isCheckin) => {
-        let url = `/Assets/AssignedToOperator`;
+    handleSearch = () => {
+        let licenseNumber = _get(this, 'state.license', '');
+        licenseNumber = licenseNumber.trim();
+        this.setState({
+            searchClicked: true,
+        });
+        this.loadData(licenseNumber);
+    }
+    loadData = (licenseNumber, isCheckin) => {
+        console.log('came in load data method');
+        let url = `/Assets/GetByClientIdAndLicensePlate`;
         let constants = {
             init: 'GET_ASSETS_FOR_OPERATOR_INIT',
             success: 'GET_ASSETS_FOR_OPERATOR_SUCCESS',
             error: 'GET_ASSETS_FOR_OPERATOR_ERROR',
         };
         let data = {
-            id: _get(this.props, 'decodedToken.FleetUser.id', ''),
+            clientId: _get(this.props, 'decodedToken.Client.id', ''),
+            licensePlate: licenseNumber,
         };
         let identifier = 'GET_ASSETS_FOR_OPERATOR';
         let key = 'operatorAssets';
@@ -66,11 +79,9 @@ class AssetCheckinScreen extends React.Component {
         this.setState({
             isLoading: true,
         });
-        console.log('came in get loca method....');
         // navigator.geolocation.getCurrentPosition(
             Geolocation.getCurrentPosition(
             (position) => {
-                console.log('location got successfully.');
                 this.setState({
                     latitude: position.coords.latitude,
                     longitude: position.coords.longitude,
@@ -102,7 +113,7 @@ class AssetCheckinScreen extends React.Component {
                 // this.props.timerFunc(0);
                 this.props.setCheckInAsset(false);
                 showToast('success', `Checked Out Successfully.`, 3000);
-                this.loadData();
+                // this.loadData();
             }, (err) => {
                 console.log('error while checking in operator', err);
             });
@@ -131,9 +142,11 @@ class AssetCheckinScreen extends React.Component {
         this.props.postData(url, data, constants, identifier, key)
             .then((data) => {
                 console.log('checked in successfully.', data);
-                if (isCheckin) {
+                if (isCheckin === true) {
                     this.props.timerFunc(86400);
-                    this.loadData(isCheckin);
+                    let licenseNumber = _get(this, 'state.license', '');
+                    licenseNumber = licenseNumber.trim();
+                    this.loadData(licenseNumber, isCheckin);
                 } else {
                     this.props.timerFunc(0);
                 }
@@ -158,12 +171,17 @@ class AssetCheckinScreen extends React.Component {
             .then((data) => {
                 console.log('user data fetched successfully.', data);
                 // showToast('success', `${this.props.strings.assetFetchSuccMsg}`, 3000);
-                if (isCheckin) {
+                if (isCheckin === true) {
                     this.props.navigation.navigate('Home');
                 }
             }, (err) => {
                 console.log('error while fetching user data', err);
             });
+    }
+    handleLicense = (license) => {
+        this.setState({
+            license,
+        });
     }
 
     renderContent = (strings) => {
@@ -171,7 +189,7 @@ class AssetCheckinScreen extends React.Component {
         const { selectedIndex } = this.state;
         let assetListView = [];
         // console.log('assets', operatorAssets);
-        _isArray(operatorAssets) && !_isEmpty(operatorAssets) && operatorAssets.map((asset, index) => {
+        _get(this, 'state.searchClicked', false) && _isArray(operatorAssets) && !_isEmpty(operatorAssets) && operatorAssets.map((asset, index) => {
             assetListView.push(
                 <AssetView
                     key={index}
@@ -188,6 +206,13 @@ class AssetCheckinScreen extends React.Component {
             );
         }
         );
+        if (_get(this, 'state.searchClicked', false) && _isEmpty(operatorAssets)) {
+            assetListView.push(
+                <View key={1} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', paddingTop: 25 }}>
+                    <CustomBoldText style={{ textAlign: 'center' }}>No Assets Found</CustomBoldText>
+                </View>
+            );
+        }
             return assetListView;
     }
 
@@ -211,6 +236,23 @@ class AssetCheckinScreen extends React.Component {
                     <View style={[{ marginTop: 10 }]} >
                          <View style={[theme.headingstyleMP, { margin: 15, marginBottom: 0 }]}>
                             <Text style={theme.screenHeadingtxtMP}>Clock In to Asset</Text>
+                        </View>
+                        <View style={{ flex: 1, flexDirection: 'row', margin: 15 }}>
+                            <TextInput
+                                style={{ height: 40, width: 200, borderColor: 'gray', borderWidth: 1, paddingLeft: 10 }}
+                                onChangeText={value => this.handleLicense(value)}
+                                multiline={false}
+                                // maxLength={120}
+                                value={_get(this, 'state.license', '').toString()}
+                                underlineColorAndroid={'transparent'}
+                                keyboardType={'default'}
+                                placeholder={'Enter License Plate Number'}
+                            />
+                            <View style={{ flex: 1, justifyContent: 'flex-end', flexDirection: 'row', alignItems: 'center', marginTop: 0 }}>
+                                <Button onPress={() => this.handleSearch()} style={[theme.buttonAlignBottom, { marginLeft: 0, marginTop: 0 }]} full>
+                                    <Text style={theme.buttonSmallTxt}>{`Search`}</Text>
+                                </Button>
+                            </View>
                         </View>
                         {this.renderContent(strings)}
                     </View>

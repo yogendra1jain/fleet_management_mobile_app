@@ -232,7 +232,7 @@ class HomeContentScreen extends React.Component {
     }
 
     render() {
-        const { userDetails, isCheckInAsset, time, strings, appLanguage } = this.props;
+        const { userDetails, isCheckInAsset, time, strings={}, appLanguage } = this.props;
         if (time === 0 && isCheckInAsset) {
             this.handleCheckOut();
         }

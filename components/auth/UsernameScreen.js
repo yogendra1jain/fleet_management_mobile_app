@@ -117,7 +117,10 @@ class UsernameScreen extends React.Component {
     }
     
     render() {
-        const { error, strings, appLanguage } = this.props;
+        let { error, strings, appLanguage } = this.props;
+        if (!strings) {
+            strings = {};
+        }
         const options = {
             fields: {
                 email: {
