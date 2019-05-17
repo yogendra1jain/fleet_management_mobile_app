@@ -97,6 +97,14 @@ def enableSeparateBuildPerCPUArchitecture = false
 def enableProguardInReleaseBuilds = false
 
 android {
+    packagingOptions {
+       pickFirst 'lib/x86/libc++_shared.so'
+       pickFirst 'lib/x86_64/libjsc.so'
+       pickFirst 'lib/arm64-v8a/libjsc.so'
+       pickFirst 'lib/arm64-v8a/libc++_shared.so'
+       pickFirst 'lib/x86_64/libc++_shared.so'
+       pickFirst 'lib/armeabi-v7a/libc++_shared.so'
+    }
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
 
@@ -163,11 +171,7 @@ android {
 // com.google.gms.googleservices.GoogleServicesPlugin.config.disableVersionCheck = true
 
 dependencies {    
-    compile (project(':react-native-voice'))
-    {
-        exclude group: 'com.google.android.gms', module: 'play-services-basement'
-    }
-    // compile 'com.google.android.gms:play-services-basement:15.0.1'
+    compile project(':react-native-voice')
     compile project(':react-native-pdf')
     compile project(':rn-fetch-blob')
     compile project(':react-native-image-resizer')
