@@ -113,6 +113,8 @@ android {
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
+        missingDimensionStrategy 'react-native-camera', 'mlkit'
+        multiDexEnabled true
     }
     splits {
         abi {
@@ -158,8 +160,14 @@ android {
     }
 }
 
-dependencies {
-    compile project(':react-native-voice')
+// com.google.gms.googleservices.GoogleServicesPlugin.config.disableVersionCheck = true
+
+dependencies {    
+    compile (project(':react-native-voice'))
+    {
+        exclude group: 'com.google.android.gms', module: 'play-services-basement'
+    }
+    // compile 'com.google.android.gms:play-services-basement:15.0.1'
     compile project(':react-native-pdf')
     compile project(':rn-fetch-blob')
     compile project(':react-native-image-resizer')
@@ -176,6 +184,7 @@ dependencies {
     compile 'com.google.android.gms:play-services-location:15.0.1'
     // compile project(':react-native-document-picker')
     compile project(':react-native-image-picker')
+    implementation 'com.android.support:multidex:1.0.3'
     implementation project(':react-native-document-picker')
     implementation project(':react-native-firebase')
     // Firebase dependencies

@@ -1,6 +1,7 @@
 package com.aob.myfms;
 
 import android.app.Application;
+import android.content.Context;
 
 import com.facebook.react.ReactApplication;
 import com.wenkesj.voice.VoicePackage;
@@ -26,6 +27,7 @@ import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
+import android.support.multidex.MultiDex;
 
 import java.util.Arrays;
 import java.util.List;
@@ -73,6 +75,11 @@ public class MainApplication extends Application implements ReactApplication {
   @Override
   public ReactNativeHost getReactNativeHost() {
     return mReactNativeHost;
+  }
+  @Override
+  protected void attachBaseContext(Context base) {
+     super.attachBaseContext(base);
+     MultiDex.install(this);
   }
 
   @Override
