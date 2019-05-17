@@ -98,12 +98,8 @@ def enableProguardInReleaseBuilds = false
 
 android {
     packagingOptions {
-       pickFirst 'lib/x86/libc++_shared.so'
-       pickFirst 'lib/x86_64/libjsc.so'
-       pickFirst 'lib/arm64-v8a/libjsc.so'
-       pickFirst 'lib/arm64-v8a/libc++_shared.so'
-       pickFirst 'lib/x86_64/libc++_shared.so'
-       pickFirst 'lib/armeabi-v7a/libc++_shared.so'
+       pickFirst '**/libjsc.so'
+       pickFirst '**/libc++_shared.so'
     }
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
@@ -158,7 +154,7 @@ android {
         variant.outputs.each { output ->
             // For each separate APK per architecture, set a unique version code as described here:
             // http://tools.android.com/tech-docs/new-build-system/user-guide/apk-splits
-            def versionCodes = ["armeabi-v7a":1, "x86":2]
+            def versionCodes = ["armeabi-v7a":1, "x86":2, "arm64-v8a": 3, "x86_64": 4]
             def abi = output.getFilter(OutputFile.ABI)
             if (abi != null) {  // null for the universal-debug, universal-release variants
                 output.versionCodeOverride =
@@ -188,6 +184,7 @@ dependencies {
     compile 'com.google.android.gms:play-services-location:15.0.1'
     // compile project(':react-native-document-picker')
     compile project(':react-native-image-picker')
+    implementation "org.webkit:android-jsc:r241213"
     implementation 'com.android.support:multidex:1.0.3'
     implementation project(':react-native-document-picker')
     implementation project(':react-native-firebase')
