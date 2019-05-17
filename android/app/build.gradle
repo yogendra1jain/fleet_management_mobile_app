@@ -89,12 +89,12 @@ apply from: "../../node_modules/react-native/react.gradle"
  * Upload all the APKs to the Play Store and people will download
  * the correct one based on the CPU architecture of their device.
  */
-def enableSeparateBuildPerCPUArchitecture = false
+def enableSeparateBuildPerCPUArchitecture = true
 
 /**
  * Run Proguard to shrink the Java bytecode in release builds.
  */
-def enableProguardInReleaseBuilds = false
+def enableProguardInReleaseBuilds = true
 
 android {
     packagingOptions {
@@ -116,6 +116,7 @@ android {
         versionName project.env.get("APP_VERSION")
         ndk {
             abiFilters "armeabi-v7a", "x86"
+            abiFilters.clear()
         }
         missingDimensionStrategy 'react-native-camera', 'mlkit'
         multiDexEnabled true
@@ -141,6 +142,7 @@ android {
     buildTypes {
         release {
             minifyEnabled enableProguardInReleaseBuilds
+            shrinkResources true
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
             signingConfig signingConfigs.release
         }
