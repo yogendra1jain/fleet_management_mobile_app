@@ -1,367 +1,170 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { View, TextInput, Alert, TouchableHighlight, Image } from 'react-native';
+import { View, TextInput, Alert, Image } from 'react-native';
 import _get from 'lodash/get';
 // import Input from 'react-native-elements';
-import { showToast, chooseImage } from '../../utils/index';
-import cameraIcon from '../../assets/images/cameraIcon.png';
 import withLocalization from '../hocs/withLocalization';
 import _isEmpty from 'lodash/isEmpty';
-import _cloneDeep from 'lodash/cloneDeep';
 import _findIndex from 'lodash/findIndex';
 import { postData } from '../../actions/commonAction';
 
-import CustomSemiBoldText from '../stateless/CustomSemiBoldText';
 import CustomText from '../stateless/CustomText';
 import theme from '../../theme';
 import { Text, Container, Content, Header, Button, Title, Body, ListItem, Left, Right, Icon, Radio } from 'native-base';
 import withLoadingScreen from '../withLoadingScreen';
 import withErrorBoundary from '../hocs/withErrorBoundary';
-import Geolocation from 'react-native-geolocation-service';
 import CustomBoldText from '../stateless/CustomBoldText';
-import { DocumentPicker, DocumentPickerUtil } from 'react-native-document-picker';
 import pdfIcon from '../../assets/images/pdficon.png';
 import videoIcon from '../../assets/images/videoIcon.png';
 // import Voice from 'react-native-voice';
 import TextToSpeech from '../stateless/SpeechToText';
+import AssetView from '../stateless/AssetView';
 
 const ContainerWithLoading = withLoadingScreen(Container);
 const ImageWithLoading = withLoadingScreen(Image);
 
-
-const list = [
-    {
-      name: 'Engine Related',
-      avatar_url: '',
-      subtitle: '',
-    },
-    {
-      name: 'Hydraulics Issues',
-      avatar_url: '',
-      subtitle: '',
-    },
-    {
-        name: 'Other......',
-        avatar_url: '',
-        subtitle: '',
-      },
-  ];
-
 class OtherTicketScreen extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            selectedOption: '',
-            notes: '',
-            imageSource: '',
-            links: [],
-            uploadedLinks: [],
-            isSpeeking: false,
-        };
-        // Voice.onSpeechStart = this.onSpeechStartHandler.bind(this);
-        // Voice.onSpeechEnd = this.onSpeechEndHandler.bind(this);
-        // Voice.onSpeechResults = this.onSpeechResultsHandler.bind(this);
-    }
-    static navigationOptions = {
-        header: null,
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedOption: '',
+      notes: '',
+      imageSource: '',
+      links: [],
+      uploadedLinks: [],
+      isSpeeking: false,
     };
-    // onSpeechStartHandler = (e) => {
-    //     console.log('e in speech start', e);
-    // }
-    // onSpeechEndHandler = (e) => {
-    //     console.log('e in speech end', e);
-    // }
-    // onSpeechResultsHandler = (e) => {
-    //     console.log('e in speech result', e);
-    //     this.setState({
-    //         isSpeeking: false,
-    //         notes: _get(e, `value[0]`, ''),
-    //     });
-    // }
-
+  }
+    static navigationOptions = {
+      header: null,
+    };
     componentWillUnmount() {
     }
-    componentDidMount() {                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
-
+    componentDidMount() {
     }
     handleNotes = (value) => {
-        this.setState({
-            notes: value,
-        });
-    }
-    handleComments = (value, index) => {
-        let links = _cloneDeep(this.state.links);
-        links[index].comments = value;
-        this.setState({
-            links,
-        });
-    }
-    chooseSelectFileMethod = (title) => {
-        Alert.alert(
-            'Select File',
-            `Please Select which file you want to select.`,
-            [
-                { text: 'Select PDF', onPress: () => this.chooseFile(title) },
-                { text: 'Select Image', onPress: () => this.uploadImage('photo') },
-                { text: 'Select Video', onPress: () => this.uploadImage('video') },
-                { text: 'Cancel', onPress: () => { } },
-            ],
-            { cancelable: true }
-        );
-    }
-    chooseFile = (title) => {
-        if (DocumentPicker && DocumentPicker.show) {
-            DocumentPicker.show({
-                filetype: [DocumentPickerUtil.pdf()],
-            }, (error, res) => {
-                // Android
-                if (!error) {
-                    res.title = title;
-                    res.owner = 'doctor';
-                    this.setFile(res);
-                }
-            });
-        }
-    }
-    setFile = (res) => {
-        const { uri, type: mimeType, fileName } = res || {};
-        let links = _cloneDeep(this.state.links);
-        let imageData = {
-            imageSource: uri,
-            fileName: fileName,
-            isLoading: true,
-            isPdf: true,
-        };
-        links.push(imageData);
-        this.setState({
-            imageSource: uri,
-            fileName: fileName,
-            uploadingFile: true,
-            links,
-        });
-        const formData = new FormData();
-        formData.append('file', { uri, type: mimeType, name: fileName });
-        if (uri && !_isEmpty(uri)) {
-            // console.log('data to be upload', formData);
-            this.uploadData(formData, uri);
-        }
-    }
-    uploadImage = (mediaType) => {
-        // showAlert('This is for upload image', '');
-        chooseImage(mediaType)
-        .then((data) => {
-            const { uri, name, mimeType } = data || {};
-            let links = _cloneDeep(this.state.links);
-            let imageData = {
-                imageSource: uri,
-                fileName: name,
-                isLoading: true,
-                isVideo: mediaType=='video'? true: false,
-            };
-            links.push(imageData);
-            this.setState({
-                imageSource: uri,
-                fileName: name,
-                uploadingFile: true,
-                links,
-            });
-            const formData = new FormData();
-            if (mediaType == 'photo') {
-                formData.append('file', { uri, type: mimeType, name });
-            } else {
-                formData.append('file', { uri, type: 'video/MP4', name: `${(new Date().getTime())}.MP4` });
-            }
-            
-            if (uri && !_isEmpty(uri)) {
-                // console.log('data to be upload', formData);
-                this.uploadData(formData, uri);
-            }
-            // console.log('documents uploaded successfully.', data);
-            
-            // showToast('success', `${this.props.strings.uploadSuccessMsg}`, 3000);
-        }, (err) => {
-        });
-    }
-    uploadData = (formData, uri) => {
-        let url = `/Upload/File`;
-        let constants = {
-            init: 'UPLOAD_DOCUMENTS_INIT',
-            success: 'UPLOAD_DOCUMENTS_SUCCESS',
-            error: 'UPLOAD_DOCUMENTS_ERROR',
-        };
-        let identifier = 'UPLOAD_DOCUMENTS';
-        let key = 'uploadedDocuments';
-        this.props.postData(url, formData, constants, identifier, key)
-            .then((data) => {
-                let links = _cloneDeep(this.state.links);
-                let imgIndex = _findIndex(links, { imageSource: uri });
-                if (imgIndex != -1) {
-                    links[imgIndex].isLoading = false;
-                    links[imgIndex].linkUrl = data.url;
-                }
-                let uploadedLinks = _cloneDeep(this.state.uploadedLinks) || [];
-                uploadedLinks.push(data.url);
-                // console.log('uploaded urls', uploadedLinks);
-
-                this.setState({
-                    uploadedLinks,
-                    links,
-                });
-                // console.log('documents uploaded successfully.', data);
-                // this.getCurrentLocation();
-                // showToast('success', `${this.props.strings.uploadSuccessMsg}`, 3000);
-            }, (err) => {
-                console.log('error while uploading documents', err);
-            });
+      this.setState({
+        notes: value,
+      });
     }
     onSave = () => {
-        let title= 'Submission Confirmition';
-        let message = 'Your Information is being submitted. Please select "Confirm" otherwise select "Go Back"...';
-        if (this.state.notes == '') {
-            Alert.alert(
-                `Warning`,
-                `Please fill Notes field to Save.`,
-                [
-                    { text: 'Ok', onPress: () => {} },
-                ],
-                { cancelable: false }
-            );
-        } else {
-            Alert.alert(
-                `${title}`,
-                `${message}`,
-                [
-                    { text: 'Go Back', onPress: () => {} },
-                    { text: 'Confirm', onPress: () => this.handleSave() },
-                ],
-                { cancelable: false }
-            );
-        }
-    }
-    handleSave = () => {
-        let attachments = [];
-        !_isEmpty(_get(this.state, 'links', [])) && _get(this.state, 'links', []).map((link) => {
-            attachments.push({
-                link: link.linkUrl,
-                comment: link.comments,
-            });
-        });
-        let data = {};
-            data = {
-                assetId: _get(this.props, 'userDetails.clockedInto.id', ''),
-                userId: _get(this.props, 'userDetails.user.id', ''),
-                clientId: _get(this.props, 'userDetails.clockedInto.clientId', ''),
-                description: this.state.notes,
-                type: 1,
-                attachments: attachments,
-            };
-            let url = `/Ticket/Add`;
-            let constants = {
-                init: 'SAVE_TICKET_DATA_INIT',
-                success: 'SAVE_TICKET_DATA_SUCCESS',
-                error: 'SAVE_TICKET_DATA_ERROR',
-            };
-            let identifier = 'SAVE_TICKET_DATA';
-            let key = 'savedTicketData';
-            this.props.postData(url, data, constants, identifier, key)
-            .then((data) => {
-                console.log('ticket saved successfully.', data);
-                this.setState({
-                    isSaved: true,
-                });
-                showToast('success', `${this.props.strings.saveSuccessMsg}`, 3000);
-                // setTimeout(() => {
-                this.props.navigation.navigate('ServiceTicketHome');
-                // }, 2000);
-            }, (err) => {
-                console.log('error while saving mileage', err);
-            });
+    //   const title= 'Submission Confirmition';
+    //   const message = 'Your Information is being submitted. Please select "Confirm" otherwise select "Go Back"...';
+      if (this.state.notes == '') {
+        Alert.alert(
+            `Warning`,
+            `Please fill Notes field to Save.`,
+            [
+              { text: 'Ok', onPress: () => {} },
+            ],
+            { cancelable: false }
+        );
+      } else {
+        this.props.navigation.navigate('NewTicketScreen', { notes: this.state.notes });
+        // Alert.alert(
+        //     `${title}`,
+        //     `${message}`,
+        //     [
+        //       { text: 'Go Back', onPress: () => {} },
+        //       { text: 'Confirm', onPress: () => this.handleSave() },
+        //     ],
+        //     { cancelable: false }
+        // );
+      }
     }
     handleOption = (item) => {
-        this.setState({
-            selectedOption: item.name,
-        });
+      this.setState({
+        selectedOption: item.name,
+      });
     }
-    handleDelete = (index) => {
-        let { links } = this.state || [];
-        links.splice(index, 1);
-        this.setState({
-            links,
-        });
-    }
-    // startSpeech = () => {
-    //     this.setState({
-    //         isSpeeking: true,
-    //     });
-    //     Voice.start('en-US');
-    // }
     handleTextToSpeech = (e, name) => {
-        this.setState({
-            [name]: _get(e, 'value[0]', ''),
-        });
+      this.setState({
+        [name]: _get(e, 'value[0]', ''),
+      });
+    }
+
+    renderContent = (strings) => {
+      const { userDetails } = this.props;
+      const assetListView = [];
+      assetListView.push(
+          <AssetView
+            key={0}
+            index={0}
+            selectedIndex={0}
+            asset={_get(userDetails, 'clockedInto', {})}
+            strings={strings}
+            handleAssetClick={this.handleAssetClick}
+            handleCheckIn={this.getCurrentLocation}
+            decodedToken={this.props.decodedToken}
+            userDetails={this.props.userDetails}
+            handleCheckOut={this.handleCheckOut}
+            hideButton={true}
+          />
+      );
+      return assetListView;
     }
 
     render() {
-        const { selectedOption, notes } = this.state;
-        const { strings } = this.props;
-        let images = [];
-        !_isEmpty(_get(this.state, 'links', [])) && _get(this.state, 'links', []).map((link, index) => {
-            // console.log('link in loop', link, 'uploaded links', this.state.uploadedLinks);
-            images.push(
-                <View key={index} style={{ flex: 1, marginLeft: 20, marginBottom: 10, flexDirection: 'row' }}>
-                    {
-                        <ImageWithLoading isLoading={link.isLoading} source={link.isVideo? videoIcon: !link.isPdf ? { uri: link.imageSource }: pdfIcon} style={{ width: 100, height: 100 }} />
-                    }
-                    <View style={{ margin: 10, flex: 1, flexWrap: 'wrap' }}>
-                        <View style={{ flex: 1, flexDirection: 'column' }}>
-                            {/* <View style={{ justifyContent: 'flex-start', alignItems: 'center', paddingLeft: 10 }}>
+      const { notes } = this.state;
+      const { strings } = this.props;
+      const images = [];
+      !_isEmpty(_get(this.state, 'links', [])) && _get(this.state, 'links', []).map((link, index) => {
+        // console.log('link in loop', link, 'uploaded links', this.state.uploadedLinks);
+        images.push(
+            <View key={index} style={{ flex: 1, marginLeft: 20, marginBottom: 10, flexDirection: 'row' }}>
+              {
+                <ImageWithLoading isLoading={link.isLoading} source={link.isVideo? videoIcon: !link.isPdf ? { uri: link.imageSource }: pdfIcon} style={{ width: 100, height: 100 }} />
+              }
+              <View style={{ margin: 10, flex: 1, flexWrap: 'wrap' }}>
+                <View style={{ flex: 1, flexDirection: 'column' }}>
+                  {/* <View style={{ justifyContent: 'flex-start', alignItems: 'center', paddingLeft: 10 }}>
                                 <Text>Comments: </Text>
                             </View> */}
-                            <View style={{ flex: 1, marginLeft: 10, marginRight: 10, position: 'relative' }}>
-                                <TextInput
-                                    style={{ height: 50, borderColor: 'gray', borderWidth: 1, paddingLeft: 10 }}
-                                    onChangeText={value => this.handleComments(value, index)}
-                                    multiline={true}
-                                    placeholder={'Comments'}
-                                    maxLength={120}
-                                    value={_get(link, 'comments', '').toString()}
-                                    underlineColorAndroid={'transparent'}
-                                    keyboardType={'default'}
-                                />
-                                <TextToSpeech
-                                    handleTextToSpeech={e => this.handleComments(_get(e, 'value[0]', ''), index)}
-                                />
-                            </View>
-                        </View>
-                    </View>
-                    <View style={{ margin: 10 }}>
-                    {
-                        !link.isLoading &&
-                        <Icon onPress={() => this.handleDelete(index)} name='delete' type="MaterialCommunityIcons" />
-                    }
-                    </View>
+                  <View style={{ flex: 1, marginLeft: 10, marginRight: 10, position: 'relative' }}>
+                    <TextInput
+                      style={{ height: 50, borderColor: 'gray', borderWidth: 1, paddingLeft: 10 }}
+                      onChangeText={value => this.handleComments(value, index)}
+                      multiline={true}
+                      placeholder={'Comments'}
+                      maxLength={120}
+                      value={_get(link, 'comments', '').toString()}
+                      underlineColorAndroid={'transparent'}
+                      keyboardType={'default'}
+                    />
+                    <TextToSpeech
+                      handleTextToSpeech={e => this.handleComments(_get(e, 'value[0]', ''), index)}
+                    />
+                  </View>
                 </View>
-            );
-        });
+              </View>
+              <View style={{ margin: 10 }}>
+                {
+                  !link.isLoading &&
+                        <Icon onPress={() => this.handleDelete(index)} name='delete' type="MaterialCommunityIcons" />
+                }
+              </View>
+            </View>
+        );
+      });
 
-        return (
-            <ContainerWithLoading style={theme.container} isLoading={_findIndex(this.state.links, { isLoading: true }) == -1 && this.props.isLoading}>
-                <Header style={{ backgroundColor: '#ff585d', borderBottomWidth: 0 }} androidStatusBarColor='#ff585d'>
-                    <Left style={{ flex: 1 }}>
-                        <Button transparent onPress={() => this.props.navigation.goBack()}>
-                            <Icon name='arrow-back' style={{ color: '#fff' }} />
-                        </Button>
-                    </Left>
-                    <Body style={[theme.centerAlign, { flex: 4 }]}>
-                        <Title style={{ color: '#fff', fontFamily: 'Montserrat-Bold' }} >{`${strings.otherRepairReqTitle}`}</Title>
-                    </Body>
-                    <Right style={{ flex: 1 }}>
-                    </Right>
-                </Header>
-                <Content
-                    style={{ backgroundColor: '#ededed' }}
-                >
-                    {/* <View style={{ flex: 1, margin: 10, flexDirection: 'row' }}>
+      return (
+        <ContainerWithLoading style={theme.container} isLoading={_findIndex(this.state.links, { isLoading: true }) == -1 && this.props.isLoading}>
+          <Header style={{ backgroundColor: '#ff585d', borderBottomWidth: 0 }} androidStatusBarColor='#ff585d'>
+            <Left style={{ flex: 1 }}>
+              <Button transparent onPress={() => this.props.navigation.goBack()}>
+                <Icon name='arrow-back' style={{ color: '#fff' }} />
+              </Button>
+            </Left>
+            <Body style={[theme.centerAlign, { flex: 4 }]}>
+              <Title style={{ color: '#fff', fontFamily: 'Montserrat-Bold' }} >{`${strings.otherRepairReqTitle}`}</Title>
+            </Body>
+            <Right style={{ flex: 1 }}>
+            </Right>
+          </Header>
+          <Content
+            style={{ backgroundColor: '#ededed' }}
+          >
+            {/* <View style={{ flex: 1, margin: 10, flexDirection: 'row' }}>
                         <View style={{ flex: 1 }}>
                             {
                                 list.map((l, i) => (
@@ -380,74 +183,60 @@ class OtherTicketScreen extends React.Component {
                             }
                         </View>
                     </View> */}
-                    <View style={{ flex: 1, paddingTop: 15 }}>
-                        <View style={{ flex: 1, flexDirection: 'column' }}>
-                            <View style={{ justifyContent: 'flex-start', alignItems: 'center', paddingLeft: 10 }}>
-                                <CustomText>{`${strings.notesLabel}`}</CustomText>
-                            </View>
-                            <View style={{ flex: 1, marginLeft: 10, marginRight: 10 }}>
-                                <TextInput
-                                    style={{ height: 135, borderColor: 'gray', borderWidth: 1, paddingLeft: 10 }}
-                                    onChangeText={value => this.handleNotes(value)}
-                                    multiline={true}
-                                    maxLength={1200}
-                                    value={_get(this, 'state.notes', '').toString()}
-                                    underlineColorAndroid={'transparent'}
-                                    keyboardType={'default'}
-                                />
-                                <TextToSpeech
-                                    handleTextToSpeech={e => this.handleTextToSpeech(e, 'notes')}
-                                />
-                            </View>
-                            <View style={{ justifyContent: 'flex-start', alignItems: 'center', paddingLeft: 10 }}>
-                                <CustomText>{`${notes.length}/1200`}</CustomText>
-                            </View>
-                        </View>
-                        <View style={{ flex: 1, paddingTop: 15 }}>
-                            {
-                                images
-                            }
-                            <TouchableHighlight onPress={() => this.chooseSelectFileMethod('service img')}>
-                                <View style={[theme.centerAlign, { flex: 1, flexDirection: 'column', margin: 20 }]}>
-                                    <View style={{ flex: 1, marginBottom: 15 }}>
-                                        <CustomSemiBoldText style={{ fontSize: 20, color: 'black' }}>{`${strings.goToCamera}`}</CustomSemiBoldText>
-                                    </View>
-                                    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                                        <Image source={cameraIcon} style={{ width: 100, height: 101 }} />
-                                    </View>
-                                </View>
-                            </TouchableHighlight>
-                        </View>
-                    </View>
-                </Content>
-                <View style={{ backgroundColor: '#ededed' }}>
-                    <Button style={[theme.buttonNormal, {backgroundColor: '#ff585d'}]} onPress={() => this.onSave()} full>
-                        <CustomBoldText style={theme.butttonFixTxt}>{`${strings.confirmText}`}</CustomBoldText>
-                    </Button>
+            {this.renderContent(strings)}
+            <View style={{ flex: 1, paddingTop: 15 }}>
+              <View style={{ flex: 1, flexDirection: 'column' }}>
+                <View style={{ justifyContent: 'flex-start', alignItems: 'center', paddingLeft: 10 }}>
+                  <CustomText>{`${strings.notesLabel}`}</CustomText>
                 </View>
-            </ContainerWithLoading>
-        );
+                <View style={{ flex: 1, marginLeft: 10, marginRight: 10 }}>
+                  <TextInput
+                    style={{ height: 135, borderColor: 'gray', borderWidth: 1, paddingLeft: 10 }}
+                    onChangeText={value => this.handleNotes(value)}
+                    multiline={true}
+                    maxLength={1200}
+                    value={_get(this, 'state.notes', '').toString()}
+                    underlineColorAndroid={'transparent'}
+                    keyboardType={'default'}
+                  />
+                  <TextToSpeech
+                    handleTextToSpeech={e => this.handleTextToSpeech(e, 'notes')}
+                  />
+                </View>
+                <View style={{ justifyContent: 'flex-start', alignItems: 'center', paddingLeft: 10 }}>
+                  <CustomText>{`${notes.length}/1200`}</CustomText>
+                </View>
+              </View>
+            </View>
+          </Content>
+          <View style={{ backgroundColor: '#ededed' }}>
+            <Button style={[theme.buttonNormal, { backgroundColor: '#ff585d' }]} onPress={() => this.onSave()} full>
+              <CustomBoldText style={theme.butttonFixTxt}>{`${strings.confirmText}`}</CustomBoldText>
+            </Button>
+          </View>
+        </ContainerWithLoading>
+      );
     }
 }
 
 function mapStateToProps(state) {
-    let { decodedToken } = state.auth || {};
-    let { commonReducer } = state || {};
-    let { userDetails } = commonReducer || {};
-    // console.log('user details in ticket', userDetails);
-    let isLoading = commonReducer.isFetching || false;
+  const { decodedToken } = state.auth || {};
+  const { commonReducer } = state || {};
+  const { userDetails } = commonReducer || {};
+  // console.log('user details in ticket', userDetails);
+  const isLoading = commonReducer.isFetching || false;
 
-    return {
-        decodedToken,
-        userDetails,
-        isLoading,
-    };
+  return {
+    decodedToken,
+    userDetails,
+    isLoading,
+  };
 }
 
 function mapDispatchToProps(dispatch) {
-    return {
-        postData: (url, formData, constants, identifier, key) => dispatch(postData(url, formData, constants, identifier, key)),
-    };
+  return {
+    postData: (url, formData, constants, identifier, key) => dispatch(postData(url, formData, constants, identifier, key)),
+  };
 }
 
 export default withErrorBoundary()(connect(mapStateToProps, mapDispatchToProps)(withLocalization(OtherTicketScreen)));

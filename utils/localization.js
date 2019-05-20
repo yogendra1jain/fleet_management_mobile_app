@@ -88,7 +88,7 @@ let strings = ({
     "rejectedTicketsLabel": "Rejected Tickets",
     "upcomingAppointmentsLabel": "Upcoming Appointments",
     "contactManagerLabel": "Contact Fleet Manager",
-    "otherRepairReqTitle": "Other Repair Request",
+    "otherRepairReqTitle": "Service Ticket Request",
     "notesLabel": "Notes: (as detailed as possible)",
     "reviewLabel": "Review",
     "commentsTitle": "Comments",
