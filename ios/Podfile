@@ -51,6 +51,11 @@ target 'MyFMSApp' do
 
   pod 'react-native-pdf', :path => '../node_modules/react-native-pdf'
 
+  # Third party deps podspec link
+  pod 'DoubleConversion', :podspec => '../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec'
+  pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
+  pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
+
 
 
   target 'MyFMSAppTests' do

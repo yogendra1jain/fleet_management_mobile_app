@@ -2,7 +2,7 @@ PODS:
   - boost-for-react-native (1.63.0)
   - Crashlytics (3.10.7):
     - Fabric (~> 1.7.11)
-  - DoubleConversion (1.1.5)
+  - DoubleConversion (1.1.6)
   - Fabric (1.7.11)
   - Firebase/Core (5.3.0):
     - Firebase/CoreOnly
@@ -33,11 +33,11 @@ PODS:
   - FirebaseSwizzlingUtilities/ISASwizzling (2.0.0)
   - FirebaseSwizzlingUtilities/MethodSwizzling (2.0.0):
     - FirebaseCore (~> 5.0)
-  - Folly (2016.09.26.00):
+  - Folly (2018.10.22.00):
     - boost-for-react-native
     - DoubleConversion
     - glog
-  - glog (0.3.4)
+  - glog (0.3.5)
   - GoogleToolboxForMac/Defines (2.1.4)
   - GoogleToolboxForMac/Logger (2.1.4):
     - GoogleToolboxForMac/Defines (= 2.1.4)
@@ -50,60 +50,71 @@ PODS:
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
   - Protobuf (3.6.1)
-  - React (0.55.4):
-    - React/Core (= 0.55.4)
-  - react-native-document-picker (2.1.0):
+  - React (0.59.8):
+    - React/Core (= 0.59.8)
+  - react-native-document-picker (2.3.0):
     - React
-  - react-native-image-picker (0.14.3):
+  - react-native-image-picker (0.28.1):
     - React
   - react-native-image-resizer (1.0.1):
     - React
-  - react-native-maps (0.23.0):
+  - react-native-maps (0.24.2):
     - React
-  - react-native-pdf (5.0.8):
+  - react-native-pdf (5.0.12):
     - React
-  - React/Core (0.55.4):
-    - yoga (= 0.55.4.React)
-  - React/CxxBridge (0.55.4):
-    - Folly (= 2016.09.26.00)
+  - React/Core (0.59.8):
+    - yoga (= 0.59.8.React)
+  - React/CxxBridge (0.59.8):
+    - Folly (= 2018.10.22.00)
     - React/Core
     - React/cxxreact
-  - React/cxxreact (0.55.4):
+    - React/jsiexecutor
+  - React/cxxreact (0.59.8):
     - boost-for-react-native (= 1.63.0)
-    - Folly (= 2016.09.26.00)
-    - React/jschelpers
+    - DoubleConversion
+    - Folly (= 2018.10.22.00)
+    - glog
     - React/jsinspector
-  - React/DevSupport (0.55.4):
+  - React/DevSupport (0.59.8):
     - React/Core
     - React/RCTWebSocket
-  - React/fishhook (0.55.4)
-  - React/jschelpers (0.55.4):
-    - Folly (= 2016.09.26.00)
-    - React/PrivateDatabase
-  - React/jsinspector (0.55.4)
-  - React/PrivateDatabase (0.55.4)
-  - React/RCTBlob (0.55.4):
+  - React/fishhook (0.59.8)
+  - React/jsi (0.59.8):
+    - DoubleConversion
+    - Folly (= 2018.10.22.00)
+    - glog
+  - React/jsiexecutor (0.59.8):
+    - DoubleConversion
+    - Folly (= 2018.10.22.00)
+    - glog
+    - React/cxxreact
+    - React/jsi
+  - React/jsinspector (0.59.8)
+  - React/RCTBlob (0.59.8):
     - React/Core
-  - React/RCTImage (0.55.4):
+  - React/RCTImage (0.59.8):
     - React/Core
     - React/RCTNetwork
-  - React/RCTNetwork (0.55.4):
+  - React/RCTNetwork (0.59.8):
     - React/Core
-  - React/RCTWebSocket (0.55.4):
+  - React/RCTWebSocket (0.59.8):
     - React/Core
     - React/fishhook
     - React/RCTBlob
   - rn-fetch-blob (0.10.6):
     - React/Core
-  - RNGestureHandler (1.0.15):
+  - RNGestureHandler (1.2.1):
     - React
-  - yoga (0.55.4.React)
+  - yoga (0.59.8.React)
 
 DEPENDENCIES:
   - Crashlytics (~> 3.10.4)
+  - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
   - Fabric (~> 1.7.5)
   - Firebase/Core (~> 5.3.0)
   - Firebase/Performance (~> 5.3.0)
+  - Folly (from `../node_modules/react-native/third-party-podspecs/Folly.podspec`)
+  - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
   - react-native-document-picker (from `../node_modules/react-native-document-picker`)
   - react-native-image-picker (from `../node_modules/react-native-image-picker`)
   - react-native-image-resizer (from `../node_modules/react-native-image-resizer`)
@@ -122,7 +133,6 @@ SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - boost-for-react-native
     - Crashlytics
-    - DoubleConversion
     - Fabric
     - Firebase
     - FirebaseAnalytics
@@ -130,14 +140,18 @@ SPEC REPOS:
     - FirebaseInstanceID
     - FirebasePerformance
     - FirebaseSwizzlingUtilities
-    - Folly
-    - glog
     - GoogleToolboxForMac
     - GTMSessionFetcher
     - nanopb
     - Protobuf
 
 EXTERNAL SOURCES:
+  DoubleConversion:
+    :podspec: "../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec"
+  Folly:
+    :podspec: "../node_modules/react-native/third-party-podspecs/Folly.podspec"
+  glog:
+    :podspec: "../node_modules/react-native/third-party-podspecs/glog.podspec"
   React:
     :path: "../node_modules/react-native"
   react-native-document-picker:
@@ -160,7 +174,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
   Crashlytics: ccaac42660eb9351b9960c0d66106b0bcf99f4fa
-  DoubleConversion: e22e0762848812a87afd67ffda3998d9ef29170c
+  DoubleConversion: bb338842f62ab1d708ceb63ec3d999f0f3d98ecd
   Fabric: f233c9492b3bbc1f04e3882986740f7988a58edb
   Firebase: 68afeeb05461db02d7c9e3215cda28068670f4aa
   FirebaseAnalytics: b3628aea54c50464c32c393fb2ea032566e7ecc2
@@ -168,22 +182,22 @@ SPEC CHECKSUMS:
   FirebaseInstanceID: f3f0657372592ecdfdfe2cac604a5a75758376a6
   FirebasePerformance: 1ebd87ffee5ca814582db1dc9e25651792ba02db
   FirebaseSwizzlingUtilities: 6c22677c50d0b6f5f0dc637c1233f13694a3003f
-  Folly: 211775e49d8da0ca658aebc8eab89d642935755c
-  glog: 1de0bb937dccdc981596d3b5825ebfb765017ded
+  Folly: de497beb10f102453a1afa9edbf8cf8a251890de
+  glog: aefd1eb5dda2ab95ba0938556f34b98e2da3a60d
   GoogleToolboxForMac: 91c824d21e85b31c2aae9bb011c5027c9b4e738f
   GTMSessionFetcher: 0c4baf0a73acd0041bf9f71ea018deedab5ea84e
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   Protobuf: 1eb9700044745f00181c136ef21b8ff3ad5a0fd5
-  React: aa2040dbb6f317b95314968021bd2888816e03d5
+  React: 1d605e098d69bdf08960787f3446f0a9dc2e2ccf
   react-native-document-picker: e7934f6a3c898a1b62fa68b1f09371beef6ac51a
-  react-native-image-picker: b303e31c3c4ada1d7cb1342423d328d2efb07fb3
+  react-native-image-picker: f42de90075c5b1af53417af927631d909a1a746e
   react-native-image-resizer: 04a3409e7d4ad646c4468671c69dec490def139c
-  react-native-maps: 066c2afcc89e18726377bcc685315f989ca22449
-  react-native-pdf: de408b5d16850c38fdb017d010b8742883c60be9
+  react-native-maps: bb480348a3fe1e5a811fed1ba3387b329161c5cc
+  react-native-pdf: 0268038d049187eccaf4bce4a2ca4a96719fdc36
   rn-fetch-blob: 76a8f798dae965bbcd146a2438f2e1d381c91ae3
-  RNGestureHandler: afde2addc517e85cc97a25bfe119acbee779a7ce
-  yoga: a23273df0088bf7f2bb7e5d7b00044ea57a2a54a
+  RNGestureHandler: 7ccf2f3f60458e084f9ada01fbaf610f6fef073c
+  yoga: 128daf064cacaede0c3bb27424b6b4c71052e6cd
 
-PODFILE CHECKSUM: 6ae533d5c385701dac7d449ac36161cff8ad4e1e
+PODFILE CHECKSUM: 1bc699f5d19a2b0294d5d72a1a202bdce2b29274
 
 COCOAPODS: 1.5.3
