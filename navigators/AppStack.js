@@ -50,65 +50,65 @@ import CheckListHome from '../components/CheckList/CheckListHome';
 
 const AppStack = createStackNavigator(
     {
-        Home: HomeContentScreen,
-        AssetCheckinScreen: AssetCheckinScreen,
-        // ChangePasswordScreen: ChangePasswordScreen,
-        // UserAccount: UserAccountScreen,
-        // EditUserProfile: EditUserProfileScreen,
-        SetupNativeAuth: SetupNativeAuthScreen,
-        NativeAuthEntry: NativeAuthEntryScreen,
-        // TaskListScreen: TaskListScreen,
-        // TaskDetailScreen: TaskDetailScreen,
-        LocationMap: LocationMap,
-        LocationA: LocationA,
-        UpdateMileageHome: UpdateMileageHome,
-        // ServiceTicketHome: ServiceTicketHome,
-        // ContactPersonHome: ContactPersonHome,
-        DocumentsHome: DocumentsHome,
-        GasFilUpHome: GasFilUpHome,
-        // NewTicketScreen: NewTicketScreen,
-        // ScheduleMaintenanceScreen: ScheduleMaintenanceScreen,
-        // OtherTicketScreen: OtherTicketScreen,
-        // ServiceTicketListScreen: ServiceTicketListScreen,
-        // MechanicProfile: MechanicProfile,
-        PdfViewScreen: PdfViewScreen,
-        ImageViewScreen: ImageViewScreen,
-        ExpenseReportHomeScreen: ExpenseReportHomeScreen,
-        UploadDocsHomeScreen: UploadDocsHomeScreen,
-        AnimatedMarkers: AnimatedMarkers,
-        ExpenseReportInput: ExpenseReportInputScreen,
-        CheckListHome: CheckListHome,
+      Home: HomeContentScreen,
+      AssetCheckinScreen: AssetCheckinScreen,
+      // ChangePasswordScreen: ChangePasswordScreen,
+      // UserAccount: UserAccountScreen,
+      // EditUserProfile: EditUserProfileScreen,
+      SetupNativeAuth: SetupNativeAuthScreen,
+      NativeAuthEntry: NativeAuthEntryScreen,
+      // TaskListScreen: TaskListScreen,
+      // TaskDetailScreen: TaskDetailScreen,
+      LocationMap: LocationMap,
+      LocationA: LocationA,
+      UpdateMileageHome: UpdateMileageHome,
+      // ServiceTicketHome: ServiceTicketHome,
+      // ContactPersonHome: ContactPersonHome,
+      DocumentsHome: DocumentsHome,
+      GasFilUpHome: GasFilUpHome,
+      // NewTicketScreen: NewTicketScreen,
+      // ScheduleMaintenanceScreen: ScheduleMaintenanceScreen,
+      // OtherTicketScreen: OtherTicketScreen,
+      // ServiceTicketListScreen: ServiceTicketListScreen,
+      // MechanicProfile: MechanicProfile,
+      PdfViewScreen: PdfViewScreen,
+      ImageViewScreen: ImageViewScreen,
+      ExpenseReportHomeScreen: ExpenseReportHomeScreen,
+      UploadDocsHomeScreen: UploadDocsHomeScreen,
+      AnimatedMarkers: AnimatedMarkers,
+      ExpenseReportInput: ExpenseReportInputScreen,
+      CheckListHome: CheckListHome,
     }, {
-        initialRouteName: 'Home',
-        navigationOptions: {
-            headerStyle: {
-                backgroundColor: '#0d7aaa',
-                elevation: 0,
-                shadowOpacity: 0,
-            },
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-                color: '#FFFFFF',
-                fontSize: 18,
-            },
+      initialRouteName: 'Home',
+      navigationOptions: {
+        headerStyle: {
+          backgroundColor: '#0d7aaa',
+          elevation: 0,
+          shadowOpacity: 0,
         },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+          color: '#FFFFFF',
+          fontSize: 18,
+        },
+      },
     }
 );
 
 
 const SettingsStack = createStackNavigator({
-    UserAccount: UserAccountScreen,
-    ChangePasswordScreen: ChangePasswordScreen,
-    EditUserProfile: EditUserProfileScreen,
-    LanguageSelectionScreen: LanguageSelectionScreen,
-  });
+  UserAccount: UserAccountScreen,
+  ChangePasswordScreen: ChangePasswordScreen,
+  EditUserProfile: EditUserProfileScreen,
+  LanguageSelectionScreen: LanguageSelectionScreen,
+});
 
 
 const TasksStack = createStackNavigator({
-    TaskListScreen: TaskListScreen,
-    TaskDetailScreen: TaskDetailScreen,
-    LocationMap: LocationMap,
-    LocationA: LocationA,
+  TaskListScreen: TaskListScreen,
+  TaskDetailScreen: TaskDetailScreen,
+  LocationMap: LocationMap,
+  LocationA: LocationA,
 });
 
 const ServiceStack = createStackNavigator({
@@ -128,66 +128,66 @@ const ContactPersonStack = createStackNavigator({
 class ContactIcon extends React.PureComponent {
   // You should pass down the badgeCount in some other ways like context, redux, mobx or event emitters.
   render() {
-  const { opacity } = this.props;
-  return (
-    <View style={{ opacity: opacity }}>
+    const { opacity } = this.props;
+    return (
+      <View style={{ opacity: opacity }}>
         <Image style={{ width: 28, height: 26 }} source={contactMechanic} />
-    </View>
-  );
-}
+      </View>
+    );
+  }
 }
 class ServiceIcon extends React.PureComponent {
   // You should pass down the badgeCount in some other ways like context, redux, mobx or event emitters.
   render() {
-  const { opacity } = this.props;
-  return (
-    <View style={{ opacity: opacity }}>
+    const { opacity } = this.props;
+    return (
+      <View style={{ opacity: opacity }}>
         <Image style={{ width: 33, height: 25 }} source={serviceImg} />
-    </View>
-  );
-}
+      </View>
+    );
+  }
 }
 class TaskIcon extends React.PureComponent {
   // You should pass down the badgeCount in some other ways like context, redux, mobx or event emitters.
   render() {
-  const { opacity } = this.props;
-  return (
-    <View style={{ opacity: opacity }}>
+    const { opacity } = this.props;
+    return (
+      <View style={{ opacity: opacity }}>
         <Image style={{ width: 19, height: 27 }} source={taskImg} />
-    </View>
-  );
-}
+      </View>
+    );
+  }
 }
 class HomeIcon extends React.PureComponent {
   // You should pass down the badgeCount in some other ways like context, redux, mobx or event emitters.
   render() {
-  const { opacity } = this.props;
-  return (
-    <View style={{ opacity: opacity }}>
+    const { opacity } = this.props;
+    return (
+      <View style={{ opacity: opacity }}>
         <Image style={{ width: 28, height: 25 }} source={homeImg} />
-    </View>
-  );
-}
+      </View>
+    );
+  }
 }
 class SettingIcon extends React.PureComponent {
   // You should pass down the badgeCount in some other ways like context, redux, mobx or event emitters.
   render() {
-  const { opacity } = this.props;
-  return (
-    <View style={{ opacity: opacity }}>
+    const { opacity } = this.props;
+    return (
+      <View style={{ opacity: opacity }}>
         <Image style={{ width: 24, height: 26 }} source={settingImg} />
-    </View>
-  );
+      </View>
+    );
+  }
 }
-}
-  class IconWithBadge extends React.Component {
-    render() {
-      const { name, badgeCount, color, size, opacity } = this.props;
-      return (
-        <View style={{ opacity: opacity }}>
-          <Image source={contactMechanic} />
-          {/* <Ionicons name={name} size={size} color={color} /> */}
-          {/* {badgeCount > 0 && (
+class IconWithBadge extends React.Component {
+  render() {
+    const { name, badgeCount, color, size, opacity } = this.props;
+    return (
+      <View style={{ opacity: opacity }}>
+        <Image source={contactMechanic} />
+        {/* <Ionicons name={name} size={size} color={color} /> */}
+        {/* {badgeCount > 0 && (
             <View
               style={{
                 // /If you're using react-native < 0.57 overflow outside of the parent
@@ -207,47 +207,47 @@ class SettingIcon extends React.PureComponent {
               </Text>
             </View>
           )} */}
-        </View>
-      );
-    }
+      </View>
+    );
+  }
+}
+
+const HomeIconWithBadge = (props) => {
+  // You should pass down the badgeCount in some other ways like context, redux, mobx or event emitters.
+  return <IconWithBadge {...props} badgeCount={3} />;
+};
+
+const getTabBarIcon = (navigation, focused, tintColor) => {
+  const { routeName } = navigation.state;
+  let IconComponent = Ionicons;
+  let iconName;
+  let opacity = 1;
+  if (routeName === 'HOME') {
+    iconName = `home${focused ? '' : ''}`;
+    opacity = focused ? 1 : 0.3;
+    // We want to add badges to home tab icon
+    IconComponent = HomeIcon;
+  } else if (routeName === 'SETTINGS') {
+    iconName = `ios-options${focused ? '' : '-outline'}`;
+    opacity = focused ? 1 : 0.3;
+    IconComponent = SettingIcon;
+  } else if (routeName === 'TASKS') {
+    iconName = `tasks${focused ? '' : ''}`;
+    opacity = focused ? 1 : 0.3;
+    IconComponent = TaskIcon;
+  } else if (routeName === 'SERVICES') {
+    iconName = `screwdriver`;
+    opacity = focused ? 1 : 0.3;
+    IconComponent = ServiceIcon;
+  } else if (routeName === 'CONTACT') {
+    iconName = `contact-phone${focused ? '' : ''}`;
+    opacity = focused ? 1 : 0.3;
+    IconComponent = ContactIcon;
   }
 
-  const HomeIconWithBadge = (props) => {
-    // You should pass down the badgeCount in some other ways like context, redux, mobx or event emitters.
-    return <IconWithBadge {...props} badgeCount={3} />;
-  };
-
-  const getTabBarIcon = (navigation, focused, tintColor) => {
-    const { routeName } = navigation.state;
-    let IconComponent = Ionicons;
-    let iconName;
-    let opacity = 1;
-    if (routeName === 'HOME') {
-      iconName = `home${focused ? '' : ''}`;
-      opacity = focused ? 1 : 0.3;
-      // We want to add badges to home tab icon
-      IconComponent = HomeIcon;
-    } else if (routeName === 'SETTINGS') {
-      iconName = `ios-options${focused ? '' : '-outline'}`;
-      opacity = focused ? 1 : 0.3;
-      IconComponent = SettingIcon;
-    } else if (routeName === 'TASKS') {
-      iconName = `tasks${focused ? '' : ''}`;
-      opacity = focused ? 1 : 0.3;
-      IconComponent = TaskIcon;
-    } else if (routeName === 'SERVICES') {
-      iconName = `screwdriver`;
-      opacity = focused ? 1 : 0.3;
-      IconComponent = ServiceIcon;
-    } else if (routeName === 'CONTACT') {
-      iconName = `contact-phone${focused ? '' : ''}`;
-      opacity = focused ? 1 : 0.3;
-      IconComponent = ContactIcon;
-    }
-
-    // You can return any component that you like here!
-    return <IconComponent style={{ }} opacity={opacity} name={iconName} size={25} color={tintColor} />;
-  };
+  // You can return any component that you like here!
+  return <IconComponent style={{ }} opacity={opacity} name={iconName} size={25} color={tintColor} />;
+};
 
 export class GetTabBarLabel extends React.PureComponent {
   render() {
@@ -257,11 +257,11 @@ export class GetTabBarLabel extends React.PureComponent {
     // console.log('app language', appLanguage, 'bundle', bundle);
     const string = bundle ? bundle[appLanguage] : {};
     // console.log('string', string);
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', opacity: focused ? 1 : 0.3 }}>
-      <Text style={{ fontSize: 10, color: 'black', fontFamily: 'Montserrat-SemiBold' }}>{`${string ? string[routeName]: routeName}`}</Text>
-    </View>
-  );
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', opacity: focused ? 1 : 0.3 }}>
+        <Text style={{ fontSize: 10, color: 'black', fontFamily: 'Montserrat-SemiBold' }}>{`${string ? string[routeName]: routeName}`}</Text>
+      </View>
+    );
   }
 }
 
@@ -277,31 +277,29 @@ export class GetTabBarLabel extends React.PureComponent {
 // };
 
 function mapStateToProps(state) {
-  let { auth, commonReducer } = state;
-  let { userDetails } = commonReducer || {};
+  const { auth, commonReducer } = state;
+  const { userDetails } = commonReducer || {};
 
-  let languageDetails = commonReducer.languageDetails || {};
-  let appLanguage = commonReducer.appLanguage || 'en';
+  const languageDetails = commonReducer.languageDetails || {};
+  const appLanguage = commonReducer.appLanguage || 'en';
   // console.log('language details', languageDetails, 'app ', appLanguage);
-  let { token, isLoading } = auth.userStatus;
-  let { decodedToken, time, isCheckInAsset } = auth || {};
+  const { token, isLoading } = auth.userStatus;
+  const { decodedToken, time, isCheckInAsset } = auth || {};
   return {
-      auth,
-      token,
-      isLoading,
-      decodedToken,
-      userDetails,
-      isCheckInAsset,
-      time,
-      appLanguage,
-      languageDetails,
+    auth,
+    token,
+    isLoading,
+    decodedToken,
+    userDetails,
+    isCheckInAsset,
+    time,
+    appLanguage,
+    languageDetails,
   };
 }
 
 GetTabBarLabel = connect(mapStateToProps)(GetTabBarLabel);
-
 // getTabBarLabel = connect(mapStateToProps)(getTabBarLabel);
-
 
 
 const TabStack = createBottomTabNavigator(
@@ -313,32 +311,32 @@ const TabStack = createBottomTabNavigator(
       SETTINGS: SettingsStack,
     },
     {
-        defaultNavigationOptions: ({ navigation }) => ({
-          tabBarIcon: ({ focused, tintColor }) =>
-            getTabBarIcon(navigation, focused, tintColor),
-          tabBarLabel: ({ focused, tintColor }) =>
-            <GetTabBarLabel
+      defaultNavigationOptions: ({ navigation }) => ({
+        tabBarIcon: ({ focused, tintColor }) =>
+          getTabBarIcon(navigation, focused, tintColor),
+        tabBarLabel: ({ focused, tintColor }) =>
+          <GetTabBarLabel
             navigation={navigation} focused={focused}
-            />,
-            // getTabBarLabel(navigation, focused, tintColor),
-        }),
-        // defaultNavigationOptions: ({ navigation }) => ({
-        //   tabBarLabel: ({ focused, tintColor }) =>
-        //     getTabBarLabel(navigation, focused, tintColor),
-        // }),
-        tabBarOptions: {
-          activeTintColor: '#434242',
-          inactiveTintColor: 'gray',
-          style: {
-            paddingTop: 8,
-            paddingBottom: 0,
-            height: 62,
-            backgroundColor: '#fff',
-          },
-          labelStyle: {
-            paddingTop: 4,
-          },
+          />,
+        // getTabBarLabel(navigation, focused, tintColor),
+      }),
+      // defaultNavigationOptions: ({ navigation }) => ({
+      //   tabBarLabel: ({ focused, tintColor }) =>
+      //     getTabBarLabel(navigation, focused, tintColor),
+      // }),
+      tabBarOptions: {
+        activeTintColor: '#434242',
+        inactiveTintColor: 'gray',
+        style: {
+          paddingTop: 8,
+          paddingBottom: 0,
+          height: 62,
+          backgroundColor: '#fff',
         },
-      }
-  );
+        labelStyle: {
+          paddingTop: 4,
+        },
+      },
+    }
+);
 export default TabStack;

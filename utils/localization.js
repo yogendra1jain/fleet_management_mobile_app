@@ -98,6 +98,8 @@ let strings = ({
     "completeText": "Complete",
     "destinationText": "Destination",
     "dailyCheckList": "Daily Check List",
+    "ticketIdLabel": "Ticket Id",
+    "taskIdLabel": "Task Id",
   },
   "spn": {
     "clockIn": "Reloj en",
@@ -192,6 +194,8 @@ let strings = ({
     "completeText": "Completar",
     "destinationText": "Destino",
     "dailyCheckList": "Lista de verificación diaria",
+    "ticketIdLabel": "Identificación de entradas",
+    "taskIdLabel": "ID de tarea",
   }
 }
 }

@@ -7,26 +7,30 @@ import { ShowTitle } from './ShowTitle';
 import { getUSADateTime, getRenamedStatus } from '../../utils';
 
 function TaskView(props) {
-    return (
-        <View key={props.index} style={[theme.bgWhite, { flex: 1, flexDirection: 'row', marginBottom: 15, paddingBottom: 6 }]}>
-             <View style={{ backgroundColor: '#ddd', borderRadius: 25, width: 40, height: 40, marginLeft: 10, marginTop: 10 }}>
-                <Text style={{ fontSize: 14, fontWeight: 'bold', color: 'black', paddingLeft: 8, paddingTop: 10 }} >{`# ${_get(props, 'index', '')+1}`}</Text>
-            </View>
-            <View style={[theme.alignRight, theme.directionRow]}>
-                <TouchableOpacity style={[{ flex: 1, flexDirection: 'column' }]} onPress={() => props.onPress()}>
-                    <View style={{ paddingLeft: 25 }}>
-                        <ShowTitle
-                            title={_get(props, 'task.asset.label', '')}
-                            maxChar={20}
-                        />
-                    </View>
-                    <View style={{ paddingLeft: 25 }}>
-                        <Text style={{ fontSize: 14, color: 'gray' }} >{`Destination`}</Text>
-                        <Text style={{ fontSize: 14, color: 'black' }} >{`${_get(props, 'task.destination.destination.label', '')}`}</Text>
-                    </View>
-                </TouchableOpacity>
-            </View>
-            {/* <TouchableOpacity onPress={() => props.onPress()}>
+  return (
+    <View key={props.index} style={[theme.bgWhite, { flex: 1, flexDirection: 'row', marginBottom: 15, paddingBottom: 6 }]}>
+      <View style={{ backgroundColor: '#ddd', borderRadius: 25, width: 40, height: 40, marginLeft: 10, marginTop: 10 }}>
+        <Text style={{ fontSize: 14, fontWeight: 'bold', color: 'black', paddingLeft: 8, paddingTop: 10 }} >{`# ${_get(props, 'index', '')+1}`}</Text>
+      </View>
+      <View style={[theme.alignRight, theme.directionRow]}>
+        <TouchableOpacity style={[{ flex: 1, flexDirection: 'column' }]} onPress={() => props.onPress()}>
+          <View style={{ paddingLeft: 25 }}>
+            <ShowTitle
+              title={`Ticket: ${_get(props, 'task.id', '')}`}
+              maxChar={20}
+            />
+          </View>
+          <View style={{ paddingLeft: 25 }}>
+            <Text style={{ fontSize: 14, color: 'gray' }} >{`Asset Id`}</Text>
+            <Text style={{ fontSize: 14, color: 'black' }} >{`${_get(props, 'task.asset.label', '')}`}</Text>
+          </View>
+          <View style={{ paddingLeft: 25 }}>
+            <Text style={{ fontSize: 14, color: 'gray' }} >{`Destination`}</Text>
+            <Text style={{ fontSize: 14, color: 'black' }} >{`${_get(props, 'task.destination.destination.label', '')}`}</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
+      {/* <TouchableOpacity onPress={() => props.onPress()}>
                 <View style={{ flexDirection: 'row', paddingRight: 15, paddingLeft: 15 }} >
                     <View style={{ flex: 1 }}>
                         <View style={{ flexDirection: 'row', paddingBottom: 5, paddingTop: 5 }} >
@@ -40,8 +44,8 @@ function TaskView(props) {
                     </View>
                 </View>
             </TouchableOpacity> */}
-        </View>
-    );
+    </View>
+  );
 }
 
 export default TaskView;
