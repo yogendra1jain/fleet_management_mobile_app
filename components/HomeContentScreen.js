@@ -126,18 +126,18 @@ class HomeContentScreen extends React.Component {
       );
     }
     handleCheckIn = (index, asset) => {
-      let url = `/Assets/ClockOut`;
-      let constants = {
+      const url = `/Assets/ClockOut`;
+      const constants = {
         init: 'CHECKIN_FOR_ASSET_INIT',
         success: 'CHECKIN_FOR_ASSET_SUCCESS',
         error: 'CHECKIN_FOR_ASSET_ERROR',
       };
-      let data = {
+      const data = {
         operatorId: _get(this.props, 'decodedToken.FleetUser.id', ''),
         assetId: _get(this.props, 'userDetails.clockedInto.id', ''),
       };
-      let identifier = 'CHECKIN_FOR_ASSET';
-      let key = 'checkInForAsset';
+      const identifier = 'CHECKIN_FOR_ASSET';
+      const key = 'checkInForAsset';
       this.props.postData(url, data, constants, identifier, key)
           .then((data) => {
             console.log('checked out successfully.');
