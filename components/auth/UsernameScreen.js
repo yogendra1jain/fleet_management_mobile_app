@@ -153,17 +153,17 @@ class UsernameScreen extends React.Component {
       this.setState({ value });
     }
     loadLanguageData = () => {
-      let url = `/LanguageBundle/Get`;
-      let constants = {
+      const url = `/LanguageBundle/Get`;
+      const constants = {
         init: 'GET_LANGUAGE_DETAILS_INIT',
         success: 'GET_LANGUAGE_DETAILS_SUCCESS',
         error: 'GET_LANGUAGE_DETAILS_ERROR',
       };
-      let data = {
+      const data = {
         id: _get(this.props, 'decodedToken.FleetUser.id', ''),
       };
-      let identifier = 'GET_LANGUAGE_DETAILS';
-      let key = 'languageDetails';
+      const identifier = 'GET_LANGUAGE_DETAILS';
+      const key = 'languageDetails';
       this.props.postData(url, data, constants, identifier, key)
           .then((data) => {
             console.log('language data fetched successfully.');
@@ -174,7 +174,7 @@ class UsernameScreen extends React.Component {
 
     onPress = () => {
       const value = this.refs.form.getValue();
-      let data = {};
+      const data = {};
       if (value) {
         _set(data, 'email', value.email.toString());
         _set(data, 'password', value.password.toString());
@@ -189,7 +189,6 @@ class UsernameScreen extends React.Component {
       this.props.navigation.navigate('SignupScreen');
     }
     handlePasswordVisiblity = () => {
-      console.log('came in handle password.==============>');
       this.setState({
         showPassword: !this.state.showPassword,
       });
