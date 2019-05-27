@@ -36,6 +36,33 @@ class RewardPointHome extends React.Component {
     _onRefresh = () => {
       this.getRewardInfo();
     }
+    redeemDonut = () => {
+      this.postRedeemDonut();
+    }
+    postRedeemDonut = () => {
+      const url = `/ClientUser/RedeemPoints`;
+      const constants = {
+        init: 'REDEEM_REWARD_POINTS_INIT',
+        success: 'REDEEM_REWARD_POINTS_SUCCESS',
+        error: 'REDEEM_REWARD_POINTS_ERROR',
+      };
+      const data = {
+        userId: _get(this.props, 'decodedToken.FleetUser.id', ''),
+        points: _get(this, 'state.conversionFactor', 1),
+        // assetId: _get(this.props, 'userDetails.clockedInto.id', ''),
+      };
+      const identifier = 'REDEEM_REWARD_POINTS';
+      const key = 'redeemRewardPoints';
+      this.props.postData(url, data, constants, identifier, key)
+          .then((data) => {
+            console.log('reward points got successfully.', data);
+            this.getRewardInfo();
+            // this.props.timerFunc(0);
+            // showToast('success', `Reward Successfully.`, 3000);
+          }, (err) => {
+            console.log('error while fetching reward points', err);
+          });
+    }
 
     getRewardInfo = () => {
       const url = `/ClientUser/GetOperatorPointsByUserId`;
@@ -89,7 +116,7 @@ class RewardPointHome extends React.Component {
               </View>
               <View style={{ flex: 1, flexDirection: 'row' }}>
                 <View style={{ flex: 1, justifyContent: 'center', flexDirection: 'row', alignItems: 'center' }}>
-                  <Button onPress={() => {}} style={[theme.buttonAlignBottom1, { marginLeft: 0 }]} full>
+                  <Button onPress={() => this.redeemDonut()} style={[theme.buttonAlignBottom1, { marginLeft: 0 }]} full>
                     <Text style={theme.buttonSmallTxt}>{`Reedem`}</Text>
                   </Button>
                 </View>
@@ -150,6 +177,7 @@ function mapStateToProps(state) {
   const { token } = auth.userStatus;
   const isLoading = commonReducer.isFetching || false;
   const { decodedToken, time, isCheckInAsset } = auth || {};
+  const { redeemRewardPoints } = commonReducer || {};
   return {
     auth,
     token,
@@ -160,6 +188,7 @@ function mapStateToProps(state) {
     time,
     appLanguage,
     languageDetails,
+    redeemRewardPoints,
   };
 }
 
