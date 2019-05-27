@@ -127,10 +127,10 @@ class RewardPointHome extends React.Component {
               <View style={[theme.centerAlign, { width: '33.3%', marginTop: 15, justifyContent: 'flex-start' }]}>
                 <View style={{ width: 100, height: 100, overflow: 'hidden' }}>
                   <ImageBackground style={[theme.backFullImg]} source={DonutImg}>
-                    <Progress.Pie color="rgba(255, 255, 255, 0.9)" progress={Number(progressPending)} size={100} />
+                    <Progress.Circle indeterminate={false} borderWidth={0} thickness={50} direction="counter-clockwise" color="rgba(255, 255, 255, 0.8)" progress={Number(progressPending)} size={100} />
                   </ImageBackground>
                 </View>
-                <View style={{ flex: 1, flexDirection: 'row' }}>
+                <View style={{ flex: 1, flexDirection: 'row', paddingTop: 8 }}>
                   <Text>{`${(progressDone)*100}%`}</Text>
                 </View>
               </View>
