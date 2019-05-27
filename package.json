@@ -48,6 +48,7 @@
     "react-native-pdf": "^5.0.12",
     "react-native-permissions": "^1.1.1",
     "react-native-print": "^0.5.1",
+    "react-native-progress": "^3.6.0",
     "react-native-responsive-image": "^2.3.1",
     "react-native-splash-screen": "^3.2.0",
     "react-native-vector-icons": "^6.4.2",

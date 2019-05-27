@@ -10,7 +10,10 @@ const withLocalization = (WrappedComponent) => {
       const { appLanguage, languageDetails } = this.props;
       // const { bundle } = languageDetails || {};
       const { bundle } = strings || {};
-      const string = bundle ? bundle[appLanguage]: {};
+      let string = bundle ? bundle[appLanguage]: {};
+      if (!string) {
+        string = {};
+      }
       // console.log('language details from server', strings);
       // const string = strings[appLanguage];
       return <WrappedComponent {...this.props} strings={string}>{this.props.children}</WrappedComponent>;

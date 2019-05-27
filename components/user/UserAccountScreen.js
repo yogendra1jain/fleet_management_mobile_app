@@ -50,6 +50,12 @@ class UserAccountScreen extends React.Component {
               type: 'font-awesome',
               link: 'LanguageSelectionScreen',
             },
+            {
+              title: `${_get(this.props, 'strings.rewardPointsLabel', '')}`,
+              icon: 'donut-small',
+              type: 'material-icons',
+              link: 'RewardPointHome',
+            },
           ],
         },
       ];

@@ -100,6 +100,7 @@ let strings = ({
     "dailyCheckList": "Daily Check List",
     "ticketIdLabel": "Ticket Id",
     "taskIdLabel": "Task Id",
+    "rewardPointsLabel": "My Reward Points",
   },
   "spn": {
     "clockIn": "Reloj en",
@@ -196,6 +197,7 @@ let strings = ({
     "dailyCheckList": "Lista de verificación diaria",
     "ticketIdLabel": "Identificación de entradas",
     "taskIdLabel": "ID de tarea",
+    "rewardPointsLabel": "Mis puntos de recompensa",
   }
 }
 }

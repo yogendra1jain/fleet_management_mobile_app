@@ -47,6 +47,7 @@ import UploadDocsHomeScreen from '../components/UploadDocs/UploadDocsHome';
 import AnimatedMarkers from '../components/MapView/LiveLocationTracking';
 import ExpenseReportInputScreen from '../components/ExpenseReports/ExpenseReportInput';
 import CheckListHome from '../components/CheckList/CheckListHome';
+import RewardPointHome from '../components/user/ManageRewardPoints';
 
 const AppStack = createStackNavigator(
     {
@@ -101,6 +102,7 @@ const SettingsStack = createStackNavigator({
   ChangePasswordScreen: ChangePasswordScreen,
   EditUserProfile: EditUserProfileScreen,
   LanguageSelectionScreen: LanguageSelectionScreen,
+  RewardPointHome: RewardPointHome,
 });
 
 

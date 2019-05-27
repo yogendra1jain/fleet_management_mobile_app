@@ -11,6 +11,14 @@ export default theme = StyleSheet.create({
     height: null,
     // resizeMode: 'cover',
   },
+  backFullImg: {
+    flex: 1,
+    resizeMode: 'contain', // or 'cover'
+    width: null,
+    alignSelf: 'stretch',
+    padding: 0,
+    margin: 0,
+  },
   containerModalWithoutFlex: {
     // flex: 2,
     height: 200,
@@ -253,13 +261,14 @@ export default theme = StyleSheet.create({
     minWidth: 100,
   },
   buttonAlignBottom1: {
-    height: 40,
+    height: 25,
     backgroundColor: '#00A9E0',
     borderRadius: 100,
     justifyContent: 'center',
-    minWidth: 100,
-    marginLeft: 10,
-    marginTop: 20,
+    // marginLeft: 10,
+    marginTop: 5,
+    // paddingLeft: 3,
+    // paddingRight: 3,
   },
   buttonAlignBottomCancel: {
     height: 30,
