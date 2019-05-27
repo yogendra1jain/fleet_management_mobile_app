@@ -48,7 +48,7 @@ class UserAccountScreen extends React.Component {
         },
       ];
       const promotionSettings = _get(this, 'props.decodedToken.Client.promotionSettings', {});
-      if (_isEmpty(promotionSettings)) {
+      if (!_isEmpty(promotionSettings)) {
         listData[0].listItems.push({
           title: `${_get(this.props, 'strings.rewardPointsLabel', '')}`,
           icon: 'donut-small',

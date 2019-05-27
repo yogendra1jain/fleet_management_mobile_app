@@ -15,10 +15,6 @@ import * as Progress from 'react-native-progress';
 
 const ContainerWithLoading = withLoadingScreen(Container);
 
-const rewardData = {
-  rewardPoints: 27,
-  eqCoin: 5,
-};
 class RewardPointHome extends React.Component {
   constructor(props) {
     super(props);
@@ -35,24 +31,53 @@ class RewardPointHome extends React.Component {
     };
 
     componentDidMount() {
-      const donuts = parseInt(_get(rewardData, 'rewardPoints', 0) / _get(rewardData, 'eqCoin', 1));
-      const pendingDonut = _get(rewardData, 'rewardPoints', 0) - (donuts * _get(rewardData, 'eqCoin', 1));
-      const progressPending = 1 - parseFloat(pendingDonut/_get(rewardData, 'eqCoin', 1));
-      const progressDone = parseFloat(pendingDonut/_get(rewardData, 'eqCoin', 1));
-
-      this.setState({
-        donuts,
-        pendingDonut,
-        progressPending,
-        progressDone,
-      });
+      this.getRewardInfo();
     }
     _onRefresh = () => {
+      this.getRewardInfo();
+    }
+
+    getRewardInfo = () => {
+      const url = `/ClientUser/GetOperatorPointsByUserId`;
+      const constants = {
+        init: 'GET_REWARD_POINTS_INIT',
+        success: 'GET_REWARD_POINTS_SUCCESS',
+        error: 'GET_REWARD_POINTS_ERROR',
+      };
+      const data = {
+        id: _get(this.props, 'decodedToken.FleetUser.id', ''),
+        // assetId: _get(this.props, 'userDetails.clockedInto.id', ''),
+      };
+      const identifier = 'GET_REWARD_POINTS';
+      const key = 'rewardPoints';
+      this.props.postData(url, data, constants, identifier, key)
+          .then((data) => {
+            console.log('reward points got successfully.', data);
+            const promotionSettings = _get(this, 'props.decodedToken.Client.promotionSettings', {});
+            const donuts = parseInt(_get(data, 'points', 0) / _get(promotionSettings, 'operatorPointConversionFactor', 1));
+            const pendingDonut = _get(data, 'points', 0) - (donuts * _get(promotionSettings, 'operatorPointConversionFactor', 1));
+            const progressPending = (1 - parseFloat(pendingDonut/_get(promotionSettings, 'operatorPointConversionFactor', 1))).toFixed(2);
+            const progressDone = parseFloat(pendingDonut/_get(promotionSettings, 'operatorPointConversionFactor', 1)).toFixed(2);
+            const redeemablePoints = _get(data, 'points', 0);
+            const conversionFactor = _get(promotionSettings, 'operatorPointConversionFactor', 1);
+            this.setState({
+              donuts,
+              pendingDonut,
+              progressPending,
+              progressDone,
+              redeemablePoints,
+              conversionFactor,
+            });
+            // this.props.timerFunc(0);
+            // showToast('success', `Reward Successfully.`, 3000);
+          }, (err) => {
+            console.log('error while fetching reward points', err);
+          });
     }
 
     render() {
       const { strings } = this.props;
-      const { donuts, progressPending, progressDone } = this.state;
+      const { donuts, progressPending, progressDone, redeemablePoints, conversionFactor } = this.state;
       const donutsView = [];
       for (let i=0; i < donuts; i++) {
         donutsView.push(
@@ -96,13 +121,13 @@ class RewardPointHome extends React.Component {
             }
           >
             <View style={[theme.container, { justifyContent: 'center', alignItems: 'center', borderBottomColor: '#ddd', borderBottomWidth: 1, paddingTop: 10 }]}>
-              <Text style={{ fontSize: 20 }} >{`Redeemable points: ${_get(rewardData, 'rewardPoints', 0)}`} <Text style={{ paddingLeft: 15, fontSize: 12 }}>{`(1$ = ${_get(rewardData, 'eqCoin', 1)} point)`}</Text></Text>
+              <Text style={{ fontSize: 20 }} >{`Redeemable points: ${redeemablePoints}`} <Text style={{ paddingLeft: 15, fontSize: 12 }}>{`(${conversionFactor} points = 1 Donut)`}</Text></Text>
             </View>
             <View style={{ flexWrap: 'wrap', flex: 1, flexDirection: 'row', margin: 15 }}>
               <View style={[theme.centerAlign, { width: '33.3%', marginTop: 15, justifyContent: 'flex-start' }]}>
                 <View style={{ width: 100, height: 100, overflow: 'hidden' }}>
                   <ImageBackground style={[theme.backFullImg]} source={DonutImg}>
-                    <Progress.Pie color="rgba(255, 255, 255, 0.9)" progress={progressPending} size={100} />
+                    <Progress.Pie color="rgba(255, 255, 255, 0.9)" progress={Number(progressPending)} size={100} />
                   </ImageBackground>
                 </View>
                 <View style={{ flex: 1, flexDirection: 'row' }}>
