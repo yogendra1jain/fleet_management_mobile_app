@@ -28,7 +28,7 @@ class UserAccountScreen extends React.Component {
     };
 
     getListData = () => {
-      let listData = [
+      const listData = [
         {
           listTitle: `${_get(this.props, 'strings.securitySettingsTitle', '')}`,
           listItems: [
@@ -38,27 +38,24 @@ class UserAccountScreen extends React.Component {
               type: 'ionicon',
               link: 'ChangePasswordScreen',
             },
-            // {
-            //     title: `${_get(this.props, 'strings.appLockTitle', '')}`,
-            //     icon: 'md-lock',
-            //     type: 'ionicon',
-            //     link: 'SetupNativeAuth',
-            // },
             {
               title: `${_get(this.props, 'strings.manageLanguageTitle', '')}`,
               icon: 'language',
               type: 'font-awesome',
               link: 'LanguageSelectionScreen',
             },
-            {
-              title: `${_get(this.props, 'strings.rewardPointsLabel', '')}`,
-              icon: 'donut-small',
-              type: 'material-icons',
-              link: 'RewardPointHome',
-            },
           ],
         },
       ];
+      const promotionSettings = _get(this, 'props.decodedToken.Client.promotionSettings', {});
+      if (_isEmpty(promotionSettings)) {
+        listData[0].listItems.push({
+          title: `${_get(this.props, 'strings.rewardPointsLabel', '')}`,
+          icon: 'donut-small',
+          type: 'material-icons',
+          link: 'RewardPointHome',
+        });
+      }
       return listData;
     }
 

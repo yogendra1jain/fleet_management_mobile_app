@@ -202,7 +202,7 @@ class CheckListHome extends React.Component {
       const key = 'dailyTasksDataSaved';
       this.props.postData(url, finalData, constants, identifier, key)
           .then((data) => {
-            showToast('success', 'Task List Saved Successfully', 3000, 'bottom');
+            showToast('success', 'Check List Saved Successfully', 3000, 'bottom');
             this.props.navigation.navigate('Home');
           }, (err) => {
             console.log('error while saving daily tasks', err);
