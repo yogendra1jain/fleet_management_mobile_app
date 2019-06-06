@@ -48,6 +48,7 @@ class CheckListGroup extends React.Component {
       dailyTaskList: checkList,
       checked: false,
       comments: '',
+      selectedGroupIndex: 0,
       prevStateData: props.navigation.getParam('stateData', {}),
     };
   }
@@ -230,6 +231,11 @@ class CheckListGroup extends React.Component {
         </View>
       );
     }
+    showHideGroupData = (index) => {
+      this.setState((state) => {
+        return { selectedGroupIndex: state.selectedGroupIndex == index? -1: index };
+      });
+    }
     renderGroupView = (group, index) => {
       const groupItemView = [];
       !_isEmpty(_get(group, 'checks', [])) && _get(group, 'checks', []).map((item, index) => {
@@ -239,7 +245,7 @@ class CheckListGroup extends React.Component {
       return (
         <View key={index} style={{ flex: 1, flexDirection: 'column', padding: 10, borderColor: 'black', borderWidth: 1, marginBottom: 10 }}>
           <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-            <Text style={{ textAlign: 'center' }}>{`${_get(group, 'name')}`}</Text>
+            <Text onPress={() => this.showHideGroupData(index)} style={{ textAlign: 'center' }}>{`${_get(group, 'name')}`}<Icon name={this.state.selectedGroupIndex == index ? 'chevron-small-up': 'chevron-small-down'} type="Entypo" style={{ fontSize: 20 }} /></Text>
             <CheckBox
               iconRight={true}
               right={true}
@@ -248,9 +254,12 @@ class CheckListGroup extends React.Component {
               onPress={() => this.handleGroupCheckbox(group, index)}
             />
           </View>
-          <View style={{ flex: 1, padding: 10 }}>
-            {groupItemView}
-          </View>
+          {
+            this.state.selectedGroupIndex == index &&
+              <View style={{ flex: 1, padding: 10 }}>
+                {groupItemView}
+              </View>
+          }
         </View>
       );
     }
