@@ -41,42 +41,23 @@ const checkList = [
 ];
 
 
-class CheckListHome extends React.Component {
+class CheckListGroup extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       dailyTaskList: checkList,
       checked: false,
       comments: '',
+      prevStateData: props.navigation.getParam('stateData', {}),
     };
   }
     static navigationOptions = {
       header: null,
     };
     componentDidMount() {
-      this.fetchDailyTaskList();
+    //   this.fetchDailyTaskList();
     }
-    fetchDailyTaskList = () => {
-      let data = {};
-      data = {
-        // status: 0,
-        id: _get(this.props, 'userDetails.clockedInto.id', ''),
-      };
-      const url = `/SafetyCheckList/GetByAssetId`;
-      const constants = {
-        init: 'GET_DAILY_TASKS_DATA_INIT',
-        success: 'GET_DAILY_TASKS_DATA_SUCCESS',
-        error: 'GET_DAILY_TASKS_DATA_ERROR',
-      };
-      const identifier = 'GET_DAILY_TASKS_DATA';
-      const key = 'getDailyTasksData';
-      this.props.postData(url, data, constants, identifier, key)
-          .then((data) => {
-            console.log('daily tasks get successfully.');
-          }, (err) => {
-            console.log('error while getting daily tasks', err);
-          });
-    }
+    
     handleRootCheckbox = (item, name, forGroup, group, value) => {
       let val = null;
       if (!forGroup) {
@@ -136,7 +117,38 @@ class CheckListHome extends React.Component {
         });
       }
     }
-
+    handleGroupCheckbox = (group, name, value) => {
+    //   console.log('original group', group);
+      const selectedGroupItems = _get(this, 'state.selectedGroupItems', []);
+      const existingIndex = _findIndex(selectedGroupItems, { 'name': group.name });
+      if (existingIndex != -1) {
+        const checksOfGroup = [];
+        !_isEmpty(_get(group, 'checks', [])) && _get(group, 'checks', []).map((grpItem, index) => {
+          checksOfGroup.push({
+            name: grpItem,
+            passed: false,
+          });
+        });
+        _set(selectedGroupItems, `[${existingIndex}].checks`, checksOfGroup);
+        _set(selectedGroupItems, `[${existingIndex}].passed`, false);
+      } else {
+        const checksOfGroup = [];
+        !_isEmpty(_get(group, 'checks', [])) && _get(group, 'checks', []).map((grpItem, index) => {
+          checksOfGroup.push({
+            name: grpItem,
+            passed: true,
+          });
+        });
+        selectedGroupItems.push({
+          name: group.name,
+          checks: checksOfGroup,
+          passed: true,
+        });
+      }
+      this.setState({
+        selectedGroupItems,
+      });
+    }
     handleRootComment = (item, value, index) => {
       const selectedItems = _get(this, 'state.selectedItems', []);
       const existingIndex = _findIndex(selectedItems, { 'name': item });
@@ -152,6 +164,30 @@ class CheckListHome extends React.Component {
       this.setState({
         selectedItems,
       });
+    }
+    onSave = () => {
+      const finalData = {};
+      _set(finalData, 'checks', _get(this.state, 'prevStateData.selectedItems', []));
+      _set(finalData, 'groupChecks', _get(this.state, 'selectedGroupItems', []));
+      _set(finalData, 'id', _get(this, 'props.getDailyTasksData.id', ''));
+      _set(finalData, 'userId', _get(this, 'props.userDetails.user.id', ''));
+      _set(finalData, 'assetId', _get(this, 'props.userDetails.clockedInto.id', ''));
+      _set(finalData, 'createdOn.seconds', parseInt(new Date().getTime()/1000));
+      const url = `/SafetyCheckList/Save`;
+      const constants = {
+        init: 'SAVE_DAILY_TASKS_DATA_INIT',
+        success: 'SAVE_DAILY_TASKS_DATA_SUCCESS',
+        error: 'SAVE_DAILY_TASKS_DATA_ERROR',
+      };
+      const identifier = 'SAVE_DAILY_TASKS_DATA';
+      const key = 'dailyTasksDataSaved';
+      this.props.postData(url, finalData, constants, identifier, key)
+          .then((data) => {
+            showToast('success', 'Check List Saved Successfully', 3000, 'bottom');
+            this.props.navigation.navigate('Home');
+          }, (err) => {
+            console.log('error while saving daily tasks', err);
+          });
     }
     getRootView = (item, index, forGroup, group) => {
       let item1 = {};
@@ -194,22 +230,42 @@ class CheckListHome extends React.Component {
         </View>
       );
     }
-    goToNext = () => {
-      this.props.navigation.navigate('CheckListGroup', { stateData: this.state });
+    renderGroupView = (group, index) => {
+      const groupItemView = [];
+      !_isEmpty(_get(group, 'checks', [])) && _get(group, 'checks', []).map((item, index) => {
+        groupItemView.push(this.getRootView(item, index, true, group));
+      });
+      const grpItem = _find(_get(this, `state.selectedGroupItems`, []), { 'name': _get(group, 'name', '') });
+      return (
+        <View key={index} style={{ flex: 1, flexDirection: 'column', padding: 10, borderColor: 'black', borderWidth: 1, marginBottom: 10 }}>
+          <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+            <Text style={{ textAlign: 'center' }}>{`${_get(group, 'name')}`}</Text>
+            <CheckBox
+              iconRight={true}
+              right={true}
+              containerStyle={{ backgroundColor: '#ededed' }}
+              checked={_get(grpItem, 'passed', false)}
+              onPress={() => this.handleGroupCheckbox(group, index)}
+            />
+          </View>
+          <View style={{ flex: 1, padding: 10 }}>
+            {groupItemView}
+          </View>
+        </View>
+      );
     }
-
     render() {
       const { getDailyTasksData, strings } = this.props;
-      const rootItemView = [];
-      !_isEmpty(_get(getDailyTasksData, 'checks', [])) && _get(getDailyTasksData, 'checks', []).map((item, index) => {
-        rootItemView.push(this.getRootView(item, index, false, {}));
+      const groupView = [];
+      !_isEmpty(_get(getDailyTasksData, 'groups', [])) && _get(getDailyTasksData, 'groups', []).map((group, index) => {
+        groupView.push(this.renderGroupView(group, index));
       });
 
       return (
         <ContainerWithLoading style={theme.container} isLoading={this.props.isFetching}>
           <Header style={{ backgroundColor: '#47d7ac', borderBottomWidth: 0 }} androidStatusBarColor="#47d7ac">
             <Left style={{ flex: 1 }}>
-              <Button transparent onPress={() => this.props.navigation.navigate('Home')}>
+              <Button transparent onPress={() => this.props.navigation.goBack()}>
                 <Icon name='arrow-back' style={{ color: '#fff' }} />
               </Button>
             </Left>
@@ -232,15 +288,15 @@ class CheckListHome extends React.Component {
               </View>
             </View>
             <View style={{ flex: 1, margin: 15 }}>
-              {/* {groupView} */}
-              {rootItemView}
+              {groupView}
+              {/* {rootItemView} */}
             </View>
           </Content>
           {
             !_isEmpty(_get(getDailyTasksData, 'checks', [])) &&
               <View style={{ backgroundColor: '#ededed' }}>
-                <Button style={[theme.buttonNormal, { backgroundColor: '#47d7ac' }]} onPress={() => this.goToNext()} full>
-                  <CustomBoldText style={theme.butttonFixTxt}>{`NEXT`}</CustomBoldText>
+                <Button style={[theme.buttonNormal, { backgroundColor: '#47d7ac' }]} onPress={() => this.onSave()} full>
+                  <CustomBoldText style={theme.butttonFixTxt}>{`CONFIRM`}</CustomBoldText>
                 </Button>
               </View>
           }
@@ -285,5 +341,5 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withErrorBoundary()(connect(mapStateToProps, mapDispatchToProps)(CheckListHome));
+export default withErrorBoundary()(connect(mapStateToProps, mapDispatchToProps)(CheckListGroup));
 

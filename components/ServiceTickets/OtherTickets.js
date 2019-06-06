@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { View, TextInput, Alert, Image } from 'react-native';
 import _get from 'lodash/get';
-// import Input from 'react-native-elements';
+import { CheckBox } from 'react-native-elements';
 import withLocalization from '../hocs/withLocalization';
 import _isEmpty from 'lodash/isEmpty';
 import _findIndex from 'lodash/findIndex';
@@ -33,6 +33,7 @@ class OtherTicketScreen extends React.Component {
       links: [],
       uploadedLinks: [],
       isSpeeking: false,
+      majorService: false,
     };
   }
     static navigationOptions = {
@@ -103,50 +104,15 @@ class OtherTicketScreen extends React.Component {
       );
       return assetListView;
     }
+    handleCheckbox = () => {
+      this.setState({
+        majorService: !this.state.majorService,
+      });
+    }
 
     render() {
       const { notes } = this.state;
       const { strings } = this.props;
-      const images = [];
-      !_isEmpty(_get(this.state, 'links', [])) && _get(this.state, 'links', []).map((link, index) => {
-        // console.log('link in loop', link, 'uploaded links', this.state.uploadedLinks);
-        images.push(
-            <View key={index} style={{ flex: 1, marginLeft: 20, marginBottom: 10, flexDirection: 'row' }}>
-              {
-                <ImageWithLoading isLoading={link.isLoading} source={link.isVideo? videoIcon: !link.isPdf ? { uri: link.imageSource }: pdfIcon} style={{ width: 100, height: 100 }} />
-              }
-              <View style={{ margin: 10, flex: 1, flexWrap: 'wrap' }}>
-                <View style={{ flex: 1, flexDirection: 'column' }}>
-                  {/* <View style={{ justifyContent: 'flex-start', alignItems: 'center', paddingLeft: 10 }}>
-                                <Text>Comments: </Text>
-                            </View> */}
-                  <View style={{ flex: 1, marginLeft: 10, marginRight: 10, position: 'relative' }}>
-                    <TextInput
-                      style={{ height: 50, borderColor: 'gray', borderWidth: 1, paddingLeft: 10 }}
-                      onChangeText={value => this.handleComments(value, index)}
-                      multiline={true}
-                      placeholder={'Comments'}
-                      maxLength={120}
-                      value={_get(link, 'comments', '').toString()}
-                      underlineColorAndroid={'transparent'}
-                      keyboardType={'default'}
-                    />
-                    <TextToSpeech
-                      handleTextToSpeech={e => this.handleComments(_get(e, 'value[0]', ''), index)}
-                    />
-                  </View>
-                </View>
-              </View>
-              <View style={{ margin: 10 }}>
-                {
-                  !link.isLoading &&
-                        <Icon onPress={() => this.handleDelete(index)} name='delete' type="MaterialCommunityIcons" />
-                }
-              </View>
-            </View>
-        );
-      });
-
       return (
         <ContainerWithLoading style={theme.container} isLoading={_findIndex(this.state.links, { isLoading: true }) == -1 && this.props.isLoading}>
           <Header style={{ backgroundColor: '#ff585d', borderBottomWidth: 0 }} androidStatusBarColor='#ff585d'>
@@ -206,6 +172,16 @@ class OtherTicketScreen extends React.Component {
                 <View style={{ justifyContent: 'flex-start', alignItems: 'center', paddingLeft: 10 }}>
                   <CustomText>{`${notes.length}/1200`}</CustomText>
                 </View>
+              </View>
+              <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                <Text style={{ textAlign: 'center' }}>{`Major Service`}</Text>
+                <CheckBox
+                  iconRight={true}
+                  right={true}
+                  containerStyle={{ backgroundColor: '#ededed' }}
+                  checked={_get(this, 'state.majorService', false)}
+                  onPress={() => this.handleCheckbox()}
+                />
               </View>
             </View>
           </Content>

@@ -28,7 +28,7 @@ import withErrorBoundary from './hocs/withErrorBoundary';
 import withLocalization from './hocs/withLocalization';
 import { postData, setLanguage } from '../actions/commonAction';
 import { setCheckInAsset, timerFunc } from '../actions/auth';
-import { showToast } from '../utils';
+import { showToast, showAlert } from '../utils';
 import TimerComp from './stateless/TimerComp';
 import Geolocation from 'react-native-geolocation-service';
 
@@ -43,6 +43,7 @@ class HomeContentScreen extends React.Component {
       enableSearch: false,
       refreshing: false,
       language: 'spn',
+      speed: [],
     };
     this.invokingUser = '';
   }
@@ -55,11 +56,32 @@ class HomeContentScreen extends React.Component {
       // this.props.setLanguage('en');
       // const { decodedToken } = this.props;
       this.loadUserInfo();
+      // setInterval(this.loadUserInfo, 300000);
+      this.startWatchForLocation();
     }
-    // componentWillMount() {
-    //     this.loadUserInfo();
-    // }
+    startWatchForLocation = () => {
+      Geolocation.watchPosition(
+          (position) => {
+            console.log('location got successfully.', position);
+            const speed = this.state.speed;
+            speed.push({
+              speed: position.coords.speed,
+              lat: position.coords.latitude,
+              long: position.coords.longitude,
+            });
+            this.setState({
+              speed,
+              error: null,
+            // isLoading: false,
+            });
+            // showAlert('Location change', `${JSON.stringify(position.coords)}`);
+          },
+          error => this.setState({ error: error.message }),
+          { enableHighAccuracy: true, distanceFilter: 10 },
+      );
+    }
     loadUserInfo = () => {
+      console.log('came inside load user info method');
       const url = `/ClientUser/Detail`;
       const constants = {
         init: 'GET_USER_DETAILS_INIT',
@@ -164,6 +186,16 @@ class HomeContentScreen extends React.Component {
       if (time === 0 && isCheckInAsset) {
         this.handleCheckOut();
       }
+      const speedData =[];
+      !_isEmpty(_get(this, 'state.speed', [])) && _get(this, 'state.speed', []).map((row, index) => {
+        speedData.push(
+            <View key={index}>
+              <CustomText>{`Speed: ${row.speed} mtr/sec`}</CustomText>
+              <CustomText>{`Lattitude: ${row.lat}`}</CustomText>
+              <CustomText>{`Longitude: ${row.long}`}</CustomText>
+            </View>
+        );
+      });
       return (
         <ContainerWithLoading isLoading={this.props.isLoading || this.state.isLoading}>
           <Header style={{ backgroundColor: '#00A9E0', borderBottomWidth: 0 }} androidStatusBarColor="#00A9E0">
@@ -295,6 +327,7 @@ class HomeContentScreen extends React.Component {
                               </Card>
                             </TouchableOpacity>
                           </View>
+                          {speedData}
                         </React.Fragment>
                         :
                         <React.Fragment>
