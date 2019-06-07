@@ -85,8 +85,9 @@ class OtherTicketScreen extends React.Component {
     }
 
     renderContent = (strings) => {
-      const { userDetails } = this.props;
+      const { userDetails, decodedToken } = this.props;
       const assetListView = [];
+      // const role = _get(decodedToken, 'FleetUser.role', 0);
       assetListView.push(
           <AssetView
             key={0}

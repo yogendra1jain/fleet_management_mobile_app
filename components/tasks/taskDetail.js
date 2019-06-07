@@ -129,21 +129,32 @@ class TaskDetailScreen extends React.Component {
       }
       Linking.openURL(`https://www.google.com/maps/search/?api=1&query=${query}`);
     }
-    completeTask = () => {
+    confirmTask = (text) => {
+      Alert.alert(
+          `Confirmation`,
+          `Are you sure you want to ${text} this Task?`,
+          [
+            { text: 'No', onPress: () => {} },
+            { text: 'Yes', onPress: () => this.completeTask(text) },
+          ],
+          { cancelable: false }
+      );
+    }
+    completeTask = (text) => {
       let data = {};
       data = {
         taskId: _get(this.state, 'task.id', ''),
         userId: _get(this.props, 'userDetails.user.id', ''),
         comment: 'Done',
       };
-      let url = `/Task/Complete`;
-      let constants = {
+      const url = `/Task/${text}`;
+      const constants = {
         init: 'COMPLETE_TASK_DATA_INIT',
         success: 'COMPLETE_TASK_DATA_SUCCESS',
         error: 'COMPLETE_TASK_DATA_ERROR',
       };
-      let identifier = 'COMPLETE_TASK_DATA';
-      let key = 'completeTaskData';
+      const identifier = 'COMPLETE_TASK_DATA';
+      const key = 'completeTaskData';
       this.props.postData(url, data, constants, identifier, key)
           .then((data) => {
             console.log('task completed successfully.', data);
@@ -166,14 +177,14 @@ class TaskDetailScreen extends React.Component {
         userId: _get(this.props, 'userDetails.user.id', ''),
         comment: 'Not Required',
       };
-      let url = `/Task/Cancel`;
-      let constants = {
+      const url = `/Task/Cancel`;
+      const constants = {
         init: 'CANCEL_TASK_DATA_INIT',
         success: 'CANCEL_TASK_DATA_SUCCESS',
         error: 'CANCEL_TASK_DATA_ERROR',
       };
-      let identifier = 'CANCEL_TASK_DATA';
-      let key = 'canceledTaskData';
+      const identifier = 'CANCEL_TASK_DATA';
+      const key = 'canceledTaskData';
       this.props.postData(url, data, constants, identifier, key)
           .then((data) => {
             console.log('task canceled successfully.', data);
@@ -254,21 +265,21 @@ class TaskDetailScreen extends React.Component {
     }
 
     render() {
-      const { selectedOption, notes, task } = this.state;
-      const { strings, getTaskDataById } = this.props;
+      // const { selectedOption, notes, task } = this.state;
+      const { strings, getTaskDataById, decodedToken } = this.props;
       // const getTaskDataById = task;
-      console.log('task data', getTaskDataById);
+      // console.log('task data', getTaskDataById);
 
-      let images = [];
-      let commentsView = [];
-      let status = _get(getTaskDataById, 'status.value', 0);
+      const images = [];
+      const commentsView = [];
+      const status = _get(getTaskDataById, 'status.value', 0);
       !_isEmpty(_get(getTaskDataById, 'comments', [])) && _get(getTaskDataById, 'comments', []).map((comment, index) => {
         commentsView.push(
             this.renderComment(comment, index)
         );
       });
       !_isEmpty(_get(getTaskDataById, 'attachments', [])) && _get(getTaskDataById, 'attachments', []).map((attachment, index) => {
-        console.log('attetcjmant', attachment);
+        // console.log('attetcjmant', attachment);
         images.push(
             <View key={index} style={{ flex: 1, marginLeft: 20, marginBottom: 10, flexDirection: 'row' }}>
               {
@@ -370,8 +381,8 @@ class TaskDetailScreen extends React.Component {
             {/* <Button disabled={_get(getTaskDataById, 'status.value', 0) != 0} style={[theme.buttonNormal, theme.spaceAdd1, { backgroundColor: _get(getTaskDataById, 'status.value', 0) != 0 ? '#ededed': '#ff585d' }]} onPress={() => this.onCancel()} full>
                         <CustomBoldText style={theme.butttonFixTxt}>{`${strings.cancelText}`}</CustomBoldText>
                     </Button> */}
-            <Button style={[theme.buttonNormal, { backgroundColor: '#47d7ac' }]} onPress={() => this.completeTask()} full>
-              <CustomBoldText style={theme.butttonFixTxt}>{`${strings.completeText}`}</CustomBoldText>
+            <Button style={[theme.buttonNormal, { backgroundColor: '#47d7ac' }]} onPress={() => this.confirmTask(_get(decodedToken, 'FleetUser.role', 0) == 1? 'Complete': 'Cancel')} full>
+              <CustomBoldText style={theme.butttonFixTxt}>{`${_get(decodedToken, 'FleetUser.role', 0) == 1? strings.completeText: 'CANCEL'}`}</CustomBoldText>
             </Button>
           </View>
         </ContainerWithLoading>
@@ -380,12 +391,12 @@ class TaskDetailScreen extends React.Component {
 }
 
 function mapStateToProps(state) {
-  let { decodedToken } = state.auth || {};
-  let { commonReducer } = state || {};
-  let { userDetails } = commonReducer || {};
+  const { decodedToken } = state.auth || {};
+  const { commonReducer } = state || {};
+  const { userDetails } = commonReducer || {};
   // console.log('user details in ticket', userDetails);
-  let isLoading = commonReducer.isFetching || false;
-  let { getTaskDataById } = commonReducer || {};
+  const isLoading = commonReducer.isFetching || false;
+  const { getTaskDataById } = commonReducer || {};
 
   return {
     decodedToken,

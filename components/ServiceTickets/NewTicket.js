@@ -283,13 +283,6 @@ class NewTicketScreen extends React.Component {
           <Content
             style={{ backgroundColor: '#ededed' }}
           >
-            <View style={{ flex: 1, flexDirection: 'column' }}>
-              <View style={[theme.centerAlign, { marginTop: 25 }]}>
-                <View style={[theme.centerAlign, { paddingTop: 10 }]}>
-                  <Text>Request Service Ticket</Text>
-                </View>
-              </View>
-            </View>
             {/* <View style={{ flex: 1, margin: 10, flexDirection: 'row' }}>
               <TouchableHighlight onPress={() => {}} style={{ flex: 1, paddingLeft: 15, justifyContent: 'flex-start' }}>
                 <View>

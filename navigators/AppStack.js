@@ -49,30 +49,22 @@ import ExpenseReportInputScreen from '../components/ExpenseReports/ExpenseReport
 import CheckListHome from '../components/CheckList/CheckListHome';
 import CheckListGroup from '../components/CheckList/CheckListGroup';
 import RewardPointHome from '../components/user/ManageRewardPoints';
+import AssetListScreen from '../components/AssetsView/AssetList';
+import TicketApproveScreen from '../components/ServiceTickets/TicketApproveScreen';
+import TaskForManagerScreen from '../components/tasks/TaskForManager';
 
 const AppStack = createStackNavigator(
     {
       Home: HomeContentScreen,
       AssetCheckinScreen: AssetCheckinScreen,
-      // ChangePasswordScreen: ChangePasswordScreen,
-      // UserAccount: UserAccountScreen,
-      // EditUserProfile: EditUserProfileScreen,
+      AssetListScreen: AssetListScreen,
       SetupNativeAuth: SetupNativeAuthScreen,
       NativeAuthEntry: NativeAuthEntryScreen,
-      // TaskListScreen: TaskListScreen,
-      // TaskDetailScreen: TaskDetailScreen,
       LocationMap: LocationMap,
       LocationA: LocationA,
       UpdateMileageHome: UpdateMileageHome,
-      // ServiceTicketHome: ServiceTicketHome,
-      // ContactPersonHome: ContactPersonHome,
       DocumentsHome: DocumentsHome,
       GasFilUpHome: GasFilUpHome,
-      // NewTicketScreen: NewTicketScreen,
-      // ScheduleMaintenanceScreen: ScheduleMaintenanceScreen,
-      // OtherTicketScreen: OtherTicketScreen,
-      // ServiceTicketListScreen: ServiceTicketListScreen,
-      // MechanicProfile: MechanicProfile,
       PdfViewScreen: PdfViewScreen,
       ImageViewScreen: ImageViewScreen,
       ExpenseReportHomeScreen: ExpenseReportHomeScreen,
@@ -109,6 +101,7 @@ const SettingsStack = createStackNavigator({
 
 
 const TasksStack = createStackNavigator({
+  TaskForManagerScreen: TaskForManagerScreen,
   TaskListScreen: TaskListScreen,
   TaskDetailScreen: TaskDetailScreen,
   LocationMap: LocationMap,
@@ -122,6 +115,7 @@ const ServiceStack = createStackNavigator({
   OtherTicketScreen: OtherTicketScreen,
   ServiceTicketListScreen: ServiceTicketListScreen,
   ReviewTicketScreen: ReviewTicketScreen,
+  TicketApproveScreen: TicketApproveScreen,
 });
 const ContactPersonStack = createStackNavigator({
   ContactPersonHome: ContactPersonHome,
@@ -130,7 +124,6 @@ const ContactPersonStack = createStackNavigator({
 
 
 class ContactIcon extends React.PureComponent {
-  // You should pass down the badgeCount in some other ways like context, redux, mobx or event emitters.
   render() {
     const { opacity } = this.props;
     return (
@@ -141,7 +134,6 @@ class ContactIcon extends React.PureComponent {
   }
 }
 class ServiceIcon extends React.PureComponent {
-  // You should pass down the badgeCount in some other ways like context, redux, mobx or event emitters.
   render() {
     const { opacity } = this.props;
     return (
@@ -152,7 +144,6 @@ class ServiceIcon extends React.PureComponent {
   }
 }
 class TaskIcon extends React.PureComponent {
-  // You should pass down the badgeCount in some other ways like context, redux, mobx or event emitters.
   render() {
     const { opacity } = this.props;
     return (
@@ -163,7 +154,6 @@ class TaskIcon extends React.PureComponent {
   }
 }
 class HomeIcon extends React.PureComponent {
-  // You should pass down the badgeCount in some other ways like context, redux, mobx or event emitters.
   render() {
     const { opacity } = this.props;
     return (
@@ -174,7 +164,6 @@ class HomeIcon extends React.PureComponent {
   }
 }
 class SettingIcon extends React.PureComponent {
-  // You should pass down the badgeCount in some other ways like context, redux, mobx or event emitters.
   render() {
     const { opacity } = this.props;
     return (
@@ -269,24 +258,12 @@ export class GetTabBarLabel extends React.PureComponent {
   }
 }
 
-
-// const getTabBarLabel = (props) => {
-//   const { navigation, focused, appLanguage } = props;
-//   const { routeName } = navigation.state;
-//   return (
-//     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', opacity: focused ? 1 : 0.3 }}>
-//       <Text style={{ fontSize: 12 }}>{`${routeName}`}</Text>
-//     </View>
-//   );
-// };
-
 function mapStateToProps(state) {
   const { auth, commonReducer } = state;
   const { userDetails } = commonReducer || {};
 
   const languageDetails = commonReducer.languageDetails || {};
   const appLanguage = commonReducer.appLanguage || 'en';
-  // console.log('language details', languageDetails, 'app ', appLanguage);
   const { token, isLoading } = auth.userStatus;
   const { decodedToken, time, isCheckInAsset } = auth || {};
   return {

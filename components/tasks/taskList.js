@@ -26,44 +26,12 @@ import { postData } from '../../actions/commonAction';
 
 const ContainerWithLoading = withLoadingScreen(Container);
 
-const TaskDummyData = [
-  {
-    id: '1',
-    date: '2019-02-04',
-    taskTitle: 'Schedule Service',
-    taskDesc: 'Your Service Ticket #CIT 867546468 has been approved. Please schedule service.',
-  },
-  {
-    id: '2',
-    date: '2019-02-04',
-    taskTitle: 'Send Fuel Invoice',
-    taskDesc: 'Your Service Ticket #CIT 867546468 has been approved. Please schedule service.',
-  },
-  {
-    id: '3',
-    date: '2019-02-05',
-    taskTitle: 'Safety Alert',
-    taskDesc: 'Your Service Ticket #CIT 867546468 has been approved. Please schedule service.',
-  },
-  {
-    id: '4',
-    date: '2019-02-03',
-    taskTitle: 'Service Ticket #CIT 266539',
-    taskDesc: 'Your Service Ticket #CIT 867546468 has been approved. Please schedule service.',
-  },
-  {
-    id: '5',
-    date: '2019-02-06',
-    taskTitle: 'Service Ticket #CIT 266539',
-    taskDesc: 'Your Service Ticket #CIT 867546468 has been approved. Please schedule service.',
-  },
-];
-
 class TaskListScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       active: true,
+      status: props.navigation.getParam('status', 0),
     };
   }
     static navigationOptions = {
@@ -78,18 +46,29 @@ class TaskListScreen extends React.Component {
     }
     fetchTaskList = () => {
       let data = {};
-      data = {
-        status: 0,
-        id: _get(this.props, 'userDetails.clockedInto.id', ''),
-      };
-      let url = `/Task/GetByStatusAndAssetId`;
-      let constants = {
+      let url = '';
+      const { status } = this.state;
+      if (_get(this.props, 'userDetails.clockedInto.id', '') =='') {
+        data = {
+          userId: _get(this.props, 'decodedToken.FleetUser.id', ''),
+          status: status,
+          id: _get(this.props, 'decodedToken.Client.id', ''),
+        };
+        url = `/Task/GetByStatusAndClientId`;
+      } else {
+        data = {
+          status: status,
+          id: _get(this.props, 'userDetails.clockedInto.id', ''),
+        };
+        url = `/Task/GetByStatusAndAssetId`;
+      }
+      const constants = {
         init: 'GET_TASKS_DATA_INIT',
         success: 'GET_TASKS_DATA_SUCCESS',
         error: 'GET_TASKS_DATA_ERROR',
       };
-      let identifier = 'GET_TASKS_DATA';
-      let key = 'getTasksData';
+      const identifier = 'GET_TASKS_DATA';
+      const key = 'getTasksData';
       this.props.postData(url, data, constants, identifier, key)
           .then((data) => {
             console.log('tasks get successfully.', data);
@@ -126,10 +105,10 @@ class TaskListScreen extends React.Component {
       return orderView;
     }
     render() {
-      const { getTasksData, decodedToken, isLoading } = this.props;
+      const { getTasksData, isLoading } = this.props;
       let sortedTaskData = _sortBy(getTasksData, 'modifiedOn.seconds');
       sortedTaskData = _reverse(sortedTaskData);
-      let groupedTaskList = _groupBy(sortedTaskData, 'creation.actionTime.seconds');
+      const groupedTaskList = _groupBy(sortedTaskData, 'creation.actionTime.seconds');
       // console.log('date by grouped data', groupedTaskList);
       const DateView = _map(groupedTaskList, (value, key) => (
         <View key={key}>
@@ -193,15 +172,15 @@ class TaskListScreen extends React.Component {
 }
 
 function mapStateToProps(state) {
-  let { decodedToken } = state.auth || {};
-  let { commonReducer } = state || {};
-  let { userDetails } = commonReducer || {};
+  const { decodedToken } = state.auth || {};
+  const { commonReducer } = state || {};
+  const { userDetails } = commonReducer || {};
   // let { getTasksData } = commonReducer || [];
   // console.log('user details in ticket', userDetails);
-  let isLoading = commonReducer.isFetching || false;
-  let getTasksData = [];
+  const isLoading = commonReducer.isFetching || false;
+  const getTasksData = [];
   !_isEmpty(_get(commonReducer, 'getTasksData', [])) && _get(commonReducer, 'getTasksData', []).map((row) => {
-    let tempRow = _cloneDeep(row);
+    const tempRow = _cloneDeep(row);
     _set(tempRow, 'creation.actionTime.seconds', moment.unix(_get(row, 'creation.actionTime.seconds', 0)).format('MM-DD-YYYY'));
     getTasksData.push(tempRow);
   });

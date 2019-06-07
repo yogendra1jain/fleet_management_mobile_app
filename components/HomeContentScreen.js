@@ -16,6 +16,7 @@ import gasFillImg from '../assets/images/ios/gas-fillups.png';
 import MileageImg from '../assets/images/ios/update-mileage.png';
 import tasksImg from '../assets/images/ios/tasks.png';
 import ServiceImg from '../assets/images/ios/service-ticket.png';
+import TruckImg from '../assets/images/truck-icon.png';
 
 import DocumentsImg from '../assets/images/ios/documents.png';
 import ContactMechanic from '../assets/images/ios/contact-mechanic.png';
@@ -182,7 +183,7 @@ class HomeContentScreen extends React.Component {
     }
 
     render() {
-      const { userDetails, isCheckInAsset, time, strings={}, appLanguage } = this.props;
+      const { userDetails, isCheckInAsset, time, strings={}, decodedToken } = this.props;
       if (time === 0 && isCheckInAsset) {
         this.handleCheckOut();
       }
@@ -209,25 +210,24 @@ class HomeContentScreen extends React.Component {
               <Icon onPress={() => this.props.navigation.navigate('UserAccount')} name="user" style={{ fontSize: 40, color: 'white' }} type="EvilIcons"/>
             </Right>
           </Header>
-          <Content
-            refreshControl={
-              <RefreshControl
-                refreshing={false}
-                onRefresh={this._onRefresh}
-              />
-            }
-            style={{ backgroundColor: '#eef0f0' }}>
-            <View style={{ flex: 1, margin: 8 }}>
-              {/* <TouchableOpacity activeOpacity={0.5} style={{ flex: 1 }}
-                             > */}
-              <Card wrapperStyle={{ flex: 1 }} containerStyle={{ flex: 1, borderRadius: 10, margin: 8 }}>
-                {
+          {
+            _get(decodedToken, 'FleetUser.role', 0) == 1 ?
+            <Content
+              refreshControl={
+                <RefreshControl
+                  refreshing={false}
+                  onRefresh={this._onRefresh}
+                />
+              }
+              style={{ backgroundColor: '#eef0f0' }}>
+              <View style={{ flex: 1, margin: 8 }}>
+                <Card wrapperStyle={{ flex: 1 }} containerStyle={{ flex: 1, borderRadius: 10, margin: 8 }}>
+                  {
                                 !_isEmpty(_get(userDetails, 'clockedInto', {})) ?
                                 <View style={{ flex: 1, flexDirection: 'row' }}>
                                   <View style={{ flex: 1, justifyContent: 'flex-start', flexDirection: 'column', alignItems: 'flex-start' }}>
                                     <CustomSemiBoldText style={{ fontWeight: 'normal' }}>{`${strings.clockedText}`}</CustomSemiBoldText>
                                     <CustomBoldText style={{ textAlign: 'right', color: '#00A9E0', fontSize: 20 }}> {_get(userDetails, 'clockedInto.assetId', 'NA')}</CustomBoldText>
-                                    {/* <Text ></Text> */}
                                   </View>
                                   <Button onPress={() => this.handleCheckInCheckOut(_isEmpty(_get(userDetails, 'clockedInto', {})), strings)} style={[theme.buttonAlignBottom, { marginLeft: 0, marginTop: 0 }]}>
                                     <CustomBoldText style={theme.buttonSmallTxt}>{!_isEmpty(_get(userDetails, 'clockedInto', {})) ? `${strings.clockOut}`: `${strings.clockIn}`}</CustomBoldText>
@@ -238,19 +238,15 @@ class HomeContentScreen extends React.Component {
                                   <View style={{ flex: 1, justifyContent: 'flex-start', flexDirection: 'column', alignItems: 'flex-start' }}>
                                     <CustomSemiBoldText style={{ fontWeight: 'normal' }}>{`${strings.clockedText}`}</CustomSemiBoldText>
                                     <CustomBoldText style={{ textAlign: 'right', color: '#00A9E0', fontSize: 20 }}> {_get(userDetails, 'clockedInto.assetId', 'NA')}</CustomBoldText>
-                                    {/* <Text ></Text> */}
                                   </View>
                                   <Button onPress={() => this.handleCheckInCheckOut(_isEmpty(_get(userDetails, 'clockedInto', {})), strings)} style={[theme.buttonAlignBottom, { marginLeft: 0, marginTop: 0 }]}>
                                     <CustomBoldText style={theme.buttonSmallTxt}>{!_isEmpty(_get(userDetails, 'clockedInto', {})) ? `${strings.clockOut}`: `${strings.clockIn}`}</CustomBoldText>
                                   </Button>
                                 </View>
-                }
-                {/* <Image source={tasksImg} style={{ width: 110, height: 109 }} /> */}
-                                
-              </Card>
-              {/* </TouchableOpacity> */}
-            </View>
-            {
+                  }
+                </Card>
+              </View>
+              {
                         !_isEmpty(_get(userDetails, 'clockedInto', {})) ?
                         <React.Fragment>
                           <View style={{ flexDirection: 'row', margin: 8 }}>
@@ -264,7 +260,7 @@ class HomeContentScreen extends React.Component {
                           </View>
                           <View style={{ flexDirection: 'row', margin: 8 }}>
                             <TouchableOpacity activeOpacity={0.5} style={{ flex: 1 }}
-                              onPress={() => this.props.navigation.navigate('TaskListScreen')} >
+                              onPress={() => this.props.navigation.navigate('TaskForManagerScreen')} >
                               <Card wrapperStyle={{ justifyContent: 'center', alignItems: 'center' }} containerStyle={{ borderRadius: 10, margin: 8 }}>
                                 <Image source={tasksImg} style={{ height: 75 }} />
                                 <CustomSemiBoldText style={[theme.buttonSmallTxt, {color: '#67DEBB', paddingTop: 15 }]}>{`${strings.taskButton}`}</CustomSemiBoldText>                                            
@@ -293,41 +289,24 @@ class HomeContentScreen extends React.Component {
                                 <CustomSemiBoldText style={[theme.buttonSmallTxt, {color: '#FF7D82', paddingTop: 15 }]}>{`${strings.serviceButton}`}</CustomSemiBoldText>
                               </Card>
                             </TouchableOpacity>
-                            { 
-                              // For Live Location Tracking
-                            }
-                            {/* <TouchableOpacity activeOpacity={0.5} style={{ flex: 1 }}
-                                    onPress={() => this.props.navigation.navigate('AnimatedMarkers')} >
-                                    <Card wrapperStyle={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} containerStyle={{ flex: 1, marginRight: 8 }}>
-                                        <Image source={mapIcon} style={{ width: 110, height: 109 }} />
-                                        <Button onPress={() => this.props.navigation.navigate('AnimatedMarkers')} style={[theme.buttonAlignBottom, { marginLeft: 0 }]} full>
-                                            <Text style={theme.buttonSmallTxt}>{`Live Location`}</Text>
-                                        </Button>
-                                    </Card>
-                                </TouchableOpacity> */}
-                                
                           </View>
                           <View style={{ flex: 1, flexDirection: 'row', margin:8 }}>
                             <TouchableOpacity activeOpacity={0.5} style={{ flex: 1 }}
                               onPress={() => this.props.navigation.navigate('DocumentsHome')} >
                               <Card wrapperStyle={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} containerStyle={{ flex: 1, borderRadius: 10,  margin: 8 }}>
                                 <Image source={DocumentsImg} style={{ height: 75 }} />
-                                {/* <Button onPress={() => this.props.navigation.navigate('DocumentsHome')} style={[theme.buttonAlignBottom, { marginLeft: 0 }]} full> */}
                                 <CustomSemiBoldText style={[theme.buttonSmallTxt, {color: '#2CA12F', paddingTop: 15 }]}>{`${strings.documentButton}`}</CustomSemiBoldText>
-                                {/* </Button> */}
                               </Card>
                             </TouchableOpacity>
                             <TouchableOpacity activeOpacity={0.5} style={{ flex: 1 }}
                               onPress={() => this.props.navigation.navigate('ContactPersonHome')} >
                               <Card wrapperStyle={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} containerStyle={{ flex: 1, borderRadius: 10,  margin: 8 }}>
                                 <Image source={ContactMechanic} style={{ height: 75 }} />
-                                {/* <Button onPress={() => this.props.navigation.navigate('ContactPersonHome')} style={[theme.buttonAlignBottom, { marginLeft: 0 }]} full> */}
                                 <CustomSemiBoldText style={[theme.buttonSmallTxt, {color: '#CD9827', paddingTop: 15 }]}>{`${strings.contactButton}`}</CustomSemiBoldText>
-                                {/* </Button> */}
                               </Card>
                             </TouchableOpacity>
                           </View>
-                          {speedData}
+                          {/* {speedData} */}
                         </React.Fragment>
                         :
                         <React.Fragment>
@@ -339,8 +318,39 @@ class HomeContentScreen extends React.Component {
                             <CustomText style={{ textAlign: 'center' }}>{`${strings.clockInHelperText}`}</CustomText>
                           </View>
                         </React.Fragment>
-            }
-          </Content >
+              }
+            </Content >
+          :
+          <Content>
+            <React.Fragment>
+              <View style={{ flexDirection: 'row', margin: 8 }}>
+                <TouchableOpacity activeOpacity={0.5} style={{ flex: 1 }}
+                  onPress={() => this.props.navigation.navigate('AssetListScreen')} >
+                  <Card wrapperStyle={{ justifyContent: 'center', alignItems: 'center' }} containerStyle={{ borderRadius: 10, margin: 8 }}>
+                    <Image source={TruckImg} style={{ height: 85 }} />
+                    <CustomSemiBoldText style={[theme.buttonSmallTxt, { color: '#013BA4', paddingTop: 15 }]}>{`${strings.assetTitle}`}</CustomSemiBoldText>
+                  </Card>
+                </TouchableOpacity>
+              </View>
+              <View style={{ flexDirection: 'row', margin: 8 }}>
+                <TouchableOpacity activeOpacity={0.5} style={{ flex: 1 }}
+                  onPress={() => this.props.navigation.navigate('TaskForManagerScreen')} >
+                  <Card wrapperStyle={{ justifyContent: 'center', alignItems: 'center' }} containerStyle={{ borderRadius: 10, margin: 8 }}>
+                    <Image source={tasksImg} style={{ height: 75 }} />
+                    <CustomSemiBoldText style={[theme.buttonSmallTxt, { color: '#67DEBB', paddingTop: 15 }]}>{`${strings.taskButton}`}</CustomSemiBoldText>
+                  </Card>
+                </TouchableOpacity>
+                <TouchableOpacity activeOpacity={0.5} style={{ flex: 1 }}
+                  onPress={() => this.props.navigation.navigate('ServiceTicketHome')} >
+                  <Card wrapperStyle={{ justifyContent: 'center', alignItems: 'center' }} containerStyle={{ borderRadius: 10, margin: 8 }}>
+                    <Image source={ServiceImg} style={{ height: 75 }} />
+                    <CustomSemiBoldText style={[theme.buttonSmallTxt, { color: '#FF7D82', paddingTop: 15 }]}>{`${strings.serviceButton}`}</CustomSemiBoldText>
+                  </Card>
+                </TouchableOpacity>
+              </View>
+            </React.Fragment>
+          </Content>
+          }
         </ContainerWithLoading >
 
       );
@@ -348,11 +358,11 @@ class HomeContentScreen extends React.Component {
 }
 
 function mapStateToProps(state) {
-  let { auth, commonReducer } = state;
-  let { userDetails, languageDetails } = commonReducer || {};
+  const { auth, commonReducer } = state;
+  const { userDetails, languageDetails } = commonReducer || {};
   // let { appLanguage } = commonReducer || 'en';
-  let { token, isLoading } = auth.userStatus;
-  let { decodedToken, time, isCheckInAsset } = auth || {};
+  const { token, isLoading } = auth.userStatus;
+  const { decodedToken, time, isCheckInAsset } = auth || {};
   // console.log('decoded token', decodedToken);
   return {
     auth,

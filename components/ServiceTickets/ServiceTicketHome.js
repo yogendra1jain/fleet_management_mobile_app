@@ -5,6 +5,7 @@ import serviceImg from '../../assets/images/active-icons/service-ticket-active.p
 // import Input from 'react-native-elements';
 import { ListItem } from 'react-native-elements';
 
+import _get from 'lodash/get';
 import theme from '../../theme';
 import { Container, Content, Header, Button, Title, Body, Left, Right, Icon } from 'native-base';
 import withLoadingScreen from '../withLoadingScreen';
@@ -22,7 +23,7 @@ class ServiceTicketHomeScreen extends React.Component {
     };
   }
     getListLabels = (strings) => {
-      return [
+      const listLabels = [
         {
           name: strings.openNewTicketLabel,
           avatar_url: '',
@@ -44,6 +45,10 @@ class ServiceTicketHomeScreen extends React.Component {
           subtitle: '',
         },
       ];
+      if (_get(this.props, 'userDetails.clockedInto.id', '') =='') {
+        listLabels.splice(0, 1);
+      }
+      return listLabels;
     }
     static navigationOptions = {
       header: null,
@@ -170,8 +175,8 @@ class ServiceTicketHomeScreen extends React.Component {
 }
 
 function mapStateToProps(state) {
-  let { decodedToken } = state.auth || {};
-  let { userDetails } = state.user || {};
+  const { decodedToken } = state.auth || {};
+  const { userDetails } = state.commonReducer || {};
 
   return {
     decodedToken,

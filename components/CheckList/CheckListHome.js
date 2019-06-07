@@ -16,6 +16,7 @@ import withLoadingScreen from '../withLoadingScreen';
 import { postData } from '../../actions/commonAction';
 import CustomBoldText from '../stateless/CustomBoldText';
 import { showToast } from '../../utils';
+import TextToSpeech from '../stateless/SpeechToText';
 
 const ContainerWithLoading = withLoadingScreen(Container);
 
@@ -78,6 +79,7 @@ class CheckListHome extends React.Component {
           });
     }
     handleRootCheckbox = (item, name, forGroup, group, value) => {
+      console.log('value in comment', value);
       let val = null;
       if (!forGroup) {
         const selectedItems = _get(this, 'state.selectedItems', []);
@@ -186,9 +188,9 @@ class CheckListHome extends React.Component {
                         underlineColorAndroid={'transparent'}
                         keyboardType={'default'}
                       />
-                      {/* <TextToSpeech
-                            handleTextToSpeech={e => this.handleComments(_get(e, 'value[0]', ''), index)}
-                        /> */}
+                      <TextToSpeech
+                        handleTextToSpeech={e => this.handleRootCheckbox(item, 'comment', forGroup, group, _get(e, 'value[0]', ''))}
+                      />
                     </View>
           }
         </View>

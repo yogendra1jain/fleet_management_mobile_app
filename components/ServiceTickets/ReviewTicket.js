@@ -6,7 +6,7 @@ import _get from 'lodash/get';
 import { showToast } from '../../utils/index';
 import withLocalization from '../hocs/withLocalization';
 import _isEmpty from 'lodash/isEmpty';
-import _cloneDeep from 'lodash/cloneDeep';
+// import _cloneDeep from 'lodash/cloneDeep';
 import _findIndex from 'lodash/findIndex';
 import { postData } from '../../actions/commonAction';
 
@@ -74,14 +74,14 @@ class ReviewTicketScreen extends React.Component {
         userId: _get(this.props, 'userDetails.user.id', ''),
         comment: this.state.newComment,
       };
-      let url = `/Ticket/AddComment`;
-      let constants = {
+      const url = `/Ticket/AddComment`;
+      const constants = {
         init: 'ADD_COMMENT_TICKET_DATA_INIT',
         success: 'ADD_COMMENT_TICKET_DATA_SUCCESS',
         error: 'ADD_COMMENT_TICKET_DATA_ERROR',
       };
-      let identifier = 'ADD_COMMENT_TICKET_DATA';
-      let key = 'addCommentTicketData';
+      const identifier = 'ADD_COMMENT_TICKET_DATA';
+      const key = 'addCommentTicketData';
       this.props.postData(url, data, constants, identifier, key)
           .then((data) => {
             console.log('ticket comment added successfully.', data);
@@ -104,6 +104,17 @@ class ReviewTicketScreen extends React.Component {
           { cancelable: false }
       );
     }
+    onConfirm = () => {
+      Alert.alert(
+          `Confirmation`,
+          `Do You Want To Approve it Or Reject it?`,
+          [
+            { text: 'Reject', onPress: () => this.props.navigation.navigate('TicketApproveScreen', { mode: 'Reject' }) },
+            { text: 'Approve', onPress: () => this.props.navigation.navigate('TicketApproveScreen', { mode: 'Approve' }) },
+          ],
+          { cancelable: false }
+      );
+    }
 
     handleCancel = () => {
       let data = {};
@@ -112,14 +123,14 @@ class ReviewTicketScreen extends React.Component {
         userId: _get(this.props, 'userDetails.user.id', ''),
         comment: 'Not Required',
       };
-      let url = `/Ticket/Cancel`;
-      let constants = {
+      const url = `/Ticket/Cancel`;
+      const constants = {
         init: 'CANCEL_TICKET_DATA_INIT',
         success: 'CANCEL_TICKET_DATA_SUCCESS',
         error: 'CANCEL_TICKET_DATA_ERROR',
       };
-      let identifier = 'CANCEL_TICKET_DATA';
-      let key = 'canceledTicketData';
+      const identifier = 'CANCEL_TICKET_DATA';
+      const key = 'canceledTicketData';
       this.props.postData(url, data, constants, identifier, key)
           .then((data) => {
             console.log('ticket canceled successfully.', data);
@@ -210,12 +221,12 @@ class ReviewTicketScreen extends React.Component {
     }
 
     render() {
-      const { selectedOption, notes } = this.state;
-      const { strings, getTicketDataById } = this.props;
+      // const { selectedOption, notes } = this.state;
+      const { strings, getTicketDataById, decodedToken } = this.props;
 
-      let images = [];
-      let commentsView = [];
-      let status = _get(getTicketDataById, 'status.value', 0);
+      const images = [];
+      const commentsView = [];
+      const status = _get(getTicketDataById, 'status.value', 0);
       !_isEmpty(_get(getTicketDataById, 'comments', [])) && _get(getTicketDataById, 'comments', []).map((comment, index) => {
         commentsView.push(
             this.renderComment(comment, index)
@@ -238,7 +249,7 @@ class ReviewTicketScreen extends React.Component {
                       // onChangeText={value => this.handleComments(value, index)}
                       multiline={true}
                       placeholder={'Comments'}
-                      maxLength={120}
+                      // maxLength={120}
                       // editable={false}
                       value={_get(attachment, 'comment', '').toString()}
                       underlineColorAndroid={'transparent'}
@@ -315,26 +326,32 @@ class ReviewTicketScreen extends React.Component {
               </View>
             </View>
           </Content>
-          <View style={{ backgroundColor: '#ededed' }}>
-            {/* <Button disabled={_get(getTicketDataById, 'status.value', 0) != 0} style={[theme.buttonNormal, theme.spaceAdd1, { backgroundColor: _get(getTicketDataById, 'status.value', 0) != 0 ? '#ededed': '#ff585d' }]} onPress={() => this.onCancel()} full>
-                        <CustomBoldText style={theme.butttonFixTxt}>{`${strings.cancelText}`}</CustomBoldText>
-                    </Button> */}
-            <Button disabled={this.state.addNewComment} style={[theme.buttonNormal, { backgroundColor: this.state.addNewComment ? '#ededed': '#ff585d' }]} onPress={() => this.addComment()} full>
-              <CustomBoldText style={theme.butttonFixTxt}>{`${strings.addCommentText}`}</CustomBoldText>
-            </Button>
-          </View>
+          {
+            status == 0 &&
+            <View style={{ flexDirection: 'row', backgroundColor: '#ededed' }}>
+              {
+                _get(decodedToken, 'FleetUser.role', 0) != 1 &&
+                <Button style={[theme.buttonNormal, theme.spaceAdd1, { backgroundColor: '#ff585d' }]} onPress={() => this.onConfirm()} full>
+                  <CustomBoldText style={theme.butttonFixTxt}>{`${strings.confirmText}`}</CustomBoldText>
+                </Button>
+              }
+              <Button disabled={this.state.addNewComment} style={[theme.buttonNormal, theme.spaceAdd2, { backgroundColor: this.state.addNewComment ? '#ededed': '#ff585d' }]} onPress={() => this.addComment()} full>
+                <CustomBoldText style={theme.butttonFixTxt}>{`${strings.addCommentText}`}</CustomBoldText>
+              </Button>
+            </View>
+          }
         </ContainerWithLoading>
       );
     }
 }
 
 function mapStateToProps(state) {
-  let { decodedToken } = state.auth || {};
-  let { commonReducer } = state || {};
-  let { userDetails } = commonReducer || {};
+  const { decodedToken } = state.auth || {};
+  const { commonReducer } = state || {};
+  const { userDetails } = commonReducer || {};
   // console.log('user details in ticket', userDetails);
-  let isLoading = commonReducer.isFetching || false;
-  let { getTicketDataById } = commonReducer || {};
+  const isLoading = commonReducer.isFetching || false;
+  const { getTicketDataById } = commonReducer || {};
 
   return {
     decodedToken,

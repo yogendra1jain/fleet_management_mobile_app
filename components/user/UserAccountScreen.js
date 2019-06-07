@@ -48,7 +48,7 @@ class UserAccountScreen extends React.Component {
         },
       ];
       const promotionSettings = _get(this, 'props.decodedToken.Client.promotionSettings', {});
-      if (!_isEmpty(promotionSettings)) {
+      if (!_isEmpty(promotionSettings) && _get(this.props, 'decodedToken.FleetUser.role', 0)==1) {
         listData[0].listItems.push({
           title: `${_get(this.props, 'strings.rewardPointsLabel', '')}`,
           icon: 'donut-small',
@@ -139,9 +139,9 @@ class UserAccountScreen extends React.Component {
 }
 
 function mapStateToProps(state) {
-  let { auth, user } = state;
-  let { decodedToken } = auth;
-  let { showVialWarning } = user || true;
+  const { auth, user } = state;
+  const { decodedToken } = auth;
+  const { showVialWarning } = user || true;
   return {
     user: state.user,
     nativeAuth: state.nativeAuth,

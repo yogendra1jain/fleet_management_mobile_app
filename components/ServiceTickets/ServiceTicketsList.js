@@ -20,6 +20,7 @@ import withLoadingScreen from '../withLoadingScreen';
 import withErrorBoundary from '../hocs/withErrorBoundary';
 import CustomText from '../stateless/CustomText';
 import { mapDateToDay } from '../../utils';
+import ServiceTicketSummeryView from './ServiceTicketSummeryView';
 const ContainerWithLoading = withLoadingScreen(Container);
 
 class ServiceTicketListScreen extends React.Component {
@@ -41,18 +42,28 @@ class ServiceTicketListScreen extends React.Component {
     }
     fetchServiceTickets = () => {
       let data = {};
-      data = {
-        status: this.status,
-        id: _get(this.props, 'userDetails.clockedInto.id', ''),
-      };
-      let url = `/Ticket/GetByStatusAndAssetId`;
-      let constants = {
+      let url = '';
+      if (_get(this.props, 'userDetails.clockedInto.id', '') =='') {
+        data = {
+          userId: _get(this.props, 'decodedToken.FleetUser.id', ''),
+          status: this.status,
+          id: _get(this.props, 'decodedToken.Client.id', ''),
+        };
+        url = `/Ticket/GetByStatusAndClientId`;
+      } else {
+        data = {
+          status: this.status,
+          id: _get(this.props, 'userDetails.clockedInto.id', ''),
+        };
+        url = `/Ticket/GetByStatusAndAssetId`;
+      }
+      const constants = {
         init: 'GET_TICKET_DATA_INIT',
         success: 'GET_TICKET_DATA_SUCCESS',
         error: 'GET_TICKET_DATA_ERROR',
       };
-      let identifier = 'GET_TICKET_DATA';
-      let key = 'getTicketData';
+      const identifier = 'GET_TICKET_DATA';
+      const key = 'getTicketData';
       this.props.postData(url, data, constants, identifier, key)
           .then((data) => {
             console.log('tickets get successfully.', data);
@@ -65,14 +76,14 @@ class ServiceTicketListScreen extends React.Component {
       data = {
         id: _get(ticket, 'id', ''),
       };
-      let url = `/Ticket/Get`;
-      let constants = {
+      const url = `/Ticket/Get`;
+      const constants = {
         init: 'GET_TICKET_DATA_BY_ID_INIT',
         success: 'GET_TICKET_DATA_BY_ID_SUCCESS',
         error: 'GET_TICKET_DATA_BY_ID_ERROR',
       };
-      let identifier = 'GET_TICKET_DATA_BY_ID';
-      let key = 'getTicketDataById';
+      const identifier = 'GET_TICKET_DATA_BY_ID';
+      const key = 'getTicketDataById';
       this.props.postData(url, data, constants, identifier, key)
           .then((data) => {
             console.log('ticket data by id get successfully.', data);
@@ -94,37 +105,36 @@ class ServiceTicketListScreen extends React.Component {
     }
 
     renderTicketView = (sortedTicketData) => {
-      let ticketsView = [];
+      const ticketsView = [];
       !_isEmpty(sortedTicketData) && sortedTicketData.map((ticket, index) => {
         ticketsView.push(
-            <TouchableHighlight onPress={() => this.selectTicket(ticket)} key={index}>
-              <View style={{ flex: 1, flexDirection: 'row', backgroundColor: this.state.selectedTicket == ticket.id ? '#ff585d': 'transparent', justifyContent: 'space-between', padding: 15, borderBottomColor: '#ddd', borderBottomWidth: 1 }}>
-                <View style={{ justifyContent: 'flex-start', alignItems: 'center' }}>
-                  <CustomText>{`Ticket Id: ${_get(ticket, 'id', '')}`}</CustomText>
-                </View>
-                <View style={{ justifyContent: 'flex-end', alignItems: 'center', flexWrap: 'wrap', paddingLeft: 5 }}>
-                  <CustomText>{_get(ticket, 'description', '')}</CustomText>
-                </View>
-              </View>
-            </TouchableHighlight>
+            <ServiceTicketSummeryView
+              key={index}
+              index={index}
+              selectedIndex={this.state.selectedIndex}
+              ticket={ticket}
+              strings={this.props.strings}
+              handleTicketClick={() => this.selectTicket(ticket, false)}
+              decodedToken={this.props.decodedToken}
+              userDetails={this.props.userDetails}
+            />
         );
       });
       return ticketsView;
     }
 
     render() {
-      const { selectedOption } = this.state;
+      // const { selectedOption } = this.state;
       const { getTicketData } = this.props;
       let sortedTicketData = _sortBy(getTicketData, 'modifiedOn.seconds');
       sortedTicketData = _reverse(sortedTicketData);
-      let groupedTicketList = _groupBy(sortedTicketData, 'creation.actionTime.seconds');
+      const groupedTicketList = _groupBy(sortedTicketData, 'creation.actionTime.seconds');
       const DateView = _map(groupedTicketList, (value, key) => (
         <View key={key} style={{ paddingTop: 5 }}>
           <CustomText>{mapDateToDay(key)}</CustomText>
           {this.renderTicketView(value)}
         </View>
       ));
-        
       return (
         <ContainerWithLoading style={theme.container} isLoading={this.props.isLoading}>
           <Header translucent={false} style={{ backgroundColor: '#ff585d' }} androidStatusBarColor='#ff585d'>
