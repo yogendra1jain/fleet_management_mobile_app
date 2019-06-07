@@ -12,6 +12,7 @@ import withLoadingScreen from '../withLoadingScreen';
 import withErrorBoundary from '../hocs/withErrorBoundary';
 
 import withLocalization from '../hocs/withLocalization';
+import { NavigationEvents } from 'react-navigation';
 
 const ContainerWithLoading = withLoadingScreen(Container);
 
@@ -24,6 +25,11 @@ class TaskForManagerScreen extends React.Component {
   }
     getListLabels = (strings) => {
       const listLabels = [
+        {
+          name: 'New Task',
+          avatar_url: '',
+          subtitle: '',
+        },
         {
           name: 'Open Tasks',
           avatar_url: '',
@@ -40,7 +46,24 @@ class TaskForManagerScreen extends React.Component {
           subtitle: '',
         },
       ];
-      return listLabels;
+      console.log('user details', _get(this.props, 'userDetails.clockedInto.id', '')=='', _get(this.props, 'userDetails'));
+      if (_get(this.props, 'decodedToken.FleetUser.role', 0) == 1 || _get(this.props, 'userDetails.clockedInto.id', '')=='') {
+        listLabels.splice(0, 1);
+      }
+      const items = [];
+      listLabels.map((l, i) => {
+        items.push(
+            <ListItem
+              key={i}
+              title={l.name}
+              subtitle={l.subtitle}
+              onPress={()=>this.handleTicketItem(l, strings)}
+            />
+        );
+      });
+      this.setState({
+        listItems: items,
+      });
     }
     static navigationOptions = {
       header: null,
@@ -53,6 +76,9 @@ class TaskForManagerScreen extends React.Component {
     }
     handleTicketItem = (item, strings) => {
       switch (item.name) {
+        case 'New Task':
+          this.props.navigation.navigate('NewTaskScreen');
+          break;
         case 'Open Tasks':
           this.props.navigation.navigate('TaskListScreen', { status: 0 });
           break;
@@ -91,6 +117,10 @@ class TaskForManagerScreen extends React.Component {
           <Content
             style={{ backgroundColor: '#ededed' }}
           >
+            <NavigationEvents
+              // onDidFocus={payload => this.fetchTaskList()}
+              onDidFocus={payload => this.getListLabels(strings)}
+            />
             <View style={{ flex: 1, flexDirection: 'column' }}>
               <View style={[theme.centerAlign, { backgroundColor: '#47d7ac', paddingBottom: 30 }]}>
                 <TouchableHighlight
@@ -102,14 +132,7 @@ class TaskForManagerScreen extends React.Component {
               <View style={{ flex: 1, paddingTop: 15 }}>
                 <View style={{ flex: 1 }}>
                   {
-                    this.getListLabels(strings).map((l, i) => (
-                      <ListItem
-                        key={i}
-                        title={l.name}
-                        subtitle={l.subtitle}
-                        onPress={()=>this.handleTicketItem(l, strings)}
-                      />
-                    ))
+                    this.state.listItems
                   }
                 </View>
               </View>
@@ -122,7 +145,7 @@ class TaskForManagerScreen extends React.Component {
 
 function mapStateToProps(state) {
   const { decodedToken } = state.auth || {};
-  const { userDetails } = state.user || {};
+  const { userDetails } = state.commonReducer || {};
 
   return {
     decodedToken,

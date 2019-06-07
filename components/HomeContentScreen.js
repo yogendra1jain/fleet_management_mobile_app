@@ -27,7 +27,7 @@ import withAuth from './hocs/withAuth';
 import SplashScreen from 'react-native-splash-screen';
 import withErrorBoundary from './hocs/withErrorBoundary';
 import withLocalization from './hocs/withLocalization';
-import { postData, setLanguage } from '../actions/commonAction';
+import { postData, setLanguage, setCustomData } from '../actions/commonAction';
 import { setCheckInAsset, timerFunc } from '../actions/auth';
 import { showToast, showAlert } from '../utils';
 import TimerComp from './stateless/TimerComp';
@@ -180,6 +180,17 @@ class HomeContentScreen extends React.Component {
         language: lan,
       });
       this.props.setLanguage(lan);
+    }
+    handleFMRoute = (route) => {
+      const constants = {
+        init: 'SET_CLOCKEDIN_ASSET_ID_CUSTOM_INIT',
+      };
+      const identifier = 'SET_CLOCKEDIN_ASSET_ID';
+      const key = 'userDetails';
+      const data1 = _get(this, 'props.userDetails', {});
+      data1.clockedInto = {};
+      this.props.dispatch(setCustomData(data1, constants, identifier, key));
+      this.props.navigation.navigate(route);
     }
 
     render() {
@@ -334,14 +345,14 @@ class HomeContentScreen extends React.Component {
               </View>
               <View style={{ flexDirection: 'row', margin: 8 }}>
                 <TouchableOpacity activeOpacity={0.5} style={{ flex: 1 }}
-                  onPress={() => this.props.navigation.navigate('TaskForManagerScreen')} >
+                  onPress={() => this.handleFMRoute('TaskForManagerScreen')} >
                   <Card wrapperStyle={{ justifyContent: 'center', alignItems: 'center' }} containerStyle={{ borderRadius: 10, margin: 8 }}>
                     <Image source={tasksImg} style={{ height: 75 }} />
                     <CustomSemiBoldText style={[theme.buttonSmallTxt, { color: '#67DEBB', paddingTop: 15 }]}>{`${strings.taskButton}`}</CustomSemiBoldText>
                   </Card>
                 </TouchableOpacity>
                 <TouchableOpacity activeOpacity={0.5} style={{ flex: 1 }}
-                  onPress={() => this.props.navigation.navigate('ServiceTicketHome')} >
+                  onPress={() => this.handleFMRoute('ServiceTicketHome')} >
                   <Card wrapperStyle={{ justifyContent: 'center', alignItems: 'center' }} containerStyle={{ borderRadius: 10, margin: 8 }}>
                     <Image source={ServiceImg} style={{ height: 75 }} />
                     <CustomSemiBoldText style={[theme.buttonSmallTxt, { color: '#FF7D82', paddingTop: 15 }]}>{`${strings.serviceButton}`}</CustomSemiBoldText>
@@ -382,6 +393,7 @@ function mapDispatchToProps(dispatch) {
     timerFunc: time => dispatch(timerFunc(time)),
     setCheckInAsset: isCheckin => dispatch(setCheckInAsset(isCheckin)),
     setLanguage: language => dispatch(setLanguage(language)),
+    setCustomData: (data, constants, identifier, key) => dispatch(setCustomData(data, constants, identifier, key)),
     postData: (url, data, constants, identifier, key) => dispatch(postData(url, data, constants, identifier, key)),
   };
 }

@@ -52,6 +52,8 @@ import RewardPointHome from '../components/user/ManageRewardPoints';
 import AssetListScreen from '../components/AssetsView/AssetList';
 import TicketApproveScreen from '../components/ServiceTickets/TicketApproveScreen';
 import TaskForManagerScreen from '../components/tasks/TaskForManager';
+import NewTaskScreen from '../components/tasks/NewTaskScreen';
+import TaskAttachmentScreen from '../components/tasks/TaskAttachmentScreen';
 
 const AppStack = createStackNavigator(
     {
@@ -103,6 +105,8 @@ const SettingsStack = createStackNavigator({
 const TasksStack = createStackNavigator({
   TaskForManagerScreen: TaskForManagerScreen,
   TaskListScreen: TaskListScreen,
+  NewTaskScreen: NewTaskScreen,
+  TaskAttachmentScreen: TaskAttachmentScreen,
   TaskDetailScreen: TaskDetailScreen,
   LocationMap: LocationMap,
   LocationA: LocationA,

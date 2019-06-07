@@ -183,7 +183,7 @@ class TicketApproveScreen extends React.Component {
             config: {
               strings: strings,
             },
-            onSubmitEditing: () => this.refs.form.getComponent('password').refs.input.focus(),
+            // onSubmitEditing: () => this.refs.form.getComponent('password').refs.input.focus(),
           },
           dueDate: {
             // placeholder: 'Enter Password',

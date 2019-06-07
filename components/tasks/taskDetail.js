@@ -2,11 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { View, TextInput, Alert, Image, Linking, TouchableHighlight } from 'react-native';
 import _get from 'lodash/get';
-// import Input from 'react-native-elements';
 import { showToast } from '../../utils/index';
 import withLocalization from '../hocs/withLocalization';
 import _isEmpty from 'lodash/isEmpty';
-import _cloneDeep from 'lodash/cloneDeep';
 import _findIndex from 'lodash/findIndex';
 import { postData } from '../../actions/commonAction';
 
@@ -49,14 +47,14 @@ class TaskDetailScreen extends React.Component {
       data = {
         id: _get(this.state, 'task.id', ''),
       };
-      let url = `/Task/Get`;
-      let constants = {
+      const url = `/Task/Get`;
+      const constants = {
         init: 'GET_TASK_DATA_BY_ID_INIT',
         success: 'GET_TASK_DATA_BY_ID_SUCCESS',
         error: 'GET_TASK_DATA_BY_ID_ERROR',
       };
-      let identifier = 'GET_TASK_DATA_BY_ID';
-      let key = 'getTaskDataById';
+      const identifier = 'GET_TASK_DATA_BY_ID';
+      const key = 'getTaskDataById';
       this.props.postData(url, data, constants, identifier, key)
           .then((data) => {
             console.log('task get successfully.', data);
@@ -92,14 +90,14 @@ class TaskDetailScreen extends React.Component {
         userId: _get(this.props, 'userDetails.user.id', ''),
         comment: this.state.newComment,
       };
-      let url = `/Ticket/AddComment`;
-      let constants = {
+      const url = `/Ticket/AddComment`;
+      const constants = {
         init: 'ADD_COMMENT_TICKET_DATA_INIT',
         success: 'ADD_COMMENT_TICKET_DATA_SUCCESS',
         error: 'ADD_COMMENT_TICKET_DATA_ERROR',
       };
-      let identifier = 'ADD_COMMENT_TICKET_DATA';
-      let key = 'addCommentTicketData';
+      const identifier = 'ADD_COMMENT_TICKET_DATA';
+      const key = 'addCommentTicketData';
       this.props.postData(url, data, constants, identifier, key)
           .then((data) => {
             console.log('ticket comment added successfully.', data);

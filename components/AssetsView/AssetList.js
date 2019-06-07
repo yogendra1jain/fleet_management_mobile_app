@@ -151,7 +151,7 @@ class AssetListScreen extends React.Component {
               handleAssetClick={() => this.handleAssetClick(asset, false)}
               decodedToken={this.props.decodedToken}
               userDetails={this.props.userDetails}
-              firstButtonClick={() => this.handleAssetClick(asset, 'TaskListScreen')}
+              firstButtonClick={() => this.handleAssetClick(asset, 'TaskForManagerScreen')}
               secondButtonClick={() => this.handleAssetClick(asset, 'ServiceTicketHome')}
               firstButtonText={'Task'}
               secondButtonText={'Ticket'}

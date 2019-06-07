@@ -1,14 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { View } from 'react-native';
-import { Text, ListItem, Avatar } from 'react-native-elements';
+import { ListItem, Avatar } from 'react-native-elements';
 import _isEmpty from 'lodash/isEmpty';
 import _get from 'lodash/get';
 import theme from '../../theme';
 import VerifyAuth from '../auth/VerifyAuth';
 import Logout from '../auth/Logout';
 import { setWarnings } from '../../actions/user';
-// import { Feather } from '@expo/vector-icons';
 import { Container, Content, Header, Button, Title, Body, Left, Right, Icon } from 'native-base';
 import withErrorBoundary from '../hocs/withErrorBoundary';
 import withLocalization from '../hocs/withLocalization';

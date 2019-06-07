@@ -12,6 +12,7 @@ import withLoadingScreen from '../withLoadingScreen';
 import withErrorBoundary from '../hocs/withErrorBoundary';
 
 import withLocalization from '../hocs/withLocalization';
+import { NavigationEvents } from 'react-navigation';
 
 const ContainerWithLoading = withLoadingScreen(Container);
 
@@ -48,7 +49,20 @@ class ServiceTicketHomeScreen extends React.Component {
       if (_get(this.props, 'userDetails.clockedInto.id', '') =='') {
         listLabels.splice(0, 1);
       }
-      return listLabels;
+      const items = [];
+      listLabels.map((l, i) => {
+        items.push(
+            <ListItem
+              key={i}
+              title={l.name}
+              subtitle={l.subtitle}
+              onPress={()=>this.handleTicketItem(l, strings)}
+            />
+        );
+      });
+      this.setState({
+        listItems: items,
+      });
     }
     static navigationOptions = {
       header: null,
@@ -103,9 +117,10 @@ class ServiceTicketHomeScreen extends React.Component {
           <Content
             style={{ backgroundColor: '#ededed' }}
           >
-            {/* <NavigationEvents
-                    onDidFocus={payload => this.goBack()}
-                /> */}
+            <NavigationEvents
+              // onDidFocus={payload => this.fetchTaskList()}
+              onDidFocus={payload => this.getListLabels(strings)}
+            />
             <View style={{ flex: 1, flexDirection: 'column' }}>
               <View style={[theme.centerAlign, { backgroundColor: '#ff585d', paddingBottom: 30 }]}>
                 <TouchableHighlight
@@ -124,50 +139,11 @@ class ServiceTicketHomeScreen extends React.Component {
               <View style={{ flex: 1, paddingTop: 15 }}>
                 <View style={{ flex: 1 }}>
                   {
-                    this.getListLabels(strings).map((l, i) => (
-                      <ListItem
-                        key={i}
-                        // leftAvatar={{ source: { uri: l.avatar_url } }}
-                        title={l.name}
-                        subtitle={l.subtitle}
-                        onPress={()=>this.handleTicketItem(l, strings)}
-                      />
-                    ))
+                    this.state.listItems
                   }
                 </View>
               </View>
-              {/* <TouchableHighlight onPress={() => {}}>
-                            <View style={[theme.centerAlign, { flex: 1, flexDirection: 'row', margin: 20 }]}>
-                                    <Icon name='ios-calendar' />
-                               
-                                    <CustomText style={{ marginLeft: 10 }}>{`${strings.upcomingAppointmentsLabel}`}</CustomText>
-                            </View>
-                        </TouchableHighlight> */}
             </View>
-            {/* <View style={{ flex: 1, margin: 10, flexDirection: 'row' }}>
-                        <TouchableHighlight onPress={() => this.props.navigation.navigate('TaskListScreen')} style={{ flex: 1, justifyContent: 'flex-start' }}>
-                            <View>
-                                <Icon
-                                    name='tasks'
-                                    type='FontAwesome'
-                                />
-                                <View style={{ flexWrap: 'wrap' }}>
-                                    <CustomText>{`${strings.TASKS}`}</CustomText>
-                                </View>
-                            </View>
-                        </TouchableHighlight>
-                        <TouchableHighlight style={{ justifyContent: 'flex-end' }}>
-                            <View>
-                                <Icon
-                                    name='contact-phone'
-                                    type='MaterialIcons'
-                                />
-                                <View style={{ flexWrap: 'wrap' }}>
-                                    <CustomText>{`${strings.contactManagerLabel}`}</CustomText>
-                                </View>
-                            </View>
-                        </TouchableHighlight>
-                    </View> */}
           </Content>
         </ContainerWithLoading>
       );
