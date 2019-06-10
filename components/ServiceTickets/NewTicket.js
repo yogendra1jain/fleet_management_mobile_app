@@ -242,7 +242,7 @@ class NewTicketScreen extends React.Component {
                             </View> */}
                   <View style={{ flex: 1, marginLeft: 10, marginRight: 10, position: 'relative' }}>
                     <TextInput
-                      style={{ height: 50, borderColor: 'gray', borderWidth: 1, paddingLeft: 10 }}
+                      style={{ height: 70, borderColor: 'gray', borderWidth: 1, paddingLeft: 10 }}
                       onChangeText={value => this.handleComments(value, index)}
                       multiline={true}
                       placeholder={'Comments'}
