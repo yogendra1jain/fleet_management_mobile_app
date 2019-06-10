@@ -55,7 +55,7 @@ class RewardPointHome extends React.Component {
       const key = 'redeemRewardPoints';
       this.props.postData(url, data, constants, identifier, key)
           .then((data) => {
-            console.log('reward points got successfully.', data);
+            console.log('reward points got successfully.');
             this.getRewardInfo();
             // this.props.timerFunc(0);
             // showToast('success', `Reward Successfully.`, 3000);
@@ -79,7 +79,7 @@ class RewardPointHome extends React.Component {
       const key = 'rewardPoints';
       this.props.postData(url, data, constants, identifier, key)
           .then((data) => {
-            console.log('reward points got successfully.', data);
+            console.log('reward points got successfully.');
             const promotionSettings = _get(this, 'props.decodedToken.Client.promotionSettings', {});
             const donuts = parseInt(_get(data, 'points', 0) / _get(promotionSettings, 'operatorPointConversionFactor', 1));
             const pendingDonut = _get(data, 'points', 0) - (donuts * _get(promotionSettings, 'operatorPointConversionFactor', 1));

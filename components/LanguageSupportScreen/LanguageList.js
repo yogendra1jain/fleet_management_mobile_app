@@ -55,7 +55,7 @@ class LanguageSelectionScreen extends React.Component {
       const key = 'languageDetails';
       this.props.postData(url, data, constants, identifier, key)
           .then((data) => {
-            console.log('language data fetched successfully.', data);
+            console.log('language data fetched successfully.');
           }, (err) => {
             console.log('error while fetching language data', err);
           });

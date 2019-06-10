@@ -84,7 +84,7 @@ class ReviewTicketScreen extends React.Component {
       const key = 'addCommentTicketData';
       this.props.postData(url, data, constants, identifier, key)
           .then((data) => {
-            console.log('ticket comment added successfully.', data);
+            console.log('ticket comment added successfully.');
             this.setState({
               isSaved: true,
             });
@@ -133,7 +133,7 @@ class ReviewTicketScreen extends React.Component {
       const key = 'canceledTicketData';
       this.props.postData(url, data, constants, identifier, key)
           .then((data) => {
-            console.log('ticket canceled successfully.', data);
+            console.log('ticket canceled successfully.');
             this.setState({
               isSaved: true,
             });

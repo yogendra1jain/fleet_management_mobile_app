@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { View, Image, StyleSheet, TouchableHighlight, TouchableOpacity, RefreshControl, Platform } from 'react-native';
+import { View, Image, StyleSheet, TouchableOpacity, RefreshControl, Platform } from 'react-native';
 import documentsImg from '../../assets/images/active-icons/document-active.png';
 import pdfIcon from '../../assets/images/pdficon.png';
 // import Input from 'react-native-elements';
@@ -10,7 +10,7 @@ import _isEmpty from 'lodash/isEmpty';
 import _cloneDeep from 'lodash/cloneDeep';
 
 import theme from '../../theme';
-import { Text, Container, Content, Header, Button, Title, Body, Left, Right, Icon } from 'native-base';
+import { Container, Content, Header, Button, Title, Body, Left, Right, Icon } from 'native-base';
 import withLoadingScreen from '../withLoadingScreen';
 import withErrorBoundary from '../hocs/withErrorBoundary';
 import { postData } from '../../actions/commonAction';
@@ -22,32 +22,6 @@ import CustomText from '../stateless/CustomText';
 
 const ContainerWithLoading = withLoadingScreen(Container);
 
-const list = [
-  {
-    name: 'Title Docs',
-    icon: 'file-pdf-o',
-    type: 'font-awesome',
-    subtitle: '',
-  },
-  {
-    name: 'Registration Docs',
-    icon: 'file-pdf-o',
-    type: 'font-awesome',
-    subtitle: '',
-  },
-  {
-    name: 'Insurance Card',
-    icon: 'file-pdf-o',
-    type: 'font-awesome',
-    subtitle: '',
-  },
-  {
-    name: 'Upload Invoice/ Document',
-    icon: 'camera',
-    type: 'font-awesome',
-    subtitle: '',
-  },
-];
 const options = {
   title: 'Select Photo',
   storageOptions: {
@@ -55,32 +29,6 @@ const options = {
     path: 'images',
   },
 };
-
-
-const getDocumentType = (type, strings) => {
-  let typeValue = '';
-  switch (type) {
-    case 0:
-      typeValue = `${strings.invalidDocType}`;
-      break;
-    case 1:
-      typeValue = `${strings.titleDoc}`;
-      break;
-    case 2:
-      typeValue = `${strings.insuranceDoc}`;
-      break;
-    case 3:
-      typeValue = `${strings.registrationDoc}`;
-      break;
-    case 4:
-      typeValue = `${strings.inspectionDoc}`;
-      break;
-    default:
-      typeValue = `${strings.invalidDocType}`;
-      break;
-  }
-  return typeValue;
-}
 
 class DocumentsHomeScreen extends React.Component {
   constructor(props) {
@@ -102,20 +50,20 @@ class DocumentsHomeScreen extends React.Component {
       this.loadAssetDocuments();
     }
     loadAssetDocuments = () => {
-      let url = `/Assets/GetMandatoryDocuments`;
-      let constants = {
+      const url = `/Assets/GetMandatoryDocuments`;
+      const constants = {
         init: 'GET_ASSET_DOCUMENTS_INIT',
         success: 'GET_ASSET_DOCUMENTS_SUCCESS',
         error: 'GET_ASSET_DOCUMENTS_ERROR',
       };
-      let data = {
+      const data = {
         id: _get(this.props, 'userDetails.clockedInto.id', ''),
       };
-      let identifier = 'GET_ASSET_DOCUMENTS';
-      let key = 'assetDocuments';
+      const identifier = 'GET_ASSET_DOCUMENTS';
+      const key = 'assetDocuments';
       this.props.postData(url, data, constants, identifier, key)
           .then((data) => {
-            console.log('asset documents fetched successfully.', data);
+            console.log('asset documents fetched successfully.');
             showToast('success', `${this.props.strings.docFetchSuccessMsg}.`, 3000);
           }, (err) => {
             console.log('error while fetching asset documents', err);
@@ -130,15 +78,14 @@ class DocumentsHomeScreen extends React.Component {
       this.loadAssetDocuments();
     }
     handleFileClick = (item) => {
-      console.log('item clicked', item);
       if (item.link.indexOf('pdf') !==-1) {
-        this.props.navigation.navigate('PdfViewScreen', {uri: item.link});
+        this.props.navigation.navigate('PdfViewScreen', { uri: item.link });
       } else {
-        this.props.navigation.navigate('ImageViewScreen', {uri: item.link});
+        this.props.navigation.navigate('ImageViewScreen', { uri: item.link });
       }
     }
     handleDocumentUpload = () => {
-      this.props.navigation.navigate('ExpenseReportHomeScreen')
+      this.props.navigation.navigate('ExpenseReportHomeScreen');
       // this.uploadImage();
     }
     uploadImage = () => {
@@ -159,7 +106,7 @@ class DocumentsHomeScreen extends React.Component {
           response.owner = 'operator';
           if (Platform.OS == 'ios') {
             //    fileName = 'Image'+ new Date().toString() + '.jpg';
-            let strs = response.uri.split('/');
+            const strs = response.uri.split('/');
             response.fileName = strs[strs.length - 1];
             response.type = 'image/jpeg';
           }
@@ -188,26 +135,26 @@ class DocumentsHomeScreen extends React.Component {
     }
 
     uploadData = (formData) => {
-      let url = `/Upload/File`;
-      let constants = {
+      const url = `/Upload/File`;
+      const constants = {
         init: 'UPLOAD_DOCUMENTS_INIT',
         success: 'UPLOAD_DOCUMENTS_SUCCESS',
         error: 'UPLOAD_DOCUMENTS_ERROR',
       };
-      let data = {
-        id: _get(this.props, 'userDetails.clockedInto.id', ''),
-      };
-      let identifier = 'UPLOAD_DOCUMENTS';
-      let key = 'uploadedDocuments';
+      // let data = {
+      //   id: _get(this.props, 'userDetails.clockedInto.id', ''),
+      // };
+      const identifier = 'UPLOAD_DOCUMENTS';
+      const key = 'uploadedDocuments';
       this.props.postData(url, formData, constants, identifier, key)
           .then((data) => {
             console.log('documents uploaded successfully.');
-            let links = _cloneDeep(this.state.links);
-            let uploadedLinks = _cloneDeep(this.state.uploadedLinks) || [];
-            let imageData = {
+            const links = _cloneDeep(this.state.links);
+            const uploadedLinks = _cloneDeep(this.state.uploadedLinks) || [];
+            const imageData = {
               imageSource: this.state.imageSource,
               fileName: this.state.fileName,
-            }
+            };
             links.push(imageData);
             uploadedLinks.push(data.url);
 
@@ -225,7 +172,7 @@ class DocumentsHomeScreen extends React.Component {
       const { assetDocuments, strings } = this.props;
       // console.log('asset documents', assetDocuments);
       const { selectedIndex } = this.state;
-      let images = [];
+      const images = [];
       !_isEmpty(_get(this.state, 'links', [])) && _get(this.state, 'links', []).map((link, index) => {
         images.push(
             <View key={index} style={{ flex: 1, marginLeft: 20, marginBottom: 10, flexDirection: 'row' }}>
@@ -243,8 +190,8 @@ class DocumentsHomeScreen extends React.Component {
                 }
               </View>
             </View>
-        )
-      })
+        );
+      });
       return (
         <ContainerWithLoading style={theme.container} isLoading={this.props.isLoading}>
           <Header translucent={false} style={{ backgroundColor: '#059312', borderBottomWidth: 0 }} androidStatusBarColor="#059312">
@@ -270,7 +217,6 @@ class DocumentsHomeScreen extends React.Component {
           >
             <View style={{ flex: 1, flexDirection: 'column' }}>
               <View style={[theme.centerAlign, { backgroundColor: '#059312', paddingBottom: 30 }]}>
-                            
                 <Image source={documentsImg} style={styles.profileImg} />
               </View>
               <View style={{ flex: 1, paddingTop: 15 }}>
@@ -295,7 +241,7 @@ class DocumentsHomeScreen extends React.Component {
                                       <TouchableOpacity activeOpacity={0.5} style={{ flex: 1 }}
                                         onPress={() => this.handleFileClick(l)} >
                                         <Card wrapperStyle={{ flex: 1, justifyContent: 'center', alignItems: 'center', margin: 0 }} containerStyle={{ flex: 1, margin: 0 }}>
-                                          <Image source={ l.link.indexOf('pdf') !==-1 ? pdfIcon: {uri: l.link}} style={{ width: 110, height: 109 }} />
+                                          <Image source={ l.link.indexOf('pdf') !==-1 ? pdfIcon: { uri: l.link }} style={{ width: 110, height: 109 }} />
                                         </Card>
                                       </TouchableOpacity>
                                     </View>
@@ -323,11 +269,11 @@ class DocumentsHomeScreen extends React.Component {
 }
 
 function mapStateToProps(state) {
-  let { decodedToken } = state.auth || {};
-  let { commonReducer } = state || {};
-  let { userDetails } = commonReducer || {};
-  let { appLanguage, languageDetails } = commonReducer || 'en';
-  let { assetDocuments } = commonReducer || [];
+  const { decodedToken } = state.auth || {};
+  const { commonReducer } = state || {};
+  const { userDetails } = commonReducer || {};
+  const { appLanguage, languageDetails } = commonReducer || 'en';
+  const { assetDocuments } = commonReducer || [];
 
   return {
     decodedToken,

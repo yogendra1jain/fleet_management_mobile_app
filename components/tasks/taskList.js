@@ -71,7 +71,7 @@ class TaskListScreen extends React.Component {
       const key = 'getTasksData';
       this.props.postData(url, data, constants, identifier, key)
           .then((data) => {
-            console.log('tasks get successfully.', data);
+            console.log('tasks get successfully.');
           }, (err) => {
             console.log('error while getting tasks', err);
           });

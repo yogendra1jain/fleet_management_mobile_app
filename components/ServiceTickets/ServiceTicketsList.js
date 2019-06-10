@@ -66,7 +66,7 @@ class ServiceTicketListScreen extends React.Component {
       const key = 'getTicketData';
       this.props.postData(url, data, constants, identifier, key)
           .then((data) => {
-            console.log('tickets get successfully.', data);
+            console.log('tickets get successfully.');
           }, (err) => {
             console.log('error while getting service tickets', err);
           });
@@ -86,7 +86,7 @@ class ServiceTicketListScreen extends React.Component {
       const key = 'getTicketDataById';
       this.props.postData(url, data, constants, identifier, key)
           .then((data) => {
-            console.log('ticket data by id get successfully.', data);
+            console.log('ticket data by id get successfully.');
             this.props.navigation.navigate('ReviewTicketScreen');
           }, (err) => {
             console.log('error while getting service ticket by id', err);

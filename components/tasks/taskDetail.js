@@ -57,7 +57,7 @@ class TaskDetailScreen extends React.Component {
       const key = 'getTaskDataById';
       this.props.postData(url, data, constants, identifier, key)
           .then((data) => {
-            console.log('task get successfully.', data);
+            console.log('task get successfully.');
           }, (err) => {
             console.log('error while getting task', err);
           });
@@ -100,7 +100,7 @@ class TaskDetailScreen extends React.Component {
       const key = 'addCommentTicketData';
       this.props.postData(url, data, constants, identifier, key)
           .then((data) => {
-            console.log('ticket comment added successfully.', data);
+            console.log('ticket comment added successfully.');
             this.setState({
               isSaved: true,
             });
@@ -155,7 +155,7 @@ class TaskDetailScreen extends React.Component {
       const key = 'completeTaskData';
       this.props.postData(url, data, constants, identifier, key)
           .then((data) => {
-            console.log('task completed successfully.', data);
+            console.log('task completed successfully.');
             this.setState({
               isSaved: true,
             });
@@ -185,7 +185,7 @@ class TaskDetailScreen extends React.Component {
       const key = 'canceledTaskData';
       this.props.postData(url, data, constants, identifier, key)
           .then((data) => {
-            console.log('task canceled successfully.', data);
+            console.log('task canceled successfully.');
             this.setState({
               isSaved: true,
             });

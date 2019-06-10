@@ -95,7 +95,7 @@ class OtherTicketScreen extends React.Component {
             selectedIndex={0}
             asset={_get(userDetails, 'clockedInto', {})}
             strings={strings}
-            handleAssetClick={this.handleAssetClick}
+            handleAssetClick={() => {}}
             handleCheckIn={this.getCurrentLocation}
             decodedToken={this.props.decodedToken}
             userDetails={this.props.userDetails}

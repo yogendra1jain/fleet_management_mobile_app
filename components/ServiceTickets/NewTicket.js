@@ -206,7 +206,7 @@ class NewTicketScreen extends React.Component {
         // console.log('data ', data);
         this.props.postData(url, data, constants, identifier, key)
             .then((data) => {
-              console.log('ticket saved successfully.', data);
+              console.log('ticket saved successfully.');
               this.setState({
                 isSaved: true,
               });

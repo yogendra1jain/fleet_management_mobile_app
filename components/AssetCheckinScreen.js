@@ -13,10 +13,9 @@ import withLoadingScreen from './withLoadingScreen';
 import withLocalization from './hocs/withLocalization';
 
 import AssetView from './stateless/AssetView';
-import strings from '../utils/localization';
 
 import { setTimer, timerFunc, setCheckInAsset } from '../actions/auth';
-import { showToast, showAlert } from '../utils';
+import { showToast } from '../utils';
 import Geolocation from 'react-native-geolocation-service';
 import CustomBoldText from './stateless/CustomBoldText';
 
@@ -45,19 +44,18 @@ class AssetCheckinScreen extends React.Component {
       this.loadData(licenseNumber);
     }
     loadData = (licenseNumber, isCheckin) => {
-      console.log('came in load data method');
-      let url = `/Assets/GetByClientIdAndLicensePlate`;
-      let constants = {
+      const url = `/Assets/GetByClientIdAndLicensePlate`;
+      const constants = {
         init: 'GET_ASSETS_FOR_OPERATOR_INIT',
         success: 'GET_ASSETS_FOR_OPERATOR_SUCCESS',
         error: 'GET_ASSETS_FOR_OPERATOR_ERROR',
       };
-      let data = {
+      const data = {
         clientId: _get(this.props, 'decodedToken.Client.id', ''),
         licensePlate: licenseNumber,
       };
-      let identifier = 'GET_ASSETS_FOR_OPERATOR';
-      let key = 'operatorAssets';
+      const identifier = 'GET_ASSETS_FOR_OPERATOR';
+      const key = 'operatorAssets';
       this.props.postData(url, data, constants, identifier, key)
           .then((data) => {
             this.loadUserInfo(isCheckin);
@@ -95,18 +93,18 @@ class AssetCheckinScreen extends React.Component {
       );
     }
     handleCheckOut = () => {
-      let url = `/Assets/CheckOut`;
-      let constants = {
+      const url = `/Assets/CheckOut`;
+      const constants = {
         init: 'CHECKIN_FOR_ASSET_INIT',
         success: 'CHECKIN_FOR_ASSET_SUCCESS',
         error: 'CHECKIN_FOR_ASSET_ERROR',
       };
-      let data = {
+      const data = {
         operatorId: _get(this.props, 'decodedToken.FleetUser.id', ''),
         assetId: _get(this.props, 'userDetails.clockedInto.id', ''),
       };
-      let identifier = 'CHECKIN_FOR_ASSET';
-      let key = 'checkInForAsset';
+      const identifier = 'CHECKIN_FOR_ASSET';
+      const key = 'checkInForAsset';
       this.props.postData(url, data, constants, identifier, key)
           .then((data) => {
             console.log('checked out successfully.');
@@ -119,17 +117,17 @@ class AssetCheckinScreen extends React.Component {
           });
     }
     handleCheckIn = (index, asset, isCheckin) => {
-      let url = `/Assets/ClockIn`;
+      const url = `/Assets/ClockIn`;
       this.props.setCheckInAsset(false);
       // if (!isCheckin) {
       //     url = `/Assets/CheckOut`;
       // }
-      let constants = {
+      const constants = {
         init: 'SAVE_CHECKIN_FOR_ASSET_INIT',
         success: 'SAVE_CHECKIN_FOR_ASSET_SUCCESS',
         error: 'SAVE_CHECKIN_FOR_ASSET_ERROR',
       };
-      let data = {
+      const data = {
         operatorId: _get(this.props, 'decodedToken.FleetUser.id', ''),
         assetId: asset.id,
         coordinate: {
@@ -137,11 +135,10 @@ class AssetCheckinScreen extends React.Component {
           longitude: this.state.longitude,
         },
       };
-      let identifier = 'SAVE_CHECKIN_FOR_ASSET';
-      let key = 'checkInForAsset';
+      const identifier = 'SAVE_CHECKIN_FOR_ASSET';
+      const key = 'checkInForAsset';
       this.props.postData(url, data, constants, identifier, key)
           .then((data) => {
-            console.log('checked in successfully.', data);
             if (isCheckin === true) {
               this.props.timerFunc(86400);
               let licenseNumber = _get(this, 'state.license', '');
@@ -156,20 +153,19 @@ class AssetCheckinScreen extends React.Component {
           });
     }
     loadUserInfo = (isCheckin) => {
-      let url = `/ClientUser/Detail`;
-      let constants = {
+      const url = `/ClientUser/Detail`;
+      const constants = {
         init: 'GET_USER_DETAILS_INIT',
         success: 'GET_USER_DETAILS_SUCCESS',
         error: 'GET_USER_DETAILS_ERROR',
       };
-      let data = {
+      const data = {
         id: _get(this.props, 'decodedToken.FleetUser.id', ''),
       };
-      let identifier = 'GET_USER_DETAILS';
-      let key = 'userDetails';
+      const identifier = 'GET_USER_DETAILS';
+      const key = 'userDetails';
       this.props.postData(url, data, constants, identifier, key)
           .then((data) => {
-            console.log('user data fetched successfully.', data);
             // showToast('success', `${this.props.strings.assetFetchSuccMsg}`, 3000);
             if (isCheckin === true) {
               this.props.navigation.navigate('Home');
@@ -187,7 +183,7 @@ class AssetCheckinScreen extends React.Component {
     renderContent = (strings) => {
       const { operatorAssets } = this.props;
       const { selectedIndex } = this.state;
-      let assetListView = [];
+      const assetListView = [];
       // console.log('assets', operatorAssets);
       _get(this, 'state.searchClicked', false) && _isArray(operatorAssets) && !_isEmpty(operatorAssets) && operatorAssets.map((asset, index) => {
         assetListView.push(
@@ -263,12 +259,12 @@ class AssetCheckinScreen extends React.Component {
 }
 
 function mapStateToProps(state) {
-  let { commonReducer, auth } = state;
-  let { operatorAssets } = commonReducer || [];
-  let isLoading = commonReducer.isFetching || false;
-  let { appLanguage, languageDetails, userDetails } = commonReducer || 'en';
+  const { commonReducer, auth } = state;
+  const { operatorAssets } = commonReducer || [];
+  const isLoading = commonReducer.isFetching || false;
+  const { appLanguage, languageDetails, userDetails } = commonReducer || 'en';
   // console.log('appLanguage in check in screen', appLanguage);
-  let { decodedToken } = auth || {};
+  const { decodedToken } = auth || {};
   return {
     operatorAssets,
     decodedToken,

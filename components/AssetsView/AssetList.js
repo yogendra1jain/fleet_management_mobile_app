@@ -89,7 +89,6 @@ class AssetListScreen extends React.Component {
             this.setState({
               isLoading: false,
             });
-            console.log('user data fetched successfully.', data);
             // showToast('success', `${this.props.strings.assetFetchSuccMsg}`, 3000);
             if (isCheckin === true) {
               this.props.navigation.navigate('Home');

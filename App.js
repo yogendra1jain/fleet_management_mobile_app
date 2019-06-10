@@ -88,25 +88,24 @@ class App extends React.Component {
 
   fetchAppVersion = () => {
     AXIOS.post(`/config/currentVersion`, {})
-      .then((response) => {
-        let data = response.data;
-        console.log('app version', _get(data, 'currentMobileAppVersion', ''), 'data', data);
-        this.appUrl = _get(data, 'appUrl', '');
-        if (Platform.OS !== 'ios') {
-          this.appUrl = _get(data, 'playStoreUrl', '') !='' ?_get(data, 'playStoreUrl', ''): _get(data, 'serverUrl', '');
-        } else {
-          this.appUrl = _get(data, 'iosStoreUrl', '') !='' ?_get(data, 'iosStoreUrl', ''): _get(data, 'serverUrl', '');
+        .then((response) => {
+          let data = response.data;
+          this.appUrl = _get(data, 'appUrl', '');
+          if (Platform.OS !== 'ios') {
+            this.appUrl = _get(data, 'playStoreUrl', '') !='' ?_get(data, 'playStoreUrl', ''): _get(data, 'serverUrl', '');
+          } else {
+            this.appUrl = _get(data, 'iosStoreUrl', '') !='' ?_get(data, 'iosStoreUrl', ''): _get(data, 'serverUrl', '');
+          }
+          // 'https://drive.google.com/file/d/1imAd2-MPHwlx0MNerVubKNkQP9BZiUF3/view?usp=drivesdk';
+          this.setState({
+            appVersion: _get(data, 'currentMobileAppVersion', ''),
+          });
+          console.log('success response after fetch mobile app version service');
         }
-        // 'https://drive.google.com/file/d/1imAd2-MPHwlx0MNerVubKNkQP9BZiUF3/view?usp=drivesdk';
-        this.setState({
-          appVersion: _get(data, 'currentMobileAppVersion', ''),
+        )
+        .catch((err) => {
+          logError('fetch mobile app version', _get(err, 'response.data', ''), err.status);
         });
-        console.log('success response after fetch mobile app version service', response);
-      }
-      )
-      .catch((err) => {
-        logError('fetch mobile app version', _get(err, 'response.data', ''), err.status);
-      });
   }
   async componentDidMount() {
     this.fetchAppVersion();
@@ -115,14 +114,14 @@ class App extends React.Component {
 
   showAlert = () => {
     Alert.alert(
-      'Update Required.',
-      'Please Update app to Proceed.',
-      [
-        {
-          text: 'Ok', onPress: () => this.openUrl(this.appUrl),
-        },
-      ],
-      { cancelable: false }
+        'Update Required.',
+        'Please Update app to Proceed.',
+        [
+          {
+            text: 'Ok', onPress: () => this.openUrl(this.appUrl),
+          },
+        ],
+        { cancelable: false }
     );
   }
 
@@ -143,9 +142,9 @@ class App extends React.Component {
           <View style={{ margin: 15, flex: 1, justifyContent: 'center', alignItems: 'center' }}>
             <Text style={{ padding: 15, textAlign: 'center' }}>Please click below to Update Application</Text>
             <View style={{ backgroundColor: '#ffffff' }}>
-                <Button style={theme.buttonNormal} onPress={() => this.openUrl(this.appUrl)} full>
-                    <Text style={theme.butttonFixTxt}>Update App</Text>
-                </Button>
+              <Button style={theme.buttonNormal} onPress={() => this.openUrl(this.appUrl)} full>
+                <Text style={theme.butttonFixTxt}>Update App</Text>
+              </Button>
             </View>
           </View>
         </Content>
