@@ -77,7 +77,7 @@ class NewTaskScreen extends React.Component {
       const value = this.refs.form.getValue();
       if (value) {
         console.log('value in save', value);
-        this.props.navigation.navigate('TaskAttachmentScreen', { stateData: value });
+        this.props.navigation.navigate('TaskAttachmentScreen', { stateData: value, majorService: this.state.majorService });
         // this.handleApprove(value);
       } else {
         this.refs.form.getComponent('description').refs.input.focus();

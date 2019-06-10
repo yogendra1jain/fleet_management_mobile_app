@@ -36,6 +36,7 @@ class NewTicketScreen extends React.Component {
     this.state = {
       selectedOption: '',
       notes: props.navigation.getParam('notes', ''),
+      majorService: props.navigation.getParam('majorService', false),
       imageSource: '',
       links: [],
       uploadedLinks: [],
@@ -190,6 +191,7 @@ class NewTicketScreen extends React.Component {
           userId: _get(this.props, 'userDetails.user.id', ''),
           clientId: _get(this.props, 'userDetails.clockedInto.clientId', ''),
           description: this.state.notes,
+          majorService: this.state.majorService,
           type: 1,
           attachments: attachments,
         };
@@ -201,7 +203,7 @@ class NewTicketScreen extends React.Component {
         };
         const identifier = 'SAVE_TICKET_DATA';
         const key = 'savedTicketData';
-        console.log('data ', data);
+        // console.log('data ', data);
         this.props.postData(url, data, constants, identifier, key)
             .then((data) => {
               console.log('ticket saved successfully.', data);

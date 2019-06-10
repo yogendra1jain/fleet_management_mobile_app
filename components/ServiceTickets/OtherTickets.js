@@ -61,7 +61,7 @@ class OtherTicketScreen extends React.Component {
             { cancelable: false }
         );
       } else {
-        this.props.navigation.navigate('NewTicketScreen', { notes: this.state.notes });
+        this.props.navigation.navigate('NewTicketScreen', { notes: this.state.notes, majorService: this.state.majorService });
         // Alert.alert(
         //     `${title}`,
         //     `${message}`,

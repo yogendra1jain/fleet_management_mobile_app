@@ -38,6 +38,7 @@ class TaskAttachmentScreen extends React.Component {
       selectedOption: '',
       selectedIndex: '',
       prevStateData: props.navigation.getParam('stateData', {}),
+      majorService: props.navigation.getParam('majorService', false),
       imageSource: '',
       links: [],
       search: '',
@@ -228,13 +229,13 @@ class TaskAttachmentScreen extends React.Component {
           });
         });
         let data = {};
-        console.log('state data', _get(this, 'state.prevStateData', ''));
         data = {
           assetId: _get(this.props, 'userDetails.clockedInto.id', ''),
           userId: _get(this.props, 'userDetails.user.id', ''),
           clientId: _get(this.props, 'userDetails.clockedInto.clientId', ''),
           description: _get(this, 'state.prevStateData.description', ''),
           type: parseInt(_get(this, 'state.prevStateData.type', '')),
+          majorService: _get(this, 'state.majorService', false),
           attachments: attachments,
           comment: {
             comment: _get(this, 'state.prevStateData.comment', ''),
@@ -261,10 +262,9 @@ class TaskAttachmentScreen extends React.Component {
         };
         const identifier = 'SAVE_TASK_DATA';
         const key = 'savedTaskData';
-        console.log('data ', data);
         this.props.postData(url, data, constants, identifier, key)
             .then((data) => {
-              console.log('task saved successfully.', data);
+              console.log('task saved successfully.');
               this.setState({
                 isSaved: true,
               });
