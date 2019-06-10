@@ -313,7 +313,7 @@ class TaskDetailScreen extends React.Component {
               </Button>
             </Left>
             <Body style={[theme.centerAlign, { flex: 4 }]}>
-              <Title style={{ color: '#fff', fontFamily: 'Montserrat-Bold' }} >{`${strings.reviewLabel}`} {status != 0 && <Icon style={{ marginLeft: 15, marginTop: 15 }} name={status == 2? 'md-checkmark-circle-outline': status == 1 ? 'circle-with-cross': ''} type={status==1? 'Entypo': 'Ionicons'} size={24} />} </Title>
+              <Title style={{ color: '#fff', fontFamily: 'Montserrat-Bold' }} >{`${strings.reviewLabel}`} {status != 0 && <Icon style={{ marginLeft: 15, marginTop: 15 }} name={status == 1? 'md-checkmark-circle-outline': status == 2 ? 'circle-with-cross': ''} type={status==1? 'Ionicons': 'Entypo'} size={24} />} </Title>
             </Body>
             <Right style={{ flex: 1 }}>
             </Right>
@@ -375,14 +375,17 @@ class TaskDetailScreen extends React.Component {
               </View>
             </View>
           </Content>
-          <View style={{ backgroundColor: '#ededed' }}>
-            {/* <Button disabled={_get(getTaskDataById, 'status.value', 0) != 0} style={[theme.buttonNormal, theme.spaceAdd1, { backgroundColor: _get(getTaskDataById, 'status.value', 0) != 0 ? '#ededed': '#ff585d' }]} onPress={() => this.onCancel()} full>
-                        <CustomBoldText style={theme.butttonFixTxt}>{`${strings.cancelText}`}</CustomBoldText>
-                    </Button> */}
-            <Button style={[theme.buttonNormal, { backgroundColor: '#47d7ac' }]} onPress={() => this.confirmTask(_get(decodedToken, 'FleetUser.role', 0) == 1? 'Complete': 'Cancel')} full>
-              <CustomBoldText style={theme.butttonFixTxt}>{`${_get(decodedToken, 'FleetUser.role', 0) == 1? strings.completeText: 'CANCEL'}`}</CustomBoldText>
-            </Button>
-          </View>
+          {
+            status == 0 &&
+            <View style={{ backgroundColor: '#ededed' }}>
+              {/* <Button disabled={_get(getTaskDataById, 'status.value', 0) != 0} style={[theme.buttonNormal, theme.spaceAdd1, { backgroundColor: _get(getTaskDataById, 'status.value', 0) != 0 ? '#ededed': '#ff585d' }]} onPress={() => this.onCancel()} full>
+                          <CustomBoldText style={theme.butttonFixTxt}>{`${strings.cancelText}`}</CustomBoldText>
+                      </Button> */}
+              <Button style={[theme.buttonNormal, { backgroundColor: '#47d7ac' }]} onPress={() => this.confirmTask(_get(decodedToken, 'FleetUser.role', 0) == 1? 'Complete': 'Cancel')} full>
+                <CustomBoldText style={theme.butttonFixTxt}>{`${_get(decodedToken, 'FleetUser.role', 0) == 1? strings.completeText: 'CANCEL'}`}</CustomBoldText>
+              </Button>
+            </View>
+          }
         </ContainerWithLoading>
       );
     }

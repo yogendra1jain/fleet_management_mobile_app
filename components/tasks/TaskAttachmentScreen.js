@@ -8,7 +8,7 @@ import _get from 'lodash/get';
 import _cloneDeep from 'lodash/cloneDeep';
 import _findIndex from 'lodash/findIndex';
 // import Input from 'react-native-elements';
-import { CheckBox } from 'react-native-elements';
+import { CheckBox, SearchBar } from 'react-native-elements';
 import { showToast, chooseImage } from '../../utils/index';
 import { postData } from '../../actions/commonAction';
 import cameraIcon from '../../assets/images/cameraIcon.png';
@@ -40,6 +40,8 @@ class TaskAttachmentScreen extends React.Component {
       prevStateData: props.navigation.getParam('stateData', {}),
       imageSource: '',
       links: [],
+      search: '',
+      loadingServiceP: false,
       uploadedLinks: [],
       isSpeeking: false,
     };
@@ -51,14 +53,20 @@ class TaskAttachmentScreen extends React.Component {
     componentWillUnmount() {
     }
     componentDidMount() {
-      this.loadServiceProviders();
+      this.loadServiceProviders('');
     }
-      loadServiceProviders = () => {
+    updateSearch = (search) => {
+      this.setState({ search });
+      if (search.length > 2) {
+        this.loadServiceProviders(search);
+      }
+    };
+      loadServiceProviders = (search) => {
         let data = {};
         data = {
           userId: _get(this.props, 'decodedToken.FleetUser.id', ''),
           clientId: _get(this.props, 'decodedToken.Client.id', ''),
-          text: '',
+          text: search,
           limit: 100,
           offset: 0,
         };
@@ -70,11 +78,20 @@ class TaskAttachmentScreen extends React.Component {
         };
         const identifier = 'GET_BUSINESS_CARDS';
         const key = 'businessCards';
+        this.setState({
+          loadingServiceP: true,
+        });
         this.props.postData(url, data, constants, identifier, key)
             .then((data) => {
               console.log('business cards fetched successfully.');
+              this.setState({
+                loadingServiceP: false,
+              });
             }, (err) => {
               console.log('error while cancelling Ticket', err);
+              this.setState({
+                loadingServiceP: false,
+              });
             });
       }
 
@@ -302,6 +319,8 @@ class TaskAttachmentScreen extends React.Component {
 
     render() {
       const { strings } = this.props;
+      const { loadingServiceP, search } = this.state;
+
       const images = [];
       !_isEmpty(_get(this.state, 'links', [])) && _get(this.state, 'links', []).map((link, index) => {
         images.push(
@@ -313,7 +332,7 @@ class TaskAttachmentScreen extends React.Component {
                 <View style={{ flex: 1, flexDirection: 'column' }}>
                   <View style={{ flex: 1, marginLeft: 10, marginRight: 10, position: 'relative' }}>
                     <TextInput
-                      style={{ height: 50, borderColor: 'gray', borderWidth: 1, paddingLeft: 10 }}
+                      style={{ height: 70, borderColor: 'gray', borderWidth: 1, paddingLeft: 10 }}
                       onChangeText={value => this.handleComments(value, index)}
                       multiline={true}
                       placeholder={'Comments'}
@@ -338,7 +357,7 @@ class TaskAttachmentScreen extends React.Component {
         );
       });
       return (
-        <ContainerWithLoading style={theme.container} isLoading={this.props.isLoading}>
+        <ContainerWithLoading style={theme.container} isLoading={!loadingServiceP && this.props.isLoading}>
           <Header style={{ backgroundColor: '#ff585d' }} androidStatusBarColor='#ff585d'>
             <Left style={{ flex: 1 }}>
               <Button transparent onPress={() => this.props.navigation.goBack()}>
@@ -383,6 +402,13 @@ class TaskAttachmentScreen extends React.Component {
               {
                 _get(this, 'state.showServiceProviders', false) &&
                   <View>
+                    <SearchBar
+                      placeholder="Search Here..."
+                      lightTheme
+                      onChangeText={this.updateSearch}
+                      value={search}
+                      showLoading={loadingServiceP}
+                    />
                     {this.renderCards(strings)}
                   </View>
               }
