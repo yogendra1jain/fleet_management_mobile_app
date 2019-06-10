@@ -31,7 +31,7 @@ class AssetListScreen extends React.Component {
   }
 
   componentDidMount() {
-    // this.loadData();
+    this.loadData('');
   }
   updateSearch = (search) => {
     this.setState({ search });
