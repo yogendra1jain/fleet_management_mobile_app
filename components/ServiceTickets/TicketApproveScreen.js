@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { View } from 'react-native';
 import _get from 'lodash/get';
-import { CheckBox } from 'react-native-elements';
+import { CheckBox, SearchBar } from 'react-native-elements';
 import withLocalization from '../hocs/withLocalization';
 import _isEmpty from 'lodash/isEmpty';
 import _cloneDeep from 'lodash/cloneDeep';
@@ -33,6 +33,8 @@ class TicketApproveScreen extends React.Component {
       value: {},
       showServiceProviders: false,
       selectedIndex: '',
+      search: '',
+      loadingServiceP: false,
       mode: props.navigation.getParam('mode', ''),
     };
     this.stylesheet = _cloneDeep(stylesheet);
@@ -59,12 +61,18 @@ class TicketApproveScreen extends React.Component {
     componentDidMount() {
       this.loadServiceProviders();
     }
-    loadServiceProviders = () => {
+    updateSearch = (search) => {
+      this.setState({ search });
+      if (search.length > 2) {
+        this.loadServiceProviders(search);
+      }
+    };
+    loadServiceProviders = (search) => {
       let data = {};
       data = {
         userId: _get(this.props, 'decodedToken.FleetUser.id', ''),
         clientId: _get(this.props, 'decodedToken.Client.id', ''),
-        text: '',
+        text: search,
         limit: 100,
         offset: 0,
       };
@@ -74,13 +82,22 @@ class TicketApproveScreen extends React.Component {
         success: 'GET_BUSINESS_CARDS_SUCCESS',
         error: 'GET_BUSINESS_CARDS_ERROR',
       };
+      this.setState({
+        loadingServiceP: true,
+      });
       const identifier = 'GET_BUSINESS_CARDS';
       const key = 'businessCards';
       this.props.postData(url, data, constants, identifier, key)
           .then((data) => {
             console.log('business cards fetched successfully.');
+            this.setState({
+              loadingServiceP: false,
+            });
           }, (err) => {
             console.log('error while cancelling Ticket', err);
+            this.setState({
+              loadingServiceP: false,
+            });
           });
     }
     onSave = () => {
@@ -174,7 +191,7 @@ class TicketApproveScreen extends React.Component {
 
     render() {
       const { strings } = this.props;
-      const { mode } = this.state;
+      const { mode, loadingServiceP, search } = this.state;
       const options = {
         fields: {
           comment: {
@@ -199,7 +216,7 @@ class TicketApproveScreen extends React.Component {
 
       };
       return (
-        <ContainerWithLoading style={theme.container} isLoading={_findIndex(this.state.links, { isLoading: true }) == -1 && this.props.isLoading}>
+        <ContainerWithLoading style={theme.container} isLoading={!loadingServiceP && this.props.isLoading}>
           <Header style={{ backgroundColor: '#ff585d', borderBottomWidth: 0 }} androidStatusBarColor='#ff585d'>
             <Left style={{ flex: 1 }}>
               <Button transparent onPress={() => this.props.navigation.goBack()}>
@@ -242,6 +259,13 @@ class TicketApproveScreen extends React.Component {
               {
                 _get(this, 'state.showServiceProviders', false) &&
                   <View>
+                    <SearchBar
+                      placeholder="Search Here..."
+                      lightTheme
+                      onChangeText={this.updateSearch}
+                      value={search}
+                      showLoading={loadingServiceP}
+                    />
                     {this.renderCards(strings)}
                   </View>
               }

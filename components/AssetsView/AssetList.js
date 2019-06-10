@@ -3,6 +3,8 @@ import { View } from 'react-native';
 import { connect } from 'react-redux';
 import _isArray from 'lodash/isArray';
 import _isEmpty from 'lodash/isEmpty';
+import { SearchBar } from 'react-native-elements';
+
 import theme from '../../theme';
 import withErrorBoundary from '../hocs/withErrorBoundary';
 import { Container, Content, Header, Title, Body, Button, Left, Right, Icon } from 'native-base';
@@ -23,14 +25,21 @@ class AssetListScreen extends React.Component {
     super(props);
     this.state = {
       isLoading: false,
+      search: '',
       entity: props.navigation.getParam('entity', ''),
     };
   }
 
   componentDidMount() {
-    this.loadData();
+    // this.loadData();
   }
-    loadData = () => {
+  updateSearch = (search) => {
+    this.setState({ search });
+    if (search.length > 2) {
+      this.loadData(search);
+    }
+  };
+    loadData = (searchText) => {
       const url = `/Assets/Search`;
       const constants = {
         init: 'SEARCH_ASSETS_FOR_MANAGER_INIT',
@@ -40,7 +49,7 @@ class AssetListScreen extends React.Component {
       const data = {
         userId: _get(this.props, 'decodedToken.FleetUser.id', ''),
         clientId: _get(this.props, 'decodedToken.Client.id', ''),
-        text: '',
+        text: searchText,
         limit: 100,
         offset: 0,
       };
@@ -171,9 +180,10 @@ class AssetListScreen extends React.Component {
     }
 
     render() {
-      const { isLoading, strings } = this.props;
+      const { strings } = this.props;
+      const { search, isLoading } = this.state;
       return (
-        <ContainerWithLoading style={theme.container} isLoading={isLoading || this.state.isLoading} >
+        <ContainerWithLoading style={theme.container} >
           <Header translucent={false} style={{ backgroundColor: '#00A9E0', borderBottomWidth: 0 }} androidStatusBarColor="#00A9E0" iosBarStyle="light-content">
             <Left style={{ flex: 1 }}>
               <Button transparent onPress={() => this.props.navigation.goBack()}>
@@ -188,6 +198,15 @@ class AssetListScreen extends React.Component {
           </Header>
           <Content style={{ backgroundColor: '#ededed' }}>
             <View style={[{ marginTop: 10 }]} >
+              <View style={[theme.mart10, theme.marL10, theme.marR10]}>
+                <SearchBar
+                  placeholder="Search Here..."
+                  lightTheme
+                  onChangeText={this.updateSearch}
+                  value={search}
+                  showLoading={isLoading}
+                />
+              </View>
               {this.renderContent(strings)}
             </View>
           </Content>
