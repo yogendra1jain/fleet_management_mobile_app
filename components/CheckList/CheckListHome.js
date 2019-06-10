@@ -79,7 +79,7 @@ class CheckListHome extends React.Component {
           });
     }
     handleRootCheckbox = (item, name, forGroup, group, value) => {
-      console.log('value in comment', value);
+      // console.log('value in comment', value);
       let val = null;
       if (!forGroup) {
         const selectedItems = _get(this, 'state.selectedItems', []);
@@ -139,22 +139,6 @@ class CheckListHome extends React.Component {
       }
     }
 
-    handleRootComment = (item, value, index) => {
-      const selectedItems = _get(this, 'state.selectedItems', []);
-      const existingIndex = _findIndex(selectedItems, { 'name': item });
-      if (existingIndex != -1) {
-        _set(selectedItems, `[${existingIndex}].comment`, value);
-      } else {
-        selectedItems.push({
-          name: item,
-          passed: false,
-          comment: value,
-        });
-      }
-      this.setState({
-        selectedItems,
-      });
-    }
     getRootView = (item, index, forGroup, group) => {
       let item1 = {};
       if (!forGroup) {
@@ -188,9 +172,9 @@ class CheckListHome extends React.Component {
                         underlineColorAndroid={'transparent'}
                         keyboardType={'default'}
                       />
-                      <TextToSpeech
+                      {/* <TextToSpeech
                         handleTextToSpeech={e => this.handleRootCheckbox(item, 'comment', forGroup, group, _get(e, 'value[0]', ''))}
-                      />
+                      /> */}
                     </View>
           }
         </View>
