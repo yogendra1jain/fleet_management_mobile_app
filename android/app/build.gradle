@@ -186,6 +186,7 @@ dependencies {
     compile 'com.google.android.gms:play-services-location:15.0.1'
     // compile project(':react-native-document-picker')
     compile project(':react-native-image-picker')
+    implementation project(':@react-native-community_async-storage')
     implementation "org.webkit:android-jsc:r241213"
     implementation 'com.android.support:multidex:1.0.3'
     implementation project(':react-native-document-picker')
