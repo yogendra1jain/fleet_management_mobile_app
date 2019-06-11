@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import { ListItem, Avatar } from 'react-native-elements';
 import _isEmpty from 'lodash/isEmpty';
 import _get from 'lodash/get';
@@ -13,7 +13,6 @@ import withErrorBoundary from '../hocs/withErrorBoundary';
 import withLocalization from '../hocs/withLocalization';
 import CustomBoldText from '../stateless/CustomBoldText';
 import CustomSemiBoldText from '../stateless/CustomSemiBoldText';
-import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
 
 class UserAccountScreen extends React.Component {
   constructor(props) {
