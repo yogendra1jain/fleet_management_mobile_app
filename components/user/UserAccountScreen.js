@@ -13,6 +13,8 @@ import withErrorBoundary from '../hocs/withErrorBoundary';
 import withLocalization from '../hocs/withLocalization';
 import CustomBoldText from '../stateless/CustomBoldText';
 import CustomSemiBoldText from '../stateless/CustomSemiBoldText';
+import { showToast } from '../../utils';
+import { postData } from '../../actions/commonAction';
 
 class UserAccountScreen extends React.Component {
   constructor(props) {
@@ -20,25 +22,13 @@ class UserAccountScreen extends React.Component {
     this.state = {
       isReady: true,
       checked: true,
+      states: [],
     };
   }
     static navigationOptions = {
       header: null,
     };
 
-    _menu = null;
-
-  setMenuRef = (ref) => {
-    this._menu = ref;
-  };
-
-  hideMenu = () => {
-    this._menu.hide();
-  };
-
-  showMenu = () => {
-    this._menu.show();
-  };
     getListData = () => {
       const listData = [
         {
@@ -70,12 +60,87 @@ class UserAccountScreen extends React.Component {
       }
       return listData;
     }
+    componentDidMount() {
+      this.getUserDetails();
+      this.getStatesList();
+    }
+
+    getUserDetails = () => {
+      const url = `/ClientUser/Get`;
+      const constants = {
+        init: 'GET_CLIENT_USER_BY_ID_INIT',
+        success: 'GET_CLIENT_USER_BY_ID_SUCCESS',
+        error: 'GET_CLIENT_USER_BY_ID_ERROR',
+      };
+      const identifier = 'GET_CLIENT_USER_BY_ID';
+      const key = 'clientUserById';
+      const data = {
+        id: _get(this, 'props.decodedToken.FleetUser.id', ''),
+      };
+      this.props.postData(url, data, constants, identifier, key)
+          .then((data) => {
+            // this.props.navigation.navigate(route, { userData: data });
+            // showToast('success', `Password Updated Successfully.`, 2000);
+          }, (err) => {
+            console.log('error while getting user details', err);
+          });
+    }
+    getStatesList = () => {
+      const url = `/reference-data/GetStatesList`;
+      const data = {
+        country: 'US',
+      };
+      const constants = {
+        init: 'STATES_LIST_INIT',
+        success: 'STATES_LIST_SUCCESS',
+        error: 'STATES_LIST_ERROR',
+      };
+      const identifier = 'STATES_LIST';
+      const key = 'states';
+      this.props.dispatch(postData(url, data, constants, identifier, key))
+          .then((data) => {
+            const states = data.map((values, index) => ({
+              value: values.stateShortCode,
+              label: values.stateName,
+            }));
+            this.setState({ states });
+          }, (err) => {
+            console.log('err while fetching states', err);
+          });
+    }
 
     listItemClicked = (item, index) => {
       if (item.link == 'showWarnings') {
         console.log('setting show warnings as true');
       } else if (item.link && item.link !== '') {
         this.props.navigation.navigate(item.link, item.link=='LanguageSelectionScreen' ? {fromMain: true}: {});
+      }
+    }
+    handleEditClick = (route) => {
+      const user = _get(this, 'props.clientUserById', {});
+      console.log('data for edit call ', user);
+      const data = {
+        clientUser: user,
+      };
+      this.prepareForAddEditCall(data, route);
+    }
+    prepareForAddEditCall = (data, route) => {
+      const url = `/ClientUser/PrepareForEdit`;
+      const constants = {
+        init: 'GET_CLIENTUSER_LOOKUP_INIT',
+        success: 'GET_CLIENTUSER_LOOKUP_SUCCESS',
+        error: 'GET_CLIENTUSER_LOOKUP_ERROR',
+      };
+      const identifier = 'GET_CLIENTUSER_LOOKUP';
+      const key = 'clientUserEditData';
+      if (!_isEmpty(_get(data, 'clientUser.clientId', ''))) {
+        this.props.postData(url, data, constants, identifier, key)
+            .then((data) => {
+              this.props.navigation.navigate(route, { userData: data, states: this.state.states });
+              // showToast('success', `Password Updated Successfully.`, 2000);
+            }, (err) => {
+              console.log('error while updating password', err);
+            });
       }
     }
 
@@ -117,6 +182,12 @@ class UserAccountScreen extends React.Component {
               <Title style={{ fontFamily: 'Montserrat-Bold' }}>{`${_get(this.props, 'strings.userAccountTitle', '')}`}</Title>
             </Body>
             <Right style={{ flex: 1 }}>
+              {
+                _get(this.props, 'decodedToken.FleetUser.role', 0)==1 &&
+                <Button transparent onPress={() => this.handleEditClick('EditUserProfile')}>
+                  <Icon name='edit' type="FontAwesome" style={{ color: '#fff' }} />
+                </Button>
+              }
             </Right>
           </Header>
           <Content>
@@ -151,8 +222,9 @@ class UserAccountScreen extends React.Component {
 }
 
 function mapStateToProps(state) {
-  const { auth, user } = state;
+  const { auth, user, commonReducer } = state;
   const { decodedToken } = auth;
+  const { clientUserById, clientUserEditData } = commonReducer || {};
   const { showVialWarning } = user || true;
   return {
     user: state.user,
@@ -160,12 +232,15 @@ function mapStateToProps(state) {
     auth,
     decodedToken,
     showVialWarning,
+    clientUserEditData,
+    clientUserById,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     setWarnings: showVialWarning => dispatch(setWarnings(showVialWarning)),
+    postData: (url, data, constants, identifier, key) => dispatch(postData(url, data, constants, identifier, key)),
   };
 }
 
