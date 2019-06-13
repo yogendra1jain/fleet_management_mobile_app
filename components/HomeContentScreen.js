@@ -58,7 +58,7 @@ class HomeContentScreen extends React.Component {
       // const { decodedToken } = this.props;
       this.loadUserInfo();
       // setInterval(this.loadUserInfo, 300000);
-      this.startWatchForLocation();
+      // this.startWatchForLocation();
     }
     startWatchForLocation = () => {
       Geolocation.watchPosition(
