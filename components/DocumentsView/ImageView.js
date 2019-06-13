@@ -8,62 +8,62 @@ const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
 
 export default class ImageViewScreen extends React.Component {
-    constructor(props) {
-        super(props);
-        this.uri = this.props.navigation.getParam('uri', '');
-    }
+  constructor(props) {
+    super(props);
+    this.uri = this.props.navigation.getParam('uri', '');
+  }
     static navigationOptions = {
-        header: null,
+      header: null,
     };
     render() {
-        // const source = { uri: this.uri, cache: true};
-        return (
-            <Container style={theme.container} isLoading={this.props.isLoading}>
-                <Header style={{ backgroundColor: '#00A9E0', borderBottomWidth: 0 }} androidStatusBarColor='#00A9E0'>
-                    <Left style={{ flex: 1 }}>
-                        <Button transparent onPress={() => this.props.navigation.goBack()}>
-                            <Icon name='arrow-back' style={{ color: '#fff' }} />
-                        </Button>
-                    </Left>
-                    <Right style={{ flex: 1 }}>
-                    </Right>
-                </Header>
-                {/* <Content> */}
-                <ScrollView style={{ flex: 1 }}>
-        <View style={styles.container}>
-                <TouchableOpacity
+      // const source = { uri: this.uri, cache: true};
+      return (
+        <Container style={theme.container} isLoading={this.props.isLoading}>
+          <Header style={{ backgroundColor: '#00A9E0', borderBottomWidth: 0 }} androidStatusBarColor='#00A9E0'>
+            <Left style={{ flex: 1 }}>
+              <Button transparent onPress={() => this.props.navigation.goBack()}>
+                <Icon name='arrow-back' style={{ color: '#fff' }} />
+              </Button>
+            </Left>
+            <Right style={{ flex: 1 }}>
+            </Right>
+          </Header>
+          {/* <Content> */}
+          <ScrollView style={{ flex: 1 }}>
+            <View style={styles.container}>
+              <TouchableOpacity
                 activeOpacity={ 0.75 }
                 style={ styles.item }
-                >
+              >
                 <Image
-                    style={ styles.image }
-                    resizeMode='contain'
-                    source={ { uri: this.uri } }
+                  style={ styles.image }
+                  resizeMode='contain'
+                  source={ { uri: this.uri } }
                 />
-                </TouchableOpacity>
-                </View>
-                </ScrollView>
-             {/* </Content> */}
-            </Container>
-        );
-  }
+              </TouchableOpacity>
+            </View>
+          </ScrollView>
+          {/* </Content> */}
+        </Container>
+      );
+    }
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        // backgroundColor: 'blue',
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        margin: 10,
-      },
-      item: {
-        // backgroundColor: 'orange',
-        width: deviceWidth,
-        height: deviceHeight,
-      },
-      image: {
-        width: deviceWidth,
-        height: deviceHeight,
-      },
+  container: {
+    flex: 1,
+    // backgroundColor: 'blue',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    margin: 10,
+  },
+  item: {
+    // backgroundColor: 'orange',
+    width: deviceWidth,
+    height: deviceHeight,
+  },
+  image: {
+    width: deviceWidth,
+    height: deviceHeight,
+  },
 });

@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { View, Image, StyleSheet, TouchableOpacity, RefreshControl, Platform } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, RefreshControl, Platform, ActivityIndicator } from 'react-native';
 import documentsImg from '../../assets/images/active-icons/document-active.png';
 import pdfIcon from '../../assets/images/pdficon.png';
 // import Input from 'react-native-elements';
-import { ListItem, Card } from 'react-native-elements';
+import { ListItem, Card, Image } from 'react-native-elements';
 import _get from 'lodash/get';
 import _isEmpty from 'lodash/isEmpty';
 import _cloneDeep from 'lodash/cloneDeep';
@@ -178,7 +178,7 @@ class DocumentsHomeScreen extends React.Component {
             <View key={index} style={{ flex: 1, marginLeft: 20, marginBottom: 10, flexDirection: 'row' }}>
               {
                 link.imageSource && link.imageSource != '' &&
-                        <Image source={{ uri: link.imageSource }} style={{ width: 100, height: 100 }} />
+                        <Image PlaceholderContent={<ActivityIndicator />} source={{ uri: link.imageSource }} style={{ width: 100, height: 100 }} />
               }
               <View style={{ margin: 10 }}>
                 <CustomText style={{ flexWrap: 'wrap' }}>{link.fileName}</CustomText>
@@ -241,7 +241,7 @@ class DocumentsHomeScreen extends React.Component {
                                       <TouchableOpacity activeOpacity={0.5} style={{ flex: 1 }}
                                         onPress={() => this.handleFileClick(l)} >
                                         <Card wrapperStyle={{ flex: 1, justifyContent: 'center', alignItems: 'center', margin: 0 }} containerStyle={{ flex: 1, margin: 0 }}>
-                                          <Image source={ l.link.indexOf('pdf') !==-1 ? pdfIcon: { uri: l.link }} style={{ width: 110, height: 109 }} />
+                                          <Image PlaceholderContent={<ActivityIndicator />} source={ l.link.indexOf('pdf') !==-1 ? pdfIcon: { uri: l.link }} style={{ width: 110, height: 109 }} />
                                         </Card>
                                       </TouchableOpacity>
                                     </View>

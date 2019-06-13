@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { View, TextInput, Alert, Image, Linking, TouchableHighlight } from 'react-native';
 import _get from 'lodash/get';
+import { Overlay } from 'react-native-elements';
 import { showToast } from '../../utils/index';
 import withLocalization from '../hocs/withLocalization';
 import _isEmpty from 'lodash/isEmpty';
@@ -29,6 +30,7 @@ class TaskDetailScreen extends React.Component {
       uploadedLinks: [],
       addNewComment: false,
       newComment: '',
+      isVisible: false,
       isSaved: false,
       task: this.props.navigation.getParam('task', {}),
     };
@@ -126,6 +128,11 @@ class TaskDetailScreen extends React.Component {
         query = destination;
       }
       Linking.openURL(`https://www.google.com/maps/search/?api=1&query=${query}`);
+    }
+    onAddComment = () => {
+      this.setState({
+        isVisible: true,
+      });
     }
     confirmTask = (text) => {
       Alert.alert(
@@ -261,6 +268,11 @@ class TaskDetailScreen extends React.Component {
         );
       }
     }
+    handleCommentText = (comment) => {
+      this.setState({
+        comment,
+      });
+    }
 
     render() {
       // const { selectedOption, notes, task } = this.state;
@@ -377,15 +389,41 @@ class TaskDetailScreen extends React.Component {
           </Content>
           {
             status == 0 &&
-            <View style={{ backgroundColor: '#ededed' }}>
-              {/* <Button disabled={_get(getTaskDataById, 'status.value', 0) != 0} style={[theme.buttonNormal, theme.spaceAdd1, { backgroundColor: _get(getTaskDataById, 'status.value', 0) != 0 ? '#ededed': '#ff585d' }]} onPress={() => this.onCancel()} full>
-                          <CustomBoldText style={theme.butttonFixTxt}>{`${strings.cancelText}`}</CustomBoldText>
-                      </Button> */}
-              <Button style={[theme.buttonNormal, { backgroundColor: '#47d7ac' }]} onPress={() => this.confirmTask(_get(decodedToken, 'FleetUser.role', 0) == 1? 'Complete': 'Cancel')} full>
+            <View style={{ flexDirection: 'row', backgroundColor: '#ededed' }}>
+              <Button style={[theme.buttonNormal, theme.spaceAdd1, { backgroundColor: '#47d7ac' }]} onPress={() => this.onAddComment()} full>
+                <CustomBoldText style={theme.butttonFixTxt}>{`Add Comment`}</CustomBoldText>
+              </Button>
+              <Button style={[theme.buttonNormal, theme.spaceAdd2, { backgroundColor: '#47d7ac' }]} onPress={() => this.confirmTask(_get(decodedToken, 'FleetUser.role', 0) == 1? 'Complete': 'Cancel')} full>
                 <CustomBoldText style={theme.butttonFixTxt}>{`${_get(decodedToken, 'FleetUser.role', 0) == 1? strings.completeText: 'CANCEL'}`}</CustomBoldText>
               </Button>
             </View>
           }
+          {
+            this.state.isVisible && (
+              <Overlay isVisible={this.state.isVisible}
+                onBackdropPress={() => this.setState({ isVisible: false })}>
+                <React.Fragment>
+                  <View style={{ flex: 1, flexDirection: 'column', marginLeft: 10, marginRight: 10 }}>
+                    <Text>Comment</Text>
+                    <TextInput
+                      style={{ height: 135, borderColor: 'gray', borderWidth: 1, paddingLeft: 10 }}
+                      onChangeText={value => this.handleCommentText(value)}
+                      multiline={true}
+                      editable={true}
+                      // maxLength={120}
+                      value={_get(this, 'state.comment', '').toString()}
+                      underlineColorAndroid={'transparent'}
+                      keyboardType={'default'}
+                    />
+                  </View>
+                  <View style={{ backgroundColor: '#FFFFFF' }}>
+                    <Button style={[theme.buttonNormal, { backgroundColor: '#47d7ac' }]} onPress={() => this.onAddComment()} full>
+                      <CustomBoldText style={theme.butttonFixTxt}>{`Add`}</CustomBoldText>
+                    </Button>
+                  </View>
+                </React.Fragment>
+              </Overlay>
+            )}
         </ContainerWithLoading>
       );
     }
