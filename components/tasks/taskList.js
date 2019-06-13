@@ -120,7 +120,7 @@ class TaskListScreen extends React.Component {
         <ContainerWithLoading style={theme.container} isLoading={this.props.isLoading}>
           <Header style={{ backgroundColor: '#47d7ac', borderBottomWidth: 0 }} androidStatusBarColor="#47d7ac" translucent={false} >
             <Left style={{ flex: 1 }}>
-              <Button transparent onPress={() => this.props.navigation.navigate('Home')}>
+              <Button transparent onPress={() => this.props.navigation.goBack()}>
                 <Icon name='arrow-back' style={{ color: '#fff' }} />
               </Button>
             </Left>

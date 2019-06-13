@@ -174,21 +174,24 @@ class OtherTicketScreen extends React.Component {
                   <CustomText>{`${notes.length}/1200`}</CustomText>
                 </View>
               </View>
-              <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                <Text style={{ textAlign: 'center' }}>{`Major Service`}</Text>
-                <CheckBox
-                  iconRight={true}
-                  right={true}
-                  containerStyle={{ backgroundColor: '#ededed' }}
-                  checked={_get(this, 'state.majorService', false)}
-                  onPress={() => this.handleCheckbox()}
-                />
-              </View>
+              {
+                _get(this.props, 'decodedToken.FleetUser.role', 0) != 1 &&
+                <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <Text style={{ textAlign: 'center' }}>{`Major Service`}</Text>
+                  <CheckBox
+                    iconRight={true}
+                    right={true}
+                    containerStyle={{ backgroundColor: '#ededed' }}
+                    checked={_get(this, 'state.majorService', false)}
+                    onPress={() => this.handleCheckbox()}
+                  />
+                </View>
+              }
             </View>
           </Content>
           <View style={{ backgroundColor: '#ededed' }}>
             <Button style={[theme.buttonNormal, { backgroundColor: '#ff585d' }]} onPress={() => this.onSave()} full>
-              <CustomBoldText style={theme.butttonFixTxt}>{`${strings.confirmText}`}</CustomBoldText>
+              <CustomBoldText style={theme.butttonFixTxt}>{`NEXT`}</CustomBoldText>
             </Button>
           </View>
         </ContainerWithLoading>

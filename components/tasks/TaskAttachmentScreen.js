@@ -358,14 +358,14 @@ class TaskAttachmentScreen extends React.Component {
       });
       return (
         <ContainerWithLoading style={theme.container} isLoading={!loadingServiceP && this.props.isLoading}>
-          <Header style={{ backgroundColor: '#ff585d' }} androidStatusBarColor='#ff585d'>
+          <Header style={{ backgroundColor: '#47d7ac' }} androidStatusBarColor='#47d7ac'>
             <Left style={{ flex: 1 }}>
               <Button transparent onPress={() => this.props.navigation.goBack()}>
                 <Icon name='arrow-back' style={{ color: '#fff' }} />
               </Button>
             </Left>
             <Body style={[theme.centerAlign, { flex: 4 }]}>
-              <Title style={{ color: '#fff' }} >Task</Title>
+              <Title style={{ color: '#fff' }} >New Task</Title>
             </Body>
             <Right style={{ flex: 1 }}>
             </Right>
@@ -415,7 +415,7 @@ class TaskAttachmentScreen extends React.Component {
             </View>
           </Content>
           <View style={{ backgroundColor: '#ededed' }}>
-            <Button style={[theme.buttonNormal, { backgroundColor: '#ff585d' }]} onPress={() => this.handleSave()} full>
+            <Button style={[theme.buttonNormal, { backgroundColor: '#47d7ac' }]} onPress={() => this.handleSave()} full>
               <CustomBoldText style={theme.butttonFixTxt}>{`${strings.confirmText}`}</CustomBoldText>
             </Button>
           </View>

@@ -166,14 +166,14 @@ class NewTaskScreen extends React.Component {
       };
       return (
         <ContainerWithLoading style={theme.container} isLoading={_findIndex(this.state.links, { isLoading: true }) == -1 && this.props.isLoading}>
-          <Header style={{ backgroundColor: '#ff585d', borderBottomWidth: 0 }} androidStatusBarColor='#ff585d'>
+          <Header style={{ backgroundColor: '#47d7ac', borderBottomWidth: 0 }} androidStatusBarColor='#47d7ac'>
             <Left style={{ flex: 1 }}>
               <Button transparent onPress={() => this.props.navigation.goBack()}>
                 <Icon name='arrow-back' style={{ color: '#fff' }} />
               </Button>
             </Left>
             <Body style={[theme.centerAlign, { flex: 4 }]}>
-              <Title style={{ color: '#fff', fontFamily: 'Montserrat-Bold' }} >{`${strings.otherRepairReqTitle}`}</Title>
+              <Title style={{ color: '#fff', fontFamily: 'Montserrat-Bold' }} >{`New Task`}</Title>
             </Body>
             <Right style={{ flex: 1 }}>
             </Right>
@@ -193,20 +193,23 @@ class NewTaskScreen extends React.Component {
                   style={theme.formStyle}
                 />
               </View>
-              <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                <Text style={{ textAlign: 'center' }}>{`Major Service`}</Text>
-                <CheckBox
-                  iconRight={true}
-                  right={true}
-                  containerStyle={{ backgroundColor: '#ededed' }}
-                  checked={_get(this, 'state.majorService', false)}
-                  onPress={() => this.handleCheckbox()}
-                />
-              </View>
+              {
+                _get(this.props, 'decodedToken.FleetUser.role', 0) != 1 &&
+                <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <Text style={{ textAlign: 'center' }}>{`Major Service`}</Text>
+                  <CheckBox
+                    iconRight={true}
+                    right={true}
+                    containerStyle={{ backgroundColor: '#ededed' }}
+                    checked={_get(this, 'state.majorService', false)}
+                    onPress={() => this.handleCheckbox()}
+                  />
+                </View>
+              }
             </View>
           </Content>
           <View style={{ backgroundColor: '#ededed' }}>
-            <Button style={[theme.buttonNormal, { backgroundColor: '#ff585d' }]} onPress={() => this.onSave()} full>
+            <Button style={[theme.buttonNormal, { backgroundColor: '#47d7ac' }]} onPress={() => this.onSave()} full>
               <CustomBoldText style={theme.butttonFixTxt}>{`Next`}</CustomBoldText>
             </Button>
           </View>

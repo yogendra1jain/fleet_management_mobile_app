@@ -285,35 +285,6 @@ class NewTicketScreen extends React.Component {
           <Content
             style={{ backgroundColor: '#ededed' }}
           >
-            {/* <View style={{ flex: 1, margin: 10, flexDirection: 'row' }}>
-              <TouchableHighlight onPress={() => {}} style={{ flex: 1, paddingLeft: 15, justifyContent: 'flex-start' }}>
-                <View>
-                  <Image source={truckImg} style={{ width: 100, height: 100, backgroundColor: 'transparent' }} />
-                  <View style={{ flexWrap: 'wrap' }}>
-                    <Text>Asset Details</Text>
-                  </View>
-                </View>
-              </TouchableHighlight>
-              <TouchableHighlight style={{ paddingRight: 15, justifyContent: 'flex-end' }}>
-                <View>
-                  <Image source={assetLocation} style={{ width: 100, height: 100 }} />
-                  <View style={{ flexWrap: 'wrap' }}>
-                    <Text>Asset Location </Text>
-                  </View>
-                </View>
-              </TouchableHighlight>
-            </View> */}
-            <View style={[theme.centerAlign, { flex: 1, flexDirection: 'row', margin: 20 }]}>
-              <Text style={{ marginLeft: 10 }}>Select From</Text>
-            </View>
-            <View style={{ flexDirection: 'row' }}>
-              <Button style={[theme.buttonNormal, theme.spaceAdd1, { backgroundColor: '#ff585d', borderRadius: 0, height: 55 }]} onPress={() => {}} full>
-                <Text style={theme.butttonFixTxt}>Preventive Maintenance</Text>
-              </Button>
-              <Button full style={[theme.buttonNormal, theme.spaceAdd2, { backgroundColor: '#ff585d', borderRadius: 0, height: 55 }]} onPress={() => {}}>
-                <Text style={theme.butttonFixTxt}>Other Repair Request</Text>
-              </Button>
-            </View>
             <View style={{ flex: 1, paddingTop: 15 }}>
               {
                 images

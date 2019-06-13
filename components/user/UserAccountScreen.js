@@ -49,15 +49,15 @@ class UserAccountScreen extends React.Component {
           ],
         },
       ];
-      const promotionSettings = _get(this, 'props.decodedToken.Client.promotionSettings', {});
-      if (!_isEmpty(promotionSettings) && _get(this.props, 'decodedToken.FleetUser.role', 0)==1) {
-        listData[0].listItems.push({
-          title: `${_get(this.props, 'strings.rewardPointsLabel', '')}`,
-          icon: 'donut-small',
-          type: 'material-icons',
-          link: 'RewardPointHome',
-        });
-      }
+      // const promotionSettings = _get(this, 'props.decodedToken.Client.promotionSettings', {});
+      // if (!_isEmpty(promotionSettings) && _get(this.props, 'decodedToken.FleetUser.role', 0)==1) {
+      //   listData[0].listItems.push({
+      //     title: `${_get(this.props, 'strings.rewardPointsLabel', '')}`,
+      //     icon: 'donut-small',
+      //     type: 'material-icons',
+      //     link: 'RewardPointHome',
+      //   });
+      // }
       return listData;
     }
     componentDidMount() {
