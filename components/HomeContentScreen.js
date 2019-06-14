@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { View, Alert, TouchableOpacity, Image, RefreshControl, PermissionsAndroid, Platform } from 'react-native';
-import { Card, CheckBox } from 'react-native-elements';
+import { Card, CheckBox, Badge } from 'react-native-elements';
 import CustomText from './stateless/CustomText';
 import CustomSemiBoldText from './stateless/CustomSemiBoldText';
 import CustomBoldText from './stateless/CustomBoldText';
@@ -274,6 +274,11 @@ class HomeContentScreen extends React.Component {
                               onPress={() => this.props.navigation.navigate('TaskForManagerScreen')} >
                               <Card wrapperStyle={{ justifyContent: 'center', alignItems: 'center' }} containerStyle={{ borderRadius: 10, margin: 8 }}>
                                 <Image source={tasksImg} style={{ height: 75 }} />
+                                {/* <Badge
+                                  status="warning"
+                                  value={20}
+                                  containerStyle={{ position: 'absolute', top: -4, right: -4 }}
+                                /> */}
                                 <CustomSemiBoldText style={[theme.buttonSmallTxt, {color: '#67DEBB', paddingTop: 15 }]}>{`${strings.taskButton}`}</CustomSemiBoldText>                                            
                               </Card>
                             </TouchableOpacity>
@@ -317,6 +322,15 @@ class HomeContentScreen extends React.Component {
                               </Card>
                             </TouchableOpacity>
                           </View>
+                          {/* <View style={{ flex: 1, flexDirection: 'row', margin: 8 }}>
+                            <TouchableOpacity activeOpacity={0.5} style={{ flex: 1 }}
+                              onPress={() => this.props.navigation.navigate('MyCalander')} >
+                              <Card wrapperStyle={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} containerStyle={{ flex: 1, borderRadius: 10,  margin: 8 }}>
+                                <Image source={ContactMechanic} style={{ height: 75 }} />
+                                <CustomSemiBoldText style={[theme.buttonSmallTxt, { color: '#CD9827', paddingTop: 15 }]}>{`CALANDER`}</CustomSemiBoldText>
+                              </Card>
+                            </TouchableOpacity>
+                          </View> */}
                           {/* {speedData} */}
                         </React.Fragment>
                         :

@@ -30,6 +30,7 @@
     "numeral": "^2.0.6",
     "react": "16.8.3",
     "react-native": "0.59.8",
+    "react-native-calendars": "^1.187.0",
     "react-native-camera": "^2.9.0",
     "react-native-code-input": "^1.0.6",
     "react-native-config": "^0.11.7",

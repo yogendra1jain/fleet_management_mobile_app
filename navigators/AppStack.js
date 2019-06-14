@@ -54,6 +54,7 @@ import TicketApproveScreen from '../components/ServiceTickets/TicketApproveScree
 import TaskForManagerScreen from '../components/tasks/TaskForManager';
 import NewTaskScreen from '../components/tasks/NewTaskScreen';
 import TaskAttachmentScreen from '../components/tasks/TaskAttachmentScreen';
+import MyCalanderView from '../components/MyCalander/CalanderView';
 
 const AppStack = createStackNavigator(
     {
@@ -99,6 +100,7 @@ const SettingsStack = createStackNavigator({
   EditUserProfile: EditUserProfileScreen,
   LanguageSelectionScreen: LanguageSelectionScreen,
   RewardPointHome: RewardPointHome,
+  MyCalander: MyCalanderView,
 });
 
 
