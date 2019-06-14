@@ -86,11 +86,35 @@ class ReviewTicketScreen extends React.Component {
           .then((data) => {
             console.log('ticket comment added successfully.');
             this.setState({
-              isSaved: true,
+              isSaved: false,
+              addNewComment: false,
+              newComment: '',
             });
             showToast('success', `Ticket Comment Added Successfully.`, 3000);
+            this.getTicketData();
           }, (err) => {
             console.log('error while cancelling Ticket', err);
+          });
+    }
+    getTicketData = () => {
+      let data = {};
+      data = {
+        id: _get(this.props, 'getTicketDataById.id', ''),
+      };
+      const url = `/Ticket/Get`;
+      const constants = {
+        init: 'GET_TICKET_DATA_BY_ID_INIT',
+        success: 'GET_TICKET_DATA_BY_ID_SUCCESS',
+        error: 'GET_TICKET_DATA_BY_ID_ERROR',
+      };
+      const identifier = 'GET_TICKET_DATA_BY_ID';
+      const key = 'getTicketDataById';
+      this.props.postData(url, data, constants, identifier, key)
+          .then((data) => {
+            console.log('ticket data by id get successfully.');
+            // this.props.navigation.navigate('ReviewTicketScreen');
+          }, (err) => {
+            console.log('error while getting service ticket by id', err);
           });
     }
     onCancel = () => {
@@ -146,10 +170,10 @@ class ReviewTicketScreen extends React.Component {
           });
     }
     handleImageNavigation = (item) => {
-      if (item.link.indexOf('pdf') !==-1) {
-        this.props.navigation.navigate('PdfViewScreen', { uri: item.link });
-      } else if (item.link.indexOf('JPEG') !==-1) {
-        this.props.navigation.navigate('ImageViewScreen', { uri: item.link });
+      if (item.link.toUpperCase().indexOf('PDF') !==-1) {
+        this.props.navigation.navigate('PdfViewScreen', { uri: item.link, fromScreen: 'ReviewTicketScreen' });
+      } else if (item.link.toUpperCase().indexOf('JPEG') !==-1) {
+        this.props.navigation.navigate('ImageViewScreen', { uri: item.link, fromScreen: 'ReviewTicketScreen' });
       }
     }
 
@@ -238,7 +262,7 @@ class ReviewTicketScreen extends React.Component {
             <View key={index} style={{ flex: 1, marginLeft: 20, marginBottom: 10, flexDirection: 'row' }}>
               {
                 <TouchableOpacity onPress={() => this.handleImageNavigation(attachment)} activeOpacity={0.5} style={{ flex: 1 }}>
-                  <Image source={attachment.link.indexOf('.JPEG') != -1? { uri: attachment.link }: attachment.link.indexOf('.MP4') != -1? videoIcon: pdfIcon } style={{ width: 100, height: 100 }} />
+                  <Image source={attachment.link.toUpperCase().indexOf('.JPEG') != -1? { uri: attachment.link }: attachment.link.toUpperCase().indexOf('.MP4') != -1? videoIcon: pdfIcon } style={{ width: 100, height: 100 }} />
                 </TouchableOpacity>
               }
               <View style={{ margin: 10, flex: 1, flexWrap: 'wrap' }}>

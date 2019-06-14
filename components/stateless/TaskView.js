@@ -30,7 +30,7 @@ function TaskView(props) {
             <Text style={{ fontSize: 14, color: 'gray' }} >{`Due Date: `}<Text style={{ fontSize: 14, color: 'black' }} >{`${moment.unix(_get(props, 'task.dueDate.seconds', 0)).format('MM-DD-YYYY')}`}</Text></Text>
           </View>
           <View style={{ paddingLeft: 25 }}>
-            <Text style={{ fontSize: 14, color: 'gray' }} >{`Destination: `}<Text style={{ fontSize: 14, color: 'black' }} >{`${_get(props, 'task.destination.destination.label', '')}`}</Text></Text>
+            <Text style={{ fontSize: 14, color: 'gray' }} >{`Mechanic: `}<Text style={{ fontSize: 14, color: 'black' }} >{`${_get(props, 'task.destination.destination.label', '')}`}</Text></Text>
           </View>
         </TouchableOpacity>
       </View>

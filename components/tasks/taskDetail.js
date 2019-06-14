@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { View, TextInput, Alert, Image, Linking, TouchableHighlight } from 'react-native';
+import { View, TextInput, Alert, Image, Linking, TouchableHighlight, TouchableOpacity } from 'react-native';
 import _get from 'lodash/get';
 import { Overlay } from 'react-native-elements';
 import { showToast } from '../../utils/index';
@@ -17,6 +17,8 @@ import withLoadingScreen from '../withLoadingScreen';
 import withErrorBoundary from '../hocs/withErrorBoundary';
 import CustomBoldText from '../stateless/CustomBoldText';
 import pdfIcon from '../../assets/images/pdficon.png';
+import videoIcon from '../../assets/images/videoIcon.png';
+
 const ContainerWithLoading = withLoadingScreen(Container);
 
 class TaskDetailScreen extends React.Component {
@@ -145,6 +147,38 @@ class TaskDetailScreen extends React.Component {
           { cancelable: false }
       );
     }
+    onSubmitComment = () => {
+      const { comment } = this.state;
+      let data = {};
+      data = {
+        id: _get(this.state, 'task.id', ''),
+        userId: _get(this.props, 'userDetails.user.id', ''),
+        comment: comment,
+      };
+      const url = `/Task/AddComment`;
+      const constants = {
+        init: 'ADD_TASK_COMMENT_INIT',
+        success: 'ADD_TASK_COMMENT_SUCCESS',
+        error: 'ADD_TASK_COMMENT_ERROR',
+      };
+      const identifier = 'ADD_TASK_COMMENT';
+      const key = 'taskComment';
+      this.props.postData(url, data, constants, identifier, key)
+          .then((data) => {
+            console.log('task comment added successfully.');
+            showToast('success', `Comment Added Successfully.`, 3000);
+            this.fetchTaskDetails();
+            this.hideCommentDialog();
+          }, (err) => {
+            console.log('error while completing task', err);
+          });
+    }
+    hideCommentDialog = () => {
+      this.setState({
+        isVisible: false,
+        comment: '',
+      });
+    }
     completeTask = (text) => {
       let data = {};
       data = {
@@ -203,6 +237,13 @@ class TaskDetailScreen extends React.Component {
           }, (err) => {
             console.log('error while cancelling task', err);
           });
+    }
+    handleImageNavigation = (item) => {
+      if (item.link.toUpperCase().indexOf('PDF') !==-1) {
+        this.props.navigation.navigate('PdfViewScreen', { uri: item.link, fromScreen: 'TaskDetailScreen' });
+      } else if (item.link.toUpperCase().indexOf('JPEG') !==-1) {
+        this.props.navigation.navigate('ImageViewScreen', { uri: item.link, fromScreen: 'TaskDetailScreen' });
+      }
     }
 
     renderComment = (comment, index, newComment) => {
@@ -293,7 +334,9 @@ class TaskDetailScreen extends React.Component {
         images.push(
             <View key={index} style={{ flex: 1, marginLeft: 20, marginBottom: 10, flexDirection: 'row' }}>
               {
-                <Image source={attachment.link.indexOf('.JPEG') != -1? { uri: attachment.link }: pdfIcon } style={{ width: 100, height: 100 }} />
+                <TouchableOpacity onPress={() => this.handleImageNavigation(attachment)} activeOpacity={0.5} style={{ flex: 1 }}>
+                  <Image source={attachment.link.toUpperCase().indexOf('.JPEG') != -1? { uri: attachment.link }: attachment.link.toUpperCase().indexOf('.MP4') != -1? videoIcon: pdfIcon } style={{ width: 100, height: 100 }} />
+                </TouchableOpacity>
               }
               <View style={{ margin: 10, flex: 1, flexWrap: 'wrap' }}>
                 <View style={{ flex: 1, flexDirection: 'column' }}>
@@ -401,24 +444,28 @@ class TaskDetailScreen extends React.Component {
           {
             this.state.isVisible && (
               <Overlay isVisible={this.state.isVisible}
-                onBackdropPress={() => this.setState({ isVisible: false })}>
+                onBackdropPress={() => this.hideCommentDialog()}>
                 <React.Fragment>
-                  <View style={{ flex: 1, flexDirection: 'column', marginLeft: 10, marginRight: 10 }}>
+                  <View style={{ flex: 1, flexDirection: 'column', marginLeft: 10, marginRight: 10, marginTop: 30 }}>
                     <Text>Comment</Text>
                     <TextInput
-                      style={{ height: 135, borderColor: 'gray', borderWidth: 1, paddingLeft: 10 }}
+                      style={{ height: 135, borderColor: 'gray', borderWidth: 1, paddingLeft: 10, marginTop: 20 }}
                       onChangeText={value => this.handleCommentText(value)}
                       multiline={true}
                       editable={true}
+                      placeholder={'Enter your Comment here'}
                       // maxLength={120}
                       value={_get(this, 'state.comment', '').toString()}
                       underlineColorAndroid={'transparent'}
                       keyboardType={'default'}
                     />
                   </View>
-                  <View style={{ backgroundColor: '#FFFFFF' }}>
-                    <Button style={[theme.buttonNormal, { backgroundColor: '#47d7ac' }]} onPress={() => this.onAddComment()} full>
+                  <View style={{ flexDirection: 'row', backgroundColor: '#FFFFFF' }}>
+                    <Button style={[theme.buttonNormal, theme.spaceAdd1, { backgroundColor: '#47d7ac' }]} onPress={() => this.onSubmitComment()} full>
                       <CustomBoldText style={theme.butttonFixTxt}>{`Add`}</CustomBoldText>
+                    </Button>
+                    <Button style={[theme.buttonNormal, theme.spaceAdd2, { backgroundColor: '#47d7ac' }]} onPress={() => this.hideCommentDialog()} full>
+                      <CustomBoldText style={theme.butttonFixTxt}>{`Cancel`}</CustomBoldText>
                     </Button>
                   </View>
                 </React.Fragment>
