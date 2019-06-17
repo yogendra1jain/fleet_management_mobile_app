@@ -10,6 +10,10 @@ import _isEmpty from 'lodash/isEmpty';
 import _findIndex from 'lodash/findIndex';
 import { postData } from '../../actions/commonAction';
 
+
+import RNFS from 'react-native-fs';
+import FileViewer from 'react-native-file-viewer';
+
 import CustomSemiBoldText from '../stateless/CustomSemiBoldText';
 import CustomText from '../stateless/CustomText';
 import theme from '../../theme';
@@ -169,12 +173,49 @@ class ReviewTicketScreen extends React.Component {
             console.log('error while cancelling Ticket', err);
           });
     }
+    getLocalPath = (url) => {
+      const filename = url.split('/').pop();
+      // feel free to change main path according to your requirements
+      return `${RNFS.DocumentDirectoryPath}/${filename}`;
+    }
     handleImageNavigation = (item) => {
-      if (item.link.toUpperCase().indexOf('PDF') !==-1) {
-        this.props.navigation.navigate('PdfViewScreen', { uri: item.link, fromScreen: 'ReviewTicketScreen' });
-      } else if (item.link.toUpperCase().indexOf('JPEG') !==-1) {
-        this.props.navigation.navigate('ImageViewScreen', { uri: item.link, fromScreen: 'ReviewTicketScreen' });
-      }
+      const localFile = this.getLocalPath(item.link);
+
+      const options = {
+        fromUrl: item.link,
+        toFile: localFile,
+      };
+      this.setState({
+        loadingFile: true,
+      });
+      RNFS.downloadFile(options).promise
+          .then(() => {
+            this.setState({
+              loadingFile: false,
+            });
+            FileViewer.open(localFile)
+                .then(() => {
+                  // success
+                  console.log('opening file');
+                })
+                .catch((error) => {
+                  // error
+                  console.log('error in opening file', error);
+                });
+          })
+          .catch((error) => {
+            // error
+            this.setState({
+              loadingFile: false,
+            });
+            console.log('error in downloading file', error);
+          });
+
+      // if (item.link.toUpperCase().indexOf('PDF') !==-1) {
+      //   this.props.navigation.navigate('PdfViewScreen', { uri: item.link, fromScreen: 'ReviewTicketScreen' });
+      // } else if (item.link.toUpperCase().indexOf('JPEG') !==-1) {
+      //   this.props.navigation.navigate('ImageViewScreen', { uri: item.link, fromScreen: 'ReviewTicketScreen' });
+      // }
     }
 
     renderComment = (comment, index, newComment) => {
@@ -247,7 +288,7 @@ class ReviewTicketScreen extends React.Component {
     render() {
       // const { selectedOption, notes } = this.state;
       const { strings, getTicketDataById, decodedToken } = this.props;
-
+      const { loadingFile } = this.state;
       const images = [];
       const commentsView = [];
       const status = _get(getTicketDataById, 'status.value', 0);
@@ -287,7 +328,7 @@ class ReviewTicketScreen extends React.Component {
       });
 
       return (
-        <ContainerWithLoading style={theme.container} isLoading={_findIndex(this.state.links, { isLoading: true }) == -1 && this.props.isLoading}>
+        <ContainerWithLoading style={theme.container} isLoading={(_findIndex(this.state.links, { isLoading: true }) == -1 && this.props.isLoading) || loadingFile}>
           <Header style={{ backgroundColor: '#ff585d', borderBottomWidth: 0 }} androidStatusBarColor='#ff585d'>
             <Left style={{ flex: 1 }}>
               <Button transparent onPress={() => this.props.navigation.goBack()}>

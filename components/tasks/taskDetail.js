@@ -3,6 +3,10 @@ import { connect } from 'react-redux';
 import { View, TextInput, Alert, Image, Linking, TouchableHighlight, TouchableOpacity } from 'react-native';
 import _get from 'lodash/get';
 import { Overlay } from 'react-native-elements';
+
+import RNFS from 'react-native-fs';
+import FileViewer from 'react-native-file-viewer';
+
 import { showToast } from '../../utils/index';
 import withLocalization from '../hocs/withLocalization';
 import _isEmpty from 'lodash/isEmpty';
@@ -238,12 +242,35 @@ class TaskDetailScreen extends React.Component {
             console.log('error while cancelling task', err);
           });
     }
+
+    getLocalPath = (url) => {
+      const filename = url.split('/').pop();
+      // feel free to change main path according to your requirements
+      return `${RNFS.DocumentDirectoryPath}/${filename}`;
+    }
+
     handleImageNavigation = (item) => {
-      if (item.link.toUpperCase().indexOf('PDF') !==-1) {
-        this.props.navigation.navigate('PdfViewScreen', { uri: item.link, fromScreen: 'TaskDetailScreen' });
-      } else if (item.link.toUpperCase().indexOf('JPEG') !==-1) {
-        this.props.navigation.navigate('ImageViewScreen', { uri: item.link, fromScreen: 'TaskDetailScreen' });
-      }
+      const localFile = this.getLocalPath(item.link);
+
+      const options = {
+        fromUrl: item.link,
+        toFile: localFile,
+      };
+      RNFS.downloadFile(options).promise
+          .then(() => FileViewer.open(localFile))
+          .then(() => {
+            // success
+            console.log('opening file');
+          })
+          .catch((error) => {
+            // error
+            console.log('error in opening file', error);
+          });
+      // if (item.link.toUpperCase().indexOf('PDF') !==-1) {
+      //   this.props.navigation.navigate('PdfViewScreen', { uri: item.link, fromScreen: 'TaskDetailScreen' });
+      // } else if (item.link.toUpperCase().indexOf('JPEG') !==-1) {
+      //   this.props.navigation.navigate('ImageViewScreen', { uri: item.link, fromScreen: 'TaskDetailScreen' });
+      // }
     }
 
     renderComment = (comment, index, newComment) => {

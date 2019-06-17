@@ -9,6 +9,10 @@ import _get from 'lodash/get';
 import _isEmpty from 'lodash/isEmpty';
 import _cloneDeep from 'lodash/cloneDeep';
 
+
+import RNFS from 'react-native-fs';
+import FileViewer from 'react-native-file-viewer';
+
 import theme from '../../theme';
 import { Container, Content, Header, Button, Title, Body, Left, Right, Icon } from 'native-base';
 import withLoadingScreen from '../withLoadingScreen';
@@ -77,12 +81,48 @@ class DocumentsHomeScreen extends React.Component {
     _onRefresh = () => {
       this.loadAssetDocuments();
     }
+    getLocalPath = (url) => {
+      const filename = url.split('/').pop();
+      // feel free to change main path according to your requirements
+      return `${RNFS.DocumentDirectoryPath}/${filename}`;
+    }
     handleFileClick = (item) => {
-      if (item.link.indexOf('pdf') !==-1) {
-        this.props.navigation.navigate('PdfViewScreen', { uri: item.link });
-      } else {
-        this.props.navigation.navigate('ImageViewScreen', { uri: item.link });
-      }
+      const localFile = this.getLocalPath(item.link);
+
+      const options = {
+        fromUrl: item.link,
+        toFile: localFile,
+      };
+      this.setState({
+        loadingFile: true,
+      });
+      RNFS.downloadFile(options).promise
+          .then(() => {
+            this.setState({
+              loadingFile: false,
+            });
+            FileViewer.open(localFile)
+                .then(() => {
+                  // success
+                  console.log('opening file');
+                })
+                .catch((error) => {
+                  // error
+                  console.log('error in opening file', error);
+                });
+          })
+          .catch((error) => {
+            // error
+            this.setState({
+              loadingFile: false,
+            });
+            console.log('error in downloading file', error);
+          });
+      // if (item.link.indexOf('pdf') !==-1) {
+      //   this.props.navigation.navigate('PdfViewScreen', { uri: item.link });
+      // } else {
+      //   this.props.navigation.navigate('ImageViewScreen', { uri: item.link });
+      // }
     }
     handleDocumentUpload = () => {
       this.props.navigation.navigate('ExpenseReportHomeScreen');
@@ -171,7 +211,7 @@ class DocumentsHomeScreen extends React.Component {
     render() {
       const { assetDocuments, strings } = this.props;
       // console.log('asset documents', assetDocuments);
-      const { selectedIndex } = this.state;
+      const { selectedIndex, loadingFile } = this.state;
       const images = [];
       !_isEmpty(_get(this.state, 'links', [])) && _get(this.state, 'links', []).map((link, index) => {
         images.push(
@@ -193,7 +233,7 @@ class DocumentsHomeScreen extends React.Component {
         );
       });
       return (
-        <ContainerWithLoading style={theme.container} isLoading={this.props.isLoading}>
+        <ContainerWithLoading style={theme.container} isLoading={this.props.isLoading || loadingFile}>
           <Header translucent={false} style={{ backgroundColor: '#059312', borderBottomWidth: 0 }} androidStatusBarColor="#059312">
             <Left style={{ flex: 1 }}>
               <Button transparent onPress={() => this.props.navigation.goBack()}>

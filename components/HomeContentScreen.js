@@ -274,11 +274,11 @@ class HomeContentScreen extends React.Component {
                               onPress={() => this.props.navigation.navigate('TaskForManagerScreen')} >
                               <Card wrapperStyle={{ justifyContent: 'center', alignItems: 'center' }} containerStyle={{ borderRadius: 10, margin: 8 }}>
                                 <Image source={tasksImg} style={{ height: 75 }} />
-                                {/* <Badge
+                                <Badge
                                   status="warning"
                                   value={20}
                                   containerStyle={{ position: 'absolute', top: -4, right: -4 }}
-                                /> */}
+                                />
                                 <CustomSemiBoldText style={[theme.buttonSmallTxt, {color: '#67DEBB', paddingTop: 15 }]}>{`${strings.taskButton}`}</CustomSemiBoldText>                                            
                               </Card>
                             </TouchableOpacity>

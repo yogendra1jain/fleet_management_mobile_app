@@ -63,6 +63,8 @@ target 'MyFMSApp' do
 
   pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-community/async-storage'
 
+  pod 'RNFS', :path => '../node_modules/react-native-fs'
+
   target 'MyFMSAppTests' do
     inherit! :search_paths
     # Pods for testing
