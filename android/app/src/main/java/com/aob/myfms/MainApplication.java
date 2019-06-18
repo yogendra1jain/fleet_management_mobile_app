@@ -4,6 +4,8 @@ import android.app.Application;
 import android.content.Context;
 
 import com.facebook.react.ReactApplication;
+import com.rnfs.RNFSPackage;
+import com.vinzscam.reactnativefileviewer.RNFileViewerPackage;
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 import com.wenkesj.voice.VoicePackage;
 import org.wonday.pdf.RCTPdfView;
@@ -45,6 +47,8 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNFSPackage(),
+            new RNFileViewerPackage(),
             new AsyncStoragePackage(),
             new VoicePackage(),
             new RCTPdfView(),
