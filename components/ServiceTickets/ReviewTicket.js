@@ -67,7 +67,6 @@ class ReviewTicketScreen extends React.Component {
       });
     }
     handleSaveComment = () => {
-      console.log('came in save comment');
       let data = {};
       data = {
         id: _get(this.props, 'getTicketDataById.id', ''),
@@ -84,13 +83,12 @@ class ReviewTicketScreen extends React.Component {
       const key = 'addCommentTicketData';
       this.props.postData(url, data, constants, identifier, key)
           .then((data) => {
-            console.log('ticket comment added successfully.');
             this.setState({
               isSaved: false,
               addNewComment: false,
               newComment: '',
             });
-            showToast('success', `Ticket Comment Added Successfully.`, 3000);
+            showToast('success', `${this.props.strings.ticketCommentAddedSuccessfully}`, 3000);
             this.getTicketData();
           }, (err) => {
             console.log('error while cancelling Ticket', err);
@@ -118,9 +116,10 @@ class ReviewTicketScreen extends React.Component {
           });
     }
     onCancel = () => {
+      const { strings } = this.props;
       Alert.alert(
-          `Confirmation`,
-          `Are you sure you want to Cancel this ticket?`,
+          `${strings.confirmTitle}`,
+          `${strings.areYouSureYouWantToCancelThisTicket}`,
           [
             { text: 'No', onPress: () => {} },
             { text: 'Yes', onPress: () => this.handleCancel() },
@@ -129,9 +128,10 @@ class ReviewTicketScreen extends React.Component {
       );
     }
     onConfirm = () => {
+      const { strings } = this.props;
       Alert.alert(
-          `Confirmation`,
-          `Do You Want To Approve it Or Reject it?`,
+          `${strings.confirmTitle}`,
+          `${strings.doYouWantToApproveitOrRejectit}`,
           [
             { text: 'Reject', onPress: () => this.props.navigation.navigate('TicketApproveScreen', { mode: 'Reject' }) },
             { text: 'Approve', onPress: () => this.props.navigation.navigate('TicketApproveScreen', { mode: 'Approve' }) },

@@ -365,7 +365,7 @@ class TaskAttachmentScreen extends React.Component {
               </Button>
             </Left>
             <Body style={[theme.centerAlign, { flex: 4 }]}>
-              <Title style={{ color: '#fff' }} >New Task</Title>
+              <Title style={{ color: '#fff' }} >{strings.newTask}</Title>
             </Body>
             <Right style={{ flex: 1 }}>
             </Right>
@@ -389,7 +389,7 @@ class TaskAttachmentScreen extends React.Component {
               </TouchableHighlight>
               {
                 <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <CustomSemiBoldText style={{ textAlign: 'center', paddingLeft: 25 }}>{`Want to send to Service Provider`}</CustomSemiBoldText>
+                  <CustomSemiBoldText style={{ textAlign: 'center', paddingLeft: 25 }}>{strings.wantToSendToServiceProvider}</CustomSemiBoldText>
                   <CheckBox
                     iconRight={true}
                     right={true}

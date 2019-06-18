@@ -434,10 +434,10 @@ class TaskDetailScreen extends React.Component {
             status == 0 &&
             <View style={{ flexDirection: 'row', backgroundColor: '#ededed' }}>
               <Button style={[theme.buttonNormal, theme.spaceAdd1, { backgroundColor: '#47d7ac' }]} onPress={() => this.onAddComment()} full>
-                <CustomBoldText style={theme.butttonFixTxt}>{`Add Comment`}</CustomBoldText>
+                <CustomBoldText style={theme.butttonFixTxt}>{strings.addCommentText}</CustomBoldText>
               </Button>
-              <Button style={[theme.buttonNormal, theme.spaceAdd2, { backgroundColor: '#47d7ac' }]} onPress={() => this.confirmTask(_get(decodedToken, 'FleetUser.role', 0) == 1? 'Complete': 'Cancel')} full>
-                <CustomBoldText style={theme.butttonFixTxt}>{`${_get(decodedToken, 'FleetUser.role', 0) == 1? strings.completeText: 'CANCEL'}`}</CustomBoldText>
+              <Button style={[theme.buttonNormal, theme.spaceAdd2, { backgroundColor: '#47d7ac' }]} onPress={() => this.confirmTask(_get(decodedToken, 'FleetUser.role', 0) == 1? strings.completeText: strings.cancelText)} full>
+                <CustomBoldText style={theme.butttonFixTxt}>{`${_get(decodedToken, 'FleetUser.role', 0) == 1? strings.completeText: strings.cancelText}`}</CustomBoldText>
               </Button>
             </View>
           }
@@ -447,7 +447,7 @@ class TaskDetailScreen extends React.Component {
                 onBackdropPress={() => this.hideCommentDialog()}>
                 <React.Fragment>
                   <View style={{ flex: 1, flexDirection: 'column', marginLeft: 10, marginRight: 10, marginTop: 30 }}>
-                    <Text>Comment</Text>
+                    <Text>{strings.Comentario}</Text>
                     <TextInput
                       style={{ height: 135, borderColor: 'gray', borderWidth: 1, paddingLeft: 10, marginTop: 20 }}
                       onChangeText={value => this.handleCommentText(value)}
@@ -462,10 +462,10 @@ class TaskDetailScreen extends React.Component {
                   </View>
                   <View style={{ flexDirection: 'row', backgroundColor: '#FFFFFF' }}>
                     <Button style={[theme.buttonNormal, theme.spaceAdd1, { backgroundColor: '#47d7ac' }]} onPress={() => this.onSubmitComment()} full>
-                      <CustomBoldText style={theme.butttonFixTxt}>{`Add`}</CustomBoldText>
+                      <CustomBoldText style={theme.butttonFixTxt}>{strings.add}</CustomBoldText>
                     </Button>
                     <Button style={[theme.buttonNormal, theme.spaceAdd2, { backgroundColor: '#47d7ac' }]} onPress={() => this.hideCommentDialog()} full>
-                      <CustomBoldText style={theme.butttonFixTxt}>{`Cancel`}</CustomBoldText>
+                      <CustomBoldText style={theme.butttonFixTxt}>{strings.cancelText}</CustomBoldText>
                     </Button>
                   </View>
                 </React.Fragment>

@@ -21,6 +21,7 @@ import withErrorBoundary from '../hocs/withErrorBoundary';
 import CustomText from '../stateless/CustomText';
 import { mapDateToDay } from '../../utils';
 import ServiceTicketSummeryView from './ServiceTicketSummeryView';
+import withLocalization from '../hocs/withLocalization';
 const ContainerWithLoading = withLoadingScreen(Container);
 
 class ServiceTicketListScreen extends React.Component {
@@ -125,7 +126,7 @@ class ServiceTicketListScreen extends React.Component {
 
     render() {
       // const { selectedOption } = this.state;
-      const { getTicketData } = this.props;
+      const { getTicketData, strings } = this.props;
       let sortedTicketData = _sortBy(getTicketData, 'modifiedOn.seconds');
       sortedTicketData = _reverse(sortedTicketData);
       const groupedTicketList = _groupBy(sortedTicketData, 'creation.actionTime.seconds');
@@ -144,7 +145,7 @@ class ServiceTicketListScreen extends React.Component {
               </Button>
             </Left>
             <Body style={[theme.centerAlign, { flex: 4 }]}>
-              <Title style={{ color: '#fff', fontFamily: 'Montserrat-Bold' }} >Service Ticket</Title>
+              <Title style={{ color: '#fff', fontFamily: 'Montserrat-Bold' }} >{strings.serviceTicket}</Title>
             </Body>
             <Right style={{ flex: 1 }}>
             </Right>
@@ -220,4 +221,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withErrorBoundary()(connect(mapStateToProps, mapDispatchToProps)(ServiceTicketListScreen));
+export default withErrorBoundary()(connect(mapStateToProps, mapDispatchToProps)(withLocalization(ServiceTicketListScreen)));

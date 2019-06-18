@@ -23,6 +23,7 @@ import { mapDateToDay } from '../../utils/index';
 import CustomBoldText from '../stateless/CustomBoldText';
 import { NavigationEvents } from 'react-navigation';
 import { postData } from '../../actions/commonAction';
+import withLocalization from '../hocs/withLocalization';
 
 const ContainerWithLoading = withLoadingScreen(Container);
 
@@ -105,7 +106,7 @@ class TaskListScreen extends React.Component {
       return orderView;
     }
     render() {
-      const { getTasksData, isLoading } = this.props;
+      const { getTasksData, isLoading, strings } = this.props;
       let sortedTaskData = _sortBy(getTasksData, 'modifiedOn.seconds');
       sortedTaskData = _reverse(sortedTaskData);
       const groupedTaskList = _groupBy(sortedTaskData, 'creation.actionTime.seconds');
@@ -125,7 +126,7 @@ class TaskListScreen extends React.Component {
               </Button>
             </Left>
             <Body style={{ flex: 4, justifyContent: 'center', alignItems: 'center' }}>
-              <Title style={{ fontFamily: 'Montserrat-Bold' }}>Task List</Title>
+              <Title style={{ fontFamily: 'Montserrat-Bold' }}>{strings.taskList}</Title>
             </Body>
             <Right style={{ flex: 1 }}>
             </Right>
@@ -206,4 +207,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default withErrorBoundary()(connect(mapStateToProps, mapDispatchToProps)(TaskListScreen));
+export default withErrorBoundary()(connect(mapStateToProps, mapDispatchToProps)(withLocalization(TaskListScreen)));

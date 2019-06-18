@@ -17,6 +17,7 @@ import { postData } from '../../actions/commonAction';
 import CustomBoldText from '../stateless/CustomBoldText';
 import { showToast } from '../../utils';
 import TextToSpeech from '../stateless/SpeechToText';
+import withLocalization from '../../components/hocs/withLocalization';
 
 const ContainerWithLoading = withLoadingScreen(Container);
 
@@ -200,7 +201,7 @@ class CheckListHome extends React.Component {
               </Button>
             </Left>
             <Body style={[theme.centerAlign, { flex: 4 }]}>
-              <Title style={{ color: '#fff', fontFamily: 'Montserrat-Bold' }} >Daily Tasks</Title>
+              <Title style={{ color: '#fff', fontFamily: 'Montserrat-Bold' }} >{strings.dailyTasks}</Title>
             </Body>
             <Right style={{ flex: 1 }}>
             </Right>
@@ -226,7 +227,7 @@ class CheckListHome extends React.Component {
             !_isEmpty(_get(getDailyTasksData, 'checks', [])) &&
               <View style={{ backgroundColor: '#ededed' }}>
                 <Button style={[theme.buttonNormal, { backgroundColor: '#47d7ac' }]} onPress={() => this.goToNext()} full>
-                  <CustomBoldText style={theme.butttonFixTxt}>{`NEXT`}</CustomBoldText>
+                  <CustomBoldText style={theme.butttonFixTxt}>{strings.nextText}</CustomBoldText>
                 </Button>
               </View>
           }
@@ -271,5 +272,5 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withErrorBoundary()(connect(mapStateToProps, mapDispatchToProps)(CheckListHome));
+export default withErrorBoundary()(connect(mapStateToProps, mapDispatchToProps)(withLocalization(CheckListHome)));
 

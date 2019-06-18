@@ -246,7 +246,7 @@ class TicketApproveScreen extends React.Component {
               {
                 mode == 'Approve' &&
                   <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <CustomSemiBoldText style={{ textAlign: 'center', paddingLeft: 25 }}>{`Want to send to Service Provider`}</CustomSemiBoldText>
+                    <CustomSemiBoldText style={{ textAlign: 'center', paddingLeft: 25 }}>{strings.wantToSendToServiceProvider}</CustomSemiBoldText>
                     <CheckBox
                       iconRight={true}
                       right={true}

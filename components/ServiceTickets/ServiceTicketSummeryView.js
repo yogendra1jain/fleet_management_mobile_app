@@ -17,14 +17,14 @@ function ServiceTicketSummeryView(props) {
         <Card >
           <View style={{ flex: 1, flexDirection: 'row' }}>
             <View style={{ flex: 1, justifyContent: 'flex-start', flexDirection: 'row', alignItems: 'center' }}>
-              <CustomText style={{ fontWeight: 'normal', color: 'black' }}>{`Ticket Id`}</CustomText>
+              <CustomText style={{ fontWeight: 'normal', color: 'black' }}>{`${strings.ticketIdLabel}:`}</CustomText>
               <CustomSemiBoldText style={{ fontWeight: 'bold', color: 'black', fontSize: 16 }}> {_get(ticket, 'id', '')}</CustomSemiBoldText>
             </View>
           </View>
           <React.Fragment>
             <View style={{ flex: 1, flexDirection: 'row', borderTopColor: '#ddd', borderTopWidth: 1, paddingTop: 10, marginTop: 10 }}>
               <View style={{ flex: 1, justifyContent: 'flex-start', flexDirection: 'row', alignItems: 'center' }}>
-                <CustomText style={{ fontWeight: 'normal' }}>{`Asset Id:`}</CustomText>
+                <CustomText style={{ fontWeight: 'normal' }}>{`${strings.assetId}:`}</CustomText>
               </View>
               <View style={{ flex: 1, justifyContent: 'flex-end', flexDirection: 'row', alignItems: 'center' }}>
                 <CustomText style={{ fontWeight: 'bold', color: '#312783', fontSize: 14 }}> {_get(ticket, 'asset.label', '')}</CustomText>
@@ -32,7 +32,7 @@ function ServiceTicketSummeryView(props) {
             </View>
             <View style={{ flex: 1, flexDirection: 'row' }}>
               <View style={{ flex: 1, justifyContent: 'flex-start', flexDirection: 'row', alignItems: 'center' }}>
-                <CustomText style={{ fontWeight: 'normal' }}>{`Description:`}</CustomText>
+                <CustomText style={{ fontWeight: 'normal' }}>{`${strings.description}:`}</CustomText>
               </View>
               <View style={{ flex: 1, justifyContent: 'flex-end', flexDirection: 'row', alignItems: 'center', flexWrap: 'wrap', paddingLeft: 10 }}>
                 <CustomText style={{ fontWeight: 'bold', color: '#312783', fontSize: 14 }}> {_get(ticket, 'description', 0)}</CustomText>

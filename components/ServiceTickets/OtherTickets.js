@@ -49,12 +49,13 @@ class OtherTicketScreen extends React.Component {
       });
     }
     onSave = () => {
+      const { strings } = this.props;
     //   const title= 'Submission Confirmition';
     //   const message = 'Your Information is being submitted. Please select "Confirm" otherwise select "Go Back"...';
       if (this.state.notes == '') {
         Alert.alert(
-            `Warning`,
-            `Please fill Notes field to Save.`,
+            `${strings.warning}`,
+            `${strings.pleaseFillNotesFieldToSave}`,
             [
               { text: 'Ok', onPress: () => {} },
             ],
@@ -177,7 +178,7 @@ class OtherTicketScreen extends React.Component {
               {
                 _get(this.props, 'decodedToken.FleetUser.role', 0) != 1 &&
                 <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <Text style={{ textAlign: 'center' }}>{`Major Service`}</Text>
+                  <Text style={{ textAlign: 'center' }}>{strings.majorService}</Text>
                   <CheckBox
                     iconRight={true}
                     right={true}
@@ -191,7 +192,7 @@ class OtherTicketScreen extends React.Component {
           </Content>
           <View style={{ backgroundColor: '#ededed' }}>
             <Button style={[theme.buttonNormal, { backgroundColor: '#ff585d' }]} onPress={() => this.onSave()} full>
-              <CustomBoldText style={theme.butttonFixTxt}>{`NEXT`}</CustomBoldText>
+              <CustomBoldText style={theme.butttonFixTxt}>{strings.nextText}</CustomBoldText>
             </Button>
           </View>
         </ContainerWithLoading>

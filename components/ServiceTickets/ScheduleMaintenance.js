@@ -12,6 +12,7 @@ import { Text, Container, Content, Header, Button, Title, Body, ListItem, Left, 
 import withLoadingScreen from '../withLoadingScreen';
 import withErrorBoundary from '../hocs/withErrorBoundary';
 const ContainerWithLoading = withLoadingScreen(Container);
+import withLocalization from '../hocs/withLocalization';
 
 
 const list = [
@@ -58,7 +59,7 @@ class ScheduleMaintenanceScreen extends React.Component {
     }
 
     render() {
-        const { selectedOption } = this.state;
+        const { selectedOption, strings } = this.state;
         return (
             <ContainerWithLoading style={theme.container} isLoading={this.props.isLoading}>
                 <Header style={{backgroundColor: '#ff585d'}} androidStatusBarColor='#ff585d'>
@@ -68,7 +69,7 @@ class ScheduleMaintenanceScreen extends React.Component {
                         </Button>
                     </Left>
                     <Body style={[theme.centerAlign, { flex: 4 }]}>
-                        <Title style={{ color: '#fff' }} >Schedule Maintainance</Title>
+                        <Title style={{ color: '#fff' }} >{strings.scheduleMaintainance}</Title>
                     </Body>
                     <Right style={{ flex: 1 }}>
                     </Right>
@@ -128,4 +129,4 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-export default withErrorBoundary()(connect(mapStateToProps, mapDispatchToProps)(ScheduleMaintenanceScreen));
+export default withErrorBoundary()(connect(mapStateToProps, mapDispatchToProps)(withLocalization(ScheduleMaintenanceScreen)));

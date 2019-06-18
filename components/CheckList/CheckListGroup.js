@@ -16,6 +16,7 @@ import withLoadingScreen from '../withLoadingScreen';
 import { postData } from '../../actions/commonAction';
 import CustomBoldText from '../stateless/CustomBoldText';
 import { showToast } from '../../utils';
+import withLocalization from '../../components/hocs/withLocalization';
 
 const ContainerWithLoading = withLoadingScreen(Container);
 
@@ -184,7 +185,7 @@ class CheckListGroup extends React.Component {
       const key = 'dailyTasksDataSaved';
       this.props.postData(url, finalData, constants, identifier, key)
           .then((data) => {
-            showToast('success', 'Check List Saved Successfully', 3000, 'bottom');
+            showToast('success', `${this.props.strings.checkListSavedSuccessfully}`, 3000, 'bottom');
             this.props.navigation.navigate('Home');
           }, (err) => {
             console.log('error while saving daily tasks', err);
@@ -279,7 +280,7 @@ class CheckListGroup extends React.Component {
               </Button>
             </Left>
             <Body style={[theme.centerAlign, { flex: 4 }]}>
-              <Title style={{ color: '#fff', fontFamily: 'Montserrat-Bold' }} >Daily Tasks</Title>
+              <Title style={{ color: '#fff', fontFamily: 'Montserrat-Bold' }} >{strings.dailyTasks}</Title>
             </Body>
             <Right style={{ flex: 1 }}>
             </Right>
@@ -305,7 +306,7 @@ class CheckListGroup extends React.Component {
             !_isEmpty(_get(getDailyTasksData, 'checks', [])) &&
               <View style={{ backgroundColor: '#ededed' }}>
                 <Button style={[theme.buttonNormal, { backgroundColor: '#47d7ac' }]} onPress={() => this.onSave()} full>
-                  <CustomBoldText style={theme.butttonFixTxt}>{`CONFIRM`}</CustomBoldText>
+                  <CustomBoldText style={theme.butttonFixTxt}>{strings.confirmText}</CustomBoldText>
                 </Button>
               </View>
           }
@@ -350,5 +351,5 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withErrorBoundary()(connect(mapStateToProps, mapDispatchToProps)(CheckListGroup));
+export default withErrorBoundary()(connect(mapStateToProps, mapDispatchToProps)(withLocalization(CheckListGroup)));
 

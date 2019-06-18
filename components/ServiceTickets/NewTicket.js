@@ -247,7 +247,7 @@ class NewTicketScreen extends React.Component {
                       style={{ height: 70, borderColor: 'gray', borderWidth: 1, paddingLeft: 10 }}
                       onChangeText={value => this.handleComments(value, index)}
                       multiline={true}
-                      placeholder={'Comments'}
+                      placeholder={strings.commentsTitle}
                       maxLength={120}
                       value={_get(link, 'comments', '').toString()}
                       underlineColorAndroid={'transparent'}
@@ -277,7 +277,7 @@ class NewTicketScreen extends React.Component {
               </Button>
             </Left>
             <Body style={[theme.centerAlign, { flex: 4 }]}>
-              <Title style={{ color: '#fff' }} >Service Ticket</Title>
+              <Title style={{ color: '#fff' }} >{strings.serviceButton}</Title>
             </Body>
             <Right style={{ flex: 1 }}>
             </Right>

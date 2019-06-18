@@ -173,7 +173,7 @@ class NewTaskScreen extends React.Component {
               </Button>
             </Left>
             <Body style={[theme.centerAlign, { flex: 4 }]}>
-              <Title style={{ color: '#fff', fontFamily: 'Montserrat-Bold' }} >{`New Task`}</Title>
+              <Title style={{ color: '#fff', fontFamily: 'Montserrat-Bold' }} >{strings.newTask}</Title>
             </Body>
             <Right style={{ flex: 1 }}>
             </Right>
@@ -196,7 +196,7 @@ class NewTaskScreen extends React.Component {
               {
                 _get(this.props, 'decodedToken.FleetUser.role', 0) != 1 &&
                 <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <Text style={{ textAlign: 'center' }}>{`Major Service`}</Text>
+                  <Text style={{ textAlign: 'center' }}>{strings.majorService}</Text>
                   <CheckBox
                     iconRight={true}
                     right={true}
@@ -210,7 +210,7 @@ class NewTaskScreen extends React.Component {
           </Content>
           <View style={{ backgroundColor: '#ededed' }}>
             <Button style={[theme.buttonNormal, { backgroundColor: '#47d7ac' }]} onPress={() => this.onSave()} full>
-              <CustomBoldText style={theme.butttonFixTxt}>{`Next`}</CustomBoldText>
+              <CustomBoldText style={theme.butttonFixTxt}>{strings.nextText}</CustomBoldText>
             </Button>
           </View>
         </ContainerWithLoading>
