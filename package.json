@@ -19,7 +19,7 @@
   "dependencies": {
     "@mapbox/polyline": "^1.0.0",
     "@react-native-community/async-storage": "^1.4.2",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "haversine": "^1.1.1",
     "jsc-android": "^241213.1.0",
     "jwt-decode": "^2.2.0",
